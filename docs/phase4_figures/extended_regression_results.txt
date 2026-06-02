@@ -1,1 +1,18 @@
-Extended Stats Computed.
+PHASE 4 EXTENDED REGRESSION & ANOVA (re-saved; phase4_raw_data.csv, n=70)
+Centralized arm only (Alpha=1). Generated to replace the placeholder file.
+======================================================================
+
+--- TEST A: Mean S ~ log(Lambda) ---
+  coef log(Lambda): -24.9881   95% CI [-41.7827, -8.1934]
+  p=4.1239e-03   R2=0.1148   adjR2=0.1017
+
+--- ANOVA: variance explained by Lambda (eta^2) ---
+  SS(Lambda)=25948.76  SS(Resid)=171231.24  eta^2=0.1316  (13.2% Lambda / 86.8% seed-noise)
+
+--- TEST B: Lost Sales ~ log(Lambda) ---
+  coef log(Lambda): 6.4764e-02   95% CI [2.0391e-02, 1.0914e-01]
+  p=4.8474e-03   R2=0.1109
+
+--- TEST C: Profit ~ log(Lambda) ---
+  coef log(Lambda): -66.1278   95% CI [-115.2125, -17.0431]
+  p=9.0223e-03   R2=0.0961

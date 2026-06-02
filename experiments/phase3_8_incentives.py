@@ -62,20 +62,37 @@ def run_factorial_sweep():
     print(f"\n=======================================================")
     print(f"Starting Phase 3.8 Factorial Sweep (Total Runs: {len(args_list)})")
     print(f"=======================================================")
-    
+    os.makedirs("docs/phase3_8_figures", exist_ok=True)
+
     results = {}
-    
+    rows = []  # per-run rows for CSV (added to fix the no-saved-table bug)
+
+    # Frozen collapse definition (docs/collapse_definition.md)
+    def _collapsed(mean_S, profit):
+        return int((mean_S < 10.0) and (profit <= -128.1 + 1.0))
+
     with mp.Pool(processes=min(mp.cpu_count(), 10)) as pool:
         for res in pool.imap_unordered(_run_single_config, args_list):
             seed, low, high, alpha, o_qty, inv_lvl, ls_ratio, ep_rew, bw = res
-            
+
             config_key = (low, high, alpha)
             if config_key not in results:
                 results[config_key] = []
             results[config_key].append((o_qty, inv_lvl, ls_ratio, ep_rew, bw))
-            
+
+            # NOTE: this script reports mean order quantity, not learned S, so the
+            # collapse label here uses order_qty < 10 as the S-proxy; for a clean
+            # S-based label use expA_interior_w.py.
+            rows.append({
+                "low": low, "high": high, "w": alpha, "seed": seed,
+                "mean_order": o_qty, "mean_inventory": inv_lvl,
+                "lost_sales": ls_ratio, "profit": ep_rew, "bullwhip": bw,
+                "collapsed_proxy": _collapsed(o_qty, ep_rew),
+            })
+            pd.DataFrame(rows).to_csv("docs/phase3_8_figures/phase3_8_factorial_data.csv", index=False)
+
             print(f"Bound:[{int(low)},{int(high)}] Alpha:{alpha} Seed:{seed} -> Profit:{ep_rew:.1f}, Qty:{o_qty:.1f}, Inv:{inv_lvl:.1f}, LS:{ls_ratio:.1%}")
-            
+
     print("\n=== Phase 3.8 Incentive Validation Results ===")
     for low, high in bounds:
         for alpha in alphas:
