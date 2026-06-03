@@ -34,7 +34,22 @@ w = 0.9, same 20 seeds (42–61), 400k steps, paired against Exp A's 150k w=0.9 
 - If collapse fraction rises materially → collapse is convergence-rate-dependent and
   `w_crit` must be reported as "critical centralization at 150k steps."
 
-*(Result to be appended here when the run completes.)*
+**RESULT (done):** at w=0.9, collapse went **4/20 (150k) → 0/20 (400k)** — paired,
+same seeds. All four 150k-collapsed seeds (48, 54, 56, 60) **recovered** by 400k
+(median S 0→158, median profit 62→418). Collapse at the transition is therefore
+**not a permanent basin; it is slow/metastable convergence** that resolves with more
+training. Reconciles with the critic diagnostic: a zero-order policy is trivially
+predictable (low value loss) *while the policy is still slowly escaping it*.
+
+**Consequence for the claim:** `w_crit = 0.822` is the critical centralization **at a
+150k-step budget**, not an unconditional system constant — the transition moves left
+with more training. This is now a required caveat, and it introduces a **known
+confound for Experiment B**: if loss aversion `λ` changes convergence *rate*, a tilt
+in the 150k boundary `w_crit(λ)` could reflect λ-dependent learning speed rather than
+λ-dependent equilibrium structure. B is still validly interpreted as a *fixed-budget*
+comparison (all cells share 150k), but the convergence-rate alternative must be
+pre-stated and a horizon-robustness check run on B's boundary cells afterward (as
+done here for A).
 
 ## 3. Censoring at w=1 (mitigation in place)
 
