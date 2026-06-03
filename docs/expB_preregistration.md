@@ -128,3 +128,41 @@ underpowered/ambiguous one, which §2 (≥15 seeds, binary logistic) and §6
 The implementation of this plan is committed alongside this file as
 `experiments/analyze_expB.py`; the function `decide_outcome()` therein encodes §5
 exactly.
+
+---
+
+## Amendment log
+
+Amendments record contingencies declared in advance (§2) being exercised. They do
+**not** alter the primary model (§3), the boundary estimand/headline figure (§4),
+or the decision rule (§5) — all of which remain frozen as committed 2026-06-03.
+
+### A1 — w-grid extended per declared contingency (2026-06-03)
+
+Experiment A returned `w_crit = 0.822` (bootstrap CI [0.785, 0.858]), which falls
+**outside** the [0.2, 0.8] bracket anticipated by the §2 grid-coverage contingency.
+Per that pre-declared contingency, the Experiment B `w` grid is extended with
+interior levels **straddling** the measured boundary:
+
+`w ∈ {0.0, 0.2, 0.4, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 1.0}`
+
+(the original six pre-registered levels are retained; 0.7, 0.85, 0.9, 0.95 are
+added). 0.85 and 0.95 specifically straddle `w_crit ≈ 0.82` and also address the
+censoring concern that the transition is pressed against the right edge of the
+sampled range. This is an additive grid extension only: λ grid, seed count, the
+logistic surface model, the `w_crit(λ)` estimand, and the TILTED/VERTICAL decision
+rule (incl. the equal-prominence commitment for VERTICAL) are unchanged.
+
+**Open robustness items flagged by Exp A review (to report alongside B), none of
+which alter the frozen analysis:**
+- *Critic diagnostic (done, zero-compute):* the 2 collapsed-at-`w=1` runs are NOT
+  critic failures — lower value loss (5363 vs 6218) and comparable explained
+  variance (0.092 vs 0.086) vs recovered runs. Collapse is an equilibrium/basin
+  attractor, not a learning breakdown. This elevates Experiment C (basin control)
+  to run before/with B.
+- *Horizon-convergence check (running):* w=0.9, same 20 seeds, 400k steps, paired
+  against Exp A's 150k w=0.9 column (4/20 collapsed). Confirms whether `w_crit` is
+  a system property or a 150k-horizon artifact.
+- *Censoring at w=1:* residual 10% collapse at full centralization means the
+  logistic right tail is partly extrapolated; the extended straddling grid above is
+  the mitigation.
