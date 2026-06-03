@@ -1,0 +1,34 @@
+Exp 0 convergence: 3 w x 8 seeds = 24 runs to 600k (checkpoints [150000, 300000, 600000]), procs=10
+[ 1/24] w=0.80 seed=43 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=461
+[ 2/24] w=0.70 seed=47 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[ 3/24] w=0.80 seed=42 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=309
+[ 4/24] w=0.70 seed=48 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=392
+[ 5/24] w=0.70 seed=49 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=461
+[ 6/24] w=0.70 seed=44 -> collapsed@[150k,300k,600k]=[1, 1, 1] profit600k=-128
+[ 7/24] w=0.70 seed=43 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[ 8/24] w=0.70 seed=45 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=461
+[ 9/24] w=0.70 seed=46 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[10/24] w=0.70 seed=42 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=382
+[11/24] w=0.80 seed=44 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[12/24] w=0.80 seed=45 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[13/24] w=0.80 seed=46 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=461
+[14/24] w=0.80 seed=47 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[15/24] w=0.90 seed=42 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=462
+[16/24] w=0.90 seed=43 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=461
+[17/24] w=0.80 seed=48 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=427
+[18/24] w=0.80 seed=49 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[19/24] w=0.90 seed=44 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[20/24] w=0.90 seed=45 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=461
+[21/24] w=0.90 seed=46 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=461
+[22/24] w=0.90 seed=47 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=206
+[23/24] w=0.90 seed=48 -> collapsed@[150k,300k,600k]=[1, 0, 0] profit600k=461
+[24/24] w=0.90 seed=49 -> collapsed@[150k,300k,600k]=[0, 0, 0] profit600k=461
+
+=== Collapse fraction by (w, checkpoint) ===
+checkpoint  150000  300000  600000
+w                                 
+0.7          0.750   0.125   0.125
+0.8          0.750   0.000   0.000
+0.9          0.375   0.000   0.000
+
+Stable across checkpoints -> real transition. Falling toward 0 -> horizon artifact.
