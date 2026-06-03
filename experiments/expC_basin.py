@@ -35,7 +35,7 @@ from env.marl_or_gym_wrapper import MultiAgentNetInvMgmt
 from env.diagnostic_wrapper import DiagnosticWrapper
 from agents.cpt_wrapper import CPTRewardWrapper
 from env.offset_base_stock_wrapper import OffsetBaseStockWrapper
-from expA_interior_w import evaluate_and_extract_metrics, is_collapsed, LOW_BOUND, HIGH_BOUND
+from expA_interior_w import evaluate_and_extract_metrics, is_collapsed
 
 ACTION_SCALE = 250.0
 
@@ -71,17 +71,20 @@ def _run_single(args):
         if len(d2):
             converged_S = d2.tail(10000)["S"].mean()
 
-    # Eval for the collapse label (offset substrate, same eval as A/B)
+    # Eval for profit. NOTE: evaluate_and_extract_metrics computes its mean_S with
+    # the SCALED [0,500] mapping, which is WRONG for the offset substrate, so we do
+    # NOT use its mean_S here. profit (true env reward) is correct. The collapse
+    # label uses converged_S (from the offset log, correct mapping) + profit.
     eval_raw = MultiAgentNetInvMgmt()
     eval_interv = DiagnosticWrapper(eval_raw, scripted_nodes=["node_1"])
     eval_cpt = CPTRewardWrapper(eval_interv, params, reward_scale=1.0, global_reward_weight=w)
     eval_env = OffsetBaseStockWrapper(eval_cpt, S_init=S_init, action_scale=ACTION_SCALE)
-    mean_S, _, _, _, profit, _ = evaluate_and_extract_metrics(model, eval_env, num_episodes=10, base_seed=seed * 10)
+    _scaled_mean_S, _, _, _, profit, _ = evaluate_and_extract_metrics(model, eval_env, num_episodes=10, base_seed=seed * 10)
 
     if os.path.exists(log_file):
         os.remove(log_file)
     return {"w": w, "S_init": S_init, "seed": seed, "converged_S": converged_S,
-            "eval_mean_S": mean_S, "profit": profit, "collapsed": is_collapsed(mean_S, profit)}
+            "profit": profit, "collapsed": is_collapsed(converged_S, profit)}
 
 
 def main():
