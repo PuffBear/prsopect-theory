@@ -1,5 +1,5 @@
 """
-Exp T — Training-horizon sweep for collapse boundary (experiment_spec_v1 sec.T).
+Exp T - Training-horizon sweep for collapse boundary (experiment_spec_v1 sec.T).
 
 Sweeps reward centralization w across [0.5, 0.8] at 600k training steps with
 CPT shaping (lambda=1.0, alpha=0.88, beta=0.88). Designed as a SLURM array job:
@@ -45,7 +45,7 @@ LAMBDA_LOSS = 1.0
 ALPHA = 0.88
 BETA = 0.88
 
-# Substrate range — must match expA for a consistent collapse label
+# Substrate range - must match expA for a consistent collapse label
 LOW_BOUND, HIGH_BOUND = 0.0, 500.0
 
 # Collapse definition: (mean_S < 10) AND (profit <= -127.1)
