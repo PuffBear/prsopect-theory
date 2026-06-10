@@ -9,7 +9,7 @@
 set -euo pipefail
 
 # --- project root (two levels up from docs/slurm/) ---
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+PROJECT_ROOT="$HOME/prospect-theory"
 cd "$PROJECT_ROOT"
 mkdir -p logs docs/expT_figures
 
