@@ -1,13 +1,13 @@
 """
-Experiment B runner — the 2-D (w, λ) collapse surface (docs/expB_preregistration.md).
+Experiment B runner - the 2-D (w, lambda) collapse surface (docs/expB_preregistration.md).
 
 Reuses the validated _run_single from expA_interior_w (identical substrate, eval,
 and frozen collapse label) over the outer product of the extended w-grid (amendment
-A1) x the pre-registered λ-grid x seeds. One labeled row per run, incremental save.
+A1) x the pre-registered lambda-grid x seeds. One labeled row per run, incremental save.
 
 Default grid (pre-reg + amendment A1):
-    w ∈ {0,0.2,0.4,0.6,0.7,0.8,0.85,0.9,0.95,1.0}   (10 levels; 0.85/0.95 straddle w_crit=0.82)
-    λ ∈ {1,2,3,5,7,10}                                (6 levels)
+    w  in  {0,0.2,0.4,0.6,0.7,0.8,0.85,0.9,0.95,1.0}   (10 levels; 0.85/0.95 straddle w_crit=0.82)
+    lambda  in  {1,2,3,5,7,10}                                (6 levels)
     seeds 42-56                                       (15 seeds)
   -> 10 x 6 x 15 = 900 runs @ 150k.
 
@@ -38,7 +38,7 @@ def main():
     seeds = parse_seeds(args.seeds)
     jobs = [(w, lam, s, args.timesteps) for w in ws for lam in lams for s in seeds]
 
-    print(f"Experiment B: {len(ws)} w x {len(lams)} λ x {len(seeds)} seeds = {len(jobs)} runs "
+    print(f"Experiment B: {len(ws)} w x {len(lams)} lambda x {len(seeds)} seeds = {len(jobs)} runs "
           f"@ {args.timesteps} steps, procs={args.procs}")
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
 
@@ -46,7 +46,7 @@ def main():
     with mp.Pool(processes=args.procs) as pool:
         for i, r in enumerate(pool.imap_unordered(_run_single, jobs), 1):
             rows.append(r)
-            print(f"[{i:3d}/{len(jobs)}] w={r['w']:.2f} λ={r['lambda']:.0f} seed={r['seed']:2d} -> "
+            print(f"[{i:3d}/{len(jobs)}] w={r['w']:.2f} lambda={r['lambda']:.0f} seed={r['seed']:2d} -> "
                   f"S={r['mean_S']:6.1f} profit={r['profit']:7.1f} collapsed={r['collapsed']}")
             pd.DataFrame(rows).to_csv(args.out, index=False)
 
