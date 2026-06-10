@@ -1,13 +1,13 @@
 """
-Experiment B analysis — encodes docs/expB_preregistration.md (frozen 2026-06-03).
+Experiment B analysis - encodes docs/expB_preregistration.md (frozen 2026-06-03).
 
-Primary model:  P(collapsed) ~ logit(b0 + b1*w + b2*log(λ) + b3*(w*log(λ)))
+Primary model:  P(collapsed) ~ logit(b0 + b1*w + b2*log(lambda) + b3*(w*log(lambda)))
 Primary test:   b3 (Wald CI + LRT vs no-interaction model).
-Estimand:       w_crit(λ) = -(b0 + b2 logλ)/(b1 + b3 logλ), bootstrap CI band.
-Decision (§5):  decide_outcome() returns "TILTED" or "VERTICAL" by the
-                pre-committed rule (b3 significant AND |Δw_crit|>=0.1 -> TILTED;
+Estimand:       w_crit(lambda) = -(b0 + b2 loglambda)/(b1 + b3 loglambda), bootstrap CI band.
+Decision (sec 5):  decide_outcome() returns "TILTED" or "VERTICAL" by the
+                pre-committed rule (b3 significant AND |Deltaw_crit|>=0.1 -> TILTED;
                 else VERTICAL, reported with equal prominence).
-Headline (§4):  empirical P(collapse) heatmap over (w,λ) + w_crit(λ) overlay.
+Headline (sec 4):  empirical P(collapse) heatmap over (w,lambda) + w_crit(lambda) overlay.
 
 Usage:
     python experiments/analyze_expB.py --in docs/expB_figures/expB_raw_data.csv
@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from scipy.stats import chi2
 
-# Frozen thresholds (docs/expB_preregistration.md §5)
+# Frozen thresholds (docs/expB_preregistration.md sec 5)
 DELTA_WCRIT_THRESHOLD = 0.10
 LAMBDA_MIN, LAMBDA_MAX = 1.0, 10.0
 
@@ -80,7 +80,7 @@ def lrt_interaction(df):
 
 
 def bootstrap_boundary(df, n_boot=1500, seed=0):
-    """Cluster-bootstrap over seeds; return Δw_crit dist and per-λ w_crit bands."""
+    """Cluster-bootstrap over seeds; return Deltaw_crit dist and per-lambda w_crit bands."""
     rng = np.random.default_rng(seed)
     seeds = df["seed"].unique()
     lam_grid = np.array(sorted(df["lambda"].unique()), dtype=float)
@@ -111,16 +111,16 @@ def bootstrap_boundary(df, n_boot=1500, seed=0):
 
 
 def decide_outcome(b3_ci, lrt_p, dwc_point, dwc_ci):
-    """Frozen §5 rule. Returns ('TILTED'|'VERTICAL', reason str)."""
+    """Frozen sec 5 rule. Returns ('TILTED'|'VERTICAL', reason str)."""
     b3_sig = (b3_ci[0] > 0 and b3_ci[1] > 0) or (b3_ci[0] < 0 and b3_ci[1] < 0)
     lrt_sig = (not np.isnan(lrt_p)) and lrt_p < 0.05
     practical = (not np.isnan(dwc_point)) and abs(dwc_point) >= DELTA_WCRIT_THRESHOLD
     dwc_sig = dwc_ci is not None and ((dwc_ci[0] > 0 and dwc_ci[1] > 0) or (dwc_ci[0] < 0 and dwc_ci[1] < 0))
     if (b3_sig and lrt_sig) and (practical and dwc_sig):
         return "TILTED", ("behavioral phase transition: b3 significant (Wald+LRT) "
-                          f"and |Δw_crit|={abs(dwc_point):.3f}>={DELTA_WCRIT_THRESHOLD} with CI excluding 0")
+                          f"and |Deltaw_crit|={abs(dwc_point):.3f}>={DELTA_WCRIT_THRESHOLD} with CI excluding 0")
     return "VERTICAL", ("centralization dominates; loss aversion does not move the boundary "
-                        f"(b3_sig={b3_sig}, lrt_sig={lrt_sig}, |Δw_crit|="
+                        f"(b3_sig={b3_sig}, lrt_sig={lrt_sig}, |Deltaw_crit|="
                         f"{abs(dwc_point) if np.isfinite(dwc_point) else float('nan'):.3f}, dwc_CI_excl0={dwc_sig})")
 
 
@@ -131,12 +131,12 @@ def run(df, out_prefix):
     df["collapsed"] = df["collapsed"].astype(int)
     ws = sorted(df["w"].unique())
     lams = sorted(df["lambda"].unique())
-    print(f"\n=== Experiment B analysis (n={len(df)}, {len(ws)} w x {len(lams)} λ) ===")
+    print(f"\n=== Experiment B analysis (n={len(df)}, {len(ws)} w x {len(lams)} lambda) ===")
     print(f"Global collapse rate: {df['collapsed'].mean():.1%}")
 
     # Per-cell Wilson table + empirical heatmap matrix
     heat = np.full((len(lams), len(ws)), np.nan)
-    print("\nPer-(w,λ) collapse fraction (Wilson 95% CI):")
+    print("\nPer-(w,lambda) collapse fraction (Wilson 95% CI):")
     for i, lam in enumerate(lams):
         for j, w in enumerate(ws):
             g = df[(df["w"] == w) & (df["lambda"] == lam)]
@@ -144,7 +144,7 @@ def run(df, out_prefix):
                 k, n = int(g["collapsed"].sum()), len(g)
                 heat[i, j] = k / n
                 lo, hi = wilson_ci(k, n)
-                print(f"  w={w:.2f} λ={lam:>4.1f}: {k:2d}/{n:2d}={k/n:.2f} [{lo:.2f},{hi:.2f}]")
+                print(f"  w={w:.2f} lambda={lam:>4.1f}: {k:2d}/{n:2d}={k/n:.2f} [{lo:.2f},{hi:.2f}]")
 
     if df["collapsed"].nunique() < 2 or len(ws) < 2 or len(lams) < 2:
         print("\n[Insufficient variation for the 2-D logistic surface yet.]")
@@ -165,8 +165,8 @@ def run(df, out_prefix):
     print(f"\nLogistic coefficients (MLE clean={clean}):")
     for name in ["const", "w", "logL", "inter"]:
         print(f"  {name:6s} = {p[name]:.4f}")
-    print(f"\nPRIMARY b3 (w x logλ): {p['inter']:.4f}  95% CI [{b3_ci[0]:.4f}, {b3_ci[1]:.4f}]  LRT p={lrt_p:.4f}")
-    print(f"Δw_crit (λ=10 minus λ=1): {dwc_point:.4f}" +
+    print(f"\nPRIMARY b3 (w x loglambda): {p['inter']:.4f}  95% CI [{b3_ci[0]:.4f}, {b3_ci[1]:.4f}]  LRT p={lrt_p:.4f}")
+    print(f"Deltaw_crit (lambda=10 minus lambda=1): {dwc_point:.4f}" +
           (f"  bootstrap 95% CI [{dwc_ci[0]:.4f}, {dwc_ci[1]:.4f}]" if dwc_ci else ""))
 
     outcome, reason = decide_outcome(b3_ci, lrt_p, dwc_point, dwc_ci)
@@ -174,24 +174,24 @@ def run(df, out_prefix):
     print(f"    {reason}")
     if outcome == "VERTICAL":
         print('    Reported with equal prominence as: "Reward centralization governs the')
-        print('    collapse transition; loss aversion does not move it." (prereg §5)')
+        print('    collapse transition; loss aversion does not move it." (prereg sec 5)')
 
-    # Headline figure: empirical heatmap + w_crit(λ) overlay
+    # Headline figure: empirical heatmap + w_crit(lambda) overlay
     fig, ax = plt.subplots(figsize=(9, 6))
     im = ax.imshow(heat, origin="lower", aspect="auto", cmap="RdYlGn_r",
                    vmin=0, vmax=1, extent=[min(ws), max(ws), min(lams), max(lams)])
     fig.colorbar(im, ax=ax, label="empirical P(collapse)")
     lam_line = np.linspace(min(lams), max(lams), 100)
     wc_line = w_crit_of_lambda(p, lam_line)
-    ax.plot(wc_line, lam_line, "k-", lw=2.5, label="w_crit(λ) fit")
+    ax.plot(wc_line, lam_line, "k-", lw=2.5, label="w_crit(lambda) fit")
     if band:
         bl = sorted(band.keys())
         lo = [band[l][1] for l in bl]; hi = [band[l][2] for l in bl]
         ax.fill_betweenx(bl, lo, hi, color="k", alpha=0.15, label="95% CI")
     ax.set_xlabel("w (reward centralization)")
-    ax.set_ylabel("λ (loss aversion)")
+    ax.set_ylabel("lambda (loss aversion)")
     ax.set_xlim(min(ws), max(ws))
-    ax.set_title(f"Exp B: collapse surface — OUTCOME: {outcome}\nΔw_crit={dwc_point:.3f}, b3 p(LRT)={lrt_p:.3f}")
+    ax.set_title(f"Exp B: collapse surface - OUTCOME: {outcome}\nDeltaw_crit={dwc_point:.3f}, b3 p(LRT)={lrt_p:.3f}")
     ax.legend(loc="upper right")
     plt.tight_layout()
     plt.savefig(f"{out_prefix}_surface.png", dpi=150)
@@ -201,7 +201,7 @@ def run(df, out_prefix):
 
 
 def load_selftest():
-    """Existing data as a degenerate 2-w grid: w=1 (phase4, λ∈{1..10}) + w=0 (decentralized)."""
+    """Existing data as a degenerate 2-w grid: w=1 (phase4, lambda in {1..10}) + w=0 (decentralized)."""
     p4 = pd.read_csv("docs/phase4_figures/phase4_raw_data.csv").rename(
         columns={"Mean S": "mean_S", "Profit": "profit", "Lambda": "lambda", "Seed": "seed"})
     p4["w"] = 1.0
