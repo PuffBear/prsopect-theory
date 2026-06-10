@@ -133,11 +133,11 @@ def run_phase3_validation():
         
     print("\n=== Phase 3 Validation Results (5 Seeds) ===")
     o_qtys, inv_lvls, ls_ratios, ep_rews, bws = zip(*results)
-    print(f"PPO Mean Order Quantity : {np.mean(o_qtys):.2f} ± {np.std(o_qtys):.2f}")
-    print(f"Network Inventory Level : {np.mean(inv_lvls):.2f} ± {np.std(inv_lvls):.2f}")
+    print(f"PPO Mean Order Quantity : {np.mean(o_qtys):.2f} +/- {np.std(o_qtys):.2f}")
+    print(f"Network Inventory Level : {np.mean(inv_lvls):.2f} +/- {np.std(inv_lvls):.2f}")
     print(f"Lost Sales Ratio        : {np.mean(ls_ratios):.2%}")
-    print(f"True Economic Profit    : {np.mean(ep_rews):.2f} ± {np.std(ep_rews):.2f}")
-    print(f"Bullwhip Ratio          : {np.mean(bws):.2f} ± {np.std(bws):.2f}")
+    print(f"True Economic Profit    : {np.mean(ep_rews):.2f} +/- {np.std(ep_rews):.2f}")
+    print(f"Bullwhip Ratio          : {np.mean(bws):.2f} +/- {np.std(bws):.2f}")
     print("============================================")
     
     if np.mean(bws) > 0.01:
