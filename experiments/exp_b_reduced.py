@@ -1,10 +1,10 @@
 """
-Exp B-Reduced — reduced w×λ collapse surface with standard CPT curvature.
+Exp B-Reduced - reduced wxlambda collapse surface with standard CPT curvature.
 
-5 w-levels × 3 λ-levels × 20 seeds = 300 runs. Fixed CPT curvature α=β=0.88
-(standard Tversky-Kahneman); λ ∈ {1,3,7} adds loss aversion on top. Same [0,500]
+5 w-levels x 3 lambda-levels x 20 seeds = 300 runs. Fixed CPT curvature alpha=beta=0.88
+(standard Tversky-Kahneman); lambda  in  {1,3,7} adds loss aversion on top. Same [0,500]
 base-stock substrate, eval, and collapse label as expA_interior_w.py / exp_null_model.py
-so results are directly comparable to Exp N (the α=β=1 null).
+so results are directly comparable to Exp N (the alpha=beta=1 null).
 
 SLURM array job: one task per run_idx 0..299, each appends one row under a filelock.
 """
@@ -93,7 +93,7 @@ def run_one(run_idx, timesteps, out_path):
            "collapsed": collapsed, "final_value_loss": fvl,
            "final_explained_variance": fev}
     _append_row(row, out_path)
-    print(f"run_idx={run_idx} w={w} λ={lam} seed={seed} -> mean_S={mean_S:.1f} "
+    print(f"run_idx={run_idx} w={w} lambda={lam} seed={seed} -> mean_S={mean_S:.1f} "
           f"profit={profit:.1f} collapsed={collapsed}")
     return row
 
