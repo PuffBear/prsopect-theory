@@ -99,9 +99,9 @@ def run_factorial_sweep():
             res_list = results[(low, high, alpha)]
             o_qtys, inv_lvls, ls_ratios, ep_rews, bws = zip(*res_list)
             print(f"Bounds: [{int(low)}, {int(high)}] | Alpha (Sharing): {alpha}")
-            print(f"  Profit : {np.mean(ep_rews):.2f} ± {np.std(ep_rews):.2f}")
-            print(f"  Inv Lvl: {np.mean(inv_lvls):.2f} ± {np.std(inv_lvls):.2f}")
-            print(f"  LS %   : {np.mean(ls_ratios):.2%} ± {np.std(ls_ratios):.2%}")
+            print(f"  Profit : {np.mean(ep_rews):.2f} +/- {np.std(ep_rews):.2f}")
+            print(f"  Inv Lvl: {np.mean(inv_lvls):.2f} +/- {np.std(inv_lvls):.2f}")
+            print(f"  LS %   : {np.mean(ls_ratios):.2%} +/- {np.std(ls_ratios):.2%}")
             print("----------------------------------------------")
             
 def plot_factorial_trajectories():
@@ -125,7 +125,7 @@ def plot_factorial_trajectories():
                     df_agent['S_smooth'] = df_agent['S'].rolling(1000).mean()
                     ax.plot(df_agent['step'], df_agent['S_smooth'], alpha=0.8, linewidth=1.5, label=f"Seed {seed}")
             
-            ax.set_title(f"Bounds: [{int(low)}, {int(high)}] | α={alpha}")
+            ax.set_title(f"Bounds: [{int(low)}, {int(high)}] | alpha={alpha}")
             ax.axhline(y=low, color='r', linestyle='--', alpha=0.5, label='Lower Bound')
             ax.axhline(y=high, color='g', linestyle='--', alpha=0.5, label='Upper Bound')
             ax.set_ylim(low - 50, high + 50)
