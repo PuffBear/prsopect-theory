@@ -177,16 +177,16 @@ def run_phase6_behavioral_claim():
     fig, axes = plt.subplots(2, 2, figsize=(16, 12))
     
     sns.lineplot(data=df, x="Phi", y="Mean S", errorbar=('ci', 95), marker='o', ax=axes[0, 0])
-    axes[0, 0].set_title("Learned Base-Stock (S) vs Fraction of Averse Agents (φ)")
+    axes[0, 0].set_title("Learned Base-Stock (S) vs Fraction of Averse Agents (phi)")
     
     sns.lineplot(data=df, x="Phi", y="Profit", errorbar=('ci', 95), marker='o', ax=axes[0, 1])
-    axes[0, 1].set_title("True Economic Profit vs Fraction of Averse Agents (φ)")
+    axes[0, 1].set_title("True Economic Profit vs Fraction of Averse Agents (phi)")
     
     sns.lineplot(data=df, x="Phi", y="Mean Inventory", errorbar=('ci', 95), marker='o', ax=axes[1, 0])
-    axes[1, 0].set_title("Network Inventory vs Fraction of Averse Agents (φ)")
+    axes[1, 0].set_title("Network Inventory vs Fraction of Averse Agents (phi)")
     
     sns.lineplot(data=df, x="Phi", y="Bullwhip", errorbar=('ci', 95), marker='o', ax=axes[1, 1])
-    axes[1, 1].set_title("Bullwhip Effect vs Fraction of Averse Agents (φ)")
+    axes[1, 1].set_title("Bullwhip Effect vs Fraction of Averse Agents (phi)")
     
     for ax in axes.flat:
         ax.grid(True, alpha=0.3)
