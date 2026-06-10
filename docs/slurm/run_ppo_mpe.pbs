@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N ppo_mpe
+#PBS -J 0-259
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=01:00:00
+#PBS -o logs/ppo_mpe_^array_index^.out
+#PBS -e logs/ppo_mpe_^array_index^.err
+
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expPPO_mpe_figures
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+# MPE needs the mpe2 package in the conda env -- run ONCE on the login node:
+#   conda activate marl && pip install mpe2
+# (compute nodes are usually offline, so do NOT pip install inside the array job)
+
+python experiments/exp_ppo_mpe.py --run_idx "$PBS_ARRAY_INDEX"
