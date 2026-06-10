@@ -135,9 +135,9 @@ def run_leadtime_sweep():
                 'Mean_ExpVar': np.mean(exp_vars)
             })
             print(f"Lead Time: {lead_time} | Alpha: {alpha}")
-            print(f"  Learned S : {np.mean(S_vals):.2f} ± {np.std(S_vals):.2f}")
-            print(f"  Profit    : {np.mean(ep_rews):.2f} ± {np.std(ep_rews):.2f}")
-            print(f"  LS %      : {np.mean(ls_ratios):.2%} ± {np.std(ls_ratios):.2%}")
+            print(f"  Learned S : {np.mean(S_vals):.2f} +/- {np.std(S_vals):.2f}")
+            print(f"  Profit    : {np.mean(ep_rews):.2f} +/- {np.std(ep_rews):.2f}")
+            print(f"  LS %      : {np.mean(ls_ratios):.2%} +/- {np.std(ls_ratios):.2%}")
             print(f"  VLoss     : {np.mean(vlosses):.2f}")
             print(f"  ExpVar    : {np.mean(exp_vars):.3f}")
             print("----------------------------------------------")
@@ -156,7 +156,7 @@ def plot_leadtime_results():
     
     for alpha in alphas:
         df_a = df[df['Alpha'] == alpha]
-        label = "Decentralized (α=0)" if alpha == 0.0 else "Centralized (α=1)"
+        label = "Decentralized (alpha=0)" if alpha == 0.0 else "Centralized (alpha=1)"
         color = 'red' if alpha == 0.0 else 'blue'
         
         axes[0, 0].errorbar(df_a['LeadTime'], df_a['Mean_S'], yerr=df_a['Std_S'], marker='o', label=label, color=color, capsize=5, linewidth=2)
