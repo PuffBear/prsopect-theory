@@ -1,0 +1,197 @@
+\begin{thebibliography}{25}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Akella(2025)]{dmarl2025}
+Aditya Akella.
+\newblock On the fundamental limitations of decentralized learnable reward
+  shaping in cooperative multi-agent reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2511.00034}, 2025.
+\newblock URL \url{https://arxiv.org/abs/2511.00034}.
+
+\bibitem[Ethayarajh et~al.(2024)Ethayarajh, Xu, Muennighoff, Jurafsky, and
+  Kiela]{ethayarajh2024kto}
+Kawin Ethayarajh, Winnie Xu, Niklas Muennighoff, Dan Jurafsky, and Douwe Kiela.
+\newblock {KTO}: Model alignment as prospect theoretic optimization, 2024.
+\newblock URL \url{https://arxiv.org/abs/2402.01306}.
+\newblock ICML 2024.
+
+\bibitem[Ghaemi et~al.(2024)Ghaemi, Kebriaei, Moghaddam, and
+  Ahamdabadi]{anon2024risk}
+Hafez Ghaemi, Hamed Kebriaei, Alireza~Ramezani Moghaddam, and Majid~Nili
+  Ahamdabadi.
+\newblock Risk-sensitive multi-agent reinforcement learning in network
+  aggregative {Markov} games, 2024.
+\newblock URL \url{https://arxiv.org/abs/2402.05906}.
+
+\bibitem[Gijsbrechts et~al.(2022)Gijsbrechts, Boute, Van~Mieghem, and
+  Zhang]{gijsbrechts2022}
+Joren Gijsbrechts, Robert~N. Boute, Jan~A. Van~Mieghem, and Dennis~J. Zhang.
+\newblock Can deep reinforcement learning improve inventory management?
+  {P}erformance on lost sales, dual-sourcing, and multi-echelon problems.
+\newblock \emph{Manufacturing \& Service Operations Management}, 24\penalty0
+  (3):\penalty0 1349--1368, May 2022.
+\newblock ISSN 1526-5498.
+\newblock \doi{10.1287/msom.2021.1064}.
+\newblock URL \url{http://dx.doi.org/10.1287/msom.2021.1064}.
+
+\bibitem[Hubbs et~al.(2020)Hubbs, Perez, Sarwar, Sahinidis, Grossmann, and
+  Wassick]{hubbs2020orgym}
+Christian~D. Hubbs, Hector~D. Perez, Owais Sarwar, Nikolaos~V. Sahinidis,
+  Ignacio~E. Grossmann, and John~M. Wassick.
+\newblock {OR-Gym}: A reinforcement learning library for operations research
+  problems, 2020.
+\newblock URL \url{https://arxiv.org/abs/2008.06319}.
+
+\bibitem[Jiang et~al.(2020)Jiang, Dun, Huang, and Lu]{jiang2018dgn}
+Jiechuan Jiang, Chen Dun, Tiejun Huang, and Zongqing Lu.
+\newblock Graph convolutional reinforcement learning, 2020.
+\newblock URL \url{https://arxiv.org/abs/1810.09202}.
+\newblock ICLR 2020.
+
+\bibitem[Kahneman and Tversky(1979)]{kahneman1979}
+Daniel Kahneman and Amos Tversky.
+\newblock Prospect theory: An analysis of decision under risk.
+\newblock \emph{Econometrica}, 47\penalty0 (2):\penalty0 263--291, March 1979.
+\newblock ISSN 0012-9682.
+\newblock \doi{10.2307/1914185}.
+\newblock URL \url{http://dx.doi.org/10.2307/1914185}.
+
+\bibitem[Lalmohammed et~al.(2025)Lalmohammed, Gupta, Shah, and
+  Ramji]{lalmohammed2025}
+Sheyan Lalmohammed, Khush Gupta, Alok Shah, and Keshav Ramji.
+\newblock Modeling human behavior without humans: Prospect theoretic
+  multi-agent reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning}, 2025.
+
+\bibitem[Leluc et~al.(2023)Leluc, Kadoche, Bertoncello, and
+  Gourv{\'e}nec]{marlim2023}
+R{\'e}mi Leluc, Elie Kadoche, Antoine Bertoncello, and S{\'e}bastien
+  Gourv{\'e}nec.
+\newblock {MARLIM}: Multi-agent reinforcement learning for inventory
+  management, 2023.
+\newblock URL \url{https://arxiv.org/abs/2308.01649}.
+
+\bibitem[Liu et~al.(2023)Liu, Pu, Pan, Yi, Liang, and Zhang]{liu2023lazy}
+Boyin Liu, Zhiqiang Pu, Yi~Pan, Jianqiang Yi, Yanyan Liang, and Du~Zhang.
+\newblock Lazy agents: A new perspective on solving sparse reward problem in
+  multi-agent reinforcement learning.
+\newblock In \emph{International Conference on Machine Learning}, pages
+  21937--21950. PMLR, 2023.
+
+\bibitem[Lowe et~al.(2017)Lowe, Wu, Tamar, Harb, Abbeel, and
+  Mordatch]{lowe2017maddpg}
+Ryan Lowe, Yi~Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, and Igor Mordatch.
+\newblock Multi-agent actor-critic for mixed cooperative-competitive
+  environments, 2017.
+\newblock URL \url{https://arxiv.org/abs/1706.02275}.
+\newblock NeurIPS 2017.
+
+\bibitem[Mengesha et~al.(2025)Mengesha, Sun, and Roy]{mengesha2026}
+Isaak Mengesha, Meiqi Sun, and Debraj Roy.
+\newblock Cognitive biases and the evolutionary origins of zero-sum norms.
+\newblock \emph{arXiv preprint arXiv:2511.16453}, 2025.
+\newblock URL \url{https://arxiv.org/abs/2511.16453}.
+
+\bibitem[Oroojlooyjadid et~al.(2022)Oroojlooyjadid, Nazari, Snyder, and
+  Tak{\'a}{\v{c}}]{oroojlooyjadid2022}
+Afshin Oroojlooyjadid, MohammadReza Nazari, Lawrence~V Snyder, and Martin
+  Tak{\'a}{\v{c}}.
+\newblock A deep {Q}-network for the beer game: Deep reinforcement learning for
+  inventory optimization.
+\newblock \emph{Manufacturing \& Service Operations Management}, 24\penalty0
+  (1):\penalty0 285--304, 2022.
+
+\bibitem[Qiu et~al.(2021)Qiu, Wang, Yu, Wang, He, An, Obraztsova, and
+  Rabinovich]{qiu2021rmix}
+Wei Qiu, Xinrun Wang, Runsheng Yu, Rundong Wang, Xu~He, Bo~An, Svetlana
+  Obraztsova, and Zinovi Rabinovich.
+\newblock {RMIX}: Learning risk-sensitive policies for cooperative
+  reinforcement learning agents.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  34:\penalty0 23049--23062, 2021.
+
+\bibitem[Raffin et~al.(2021)Raffin, Hill, Gleave, Kanervisto, Ernestus, and
+  Dormann]{raffin2021sb3}
+Antonin Raffin, Ashley Hill, Adam Gleave, Anssi Kanervisto, Maximilian
+  Ernestus, and Noah Dormann.
+\newblock Stable-baselines3: Reliable reinforcement learning implementations.
+\newblock \emph{Journal of Machine Learning Research}, 22\penalty0
+  (268):\penalty0 1--8, 2021.
+\newblock URL \url{http://jmlr.org/papers/v22/20-1364.html}.
+
+\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and
+  Klimov]{schulman2017ppo}
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
+\newblock Proximal policy optimization algorithms, 2017.
+\newblock URL \url{https://arxiv.org/abs/1707.06347}.
+
+\bibitem[Shen et~al.(2023)Shen, Ma, Li, Liu, Fu, Mei, Liu, and
+  Wang]{xie2023riskq}
+Siqi Shen, Chennan Ma, Chao Li, Weiquan Liu, Yongquan Fu, Songzhu Mei, Xinwang
+  Liu, and Cheng Wang.
+\newblock {RiskQ}: Risk-sensitive multi-agent reinforcement learning value
+  factorization.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  36:\penalty0 34791--34825, 2023.
+
+\bibitem[Shi and Peng(2023)]{peng2023curo}
+Lin Shi and Bei Peng.
+\newblock Curriculum learning for relative overgeneralization.
+\newblock In \emph{Adaptive and Learning Agents Workshop at Conference on
+  Autonomous Agents and Multiagent Systems}, 2023.
+
+\bibitem[Terry et~al.(2020)Terry, Black, and Hari]{terry2020supersuit}
+J.~K. Terry, Benjamin Black, and Ananth Hari.
+\newblock {SuperSuit}: Simple microwrappers for reinforcement learning
+  environments, 2020.
+\newblock URL \url{https://arxiv.org/abs/2008.08932}.
+
+\bibitem[Terry et~al.(2021)Terry, Black, Grammel, Jayakumar, Hari, Sullivan,
+  Santos, Perez, Horsch, Dieffendahl, Williams, Lokesh, and
+  Ravi]{terry2021pettingzoo}
+J.~K. Terry, Benjamin Black, Nathaniel Grammel, Mario Jayakumar, Ananth Hari,
+  Ryan Sullivan, Luis Santos, Rodrigo Perez, Caroline Horsch, Clemens
+  Dieffendahl, Niall~L. Williams, Yashas Lokesh, and Praveen Ravi.
+\newblock {PettingZoo}: Gym for multi-agent reinforcement learning, 2021.
+\newblock URL \url{https://arxiv.org/abs/2009.14471}.
+
+\bibitem[Tversky and Kahneman(1992)]{tversky1992}
+Amos Tversky and Daniel Kahneman.
+\newblock Advances in prospect theory: Cumulative representation of
+  uncertainty.
+\newblock \emph{Journal of Risk and Uncertainty}, 5\penalty0 (4):\penalty0
+  297--323, 1992.
+
+\bibitem[Weng and Lee(2026)]{weng2026}
+Yi-Ning Weng and Hsuan-Wei Lee.
+\newblock How exploration breaks cooperation in shared-policy multi-agent
+  reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2601.05509}, 2026.
+\newblock URL \url{https://arxiv.org/abs/2601.05509}.
+
+\bibitem[Yamaguchi(2025)]{yamaguchi2025}
+Azusa Yamaguchi.
+\newblock Emergent coordination and phase structure in independent multi-agent
+  reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2511.23315}, 2025.
+\newblock URL \url{https://arxiv.org/abs/2511.23315}.
+
+\bibitem[Zhang et~al.(2026)]{zhang2026lcerd}
+Rui Zhang et~al.
+\newblock Latent logic expertise discovery for cooperative {MARL} credit
+  assignment.
+\newblock \emph{arXiv preprint arXiv:2511.17653}, 2026.
+\newblock URL \url{https://arxiv.org/abs/2511.17653}.
+\newblock WARNING: arXiv ID unverified --- may be incorrect.
+
+\bibitem[Zhao and Xie(2025)]{wang2025maca}
+Xutong Zhao and Yaqi Xie.
+\newblock Multi-level advantage credit assignment for cooperative multi-agent
+  reinforcement learning, 2025.
+\newblock URL \url{https://arxiv.org/abs/2508.06836}.
+
+\end{thebibliography}
