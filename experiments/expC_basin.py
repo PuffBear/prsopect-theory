@@ -1,5 +1,5 @@
 """
-Experiment C — basin-of-attraction / initialization control (experiment_spec_v1 sec.C).
+Experiment C - basin-of-attraction / initialization control (experiment_spec_v1 sec.C).
 
 Elevated by the Exp A review: the horizon check showed transition-collapse is
 metastable convergence, and the critic diagnostic showed it is not a learning
@@ -11,7 +11,7 @@ action mapping is centered on S_init. Converged S = mean of last 10k logged step
 (as in phase3_96). Collapse label = frozen definition on eval profit + converged S.
 
 w-levels span the MEASURED transition (w_crit=0.82): {0.5 (deep collapse), 0.85
-(~w_crit), 1.0 (recovery)}. λ=1 (no loss aversion; C isolates initialization).
+(~w_crit), 1.0 (recovery)}. lambda=1 (no loss aversion; C isolates initialization).
 
     python experiments/expC_basin.py            # default grid
 Analyze/plot: converged_S vs S_init per w (see __main__ summary + figure).
@@ -131,7 +131,7 @@ def main():
     ax.plot([0, 250], [0, 250], "k:", alpha=0.4, label="converged=init (pure basin)")
     ax.set_xlabel("S_init (initialization)")
     ax.set_ylabel("converged S (last-10k mean)")
-    ax.set_title("Exp C: initialization control — converged S vs S_init by w")
+    ax.set_title("Exp C: initialization control - converged S vs S_init by w")
     ax.legend()
     ax.grid(alpha=0.3)
     plt.tight_layout()
