@@ -1,14 +1,14 @@
 """
-analyze_expT.py — Training-horizon collapse-boundary analysis.
+analyze_expT.py - Training-horizon collapse-boundary analysis.
 
 Loads collapse data from three training horizons (150k, 300k, 600k), fits a
 logistic regression per horizon to estimate w_crit(T), then models how the
 critical coordination weight decays as a function of training horizon T.
 
 Outputs:
-  docs/expT_figures/wcrit_vs_horizon.png   — w_crit vs T with best-fit curve
-  docs/expT_figures/collapse_heatmap.png   — P(collapse) heatmap in (w, T) space
-  docs/expT_figures/expT_results.md        — written summary
+  docs/expT_figures/wcrit_vs_horizon.png   - w_crit vs T with best-fit curve
+  docs/expT_figures/collapse_heatmap.png   - P(collapse) heatmap in (w, T) space
+  docs/expT_figures/expT_results.md        - written summary
 
 Usage:
     python experiments/analyze_expT.py
@@ -165,7 +165,7 @@ def plot_wcrit_vs_horizon(T_arr, wcrit_arr, lo_arr, hi_arr, decay_results, best_
     ax.errorbar(T_arr, wcrit_arr,
                 yerr=[wcrit_arr - lo_arr, hi_arr - wcrit_arr],
                 fmt="o", color="steelblue", capsize=5, markersize=8,
-                label="$w_{\\mathrm{crit}}$ (logistic fit ± 95% CI)")
+                label="$w_{\\mathrm{crit}}$ (logistic fit +/- 95% CI)")
 
     T_fine = np.logspace(np.log10(T_arr.min() * 0.8), np.log10(T_arr.max() * 1.2), 300)
     best = decay_results[best_key]
@@ -254,7 +254,7 @@ def write_results_md(T_arr, wcrit_arr, lo_arr, hi_arr, decay_results, best_key, 
         "",
         "## Decay-Model Fit",
         "",
-        "| Model | R² |",
+        "| Model | R^2 |",
         "|-------|----|",
     ]
     for key, res in decay_results.items():
@@ -323,7 +323,7 @@ def main():
     for i, h in enumerate(horizons):
         sub = df_all[df_all["horizon"] == h]
         if len(sub) == 0:
-            print(f"  {HORIZON_LABELS[h]}: no data — skipping")
+            print(f"  {HORIZON_LABELS[h]}: no data - skipping")
             continue
         wc, lo, hi, _ = fit_logistic_wcrit(sub, n_bootstrap=2000, rng_seed=42)
         wcrit_arr[i] = wc
@@ -341,7 +341,7 @@ def main():
     best_key = max(decay_results, key=lambda k: decay_results[k]["r2"])
     for key, res in decay_results.items():
         tag = "  <-- BEST" if key == best_key else ""
-        print(f"  {res['label']}: R² = {res['r2']:.4f}{tag}")
+        print(f"  {res['label']}: R^2 = {res['r2']:.4f}{tag}")
 
     print(f"\nBest fit: {decay_results[best_key]['label']}")
 
