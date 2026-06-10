@@ -1,10 +1,10 @@
 """
-Exp 0b — horizon lock (Q1) + metastability origin (Q2). See docs/exp0b_preregistration.md.
+Exp 0b - horizon lock (Q1) + metastability origin (Q2). See docs/exp0b_preregistration.md.
 
 Piece 1: w in {0.6,0.7} x seeds 42-61, single learn() to 600k.
 Piece 2: w in {0.3,0.6,0.7,0.8} x seeds 42-49 x {single(300k), segmented(150k+150k)}.
 
-Label: is_collapsed(mean_S_singlereset, profit) — same as the 300k re-estimation, and
+Label: is_collapsed(mean_S_singlereset, profit) - same as the 300k re-estimation, and
 the scaled mean_S mapping is correct for the scaled substrate. converged_S (last-10k
 logged S) recorded alongside as a cross-check.
 """
