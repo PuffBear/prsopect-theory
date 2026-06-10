@@ -1,10 +1,10 @@
 """
-Exp N — null model (no Prospect-Theory shaping).
+Exp N - null model (no Prospect-Theory shaping).
 
 Null condition: CPTRewardWrapper with lambda_loss=1.0, alpha=1.0, beta=1.0, which
 makes v(x)=x (linear; no loss aversion, no curvature). Sweeps reward centralization
 w on the base-stock substrate and labels collapse, so the collapse transition can be
-measured WITHOUT any behavioral shaping and compared against the existing PT(λ=1)
+measured WITHOUT any behavioral shaping and compared against the existing PT(lambda=1)
 300k data (docs/expA300k_figures/).
 
 Designed as a SLURM array job (one task per run_idx 0..179). Each task trains one
@@ -33,7 +33,7 @@ from stable_baselines3 import PPO
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))  # experiments/ for the reference import
 # Reuse the EXACT substrate / eval / callback from the reference script so the null
-# condition differs from the PT data only in (here, nothing — lambda is already 1).
+# condition differs from the PT data only in (here, nothing - lambda is already 1).
 from expA_interior_w import _build_env, evaluate_and_extract_metrics, MetricsCallback
 
 # Frozen grid (spec)
