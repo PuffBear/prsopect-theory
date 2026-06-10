@@ -1,0 +1,29 @@
+#!/bin/bash
+#PBS -N mappo_orgym
+#PBS -J 0-699
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=02:00:00
+#PBS -o logs/mappo_orgym_^array_index^.out
+#PBS -e logs/mappo_orgym_^array_index^.err
+
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expMAPPO_orgym_figures
+
+# activate virtualenv
+if [ -f "$HOME/envs/marl/bin/activate" ]; then
+    source "$HOME/envs/marl/bin/activate"
+elif [ -f "$PROJECT_ROOT/venv/bin/activate" ]; then
+    source "$PROJECT_ROOT/venv/bin/activate"
+else
+    echo "ERROR: no virtualenv found at ~/envs/marl or ./venv" >&2
+    exit 1
+fi
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+python experiments/exp_mappo_orgym.py --run_idx "$PBS_ARRAY_INDEX"
