@@ -1,0 +1,23 @@
+#!/bin/bash
+#PBS -N exp1_null_600k
+#PBS -J 0-159
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=03:00:00
+#PBS -o logs/exp1_600k_^array_index^.out
+#PBS -e logs/exp1_600k_^array_index^.err
+
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/exp0b_extended
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+# 600k horizon (note: walltime raised to 3h vs the 1.5h 300k jobs)
+python experiments/exp1_null_600k.py --run_idx "$PBS_ARRAY_INDEX" --horizon 600000
