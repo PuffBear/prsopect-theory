@@ -158,7 +158,7 @@ def generate_ablation_plots():
         mu_S = df_agent['S'].mean()
         std_S = df_agent['S'].std()
         
-        plt.title(f"Range [{int(low)}, {int(high)}] | Profit: {profits[(low, high)]:.0f}\nS = {mu_S:.1f} ± {std_S:.1f}")
+        plt.title(f"Range [{int(low)}, {int(high)}] | Profit: {profits[(low, high)]:.0f}\nS = {mu_S:.1f} +/- {std_S:.1f}")
         plt.xlabel("Training Step")
         plt.ylabel("Target Base-Stock (S)")
         plt.axhline(y=low, color='r', linestyle='--', alpha=0.5, label='Lower Bound')
@@ -218,11 +218,11 @@ def run_20_seed_replication(low=200.0, high=700.0):
         
     print("\n=== Phase 3.7 Verification Results (20 Seeds) ===")
     o_qtys, inv_lvls, ls_ratios, ep_rews, bws = zip(*results)
-    print(f"PPO Mean Order Quantity : {np.mean(o_qtys):.2f} ± {np.std(o_qtys):.2f}")
-    print(f"Network Inventory Level : {np.mean(inv_lvls):.2f} ± {np.std(inv_lvls):.2f}")
+    print(f"PPO Mean Order Quantity : {np.mean(o_qtys):.2f} +/- {np.std(o_qtys):.2f}")
+    print(f"Network Inventory Level : {np.mean(inv_lvls):.2f} +/- {np.std(inv_lvls):.2f}")
     print(f"Lost Sales Ratio        : {np.mean(ls_ratios):.2%}")
-    print(f"True Economic Profit    : {np.mean(ep_rews):.2f} ± {np.std(ep_rews):.2f}")
-    print(f"Bullwhip Ratio          : {np.mean(bws):.2f} ± {np.std(bws):.2f}")
+    print(f"True Economic Profit    : {np.mean(ep_rews):.2f} +/- {np.std(ep_rews):.2f}")
+    print(f"Bullwhip Ratio          : {np.mean(bws):.2f} +/- {np.std(bws):.2f}")
     print("=================================================")
 
 if __name__ == "__main__":
