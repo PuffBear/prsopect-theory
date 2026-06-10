@@ -145,14 +145,14 @@ def run(df, out_prefix):
     print(f"  b1 (w) = {b1:.3f}   95% CI [{ci[0]:.3f}, {ci[1]:.3f}]   p={model.pvalues['w']:.3e}")
     print(f"  w_crit (P=0.5) = {w_crit:.3f}   bootstrap median {wc_med:.3f} "
           f"[{wc_lo:.3f}, {wc_hi:.3f}]")
-    print(f"  10-90% transition width Δw = {width:.3f}")
+    print(f"  10-90% transition width Deltaw = {width:.3f}")
     print(f"  sharpness: quadratic w^2 term LLR p = {sharp_p:.3f} "
           f"({'adds signal' if sharp_p < 0.05 else 'no added curvature -> monotone'})")
 
     # Pre-registered success criterion check
     sig = (ci[0] > 0 and ci[1] > 0) or (ci[0] < 0 and ci[1] < 0)
     narrow = (not np.isnan(width)) and width < 0.4
-    print(f"\nPre-registered success: b1 CI excludes 0 = {sig}; Δw<0.4 = {narrow}")
+    print(f"\nPre-registered success: b1 CI excludes 0 = {sig}; Deltaw<0.4 = {narrow}")
     if cells["frac"].std() < 1e-6:
         print("  -> collapse fraction FLAT across w: w-transition FALSIFIED (per spec).")
 
