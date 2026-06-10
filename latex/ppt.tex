@@ -1,0 +1,207 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{seahorse}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\title[When AI Teams Stop Cooperating]{When Teams of AI Agents Suddenly Stop Cooperating \\ \large --- and what makes them more likely to}
+\author{Agriya Yadav}
+\institute{Ashoka University}
+\date{}
+
+% NOTE ON FIGURES: point these at your existing files, e.g.
+% /Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/fig2_behavioral_decomposition.png
+% /Users/Agriya/Desktop/prospect theory/docs/expT_figures/collapse_heatmap.png
+% /Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/expB_wcrit_vs_lambda.png
+
+\begin{document}
+
+% ---------------------------------------------------------------
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{The one-line version}
+  \Large
+  \begin{center}
+    A team of AI agents doesn't slowly get worse at working together.
+
+    \vspace{0.5cm}
+    They cooperate fine --- right up until one point ---
+
+    \vspace{0.5cm}
+    and then they \alert{suddenly stop}.
+
+    \vspace{0.8cm}
+    \normalsize
+    This talk is about \emph{where} that point is, \\
+    why it \emph{moves}, and what makes a team \\
+    more or less likely to fall off the edge.
+  \end{center}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{The setup: a relay chain of warehouses}
+  \begin{itemize}
+    \item Imagine a chain: a factory ships to a regional warehouse, which ships to a local store, which sells to customers.
+    \item Each link in the chain is run by its own AI agent. Nobody can see the whole chain --- each agent only sees its own little piece.
+    \item Every agent has to guess: \emph{how much should I order today, given that I don't know exactly what the next guy down the line is going to need?}
+    \item Customer demand is random (it jumps around week to week), and everyone is graded, in part, on how well the \emph{whole chain} performs together --- not just their own link.
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \footnotesize
+  \emph{(Formally: a 6-node multi-echelon supply-chain simulation, or-gym \texttt{NetworkManagement-v1}, with random demand and 30-step rounds.)}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{The problem: somebody starts slacking off}
+  \begin{itemize}
+    \item Picture a group project. If everyone knows the team will be graded as a group, sooner or later \emph{someone} realizes: ``the others will cover for me if I just... don't.''
+    \item That's exactly what happens to these AI agents. One of them learns it can stop trying --- because the rest of the chain absorbs the damage --- and the whole team's performance quietly collapses.
+    \item Researchers call this the \emph{lazy agent problem}. It's one of the most stubborn failure modes in teams of cooperating AI.
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \begin{block}{The question we asked}
+    Does this slacking-off happen \emph{gradually} --- a slow slide into laziness --- or does it \emph{snap}, like a switch flipping?
+  \end{block}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{An analogy: how water freezes}
+  \begin{itemize}
+    \item Water doesn't get gradually ``more icy'' as it cools. It's liquid... liquid... liquid... and then, at exactly one temperature, it's suddenly solid.
+    \item There's a sharp \emph{tipping point}, and physicists have a whole toolkit for mapping out exactly where tipping points like that sit, and what conditions move them.
+    \item \alert{We asked whether AI teams have the same kind of tipping point} --- and it turns out they do.
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \footnotesize
+  \emph{(This is the idea behind what the paper calls a ``phase diagram'': a map of exactly where a system flips from one mode of behavior to another.)}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{What we actually turned the dial on}
+  \begin{itemize}
+    \item Every agent in the chain is graded on a mix of: \emph{``how well did} I \emph{do?''} and \emph{``how well did the} whole team \emph{do?''}
+    \item We built a single dial that controls that mix --- turn it one way, and agents are purely selfish; turn it the other way, and agents are graded entirely on team performance.
+    \item Then we did something simple but, as far as we can tell, nobody had carefully done before: \alert{we swept that dial across its whole range, over and over, and just watched when the team fell apart.}
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \footnotesize
+  \emph{(Formally: $w \in [0,1]$, the reward-centralization weight; agents trained with PPO via Stable-Baselines3/PettingZoo; 1{,}124 runs in total across all conditions.)}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{Result 1: it really does snap}
+  \begin{center}
+    \includegraphics[width=0.62\linewidth]{fig2_behavioral_decomposition.png}
+  \end{center}
+  \begin{itemize}
+    \item Below a certain dial setting, the team reliably works. Cross that setting, and the team reliably falls apart.
+    \item Not a slow slide --- a cliff. Move the dial by a hair on either side of that point, and you get a completely different outcome.
+    \item That cliff edge has a name in the paper: $w_{\text{crit}}$ --- ``the critical setting.'' Think of it as \emph{the temperature where the water freezes.}
+  \end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{Result 2: the cliff edge itself moves}
+  \begin{center}
+    \includegraphics[width=0.55\linewidth]{collapse_heatmap.png}
+  \end{center}
+  \begin{itemize}
+    \item Here's the twist: that exact tipping point isn't fixed in stone.
+    \item \alert{The longer you let the team train together, the more the cliff edge shifts.} A dial setting that was perfectly safe early in training can become dangerous later on.
+    \item In other words: there isn't one universal ``safe zone.'' Safety depends on \emph{how long} the team has been practicing.
+  \end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{A new ingredient: a very human quirk}
+  \begin{itemize}
+    \item Here's something well known about people: \emph{losing \$20 stings more than gaining \$20 feels good.}
+    \item This is called \textbf{loss aversion} --- and economists have built precise mathematical models of exactly how much more losses sting, relative to gains.
+    \item \alert{We wondered: what happens if we give the AI agents that same quirk?} Make them ``feel'' losses more sharply than gains, and dial up how sharply --- then watch what happens to the cliff edge.
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \footnotesize
+  \emph{(Formally: Cumulative Prospect Theory value functions, with a loss-aversion coefficient $\lambda$ controlling how much more losses are weighted than equivalent gains.)}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{A second quirk: being numb to big numbers}
+  \begin{itemize}
+    \item Here's a second human quirk: the difference between \$10 and \$20 \emph{feels} bigger than the difference between \$1{,}010 and \$1{,}020 --- even though both are exactly \$10.
+    \item We're less sensitive to differences once the numbers get big. Economists call this \textbf{probability weighting} / \textbf{curvature}.
+    \item We gave the agents \emph{this} quirk too --- separately from loss aversion --- so we could tell the two apart and ask: does each one push the cliff edge in the same direction, or different directions?
+  \end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{Result 3: the headline finding}
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{expB_wcrit_vs_lambda.png}
+  \end{center}
+  \begin{block}{Two human quirks. Opposite effects on the same team.}
+    \begin{itemize}
+      \item Make agents \emph{less sensitive to big-number differences} $\rightarrow$ teamwork gets \alert{easier} to sustain. The cliff edge moves to a safer spot.
+      \item Make agents \emph{sting more from losses} $\rightarrow$ teamwork gets \alert{harder} to sustain. The cliff edge moves to a more dangerous spot --- and the more it stings, the worse it gets.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{How we made sure this wasn't a fluke}
+  \begin{itemize}
+    \item \textbf{We wrote down the rules in advance.} Before running a single test, we nailed down --- in writing, on the record --- exactly what would count as ``the team fell apart.'' That way we couldn't quietly move the goalposts after seeing results we liked.
+    \item \textbf{We stress-tested our own definition.} We reran everything using slightly different versions of that ``fell apart'' rule, just to check the findings didn't depend on us picking the rule just right. (They didn't --- results barely budged.)
+    \item \textbf{We separated the two quirks cleanly.} Rather than testing them tangled together, we ran: no quirks, then one quirk alone, then both --- so we could say with confidence \emph{which} quirk was doing \emph{what}.
+    \item \textbf{We resampled our results thousands of times} to put honest error bars on every claim, instead of reporting a single lucky run.
+  \end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{Being honest about the rough edges}
+  \begin{itemize}
+    \item At the most extreme setting we tested (agents that sting \emph{very} sharply from losses), the team failed so consistently, every single time, that we couldn't precisely measure \emph{how steep} the cliff was --- only that it was there, and worse than at milder settings. We say so plainly rather than overclaiming precision we don't have.
+    \item One of our ``moving cliff edge'' data points was collected under slightly different conditions than the others, which inflates how dramatic the shift looks. We flag exactly how much of that shift is real versus an artifact of the mismatch, and show the controlled comparison that confirms the underlying effect survives anyway.
+  \end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{Why this matters}
+  \begin{itemize}
+    \item There's a growing instinct in AI design: ``let's make agents reason more like humans --- give them more realistic, human-like judgment.''
+    \item Our finding is a caution against treating that as one big dial: \alert{it depends entirely on \emph{which} piece of human-like judgment you add.}
+    \item Add one kind, and a team of agents gets \emph{easier} to keep coordinated. Add another kind, and the exact same team gets \emph{harder} to keep coordinated --- and you'd need to compensate by re-tuning how centralized their rewards are.
+    \item In short: ``more human-like'' is not automatically ``better at teamwork.'' It depends on \emph{which kind} of human you're emulating.
+  \end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{What's next}
+  \begin{itemize}
+    \item \textbf{Check it isn't a fluke of this one setup.} Run the same experiment in a completely different kind of environment and with a different training algorithm, to see if the same cliff-and-shift pattern shows up.
+    \item \textbf{Build the theory behind it.} Right now this is an empirical map --- ``here's where the cliff is.'' The natural next step is a simple mathematical model that \emph{predicts} where the cliff should sit, rather than just measuring it after the fact.
+    \item \textbf{Put it to use.} If we know where the cliff is and how it moves, can we build a system that automatically adjusts the dial as training goes on, so teams never get close to the edge in the first place?
+  \end{itemize}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}
+  \begin{center}
+    \Large Thank you --- happy to take questions.
+
+    \vspace{0.5cm}
+    \normalsize
+    \emph{Loss Aversion Shifts the Coordination Boundary in Cooperative MARL: \\ A Phase Diagram Analysis in a Multi-Echelon Supply Chain} \\
+    Agriya Yadav, Ashoka University
+  \end{center}
+\end{frame}
+
+\end{document}
