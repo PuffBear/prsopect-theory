@@ -1,13 +1,13 @@
 """
 Behavioral-excess decomposition: isolate the collapse-boundary shift from Prospect
-Theory by comparing Exp B-Reduced (λ∈{1,3,7}, α=β=0.88) against Exp N (α=β=1, λ=1 —
+Theory by comparing Exp B-Reduced (lambda in {1,3,7}, alpha=beta=0.88) against Exp N (alpha=beta=1, lambda=1 -
 the true null with no PT distortion at all).
 
-  behavioral_excess(λ) = w_crit(ExpB-Reduced, λ) − w_crit(ExpN, null)
-  excess_ci(λ)         = [wc_lo(λ) − wc_hi(null),  wc_hi(λ) − wc_lo(null)]   (conservative)
+  behavioral_excess(lambda) = w_crit(ExpB-Reduced, lambda) - w_crit(ExpN, null)
+  excess_ci(lambda)         = [wc_lo(lambda) - wc_hi(null),  wc_hi(lambda) - wc_lo(null)]   (conservative)
 
-Note on decomposition: excess(λ=1) captures CURVATURE alone (B-Reduced λ=1 differs from
-the null only by α=β=0.88 vs 1); the increment with λ (excess(3)−excess(1), etc.)
+Note on decomposition: excess(lambda=1) captures CURVATURE alone (B-Reduced lambda=1 differs from
+the null only by alpha=beta=0.88 vs 1); the increment with lambda (excess(3)-excess(1), etc.)
 isolates loss aversion on top of curvature.
 
 Outputs: decomposition table, verdict, fig2_behavioral_decomposition.png,
@@ -64,10 +64,10 @@ def main():
 
     # ---------- decomposition table ----------
     print("\n" + "=" * 86)
-    print(f"{'λ':>5} | {'w_crit':>7} | {'w_crit CI':>16} | {'excess':>7} | {'excess CI':>18} | sig?")
+    print(f"{'lambda':>5} | {'w_crit':>7} | {'w_crit CI':>16} | {'excess':>7} | {'excess CI':>18} | sig?")
     print("-" * 86)
     print(f"{'null':>5} | {nb['w_crit']:>7.3f} | [{nb['ci_lo']:.3f}, {nb['ci_hi']:.3f}]  | "
-          f"{0.0:>7.3f} | {'—':>18} | —")
+          f"{0.0:>7.3f} | {'-':>18} | -")
     for lam in LAMBDAS:
         r = lam_res[lam]
         print(f"{lam:>5} | {r['w_crit']:>7.3f} | [{r['ci_lo']:.3f}, {r['ci_hi']:.3f}]  | "
@@ -82,19 +82,19 @@ def main():
     elif e[1] < e[3] < e[7]:
         verdict = "MONOTONE TREND, underpowered"
     else:
-        verdict = "BEHAVIORAL NULL at λ≤7"
+        verdict = "BEHAVIORAL NULL at lambda<=7"
     print(f"\nVERDICT: {verdict}")
 
     # ---------- Figure 2: four logistic curves ----------
     sns.set_style("whitegrid")
     wg = np.linspace(0.4, 1.0, 200)
     fig, ax = plt.subplots(figsize=(8, 6))
-    ax.plot(wg, curve(nb["model"], wg), color="gray", ls="--", lw=2.2, label="null (α=β=1)")
+    ax.plot(wg, curve(nb["model"], wg), color="gray", ls="--", lw=2.2, label="null (alpha=beta=1)")
     ax.axvline(nb["w_crit"], color="gray", ls="--", lw=1.3)
     ax.axvspan(nb["ci_lo"], nb["ci_hi"], color="gray", alpha=0.10)
     for lam in LAMBDAS:
         r = lam_res[lam]; c = COLORS[lam]
-        ax.plot(wg, curve(r["model"], wg), color=c, lw=2.2, label=f"λ={lam}")
+        ax.plot(wg, curve(r["model"], wg), color=c, lw=2.2, label=f"lambda={lam}")
         ax.axvline(r["w_crit"], color=c, ls="--", lw=1.3)
         ax.axvspan(r["ci_lo"], r["ci_hi"], color=c, alpha=0.10)
     ax.set_xlim(0.4, 1.0); ax.set_ylim(-0.05, 1.05)
@@ -114,19 +114,19 @@ def main():
     bars = ax.bar(xs, vals, color=[COLORS[l] for l in LAMBDAS], alpha=0.85)
     ax.errorbar(xs, vals, yerr=[lo, hi], fmt="none", ecolor="black", capsize=5, lw=1.5)
     ax.axhline(0, color="black", lw=1)
-    ax.set_xticks(xs); ax.set_xticklabels([f"λ={l}" for l in LAMBDAS])
-    ax.set_ylabel("behavioral_excess = w_crit(λ) − w_crit(null)")
-    ax.set_title("Behavioral excess by loss aversion λ")
+    ax.set_xticks(xs); ax.set_xticklabels([f"lambda={l}" for l in LAMBDAS])
+    ax.set_ylabel("behavioral_excess = w_crit(lambda) - w_crit(null)")
+    ax.set_title("Behavioral excess by loss aversion lambda")
     plt.tight_layout()
     f2b = os.path.join(OUTDIR, "fig2b_behavioral_excess_bar.png")
     plt.savefig(f2b, dpi=150); print(f"Saved {f2b}")
 
     # ---------- results md ----------
     md = ["# Behavioral-excess decomposition (Exp B-Reduced vs Exp N null)\n",
-          f"Null (α=β=1): w_crit = {nb['w_crit']:.3f} [{nb['ci_lo']:.3f}, {nb['ci_hi']:.3f}].\n",
-          "| λ | w_crit | w_crit CI | behavioral_excess | excess CI | significant |",
+          f"Null (alpha=beta=1): w_crit = {nb['w_crit']:.3f} [{nb['ci_lo']:.3f}, {nb['ci_hi']:.3f}].\n",
+          "| lambda | w_crit | w_crit CI | behavioral_excess | excess CI | significant |",
           "|---|---|---|---|---|---|",
-          f"| null | {nb['w_crit']:.3f} | [{nb['ci_lo']:.3f}, {nb['ci_hi']:.3f}] | 0 (baseline) | — | — |"]
+          f"| null | {nb['w_crit']:.3f} | [{nb['ci_lo']:.3f}, {nb['ci_hi']:.3f}] | 0 (baseline) | - | - |"]
     for lam in LAMBDAS:
         r = lam_res[lam]
         md.append(f"| {lam} | {r['w_crit']:.3f} | [{r['ci_lo']:.3f}, {r['ci_hi']:.3f}] | "
@@ -134,8 +134,8 @@ def main():
                   f"{'yes' if r['significant'] else 'no'} |")
     md += [f"\n## Verdict\n**{verdict}**\n",
            "significant := excess_ci_lo > 0 (conservative difference CI).",
-           "\nDecomposition: excess(λ=1) ≈ curvature effect (α=β=0.88 vs 1); the "
-           "increment with λ isolates loss aversion.",
+           "\nDecomposition: excess(lambda=1) ~= curvature effect (alpha=beta=0.88 vs 1); the "
+           "increment with lambda isolates loss aversion.",
            "\nFigures: [fig2_behavioral_decomposition.png](fig2_behavioral_decomposition.png), "
            "[fig2b_behavioral_excess_bar.png](fig2b_behavioral_excess_bar.png)"]
     with open(os.path.join(OUTDIR, "behavioral_excess_results.md"), "w") as f:
