@@ -99,7 +99,7 @@ def train_and_plot():
     plt.subplot(2, 1, 1)
     plt.plot(df['Period'], df['Market Demand'], label='Market Demand', color='orange', linestyle='--', marker='o')
     plt.plot(df['Period'], df['PPO Orders'], label='PPO Agents Total Order Quantity', color='blue', marker='x')
-    plt.title('Phase 3.5: Successful Continuous Base-Stock Dynamics (Action Range S ∈ [200, 700])')
+    plt.title('Phase 3.5: Successful Continuous Base-Stock Dynamics (Action Range S  in  [200, 700])')
     plt.ylabel('Quantity')
     plt.grid(alpha=0.3)
     plt.legend()
