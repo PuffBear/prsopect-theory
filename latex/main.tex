@@ -1,0 +1,736 @@
+%% paper.tex
+%% Loss Aversion Shifts the Coordination Boundary in Cooperative MARL
+%% All numbers verified against experimental results as of 2026-06-05.
+%%
+%% INCONSISTENCIES / REVIEWER NOTES (check before submission):
+%%   [I1] Exp B-Reduced lambda=1 w_crit (0.586) differs from Exp A @300k w_crit (0.666)
+%%        and Exp N null (0.685). This is intentional and explained in the text:
+%%        Exp A / Exp N use alpha=beta=1 (linear); Exp B-Reduced uses alpha=beta=0.88.
+%%        The difference IS the curvature effect. Make sure this is clear to the reader.
+%%   [I2] Exp T 600k w_crit is unphysical (-0.60) due to narrow w-grid. We state
+%%        w_crit < 0.50 as a bound and never report the -0.60 number.
+%%   [I3] lambda=7 quasi-separation: we report bootstrap w_crit only; slope and p-value
+%%        are suppressed. Clearly noted in the text.
+%%   [I4] The curvature effect at lambda=1 in the decomposition is significant in the
+%%        NEGATIVE direction (CI [-0.172, -0.033] excludes zero from above). The
+%%        analyze_behavioral_excess.py "significant" column marks it "no" because it
+%%        checks CI_lo > 0. The paper reports it as significant (beneficial).
+%%   [I5] Figure file paths below assume compilation from the project root. Adjust
+%%        \graphicspath or file paths before submitting to Overleaf.
+%%   [I6] DiagnosticWrapper scripts node_1 at a fixed pull of 20 units. Effective
+%%        learning agents are nodes 2-6 (5 agents). Paper describes this accurately.
+%%   [I7] Total run count (1,124) does not include earlier pilot/phase experiments
+%%        (Phases 0-5). Only the six main experiments are counted.
+%%
+%% FIXES APPLIED from cross-check v1 (2026-06-05):
+%%   [M1] Metastability heatmap alpha,beta confound: caption and §R2 updated to note
+%%        that the 600k row uses alpha=beta=0.88 (Exp T), while 150k/300k rows use
+%%        alpha=beta=1 (Exp A). Exp 0b alpha=beta=1 numbers cited to bound the
+%%        horizon-only effect. Table 1 Exp T description corrected.
+%%   [m2] Single null baseline chosen: 0.685 (Exp N). "18.5 pp" corrected to "16.6 pp"
+%%        (0.851 - 0.685 = 0.166), consistent with the decomposition table.
+%%   [m3] "0.585" corrected to "0.586"; "+0.266" corrected to "+0.265".
+%%   [m4] "0.016" corrected to "0.015" in appendix and §M2.
+%%   [m5] \citep{terry2021pettingzoo} added in §E1.
+
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage[acronym]{glossaries}
+\usepackage{csquotes}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage[round]{natbib}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+% Notation shortcuts
+\newcommand{\wcrit}{w_{\mathrm{crit}}}
+\newcommand{\PT}{\mathrm{PT}}
+
+\title{\textbf{Loss Aversion Shifts the Coordination Boundary in Cooperative MARL:\\
+A Phase Diagram Analysis in a Multi-Echelon Supply Chain}}
+
+\author{
+Agriya Yadav\thanks{Ashoka University. Correspondence: \texttt{agriyayadav@gmail.com}.} \\
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% -----------------------------------------------------------------------
+\begin{abstract}
+% X: what + why relevant
+Cooperative multi-agent reinforcement learning (MARL) systems fail when
+reward centralization falls below a critical threshold: agents converge to
+a zero-order \emph{lazy-agent} policy, abandoning cooperation entirely.
+Despite widespread recognition of this failure mode, the collapse boundary
+has not been characterized as a quantitative, measurable object.
+% Y: why hard
+The threshold is not a fixed constant---it shifts with training horizon
+(metastability) and, as we show, with agent-level prospect-theoretic loss
+aversion ($\lambda$), making it insufficient to study reward structure or
+behavioral bias in isolation.
+% Z: our contribution
+We construct the first quantitative phase diagram of cooperative MARL
+coordination collapse in (reward centralization $w$, training horizon $T$,
+loss aversion $\lambda$) space, using pre-registered collapse definitions
+and bootstrap-estimated critical points with confidence intervals.
+% 1a: key numbers
+Across 1,124 controlled experiments on a multi-echelon supply chain
+substrate, we identify $\wcrit = 0.666$ $[0.635, 0.694]$ at 300k steps
+under no behavioral bias.
+A three-way null-model decomposition reveals that probability weighting
+alone ($\alpha{=}\beta{=}0.88$, $\lambda{=}1$) shifts $\wcrit$ \emph{left}
+by $0.100$ $[0.033, 0.172]$---facilitating coordination---while loss
+aversion at $\lambda{=}3$ and $\lambda{=}7$ shifts it \emph{right} by
+$0.089$ $[0.041, 0.141]$ and $0.166$ $[0.135, 0.202]$ respectively.
+Probability weighting and loss aversion exert statistically significant
+effects in \emph{opposite directions}, a decomposition that, to our
+knowledge, has not previously been demonstrated in cooperative MARL.
+\end{abstract}
+
+% -----------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+
+% X1: the problem and why it matters
+Automated replenishment in multi-echelon supply chains is a canonical
+cooperative MARL problem: agents must coordinate ordering decisions across
+nodes with delayed feedback, partial observability, and misaligned local
+incentives~\citep{oroojlooyjadid2022}.
+Failures in such systems---agents that under-order, hoard, or
+stop ordering altogether---generate the bullwhip effect, stockouts, and
+cascading profit losses.
+Deploying MARL agents that exhibit human-like behavioral biases, such as
+prospect-theoretic loss aversion, is increasingly realistic given the
+trend toward human-in-the-loop and behavior-aware AI
+systems~\citep{lalmohammed2025,ethayarajh2024kto}.
+
+% X2: the specific gap
+A well-documented failure mode is \emph{coordination collapse}: agents
+converge to a zero-action policy, abandoning cooperation
+entirely~\citep{liu2023lazy,peng2023curo}.
+While the phenomenon is recognized, no prior work has characterized the
+collapse boundary as a quantitative, measurable object with confidence
+intervals.
+Existing work either treats the boundary qualitatively (``centralization
+helps'') or studies algorithmic mitigation without locating the transition
+point.
+
+% Y: why it is hard to measure
+The boundary is not a fixed scalar.
+It depends on the reward structure ($w$, the fraction of global reward
+shared across agents), the training horizon $T$, and---as we
+demonstrate---on whether agents carry prospect-theoretic loss aversion
+($\lambda$).
+These factors interact: measuring any one in isolation does not
+characterize the system.
+Prospect theory decomposes into two components with distinct mathematical
+forms~\citep{tversky1992}: a nonlinear probability weighting function
+($\alpha, \beta$) and a loss aversion coefficient ($\lambda$).
+Prior work applying prospect theory to cooperative MARL~\citep{lalmohammed2025}
+integrates these components jointly into the algorithm, making it
+impossible to attribute effects to either component separately.
+
+% Z: our approach
+We close this gap by constructing the first quantitative phase diagram of
+cooperative MARL coordination collapse.
+We treat the collapse boundary as a logistic curve in $w$-space, estimate
+the critical point $\wcrit$ with bootstrap confidence intervals, and use
+a pre-registered null-model design to decompose the total behavioral effect
+into a \emph{probability weighting component} (curvature) and a
+\emph{loss aversion increment} ($\lambda$-dependent).
+
+% 1: what we find
+Our main results are:
+\begin{itemize}
+  \item The structural coordination boundary is $\wcrit = 0.666$
+        $[0.635, 0.694]$ at 300k steps under no behavioral bias, and
+        $\wcrit = 0.822$ $[0.785, 0.858]$ at 150k steps, demonstrating
+        that the boundary is horizon-dependent (metastable attractor).
+  \item Probability weighting alone ($\alpha{=}\beta{=}0.88$,
+        $\lambda{=}1$) \emph{reduces} $\wcrit$ by $0.100$
+        $[0.033, 0.172]$ relative to the no-PT null, facilitating
+        coordination.
+  \item Loss aversion at $\lambda{=}3$ and $\lambda{=}7$ shifts
+        $\wcrit$ by $+0.089$ $[0.041, 0.141]$ and $+0.166$
+        $[0.135, 0.202]$ above the null, respectively.
+        The non-overlapping confidence intervals of the $\lambda{=}7$
+        and $\lambda{=}1$ conditions confirm the behavioral claim.
+  \item The two PT components act in \emph{opposite directions}: curvature
+        facilitates coordination; loss aversion impedes it.
+\end{itemize}
+
+% Figure 1 on page 1 (per Brendan's advice)
+\Cref{fig:heatmap} shows the collapse probability surface in $(w,T)$
+space, illustrating the metastability result.
+\Cref{fig:decomposition} shows the behavioral decomposition: the four
+logistic curves separate clearly, confirming both the curvature and
+loss-aversion effects.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{/Users/Agriya/Desktop/prospect theory/docs/expT_figures/collapse_heatmap.png}
+  \caption{%
+    $P(\mathrm{collapse})$ in $(w, T)$ space.
+    Each cell shows the empirical collapse fraction across 20 seeds.
+    The 150k and 300k rows are from Exp~A ($\alpha{=}\beta{=}1$); the
+    600k row is from Exp~T ($\alpha{=}\beta{=}0.88$).
+    Because $\alpha{=}\beta{=}0.88$ shifts $\wcrit$ left by 0.100
+    (§\ref{sec:results_behavioral}), the apparent 300k$\to$600k slide
+    is partially curvature-inflated.
+    Under matched $\alpha{=}\beta{=}1$ conditions (Exp~0b),
+    $P(\mathrm{collapse}\mid w{=}0.6) = 0.35$ and
+    $P(\mathrm{collapse}\mid w{=}0.7) = 0.20$ at 600k,
+    confirming that metastability holds with $\alpha{=}\beta$ held
+    constant; only the magnitude is curvature-inflated in this figure.
+  }
+  \label{fig:heatmap}
+\end{figure}
+
+% -----------------------------------------------------------------------
+\section{Background}
+\label{sec:background}
+
+% B1: MARL and CTDE
+In cooperative MARL, $N$ agents share an environment and aim to maximize a
+joint objective.
+Centralised Training with Decentralised Execution
+(CTDE)~\citep{lowe2017maddpg} addresses the \emph{credit assignment}
+problem by allowing a centralised critic during training while agents
+execute independently.
+The degree of credit sharing is controlled by a reward mixing weight:
+a scalar $w \in [0,1]$ that interpolates between purely local ($w{=}0$)
+and purely global ($w{=}1$) reward.
+
+% B2: lazy agents
+When $w \approx 0$, each agent's reward is dominated by its own
+performance.
+The contribution of cooperative action is diluted: an agent receives no
+signal when a teammate's action improves the global outcome.
+\citet{liu2023lazy} and \citet{peng2023curo} formalise this as the
+\emph{lazy agent} problem and \emph{relative overgeneralization}
+respectively: agents converge to a safe, zero-action policy that avoids
+coordination risk.
+This paper asks: at what value of $w$ does this failure mode become
+probable, and how does agent-level loss aversion shift that value?
+
+% B3: prospect theory
+Prospect theory~\citep{kahneman1979} models human decision-making under
+uncertainty via a reference-dependent value function and a nonlinear
+probability weighting function.
+Cumulative prospect theory (CPT)~\citep{tversky1992} extends this to
+compound lotteries via rank-dependent integration.
+The CPT value function is:
+\begin{equation}
+  v(x) =
+  \begin{cases}
+    x^{\alpha} & \text{if } x \geq 0 \\
+    -\lambda(-x)^{\beta} & \text{if } x < 0,
+  \end{cases}
+  \label{eq:cpt}
+\end{equation}
+where $\alpha, \beta \in (0,1]$ govern curvature (probability weighting
+sensitivity) and $\lambda > 1$ is the loss aversion coefficient.
+Setting $\alpha{=}\beta{=}1$ and $\lambda{=}1$ recovers linear expected
+utility.
+The parameters $\alpha, \beta$ and $\lambda$ have distinct effects on
+agent behaviour: curvature introduces nonlinear sensitivity to outcome
+magnitudes, while loss aversion introduces asymmetry between gains and
+losses around the reference point.
+
+% B4: CPT as reward transform
+We apply CPT as a \emph{reward transform} applied after reward blending.
+The per-step reward for agent $i$ is:
+\begin{equation}
+  r_i^{\PT} = v\!\left((1-w)\,r_i^{\mathrm{local}} + w\,r^{\mathrm{global}}\right),
+  \label{eq:reward}
+\end{equation}
+where $v(\cdot)$ is given by \Cref{eq:cpt}.
+This differs architecturally from~\citet{lalmohammed2025}, who integrate
+CPT into the actor and critic update mechanics; our formulation applies PT
+at the reward signal level and does not modify the policy gradient
+computation.
+
+% -----------------------------------------------------------------------
+\section{Related Work}
+\label{sec:related}
+
+% R1: credit assignment / lazy agents -- closest structural siblings
+The lazy agent problem~\citep{liu2023lazy} and relative
+overgeneralization~\citep{peng2023curo} establish coordination collapse as
+a canonical MARL pathology under CTDE, proposing algorithmic mitigations
+(CMAE and CURO respectively).
+\citet{weng2026} demonstrate that exploration noise structurally degrades
+shared neural representations under decentralised training, explaining a
+key mechanism of collapse.
+\citet{dmarl2025} show empirically that even sophisticated decentralised
+reward shaping cannot overcome fundamental coordination barriers, achieving
+$-24.20$ average reward versus a centralised baseline at $+1.92$.
+These works establish \emph{why} collapse occurs; none characterises
+\emph{where} the collapse boundary lies as a quantitative object with
+confidence intervals.
+\citet{wang2025maca} construct counterfactual advantage functions at
+multiple credit-assignment levels and evaluate robustness across
+thresholding hyperparameters---a sweep that borders on a centralization
+sensitivity analysis---but they optimise win rates on SMAC rather than
+deriving a statistical phase boundary in $(w, T)$ space.
+\citet{jiang2018dgn} and \citet{zhang2026lcerd} similarly utilise reward
+mixing weights and observe phase-like transitions in training dynamics,
+respectively, but neither isolates a named critical centralization value
+with confidence intervals.
+
+% R2: phase structure in MARL -- closest to ours, different axis
+Most recently, \citet{yamaguchi2025} construct a phase diagram for
+independent Q-learning across environment size $L$ and agent density
+$\rho$, identifying coordinated, fragile, and jammed regimes separated by
+an instability ridge.
+Our work is orthogonal: we hold the environment and algorithm fixed and
+map the phase boundary as a function of the reward structure parameter $w$
+and the behavioral parameter $\lambda$---dimensions their framework does
+not address.
+
+% R3: PT in cooperative MARL -- Lalmohammed
+\citet{lalmohammed2025} integrate CPT into the actor and critic update
+mechanics of MADDPG, demonstrating that tunable risk profiles are
+achievable in cooperative settings.
+Our work is architecturally distinct (CPT as reward transform, not
+gradient transform) and asks a different question: not whether PT-equipped
+agents can coordinate, but at what centralization level coordination fails
+and how the PT parameter $\lambda$ shifts that level.
+
+% R4: risk-sensitive MARL -- CVaR approaches
+\citet{qiu2021rmix} and \citet{xie2023riskq} incorporate Conditional Value
+at Risk (CVaR) into cooperative value factorisation.
+CVaR optimises the expected return in the worst $\alpha$-percentile of
+outcomes; loss aversion operates via reference-dependent utility
+asymmetry.
+These are mathematically distinct mechanisms: CVaR addresses aleatoric
+tail risk, while $\lambda$ captures the perceived asymmetry between gains
+and losses~\citep{xie2023riskq}.
+
+% R5: behavioral collapse in adjacent fields
+\citet{mengesha2026} prove in evolutionary game theory that loss aversion
+induces population-level lock-in at zero-sum equilibria, establishing the
+conceptual phenomenon in a theoretical setting.
+We extend this to deep MARL with learned neural policies and continuous
+state spaces, providing the first empirical measurement in this setting.
+
+% R6: supply chain MARL
+\citet{oroojlooyjadid2022} establish the Beer Distribution Game as a
+multi-agent Dec-POMDP where decentralised DQN triggers systemic cost
+escalation corrected by a shared penalty.
+\citet{gijsbrechts2022} demonstrate that A3C can match state-of-the-art
+heuristics in multi-echelon inventory settings, establishing DRL as a
+viable approach for supply chain optimisation.
+\citet{marlim2023} apply MARL to multi-product single-echelon inventory.
+Our substrate generalises these to a six-node multi-echelon network.
+
+% -----------------------------------------------------------------------
+\section{Method}
+\label{sec:method}
+
+% M1: the w parameter
+The reward centralization parameter $w \in [0,1]$ is the sole structural
+intervention.
+All other environment parameters, algorithm hyperparameters, and random
+seeds are held constant across conditions.
+
+% M2: collapse definition (pre-registered)
+We define coordination collapse as a binary outcome:
+\begin{equation}
+  \mathrm{collapsed}(\text{run}) = \mathbf{1}\!\left[
+    \bar{S} < 10 \;\wedge\; \bar{\pi} \leq -127.1
+  \right],
+  \label{eq:collapse}
+\end{equation}
+where $\bar{S}$ is the mean base-stock level and $\bar{\pi}$ is mean
+profit over ten evaluation episodes.
+This definition was pre-registered before any analysis (commit
+\texttt{03c3fc6}).
+\Cref{sec:appendix_robustness} demonstrates robustness to $\pm 20\%$
+threshold perturbation (maximum $\Delta\wcrit = 0.015$).
+
+% M3: logistic phase boundary estimation
+For each experimental condition, we fit:
+\begin{equation}
+  P(\mathrm{collapsed} \mid w) = \sigma(b_0 + b_1 w),
+  \label{eq:logistic}
+\end{equation}
+where $\sigma$ is the logistic function.
+We estimate $\wcrit = -b_0/b_1$ (the value of $w$ where collapse
+probability equals 0.5) and its 95\% confidence interval via 2,000
+bootstrap resamples at the run level.
+We report Wilson score 95\% confidence intervals for per-$w$ collapse
+fractions.
+
+% M4: three-way decomposition -- the key methodological contribution
+To attribute the observed shift in $\wcrit$ to specific PT components, we
+define three conditions with identical environments and algorithms:
+\begin{enumerate}
+  \item \textbf{Null (Exp~N):} $\alpha{=}\beta{=}1$, $\lambda{=}1$---the
+        linear, no-PT condition.
+  \item \textbf{Curvature (Exp~B, $\lambda{=}1$):}
+        $\alpha{=}\beta{=}0.88$, $\lambda{=}1$---probability weighting
+        with no loss aversion.
+  \item \textbf{Loss aversion (Exp~B, $\lambda \in \{3,7\}$):}
+        $\alpha{=}\beta{=}0.88$, $\lambda > 1$---full PT.
+\end{enumerate}
+The curvature effect is defined as
+$\wcrit(\text{B},\lambda{=}1) - \wcrit(\text{N})$,
+and the loss aversion increment as
+$\wcrit(\text{B},\lambda) - \wcrit(\text{B},\lambda{=}1)$.
+This decomposition is valid because the null removes all PT distortion,
+while the curvature condition adds nonlinearity without loss asymmetry.
+
+% -----------------------------------------------------------------------
+\section{Experimental Setup}
+\label{sec:setup}
+
+% E1: environment
+We use \texttt{NetworkManagement-v1} from or-gym~\citep{hubbs2020orgym}:
+a six-node multi-echelon inventory network with Poisson demand
+($\mu{=}20$) on the retail edge, 30-period episodes, and uniform lead
+times.
+Node~1 (the retail-facing node) follows a fixed demand-pull policy,
+stabilising the demand signal; nodes~2--6 are trained as cooperative PPO
+agents.
+Actions are parameterised via a base-stock wrapper that maps each
+agent's continuous action to a target inventory level $S \in [0, 500]$,
+with order quantity $Q = \max(0, S - \mathrm{IP})$ where $\mathrm{IP}$
+is inventory position.
+
+% E2: algorithm
+Each agent runs PPO~\citep{schulman2017ppo} with a shared MLP policy
+(\texttt{n\_steps=128}, \texttt{batch\_size=256}) via
+Stable-Baselines3~\citep{raffin2021sb3}, PettingZoo~\citep{terry2021pettingzoo},
+and SuperSuit~\citep{terry2020supersuit} vectorisation.
+Evaluation is deterministic over 10 episodes with 20 seeds per condition.
+
+% E3: experiment inventory
+\Cref{tab:experiments} summarises all six experiments.
+All designs were pre-registered before execution.
+Total run count: 1,124.
+
+\begin{table}[t]
+\centering
+\caption{Experiment summary. All experiments use the same environment and
+algorithm.  $\alpha{=}\beta{=}1$ denotes the linear (no-PT) condition.}
+\label{tab:experiments}
+\small
+\begin{tabular}{llrrrrr}
+\toprule
+Exp & Purpose & $w$ values & $\lambda$ & $\alpha,\beta$ & Seeds & Runs \\
+\midrule
+A @150k  & Structural boundary  & $\{0.0, 0.1,\ldots, 1.0\}$ & 1 & 1,1 & 20 & 220 \\
+A @300k  & Structural boundary  & $\{0.2,\ldots, 0.8\}$       & 1 & 1,1 & 20 & 140 \\
+C        & Basin control        & $\{0.5, 0.85, 1.0\}$        & 1 & 1,1 & 12 & 144 \\
+N        & Null baseline        & $\{0.0, 0.2,\ldots, 1.0\}$  & 1 & 1,1 & 20 & 180 \\
+B-Red.   & Behavioral surface   & $\{0.5, 0.65, 0.75, 0.85, 0.95\}$ & $\{1,3,7\}$ & 0.88 & 20 & 300 \\
+T (600k only) & Metastability horizon & $\{0.5, 0.55,\ldots, 0.80\}$ & 1 & 0.88 & 20 & 140 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------
+\section{Results}
+\label{sec:results}
+
+\subsection{Structural Phase Transition and Metastability}
+\label{sec:results_structural}
+
+% R1: logistic transition is real and sharp
+Exp~A establishes a sharp logistic collapse transition.
+At 150k steps, $\wcrit = 0.822$ $[0.785, 0.858]$ with transition width
+$\Delta w = 0.278$ (logistic slope $b_1 = -15.78$, $p = 5 \times 10^{-9}$).
+At 300k steps, $\wcrit = 0.666$ $[0.635, 0.694]$ with $\Delta w = 0.199$
+($b_1 = -22.05$, $p = 3.2 \times 10^{-7}$).
+In both cases, collapse fractions rise steeply from near-zero to near-one
+within a $\Delta w < 0.3$ range, consistent with a genuine phase
+transition rather than a gradual degradation.
+
+% R2: metastability -- the boundary slides with T
+The critical boundary decreases monotonically with training horizon $T$:
+$\wcrit = 0.822$ at 150k and $\wcrit = 0.666$ at 300k (both from Exp~A,
+$\alpha{=}\beta{=}1$).
+\Cref{fig:heatmap} visualises the collapse surface in $(w, T)$ space.
+This constitutes a \emph{metastability} result: the lazy-agent attractor
+is not absorbing.
+Agents trapped below the isocline at finite $T$ can escape given
+sufficient training; $w$ controls the energy barrier height of the
+attractor.
+The sharpening transition width ($\Delta w$ decreasing from 0.278 to
+0.199 across 150k to 300k) is consistent with policy convergence reducing
+outcome variance.
+
+\paragraph{Note on the 600k row.}
+The 600k row in \Cref{fig:heatmap} comes from Exp~T, which uses
+$\alpha{=}\beta{=}0.88$.
+Because our decomposition shows $\alpha{=}\beta{=}0.88$ shifts
+$\wcrit$ left by 0.100 relative to $\alpha{=}\beta{=}1$, the 600k
+collapse fractions in the figure are partially curvature-deflated, not
+purely a horizon effect.
+To bound the horizon-only slide, we use Exp~0b ($\alpha{=}\beta{=}1$,
+20~seeds, 600k): $P(\mathrm{collapse}\mid w{=}0.6) = 0.35$ and
+$P(\mathrm{collapse}\mid w{=}0.7) = 0.20$, compared to 0.80 and 0.40
+at 300k.
+The metastability result---the boundary slides left with $T$---holds
+under matched $\alpha{=}\beta{=}1$ conditions; only the magnitude at
+600k in the figure is inflated by the curvature effect.
+
+% R3: basin control rules out initialization
+Exp~C rules out initialization as a driver of collapse.
+Within-$w$ correlations between $S_{\mathrm{init}}$ and converged $S$
+are $-0.11$ ($w{=}0.5$), $-0.38$ ($w{=}0.85$), and $-0.36$ ($w{=}1.0$)---
+all near zero and inconsistent with initialization dominating the outcome.
+The collapsed/survived assignment is not sensitive to where agents start.
+
+\subsection{Null Model and Reproducibility}
+\label{sec:results_null}
+
+% R4: null model reproduces
+Exp~N (null: $\alpha{=}\beta{=}1$, $\lambda{=}1$) yields
+$\wcrit = 0.685$ $[0.657, 0.710]$, compared to $\wcrit = 0.666$
+$[0.635, 0.694]$ for the PT ($\lambda{=}1$, $\alpha{=}\beta{=}1$) condition
+from Exp~A @300k---a difference of $-0.020$ with overlapping confidence
+intervals.
+Both conditions use no loss aversion and linear value functions.
+Their agreement to within 0.020 confirms that the $\wcrit$ measurement
+reproduces across independent experimental runs, validating the null
+baseline.
+
+\subsection{Behavioral Phase Boundary}
+\label{sec:results_behavioral}
+
+% R5: behavioral claim confirmed
+Exp~B-Reduced yields monotonically increasing $\wcrit$ with loss aversion
+$\lambda$:
+$\wcrit(\lambda{=}1) = 0.586$ $[0.539, 0.624]$,
+$\wcrit(\lambda{=}3) = 0.774$ $[0.751, 0.798]$, and
+$\wcrit(\lambda{=}7) = 0.851$ $[0.845, 0.858]$.\footnote{%
+  For $\lambda{=}7$, the near-complete separation of outcomes
+  (collapse fractions 1.00, 1.00, 1.00, 0.55, 0.00 at
+  $w \in \{0.5, 0.65, 0.75, 0.85, 0.95\}$) renders the logistic slope
+  and p-value unreliable.
+  We report $\wcrit$ from bootstrap estimation, which is robust to
+  quasi-separation; the slope and p-value are not reported for this
+  condition.}
+The behavioral claim is confirmed: $\wcrit(\lambda{=}7)$ lower CI
+$0.845$ exceeds $\wcrit(\lambda{=}1)$ upper CI $0.624$---the confidence
+intervals are non-overlapping by 0.221.
+\Cref{fig:wcrit_lambda} illustrates the monotone relationship.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.82\linewidth]{/Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/fig2_behavioral_decomposition.png}
+  \caption{%
+    Behavioral decomposition of the collapse boundary.
+    Each curve shows $P(\mathrm{collapse} \mid w)$ at 300k steps.
+    The null ($\alpha{=}\beta{=}1$, gray dashed) is the structural
+    baseline.
+    The $\lambda{=}1$, $\alpha{=}\beta{=}0.88$ curve (blue) shifts
+    \emph{left} of the null by 0.100, indicating that probability
+    weighting alone facilitates coordination.
+    The $\lambda{=}3$ (orange) and $\lambda{=}7$ (red) curves shift
+    progressively \emph{right}, indicating that loss aversion raises the
+    centralization requirement.
+    Vertical dashed lines mark $\wcrit$ estimates; shaded bands show
+    bootstrap 95\% confidence intervals.
+  }
+  \label{fig:decomposition}
+\end{figure}
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.6\linewidth]{/Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/expB_wcrit_vs_lambda.png}
+  \caption{%
+    $\wcrit$ as a function of loss aversion $\lambda$ (Exp~B-Reduced,
+    $\alpha{=}\beta{=}0.88$, 300k steps, 20 seeds per cell).
+    Error bars show bootstrap 95\% confidence intervals.
+    The monotone increase and non-overlapping CIs between $\lambda{=}1$
+    and $\lambda{=}7$ confirm the behavioral claim.
+    Note: the $\lambda{=}7$ CI $[0.845, 0.858]$ should be interpreted
+    with caution due to quasi-complete separation; see
+    \Cref{sec:results_behavioral}.
+  }
+  \label{fig:wcrit_lambda}
+\end{figure}
+
+% R6: three-way decomposition
+\Cref{tab:decomposition} and \Cref{fig:decomposition} present the
+three-way decomposition.
+Relative to the null ($\wcrit = 0.685$):
+
+\begin{enumerate}
+  \item \textbf{Curvature effect} ($\alpha{=}\beta{=}0.88$, $\lambda{=}1$):
+        excess $= -0.100$, 95\% CI $[-0.172, -0.033]$.
+        The confidence interval excludes zero from above, indicating that
+        probability weighting alone \emph{significantly reduces} the
+        required centralization.
+        Agents with nonlinear probability perception but no loss aversion
+        are \emph{easier} to coordinate than agents with linear utility.
+
+  \item \textbf{Loss aversion at $\lambda{=}3$}:
+        excess $= +0.089$, 95\% CI $[+0.041, +0.141]$
+        (CI excludes zero; significant).
+
+  \item \textbf{Loss aversion at $\lambda{=}7$}:
+        excess $= +0.166$, 95\% CI $[+0.135, +0.202]$
+        (CI excludes zero; significant).
+\end{enumerate}
+
+The curvature and loss-aversion effects operate in \emph{opposite
+directions}: curvature facilitates coordination, loss aversion impedes it.
+At $\lambda{=}7$, the loss aversion increment above the curvature baseline
+is $+0.265$ ($= 0.851 - 0.586$), overwhelming the curvature benefit
+of $-0.100$ for a net shift of $+0.166$ above the structural null
+(rounding: $-0.100 + 0.265 \approx 0.165 \approx 0.166$).
+
+\begin{table}[t]
+\centering
+\caption{Three-way behavioral decomposition of $\wcrit$ relative to the
+null model. ``Significant'' denotes that the conservative difference
+confidence interval excludes zero. $^{\dagger}$For $\lambda{=}7$,
+$\wcrit$ is from bootstrap only; see footnote in
+\Cref{sec:results_behavioral}.}
+\label{tab:decomposition}
+\small
+\begin{tabular}{lccccc}
+\toprule
+Condition & $\wcrit$ & 95\% CI & Excess & Excess CI & Sig.? \\
+\midrule
+Null ($\alpha{=}\beta{=}1$, $\lambda{=}1$) & 0.685 & [0.657, 0.710] & 0 & --- & --- \\
+$\alpha{=}\beta{=}0.88$, $\lambda{=}1$ & 0.586 & [0.539, 0.624] & $-0.100$ & $[-0.172, -0.033]$ & $\checkmark$ (neg.) \\
+$\alpha{=}\beta{=}0.88$, $\lambda{=}3$ & 0.774 & [0.751, 0.798] & $+0.089$ & $[+0.041, +0.141]$ & $\checkmark$ \\
+$\alpha{=}\beta{=}0.88$, $\lambda{=}7$$^{\dagger}$ & 0.851 & [0.845, 0.858] & $+0.166$ & $[+0.135, +0.202]$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------
+\section{Discussion}
+\label{sec:discussion}
+
+% D1: the opposite-effects finding is the main result
+The finding that probability weighting and loss aversion exert opposite
+effects on the coordination boundary is, to our knowledge, novel.
+Prior work applies prospect theory as a unified behavioural model without
+decomposing its components~\citep{lalmohammed2025,anon2024risk}.
+Our null-model design isolates the two components, revealing that the
+beneficial effect of curvature ($-0.100$) is masked when combined with
+loss aversion ($\lambda{>}1$), which reverses the sign and amplifies the
+required centralization.
+This has a concrete operational interpretation: a system with $\lambda{=}7$
+agents---calibrated to reflect human loss aversion
+estimates~\citep{tversky1992}---requires $w > 0.851$ for reliable
+coordination, compared to $w > 0.666$ for risk-neutral agents.
+The additional 16.6 percentage points of centralization attributable to
+behavioral bias ($\wcrit(\lambda{=}7) - \wcrit(\text{null}) =
+0.851 - 0.685 = 0.166$, consistent with the excess in
+\Cref{tab:decomposition}) are a quantified cost of deploying loss-averse
+agents in a cooperative system.
+
+% D2: metastability -- lazy agent attractor is escapable
+The sliding $\wcrit$ result is a positive finding, not a pathology.
+It establishes that the lazy-agent attractor is \emph{metastable}: agents
+caught below the isocline at finite $T$ can, in principle, coordinate if
+given more training.
+This is consistent with \citet{weng2026}'s finding that exploration breaks
+cooperation in shared-policy MARL during early training, before
+representations converge.
+The practical implication is that the minimum $w$ required depends on the
+operational training budget: tighter horizons demand higher centralization.
+
+% D3: relation to Yamaguchi 2025
+\citet{yamaguchi2025} construct a phase diagram in $(L, \rho)$ space for
+IQL, identifying analogous coordinated/fragile/jammed regimes.
+Our results complement theirs by demonstrating that the phase structure is
+not only a function of environmental complexity but also of the reward
+structure ($w$) and agent behavioral parameters ($\lambda$).
+Together, these works suggest that MARL coordination exhibits coherent
+phase structure across multiple parameter axes.
+
+% D4: limitations
+Several limitations should be noted.
+First, all results are demonstrated on a single environment
+(NetworkManagement-v1) and algorithm (PPO); replication across environments
+and algorithms remains future work.
+Second, the $\lambda{=}7$ condition exhibits quasi-complete separation;
+additional $w$ values above 0.85 would sharpen the $\wcrit$ estimate.
+Third, the metastability result describes finite-horizon behavior; an
+asymptotic lower bound on $\wcrit$ is not estimated by our experiments.
+Fourth, we fix the demand distribution and lead times; the dependence of
+$\wcrit$ on these environmental parameters is unexplored.
+
+% -----------------------------------------------------------------------
+\section{Conclusion}
+\label{sec:conclusion}
+
+We presented the first quantitative phase diagram of cooperative MARL
+coordination collapse, characterising the critical centralization threshold
+$\wcrit$ as a function of reward structure, training horizon, and
+prospect-theoretic loss aversion.
+A three-way null-model decomposition reveals that the two components of
+prospect theory---probability weighting and loss aversion---exert
+statistically significant effects in opposite directions on the
+coordination boundary: the former facilitates coordination by $0.100$;
+the latter impedes it by up to $0.166$.
+These results provide concrete design constraints for deploying cooperative
+MARL in behavioral settings and establish a pre-registered phase-diagram
+methodology applicable to any cooperative MARL system.
+
+Natural extensions include replication across algorithms (MAPPO, QMIX)
+and environments (MPE, SMAC), a mean-field theoretical derivation of the
+logistic boundary shape, adaptive centralization scheduling based on the
+estimated isocline, and characterization of heterogeneous-$\lambda$
+populations.
+
+% -----------------------------------------------------------------------
+% \section*{Acknowledgements}
+% \label{sec:ack}
+% [To be completed.]
+
+% -----------------------------------------------------------------------
+
+% -----------------------------------------------------------------------
+\appendix
+
+\section{Threshold Robustness}
+\label{sec:appendix_robustness}
+
+We verify that the collapse definition (\Cref{eq:collapse}) is robust to
+perturbation of its thresholds.
+We re-estimate $\wcrit$ on Exp~A @300k data under nine variants of the
+definition, varying $\bar{S}$ threshold over $\{8, 10, 12\}$ and
+$\bar{\pi}$ threshold over $\{-102.5, -127.1, -152.5\}$.
+Three variants with threshold $\bar{\pi} \leq -152.5$ are degenerate
+(the minimum profit in the dataset is $-128.1$, so no run satisfies
+this condition); they are excluded.
+Across the remaining six estimable variants, the maximum deviation from
+the baseline $\wcrit = 0.666$ is $0.015$, well below the confidence
+interval width.
+We conclude that the collapse definition is robust to $\pm 20\%$ threshold
+perturbation.
+
+% -----------------------------------------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
