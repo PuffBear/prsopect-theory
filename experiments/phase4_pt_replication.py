@@ -164,16 +164,16 @@ def run_phase4_replication():
     fig, axes = plt.subplots(2, 2, figsize=(16, 12))
     
     sns.lineplot(data=df, x="Lambda", y="Mean S", errorbar=('ci', 95), marker='o', ax=axes[0, 0])
-    axes[0, 0].set_title("Learned Base-Stock (S) vs Loss Aversion (λ)")
+    axes[0, 0].set_title("Learned Base-Stock (S) vs Loss Aversion (lambda)")
     
     sns.lineplot(data=df, x="Lambda", y="Profit", errorbar=('ci', 95), marker='o', ax=axes[0, 1])
-    axes[0, 1].set_title("True Economic Profit vs Loss Aversion (λ)")
+    axes[0, 1].set_title("True Economic Profit vs Loss Aversion (lambda)")
     
     sns.lineplot(data=df, x="Lambda", y="Mean Inventory", errorbar=('ci', 95), marker='o', ax=axes[1, 0])
-    axes[1, 0].set_title("Network Inventory vs Loss Aversion (λ)")
+    axes[1, 0].set_title("Network Inventory vs Loss Aversion (lambda)")
     
     sns.lineplot(data=df, x="Lambda", y="Bullwhip", errorbar=('ci', 95), marker='o', ax=axes[1, 1])
-    axes[1, 1].set_title("Bullwhip Effect vs Loss Aversion (λ)")
+    axes[1, 1].set_title("Bullwhip Effect vs Loss Aversion (lambda)")
     
     for ax in axes.flat:
         ax.grid(True, alpha=0.3)
