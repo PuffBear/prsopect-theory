@@ -1,12 +1,12 @@
 """
-Experiment 0 — convergence / horizon study (BLOCKING; gates A's claim and all of B/D).
+Experiment 0 - convergence / horizon study (BLOCKING; gates A's claim and all of B/D).
 
 The horizon check (w=0.9: 4/20 collapsed @150k -> 0/20 @400k) showed transition-
 collapse is metastable: w_crit may be a property of the 150k TRAINING BUDGET, not of
 the system's equilibria. This experiment settles it.
 
 Design: w in {0.7, 0.8, 0.9} (straddling w_crit=0.82), 8 seeds each, on the SCALED
-[0,500] substrate (same as Exp A; standard collapse label applies — no offset-bug
+[0,500] substrate (same as Exp A; standard collapse label applies - no offset-bug
 risk). Each run trained to 600k with collapse logged at checkpoints 150k/300k/600k
 via segmented learn() with reset_num_timesteps=False.
 
