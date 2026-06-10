@@ -1,5 +1,5 @@
 """
-Experiment A — Interior-w sweep + logistic collapse model (experiment_spec_v1 sec.A).
+Experiment A - Interior-w sweep + logistic collapse model (experiment_spec_v1 sec.A).
 
 Sweeps reward centralization w = global_reward_weight across its interior on the
 learnable base-stock substrate, lambda fixed at 1.0 (no loss aversion). One row
