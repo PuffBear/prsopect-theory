@@ -1,0 +1,29 @@
+#!/bin/bash
+#PBS -N ppo_rware
+#PBS -q cpu
+#PBS -J 0-1019
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/exp_rware
+exec >> "$PROJECT_ROOT/logs/ppo_rware_${PBS_ARRAY_INDEX}.log" 2>&1
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+# RWARE must be installed on the login node BEFORE submitting:
+#   conda activate marl && pip install rware
+# Compute nodes are usually offline; do NOT pip install inside array jobs.
+
+python experiments/exp_ppo_rware.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 600000 \
+    --out docs/exp_rware/ppo_rware_raw_data.csv
