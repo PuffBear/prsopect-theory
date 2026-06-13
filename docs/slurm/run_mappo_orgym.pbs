@@ -1,10 +1,11 @@
 #!/bin/bash
 #PBS -N mappo_orgym
+#PBS -q cpu
 #PBS -J 0-699
 #PBS -l select=1:ncpus=1:mem=4gb
 #PBS -l walltime=02:00:00
-#PBS -o logs/mappo_orgym_^array_index^.out
-#PBS -e logs/mappo_orgym_^array_index^.err
+#PBS -o logs/mappo_orgym_%I.out
+#PBS -e logs/mappo_orgym_%I.err
 
 set -euo pipefail
 
@@ -12,15 +13,8 @@ PROJECT_ROOT="$HOME/prospect-theory"
 cd "$PROJECT_ROOT"
 mkdir -p logs docs/expMAPPO_orgym_figures
 
-# activate virtualenv
-if [ -f "$HOME/envs/marl/bin/activate" ]; then
-    source "$HOME/envs/marl/bin/activate"
-elif [ -f "$PROJECT_ROOT/venv/bin/activate" ]; then
-    source "$PROJECT_ROOT/venv/bin/activate"
-else
-    echo "ERROR: no virtualenv found at ~/envs/marl or ./venv" >&2
-    exit 1
-fi
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
 
 export OMP_NUM_THREADS=1
 export MKL_NUM_THREADS=1
