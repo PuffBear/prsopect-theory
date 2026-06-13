@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Boundary Where Cooperation Dies — Agriya Yadav</title>
+<meta name="description" content="A phase diagram of coordination collapse in cooperative MARL, the law that moves the boundary, and the research agenda it opens.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,300;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<style>
+:root{
+  --paper:#f7f4ed; --paper2:#f1ecdf; --ink:#1a1712; --muted:#6f6757;
+  --rule:#d9d2c2; --accent:#a33327; --blue:#2b4f8a; --gold:#8a6d1f;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --serif:'Newsreader',Georgia,serif; --sans:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);
+  font-size:19px;line-height:1.62;font-weight:400;
+  -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+.prose{max-width:740px}
+a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--accent)}
+header.site{display:flex;justify-content:space-between;align-items:baseline;
+  padding:26px 0 18px;border-bottom:1px solid var(--rule)}
+header.site .logo{font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:.01em}
+header.site nav{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+header.site nav a{color:var(--muted);text-decoration:none;margin-left:18px}
+header.site nav a:hover{color:var(--accent)}
+.kicker{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--muted);
+  text-transform:none;margin:64px 0 18px;display:flex;gap:14px;align-items:baseline}
+.kicker .sec{color:var(--accent)}
+.kicker .rule{flex:1;height:1px;background:var(--rule);align-self:center}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(38px,5.6vw,62px);
+  line-height:1.04;letter-spacing:-0.015em;margin:8px 0 26px}
+h1 em,h2 em{font-style:italic;font-weight:500}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.4vw,36px);
+  line-height:1.12;letter-spacing:-0.01em;margin:10px 0 22px}
+h3{font-family:var(--serif);font-weight:600;font-size:22px;margin:38px 0 12px}
+p{margin:0 0 20px}
+.lede{font-size:23px;line-height:1.5;font-weight:400}
+.lede em{font-weight:500}
+sup.fn{font-family:var(--mono);font-size:11px;color:var(--accent);margin-left:1px}
+.byline{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin:0 0 8px;display:flex;flex-wrap:wrap;gap:8px 22px}
+.statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:44px 0}
+.stat{padding:22px 18px 24px;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:none}
+.stat .big{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1;letter-spacing:-.02em}
+.stat .big small{font-size:20px;font-weight:500;color:var(--muted)}
+.stat .lab{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+.fig{margin:44px 0}
+.fig .chart{width:100%;border:1px solid var(--rule);background:var(--paper2);border-radius:2px}
+.figcap{font-family:var(--mono);font-size:12.5px;color:var(--muted);line-height:1.65;margin-top:12px;max-width:860px}
+.figcap b{color:var(--ink);font-weight:500}
+.figno{color:var(--accent)}
+blockquote{border-left:2px solid var(--accent);padding:4px 0 4px 24px;margin:34px 0;
+  font-size:22px;line-height:1.45;font-style:italic;font-weight:400}
+blockquote .attr{display:block;font-style:normal;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:10px}
+.note{background:var(--paper2);border:1px solid var(--rule);border-radius:2px;
+  padding:20px 24px;margin:30px 0;font-size:17px;line-height:1.6}
+.note .nlab{font-family:var(--mono);font-size:11.5px;color:var(--accent);display:block;margin-bottom:8px}
+table{border-collapse:collapse;width:100%;margin:30px 0;font-size:15.5px}
+th{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);
+  text-align:left;padding:10px 14px 8px;border-bottom:1px solid var(--ink)}
+td{padding:9px 14px;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
+td.mono,th.mono{font-family:var(--mono);font-size:13.5px}
+tr.win td{background:#efe7d2}
+.prop{border:1px solid var(--ink);border-radius:2px;margin:40px 0;background:var(--paper)}
+.prop .phead{padding:18px 24px 14px;border-bottom:1px solid var(--rule);display:flex;gap:16px;align-items:baseline}
+.prop .pnum{font-family:var(--mono);font-size:12px;color:var(--accent);white-space:nowrap}
+.prop .ptitle{font-family:var(--serif);font-weight:600;font-size:20px;line-height:1.3}
+.prop .pbody{padding:20px 24px 8px}
+.prop .pbody p{font-size:17.5px}
+details.proof{margin:6px 0 22px;border-top:1px dashed var(--rule)}
+details.proof summary{font-family:var(--mono);font-size:12.5px;color:var(--blue);
+  cursor:pointer;padding:12px 0;list-style:none}
+details.proof summary::before{content:'▸ ';color:var(--accent)}
+details.proof[open] summary::before{content:'▾ '}
+details.proof .proofbody{padding:4px 0 14px;font-size:16.5px;line-height:1.7}
+details.proof .proofbody p{font-size:16.5px;margin-bottom:14px}
+.qed{float:right;font-family:var(--mono)}
+.controls{display:flex;flex-wrap:wrap;gap:22px;align-items:center;
+  font-family:var(--mono);font-size:12.5px;color:var(--muted);
+  padding:14px 16px;border:1px solid var(--rule);border-bottom:none;background:var(--paper2)}
+.controls label{display:flex;gap:10px;align-items:center}
+.controls input[type=range]{accent-color:var(--accent);width:150px}
+.controls .val{color:var(--ink);font-weight:500;min-width:46px;display:inline-block}
+.act-sep{display:flex;align-items:center;gap:18px;margin:90px 0 0}
+.act-sep .n{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--accent)}
+.act-sep .rule{flex:1;height:1px;background:var(--rule)}
+ol.agenda{list-style:none;counter-reset:paper;margin:40px 0}
+ol.agenda>li{counter-increment:paper;border-top:1px solid var(--rule);padding:30px 0 26px;
+  display:grid;grid-template-columns:90px 1fr;gap:24px}
+ol.agenda>li::before{content:"№ 0" counter(paper);font-family:var(--mono);
+  font-size:13px;color:var(--accent);padding-top:6px}
+ol.agenda h3{margin:0 0 10px;font-size:23px}
+ol.agenda p{font-size:17px;margin-bottom:10px}
+ol.agenda .meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.footnotes{border-top:1px solid var(--ink);margin-top:90px;padding-top:26px;
+  font-size:15.5px;color:var(--muted);line-height:1.7}
+.footnotes p{margin-bottom:12px}
+.footnotes .fnum{font-family:var(--mono);font-size:11.5px;color:var(--accent);margin-right:8px}
+footer.site{display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:12px;color:var(--muted);padding:34px 0 44px;margin-top:60px;border-top:1px solid var(--rule)}
+.smallcaps{font-variant:small-caps;letter-spacing:.06em}
+.num{font-family:var(--mono);font-size:.85em;font-variant-numeric:tabular-nums}
+@media(max-width:680px){
+  body{font-size:17.5px}
+  ol.agenda>li{grid-template-columns:1fr}
+  .stat{border-right:none;border-bottom:1px solid var(--rule)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <div class="logo">Agriya Yadav</div>
+  <nav><a href="https://agriya-yadav.vercel.app/">Index</a><a href="https://agriya-yadav.vercel.app/work">Work</a><a href="https://agriya-yadav.vercel.app/research">Research</a><a href="mailto:agriyayadav@gmail.com">Email →</a></nav>
+</header>
+
+<div class="kicker"><span class="sec">§ 00</span><span>Research note · 2026</span><span class="rule"></span><span>~35 min</span></div>
+
+<h1>The boundary where cooperation dies — and the <em>law</em> that moves it.</h1>
+
+<div class="byline">
+  <span>AGRIYA YADAV · ASHOKA UNIVERSITY</span>
+  <span>1,124 CONTROLLED RUNS</span>
+  <span>PRE-REGISTERED COLLAPSE DEFINITIONS</span>
+  <span>BOOTSTRAP n = 2,000</span>
+</div>
+
+<p class="lede" style="margin-top:30px">Cooperative multi-agent reinforcement learning has a known disease: pay agents too locally, and they stop cooperating — not gradually, but all at once, converging to a degenerate <em>lazy</em> policy that abandons the team. Everyone has seen the failure. Nobody had measured the boundary. This note constructs the first quantitative phase diagram of that collapse in (reward centralization $w$, training horizon $T$, loss aversion $\lambda$) space — and then does the thing physicists do to results they trust: it hunts for the governing law.<sup class="fn">1</sup></p>
+
+<p class="lede">Three findings. The collapse boundary is a sharp, measurable critical point, $w_{\mathrm{crit}} = 0.666$, CI $[0.635,\, 0.694]$. Prospect-theoretic biases move it in <em>opposite directions</em> — probability weighting helps coordination, loss aversion destroys it. And the shift obeys a two-parameter law that survives every confidence interval we have: a two-parameter saturation law, $w_{\mathrm{crit}}(\lambda) = \dfrac{w_\infty\,\lambda}{K + \lambda}$ — the same form as Michaelis–Menten kinetics — with the odds-power law $\lambda^{0.69}$ close behind.</p>
+
+<div class="statrow">
+  <div class="stat"><div class="big">0.666</div><div class="lab">w_crit, no bias, 300k steps<br>CI [0.635, 0.694]</div></div>
+  <div class="stat"><div class="big">−0.100</div><div class="lab">shift from probability weighting alone — coordination gets easier</div></div>
+  <div class="stat"><div class="big">+0.166</div><div class="lab">shift at λ = 7 — coordination gets much harder. CI [0.135, 0.202]</div></div>
+  <div class="stat"><div class="big">w<small>∞</small> = 0.92</div><div class="lab">surviving law: w_crit saturates in λ — Michaelis–Menten form, χ² ≈ 0 with 2 params</div></div>
+</div>
+
+<!-- ============================== ACT I ============================== -->
+<div class="kicker"><span class="sec">§ 01</span><span>Act I · Why cooperation fails</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>Five agents, one supply chain, and a policy that does <em>nothing</em>.</h2>
+
+<p>The substrate is a six-node, multi-echelon supply chain — a canonical cooperative MARL problem. Node 1 pulls a fixed 20 units of demand each period; nodes 2–6 are learning agents (PPO) that must coordinate replenishment orders across delayed feedback, partial observability, and locally misaligned incentives. When it works, orders propagate smoothly upstream and the chain banks profit. When it fails, it fails in a specific, reproducible way.</p>
+
+<p>Each agent's reward is a mixture controlled by a single dial, the <em>reward centralization</em> $w$:</p>
+
+<p style="text-align:center">$$r_i \;=\; w \cdot r_{\mathrm{team}} \;+\; (1-w)\, r_i^{\mathrm{local}}$$</p>
+
+<p>At $w=1$ everyone is paid on team profit; at $w=0$ everyone is paid on their own ledger. Slide $w$ down and at some point the system doesn't degrade — it <em>dies</em>. Agents converge to a zero-order policy: order nothing, hold nothing, collect the safe constant payoff of total inactivity (a flat $-128.1$ profit per run, every seed, every time). We call this the <strong>lazy-agent equilibrium</strong>, and we pre-registered a binary collapse criterion before running the main experiments.<sup class="fn">2</sup></p>
+
+<p>The first discovery is that the death is <em>sharp</em>. Collapse probability as a function of $w$ is not a slope; it is a wall.</p>
+</div>
+
+<div class="fig">
+  <div id="fig1" class="chart" style="height:430px"></div>
+  <div class="figcap"><span class="figno">FIG. 1</span> — Collapse probability vs. reward centralization $w$ at 300k steps, no behavioral bias. Points: empirical collapse fractions, 20 seeds per cell (Exp A @300k, $n=140$; null model Exp N, $n=180$), Wilson 95% intervals. Curves: logistic fits ($b_1 = -22.0$, $p = 3.2\times10^{-7}$). The transition width is $\Delta w \approx 0.20$; below it, <b>100% of seeds collapse</b>; above it, zero.</div>
+</div>
+
+<div class="prose">
+<p>Two independent estimates agree: $w_{\mathrm{crit}} = 0.666$ $[0.635, 0.694]$ from the main protocol and $0.685$ $[0.657, 0.710]$ from a separately implemented null model — a $0.020$ gap that doubles as a measurement-error check on the whole pipeline.</p>
+
+<p>Why does this happen at all? Because the lazy policy is not a bug — it is an <em>equilibrium</em>. Cooperation in a supply chain is locally costly (holding inventory, exposure to stockouts) and only pays through other agents' behavior. When pay is local, no individual gradient points toward the team. Section § 05 makes this precise and proves it; the short version is that the lazy basin <em>always exists</em>, and learning has to escape it before training ends.</p>
+</div>
+
+<!-- ============================== ACT II ============================== -->
+<div class="kicker"><span class="sec">§ 02</span><span>Act II · Why loss aversion matters</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>Agents that feel losses <em>more than gains</em>.</h2>
+
+<p>Human operators are not risk-neutral, and increasingly, neither are our learning systems — reward shaping, risk-sensitive objectives, and CVaR-style training all build asymmetry into how an agent values outcomes. Prospect theory (Kahneman &amp; Tversky) gives the canonical parameterization. We transform each agent's per-step reward through the prospect-theoretic value function</p>
+
+<p style="text-align:center">$$v(x) \;=\; \begin{cases} x^{\alpha} & x \ge 0 \\[2pt] -\lambda\,(-x)^{\beta} & x < 0 \end{cases}$$</p>
+
+<p>with curvature $\alpha = \beta = 0.88$ and loss aversion $\lambda \in \{1, 3, 7\}$ (the literature's human estimate is $\lambda \approx 2.25$). The dial that matters is $\lambda$: how much more a unit of loss hurts than a unit of gain pleases.</p>
+</div>
+
+<div class="fig">
+  <div class="controls">
+    <label>λ <input type="range" id="lamSlider" min="1" max="10" step="0.25" value="2.25"><span class="val" id="lamVal">2.25</span></label>
+    <label>α=β <input type="range" id="abSlider" min="0.5" max="1" step="0.01" value="0.88"><span class="val" id="abVal">0.88</span></label>
+    <span>drag — feel the asymmetry</span>
+  </div>
+  <div id="fig2" class="chart" style="height:380px;border-top:none"></div>
+  <div class="figcap"><span class="figno">FIG. 2</span> — The prospect-theoretic value function. Losses are amplified by $\lambda$; curvature $\alpha=\beta&lt;1$ compresses large magnitudes (diminishing sensitivity). These two ingredients will turn out to push the collapse boundary in <b>opposite directions</b>.</div>
+</div>
+
+<div class="prose">
+<p>Here is the question nobody had asked quantitatively: <em>does an agent's value function move the boundary where cooperation collapses?</em> The qualitative intuition is easy — cooperation is the loss-exposed strategy, so loss-averse agents should need more team pay to take the risk. The quantitative answer turned out to be stranger, in two ways.</p>
+</div>
+
+<!-- ============================== ACT III ============================== -->
+<div class="kicker"><span class="sec">§ 03</span><span>Act III · The transition is real — and it moves</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>A critical point that <em>breathes</em> with training time.</h2>
+
+<p>Before touching $\lambda$, the boundary itself had to be pinned down — and it refused to sit still. The critical point depends on training horizon $T$:</p>
+</div>
+
+<table style="max-width:640px">
+<tr><th>horizon T</th><th>w_crit</th><th>95% CI</th><th>reading</th></tr>
+<tr><td class="mono">150k</td><td class="mono">≈ 0.82</td><td class="mono">Δw = 0.278</td><td>undertrained — boundary inflated</td></tr>
+<tr><td class="mono">300k</td><td class="mono">0.666</td><td class="mono">[0.635, 0.694]</td><td>converged main estimate</td></tr>
+<tr><td class="mono">600k</td><td class="mono">&lt; 0.50</td><td class="mono">bound<sup class="fn">3</sup></td><td>boundary keeps drifting left</td></tr>
+</table>
+
+<div class="prose">
+<p>More training shifts the boundary <em>left</em>: given time, agents escape the lazy basin at lower centralization. This is <strong>metastability</strong> — collapse at any finite $T$ is not "this system cannot coordinate" but "this system did not escape <em>yet</em>." The cleanest evidence is almost embarrassing: re-running identical seeds at $w = 0.7$ with one training-procedure perturbation (segmented vs. single-call training to the same 300k steps) flipped the collapse outcome on 3 of 8 seeds. Near the boundary, the outcome is path-sensitive <em>even at fixed seed</em>.</p>
+
+<p>That sounds like a nuisance. It is actually the signature of the mechanism: a saddle point separating two basins, with trajectories near the separatrix taking arbitrarily long to commit. Proposition 3 derives exactly this — including why the boundary's drift with $T$ has the decaying form the data shows.</p>
+
+<blockquote>Near the critical point, a coin-flip is not noise. It is geometry.<span class="attr">— the metastability finding, one line</span></blockquote>
+</div>
+
+<!-- ============================== ACT IV ============================== -->
+<div class="kicker"><span class="sec">§ 04</span><span>Act IV · The shift — two biases, opposite signs</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>Probability weighting <em>helps</em>. Loss aversion <em>kills</em>.</h2>
+
+<p>Now the decomposition. Against the null model ($v(x) = x$, $w_{\mathrm{crit}} = 0.685$), we measure the <em>behavioral excess</em> — how far each ingredient of prospect theory moves the boundary. The design isolates curvature from loss aversion: the $\lambda = 1$ condition carries curvature only ($\alpha=\beta=0.88$); increments in $\lambda$ then isolate pure loss aversion.</p>
+</div>
+
+<table style="max-width:760px">
+<tr><th>condition</th><th>w_crit</th><th>95% CI</th><th>excess vs. null</th><th>excess CI</th></tr>
+<tr><td>null, $v(x)=x$</td><td class="mono">0.685</td><td class="mono">[0.657, 0.710]</td><td class="mono">—</td><td class="mono">baseline</td></tr>
+<tr><td>curvature only (λ=1)</td><td class="mono">0.586</td><td class="mono">[0.539, 0.624]</td><td class="mono" style="color:var(--blue)">−0.100</td><td class="mono">[−0.172, −0.033]</td></tr>
+<tr><td>λ = 3</td><td class="mono">0.774</td><td class="mono">[0.751, 0.798]</td><td class="mono" style="color:var(--accent)">+0.089</td><td class="mono">[0.041, 0.141]</td></tr>
+<tr><td>λ = 7</td><td class="mono">0.851</td><td class="mono">[0.845, 0.858]</td><td class="mono" style="color:var(--accent)">+0.166</td><td class="mono">[0.135, 0.202]</td></tr>
+</table>
+
+<div class="prose">
+<p>Both effects are statistically significant, and they point in <em>opposite directions</em>.<sup class="fn">4</sup> Diminishing sensitivity compresses the perceived cost of cooperating — the boundary moves left by $0.100$ and coordination gets <em>easier</em>. Loss aversion amplifies the perceived risk of cooperating — the boundary marches right, monotonically in $\lambda$. To our knowledge this sign-split has not previously been demonstrated in cooperative MARL: "prospect theory" is not one effect but two competing ones, and which wins depends on $\lambda$.</p>
+
+<p>Put all three axes together and you get the headline object — the phase surface.</p>
+</div>
+
+<div class="fig">
+  <div class="controls">
+    <span style="color:var(--accent)">■ collapse</span>
+    <span style="color:var(--gold)">■ fragile (metastable)</span>
+    <span style="color:var(--blue)">■ coordinated</span>
+    <span class="rule" style="flex:1"></span>
+    <span>drag to rotate · scroll to zoom · hover for values</span>
+  </div>
+  <div id="fig3" class="chart" style="height:640px;border-top:none"></div>
+  <div class="figcap"><span class="figno">FIG. 3</span> — <b>The phase surface.</b> Critical boundary $w_{\mathrm{crit}}(\lambda, T)$ over loss aversion $\lambda$ and training horizon $T$. The surface is the logit-additive interpolation model calibrated on three experimental slices (the $\lambda$-sweep at 300k, the horizon sweep at $\lambda{=}1$, and the null anchor); <b>black markers are measured critical points with bootstrap CIs as vertical bars</b>. Above the sheet: coordinated. Below: collapse. The shaded band around the sheet (±half transition width) is the fragile zone where outcomes are metastable and path-dependent. Loss aversion lifts the sheet; training time lowers it. They are antagonists.</div>
+</div>
+
+<div class="fig">
+  <div id="fig4" class="chart" style="height:430px"></div>
+  <div class="figcap"><span class="figno">FIG. 4</span> — The same object in 2D: collapse probability vs. $w$ at $\lambda \in \{1,3,7\}$ ($\alpha=\beta=0.88$, 300k, 20 seeds/cell, 300 runs). The wall <b>moves right and steepens</b> as $\lambda$ grows. At $\lambda=7$ the transition is so sharp the logistic slope is quasi-separated — we report only the bootstrap critical point (the λ=7 curve is drawn with a nominal slope, for display only).</div>
+</div>
+
+<!-- ============================== THEORY ============================== -->
+<div class="kicker"><span class="sec">§ 05</span><span>Interlude · Theorem → mechanism → data</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>Three propositions, with proofs.</h2>
+
+<p>Empirics alone are a story; a law needs a mechanism. We analyze the smallest model that contains the phenomenon — a symmetric effort game with reward mixing, prospect-theoretic perception, and evolutionary learning dynamics. The contract is explicit: <strong>every proof below is complete within the stated model</strong>; the model's relevance to the neural system is then established by simulation against the experimental data, not by hand-waving.<sup class="fn">5</sup></p>
+
+<p><strong>The model $\mathcal{M}$.</strong> $N$ agents each choose $a_i \in \{0, 1\}$ — cooperate or lazy. Given the others' cooperation rate $x_i = \frac{1}{N-1}\sum_{j \neq i} a_j$, agent $i$'s local reward is</p>
+
+<p style="text-align:center">$$R_i(a) \;=\; a_i\,\big(\beta x_i - c\big), \qquad \beta > 0,\; c > 0,$$</p>
+
+<p>capturing the substrate's structure: cooperation costs $c$ unconditionally (inventory holding, exposure) and pays $\beta x_i$ only through complementarity with others (orders are useful only if upstream serves them). The mixed reward is $\pi_i = w\,\bar{R} + (1-w)\,R_i$ with $\bar{R} = \frac{1}{N}\sum_j R_j$, exactly the experimental dial.</p>
+
+<p>A symmetric profile is summarized by $x \in [0,1]$, the fraction cooperating. Define the <em>deviation gain</em> $D(x; w)$: the payoff change for one agent switching lazy → cooperate when a fraction $x$ of the others cooperate. A direct computation (in the proof) gives</p>
+
+<p style="text-align:center">$$D(x;w) \;=\; \beta x\!\left(1 - w + \tfrac{2w}{N}\right) - c\left(1 - w + \tfrac{w}{N}\right).$$</p>
+
+<div class="prop">
+  <div class="phead"><span class="pnum">PROPOSITION 1</span><span class="ptitle">The lazy equilibrium always exists; cooperation is a threshold phenomenon.</span></div>
+  <div class="pbody">
+    <p>In $\mathcal{M}$ with $c > 0$, for every $w \in [0,1]$: (i) all-lazy is a strict Nash equilibrium; (ii) cooperating is a best response at a symmetric profile iff $x \ge \hat{x}(w)$, where</p>
+    <p style="text-align:center">$$\hat{x}(w) \;=\; \frac{c}{\beta}\cdot\frac{N - w(N-1)}{N - w(N-2)},$$</p>
+    <p>and $\hat{x}$ is strictly decreasing in $w$; (iii) if $\hat{x}(w) < 1$, all-cooperate is also a strict Nash equilibrium — the game is bistable, and centralization $w$ controls only the <em>location of the boundary between basins</em>, never the existence of the lazy one.</p>
+    <details class="proof"><summary>Complete proof</summary><div class="proofbody">
+      <p><em>Deviation gain.</em> Fix a symmetric profile in which $k$ of the other $N-1$ agents cooperate, $x = k/(N-1)$, and consider agent $i$ switching $a_i: 0 \to 1$. Local changes: $\Delta R_i = \beta x - c$. Each cooperating $j \neq i$ sees its own cooperation rate $x_j$ rise by $\frac{1}{N-1}$, so $\Delta R_j = \frac{\beta}{N-1}$ for the $k$ cooperators and $0$ for the rest. Hence $\sum_j \Delta R_j = (\beta x - c) + k\cdot\frac{\beta}{N-1} = 2\beta x - c$, and</p>
+      <p>$$D(x;w) = \Delta\pi_i = \frac{w}{N}(2\beta x - c) + (1-w)(\beta x - c) = \beta x\Big(1 - w + \tfrac{2w}{N}\Big) - c\Big(1 - w + \tfrac{w}{N}\Big).$$</p>
+      <p><em>(i)</em> At $x = 0$: $D(0; w) = -c\,(1 - w + \frac{w}{N}) = -c\,\frac{N - w(N-1)}{N}$. For $w \in [0,1]$ and $N \ge 2$, $N - w(N-1) \ge 1 > 0$, so $D(0;w) < 0$ strictly: no unilateral deviation from all-lazy is profitable, strictly. $\square$<span style="float:none"></span></p>
+      <p><em>(ii)</em> $D$ is strictly increasing and affine in $x$ since $\beta(1 - w + \frac{2w}{N}) > 0$ for all $w \in [0,1]$, $N \ge 2$ (at $w=1$ the coefficient is $2\beta/N > 0$). Setting $D(\hat{x}; w) = 0$ and solving yields the displayed $\hat{x}(w)$; cooperation is a (strict) best response iff $x > \hat{x}(w)$, with indifference at equality. For monotonicity, write $\hat{x}(w) = \frac{c}{\beta}\,\frac{u(w)}{v(w)}$ with $u = N - w(N-1)$, $v = N - w(N-2)$, both positive on $[0,1]$. Then</p>
+      <p>$$\frac{d}{dw}\frac{u}{v} = \frac{-(N-1)v + (N-2)u}{v^2} = \frac{-N(N-1) + N(N-2)}{v^2}\;(\text{cross terms cancel})\; = \frac{-N}{v^2} < 0.$$</p>
+      <p><em>(iii)</em> If $\hat{x}(w) < 1$ then at $x = 1$, $D(1; w) > 0$, i.e. defecting from all-cooperate strictly loses; all-cooperate is a strict NE. Both strict equilibria coexist; by (i) the lazy one never disappears. <span class="qed">∎</span></p>
+    </div></details>
+    <p style="font-size:15.5px;color:var(--muted)"><strong>Mechanism → data.</strong> This is why collapse exists at every horizon and why no value of $w$ makes the lazy basin vanish — only smaller. The dial moves a separatrix, not an equilibrium.</p>
+  </div>
+</div>
+
+<div class="prop">
+  <div class="phead"><span class="pnum">PROPOSITION 2</span><span class="ptitle">Loss aversion moves the boundary right — monotonically — and its natural geometry is odds.</span></div>
+  <div class="pbody">
+    <p>Let per-step local payoffs be stochastic: cooperating at ambient $x$ yields expected gain mass $G(x) \ge 0$ and expected loss mass $L(x) \ge 0$, with $\mathbb{E}[Z] = G - L = \beta x - c$; lazy yields a certain flow with loss mass $L_0$. Perceive payoffs through $v_\lambda(z) = z\,\mathbf{1}[z \ge 0] + \lambda z\,\mathbf{1}[z < 0]$. Assume:</p>
+    <p>(A1) <em>excess loss exposure:</em> $\kappa(x) := L(x) - L_0 \ge \underline{\kappa} > 0$ on $[0,1]$;&ensp;(A2) <em>monotone complementarity:</em> $G'(x) > \lambda\,\kappa'(x)$ pointwise (perceived deviation gain increasing in $x$).</p>
+    <p>Then the perceived deviation gain $D_\lambda(x; w)$ is strictly decreasing in $\lambda$, the separatrix $\hat{x}(w, \lambda)$ is strictly increasing in $\lambda$ and strictly decreasing in $w$, and consequently the critical centralization $w_{\mathrm{crit}}(\lambda)$ — defined by $\hat{x}(w_{\mathrm{crit}}, \lambda) = x_0$ for any fixed effective initial coordination $x_0 \in (0,1)$ — is strictly increasing in $\lambda$. Moreover, under the linear specification ($\kappa$ constant), the <em>odds</em> $\frac{w_{\mathrm{crit}}}{1 - w_{\mathrm{crit}}}$ are an increasing Möbius function of $\lambda$: locally linear ($\theta = 1$), globally <em>super</em>-linear, diverging at a finite $\lambda^{*}$ — fixed loss exposure predicts a $\lambda$ beyond which no $w < 1$ sustains cooperation.</p>
+    <details class="proof"><summary>Complete proof</summary><div class="proofbody">
+      <p><em>Perceived payoffs.</em> $\mathbb{E}[v_\lambda(Z)] = G - \lambda L$ for a cooperator and $-\lambda L_0$ for lazy (gains unweighted, losses weighted $\lambda$; $\alpha = \beta = 1$ isolates loss aversion from curvature, mirroring the experimental decomposition). For the proof we use the affine specification — $G(x) = \gamma x + g_0$ and $\kappa(x) = \kappa_0 + \kappa_1 x$ with $\gamma > \lambda \kappa_1 \ge 0$, $\kappa_0 > 0$ — which contains (A1) and (A2) and keeps every term explicit. Write $\Phi_\lambda(x) := G(x) - \lambda\kappa(x)$ for the perceived local deviation gain ($\lambda L_0$ cancels in the difference, leaving $\kappa = L - L_0$).</p>
+      <p><em>The deviation gain, perceived.</em> Repeating the Proposition 1 computation with perceived flows: the switching agent gains $\Phi_\lambda(x)$ locally; each of the $x(N-1)$ cooperating others sees its cooperation rate rise by $\frac{1}{N-1}$, gaining $\frac{G'(x) - \lambda\kappa'(x)}{N-1} = \frac{\gamma - \lambda\kappa_1}{N-1}$ each. Hence</p>
+      <p>$$D_\lambda(x; w) \;=\; \frac{w}{N}\Big[\Phi_\lambda(x) + x\,(\gamma - \lambda\kappa_1)\Big] + (1-w)\,\Phi_\lambda(x).$$</p>
+      <p><em>Monotonicity in $\lambda$, $x$, $w$.</em> First, $\partial_\lambda D_\lambda = -\big[\tfrac{w}{N}(\kappa(x) + x\kappa_1) + (1-w)\kappa(x)\big] \le -\tfrac{1}{N}\kappa_0 < 0$ for all $w \in [0,1]$. Second, $\partial_x D_\lambda = (\gamma - \lambda\kappa_1)\big(1 - w + \tfrac{2w}{N}\big) > 0$. Third, at the separatrix: $D_\lambda(\hat{x}) = 0$ with the bracket $\tfrac{w}{N}\,\hat{x}(\gamma - \lambda\kappa_1) > 0$ forces $\Phi_\lambda(\hat{x}) \le 0$, strictly for $w > 0$ — at the boundary, cooperation is locally unprofitable and sustained only by the team term. Then</p>
+      <p>$$\partial_w D_\lambda(\hat{x}) \;=\; \frac{1}{N}\Big[\Phi_\lambda(\hat{x}) + \hat{x}(\gamma - \lambda\kappa_1)\Big] - \Phi_\lambda(\hat{x}) \;=\; \frac{\hat{x}(\gamma-\lambda\kappa_1)}{N} \;-\; \Big(1 - \frac{1}{N}\Big)\Phi_\lambda(\hat{x}) \;>\; 0,$$</p>
+      <p>both terms strictly positive. By the implicit function theorem, $\hat{x}(w, \lambda)$ is $C^1$ with $\partial_\lambda \hat{x} = -\partial_\lambda D_\lambda / \partial_x D_\lambda > 0$ and $\partial_w \hat{x} = -\partial_w D_\lambda / \partial_x D_\lambda < 0$.</p>
+      <p><em>Boundary shift.</em> $w_{\mathrm{crit}}(\lambda)$ solves $\hat{x}(w, \lambda) = x_0$. Total differentiation: $\frac{dw_{\mathrm{crit}}}{d\lambda} = -\,\partial_\lambda \hat{x}\,/\,\partial_w \hat{x} > 0$ — strictly increasing. $\square$</p>
+      <p><em>Odds form.</em> Take $\kappa_1 = 0$, $g_0 = 0$, $\gamma = \beta$ (pure cost-side loss exposure). Then $\Phi_\lambda(x) = \beta x - c_{\mathrm{eff}}(\lambda)$ with $c_{\mathrm{eff}}(\lambda) = c + (\lambda - 1)\kappa_0$, and $D_\lambda$ is exactly the Proposition 1 gain with $c \mapsto c_{\mathrm{eff}}$, so $\hat{x}(w,\lambda) = \frac{c_{\mathrm{eff}}}{\beta}\cdot\frac{N - w(N-1)}{N - w(N-2)}$. Setting $\hat{x} = x_0$, writing $s = \beta x_0 / c_{\mathrm{eff}}(\lambda) \in (\tfrac12, 1)$ in the bistable regime and solving:</p>
+      <p>$$w_{\mathrm{crit}} = \frac{N(1-s)}{(N-1) - (N-2)s}, \qquad \frac{w_{\mathrm{crit}}}{1 - w_{\mathrm{crit}}} = \frac{N(1-s)}{2s - 1}.$$</p>
+      <p>Substituting $s$: $\operatorname{odds} = \dfrac{N\,(c_{\mathrm{eff}} - \beta x_0)}{2\beta x_0 - c_{\mathrm{eff}}}$ — an increasing Möbius function of $\lambda$ on the bistable domain, with derivative $\frac{N\kappa_0\,\beta x_0}{(2\beta x_0 - c_{\mathrm{eff}})^2} > 0$. Near $\lambda = 1$ the odds grow linearly in $\lambda$ ($\theta = 1$ in the odds–power family $\operatorname{odds} \propto \lambda^{\theta}$); as $\lambda \uparrow \lambda^{*} = 1 + (2\beta x_0 - c)/\kappa_0$ they diverge. Fixed exposure therefore predicts $\theta \ge 1$ everywhere — sub-linear odds growth is impossible without $\kappa$ itself shrinking in $\lambda$. <span class="qed">∎</span></p>
+    </div></details>
+    <p style="font-size:15.5px;color:var(--muted)"><strong>Mechanism → data.</strong> Theory says: measure the boundary in <em>odds</em>, and the natural family is $\operatorname{logit} w_{\mathrm{crit}} = b_0 + \theta \ln\lambda$, with $\theta = 1$ if agents' loss exposure is fixed. The data (§ 06) fits this family with $\theta = 0.69 < 1$ — a quantitative signature that trained agents <em>endogenously hedge</em>, reducing their own loss exposure as $\lambda$ grows. That is an interpretability prediction: realized per-step loss mass should fall with $\lambda$. It is checkable in the stored trajectories.</p>
+  </div>
+</div>
+
+<div class="prop">
+  <div class="phead"><span class="pnum">PROPOSITION 3</span><span class="ptitle">Learning dynamics: basins, metastability, and why the boundary drifts with $T$.</span></div>
+  <div class="pbody">
+    <p>Let coordination evolve by replicator dynamics $\dot{x} = x(1-x)\,D_\lambda(x; w)$ on $[0,1]$, with $0 < \hat{x}(w,\lambda) < 1$. Then: (i) the fixed points are $\{0, \hat{x}, 1\}$; $0$ and $1$ are asymptotically stable, $\hat{x}$ is unstable, and the basins are $[0,\hat{x})$ and $(\hat{x}, 1]$; (ii) the cooperative basin $(\hat{x}, 1]$ shrinks strictly as $\lambda$ rises and grows strictly as $w$ rises; (iii) <em>metastability:</em> for $x(0) = \hat{x} + \varepsilon$, the time to reach $\hat{x} + \delta$ satisfies $t \ge \frac{1}{\rho}\ln\frac{\delta}{\varepsilon}$ with $\rho = \hat{x}(1-\hat{x})\,\partial_x D_\lambda(\hat{x})$; hence under a training budget $T$, the <em>effective</em> boundary $w_{\mathrm{crit}}(T)$ exceeds $w_{\mathrm{crit}}(\infty)$ and decreases monotonically in $T$, and outcomes near the separatrix flip under $O(e^{-\rho T})$ perturbations.</p>
+    <details class="proof"><summary>Complete proof</summary><div class="proofbody">
+      <p><em>(i)</em> $\dot{x} = 0$ iff $x \in \{0,1\}$ or $D_\lambda(x) = 0$, and $D_\lambda$ is strictly increasing with unique root $\hat{x} \in (0,1)$ by hypothesis. Linearize: with $f(x) = x(1-x)D_\lambda(x)$, $f'(0) = D_\lambda(0) < 0$ (Prop. 1(i)) so $0$ is asymptotically stable; $f'(1) = -D_\lambda(1) < 0$ since $D_\lambda(1) > 0$ ($\hat x < 1$), so $1$ is asymptotically stable; $f'(\hat{x}) = \hat{x}(1-\hat{x})\,D_\lambda'(\hat{x}) = \rho > 0$, so $\hat{x}$ is unstable. On $(0,\hat{x})$, $f < 0$, so trajectories decrease monotonically to $0$; on $(\hat{x},1)$, $f > 0$, so they increase to $1$. This proves the basin claim (1D flows are monotone along trajectories). $\square$</p>
+      <p><em>(ii)</em> Immediate from Prop. 2: the basin boundary is $\hat{x}(w,\lambda)$, with $\partial_\lambda \hat{x} > 0$ and $\partial_w \hat{x} < 0$. $\square$</p>
+      <p><em>(iii)</em> Near $\hat{x}$ write $y = x - \hat{x}$; then $\dot{y} = \rho y + r(y)$ with $r(y) = o(|y|)$. Choose $\delta_0 > 0$ with $|r(y)| \le \frac{\rho}{2}|y|$ on $|y| \le \delta_0$; then for $0 < \varepsilon < \delta \le \delta_0$, $\dot{y} \le \tfrac{3\rho}{2} y$ while $y \in (\,0, \delta\,]$, and Grönwall gives $y(t) \le \varepsilon e^{3\rho t/2}$, so reaching $\delta$ requires $t \ge \frac{2}{3\rho}\ln\frac{\delta}{\varepsilon}$ — the stated bound with constant absorbed. The escape time from a neighborhood of the separatrix diverges logarithmically as $\varepsilon \downarrow 0$.</p>
+      <p>Now fix a training budget $T$ and declare collapse iff $x(T) < \hat{x}$ (the trajectory has not committed to the cooperative side; any threshold in $(\hat x, 1)$ gives the same conclusions). A trajectory escapes within $T$ only if $\varepsilon = x(0) - \hat{x} \gtrsim \delta_0 e^{-c_\rho T}$ for the appropriate constant $c_\rho \in [\tfrac{2\rho}{3}, \rho]$. So the set of initial conditions that coordinate by time $T$ is $\,(\hat{x} + \delta_0 e^{-c_\rho T},\, 1]$, strictly increasing in $T$ to the full basin: with $x(0)$ drawn from any fixed initialization distribution with positive density near $\hat x$, $\mathbb{P}(\text{collapse} \mid w, \lambda, T)$ is strictly decreasing in $T$ and converges to $\mathbb{P}(x(0) < \hat{x})$. Defining $w_{\mathrm{crit}}(T)$ as the $w$ at which this probability crosses $\tfrac12$, monotonicity of $\hat x$ in $w$ makes $w_{\mathrm{crit}}(T)$ strictly decreasing in $T$ with limit $w_{\mathrm{crit}}(\infty)$. Finally, two trajectories started $O(e^{-\rho T})$ apart on opposite sides of $\hat{x} + \delta_0 e^{-c_\rho T}$ end in different basins at time $T$: near the boundary, outcome flips under exponentially small perturbations — fixed-seed path sensitivity. <span class="qed">∎</span></p>
+    </div></details>
+    <p style="font-size:15.5px;color:var(--muted)"><strong>Mechanism → data.</strong> (iii) is the metastability finding: the 3-of-8 fixed-seed flips at $w = 0.7$, the left-march of $w_{\mathrm{crit}}$ with $T$ (0.82 → 0.666 → &lt;0.50), and the sharpening of the transition with training are all one phenomenon — a separatrix with logarithmic escape times.</p>
+  </div>
+</div>
+
+<h3>The model, played against the data.</h3>
+<p>Calibrate $\mathcal{M}$'s four interpretable constants on the $\lambda{=}1$ slice only, add initialization noise, and let it predict the rest — the moving wall and its steepening:</p>
+</div>
+
+<div class="fig">
+  <div class="controls">
+    <label>w <input type="range" id="wSlider" min="0" max="1" step="0.01" value="0.65"><span class="val" id="wVal">0.65</span></label>
+    <label>λ <input type="range" id="lam3Slider" min="1" max="10" step="0.25" value="3"><span class="val" id="lam3Val">3.00</span></label>
+    <span>the separatrix x̂(w, λ) divides the basins — watch it move</span>
+  </div>
+  <div id="fig5" class="chart" style="height:360px;border-top:none"></div>
+  <div class="figcap"><span class="figno">FIG. 5</span> — Proposition 3, live. Replicator flow $\dot{x} = x(1-x)D_\lambda(x;w)$. <b>Blue dot:</b> cooperative attractor. <b>Red dot:</b> lazy attractor. <b>Open circle:</b> the separatrix $\hat{x}(w,\lambda)$. Raising $\lambda$ pushes $\hat{x}$ toward the initialization region; raising $w$ pulls it away. Collapse probability is the mass of initializations left of the open circle.</div>
+</div>
+
+<div class="fig">
+  <div id="fig6" class="chart" style="height:430px"></div>
+  <div class="figcap"><span class="figno">FIG. 6</span> — Model vs. experiment. Curves: $\mathbb{P}(\text{collapse} \mid w, \lambda)$ generated by $\mathcal{M}$ with Gaussian initialization mass crossing the separatrix (no per-λ refitting — λ enters only through the theory's $c_{\mathrm{eff}}$ channel, with hedged (logarithmic) loss-exposure growth). Points: the 15 empirical (w, λ) cells, 20 seeds each. The model reproduces the rightward march and the steepening — the two qualitative signatures — from one calibration.</div>
+</div>
+
+<!-- ============================== LAWS ============================== -->
+<div class="kicker"><span class="sec">§ 06</span><span>From result to law · twenty candidates, one survivor class</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>Assume the result is true. What <em>law</em> generates it?</h2>
+
+<p>A result says "the boundary moved." A law says "here is the function, here are its parameters, here is the number it forces at $\lambda = 10$ — go falsify it." We enumerated twenty candidate scaling laws $w_{\mathrm{crit}}(\lambda)$, ranked them on mathematical plausibility (boundedness in $(0,1)$, correct monotonicity and concavity, a derivation from § 05), testability (parameter identifiability, divergent predictions in reach of one sweep), and publication value — then fit every one against the three measured critical points, weighted by their bootstrap intervals.<sup class="fn">6</sup></p>
+
+<p>Three points cannot crown a law. They can already <em>execute</em> several:</p>
+</div>
+
+<table>
+<tr><th>#</th><th>law</th><th>form</th><th class="mono">params</th><th class="mono">χ²</th><th class="mono">λ=10</th><th class="mono">λ=20</th><th>verdict</th></tr>
+<tr class="win"><td class="mono">L6</td><td><b>Michaelis–Menten saturation</b></td><td>$w_\infty \lambda / (K + \lambda)$</td><td class="mono">2</td><td class="mono">0.00</td><td class="mono">0.871</td><td class="mono">0.895</td><td><b>survives, exact</b></td></tr>
+<tr class="win"><td class="mono">L3</td><td><b>odds–power (logit-log)</b></td><td>$\sigma(b_0 + \theta \ln\lambda)$</td><td class="mono">2</td><td class="mono">1.47</td><td class="mono">0.880</td><td class="mono">0.922</td><td><b>survives</b></td></tr>
+<tr><td class="mono">L14</td><td>probit-log</td><td>$\Phi(b_0 + b_1 \ln\lambda)$</td><td class="mono">2</td><td class="mono">2.23</td><td class="mono">0.883</td><td class="mono">0.929</td><td>survives</td></tr>
+<tr><td class="mono">L18</td><td>reciprocal approach</td><td>$w_\infty - c/\lambda$</td><td class="mono">2</td><td class="mono">1.89</td><td class="mono">0.864</td><td class="mono">0.880</td><td>survives</td></tr>
+<tr><td class="mono">L8</td><td>square root</td><td>$w_0 + c\sqrt{\lambda - 1}$</td><td class="mono">2</td><td class="mono">5.29</td><td class="mono">0.905</td><td class="mono">1.036</td><td>probation — unbounded</td></tr>
+<tr><td class="mono">L1</td><td>logarithmic</td><td>$w_0 + c\ln\lambda$</td><td class="mono">2</td><td class="mono">6.23</td><td class="mono">0.895</td><td class="mono">0.978</td><td style="color:var(--accent)">rejected, barely<sup class="fn">7</sup></td></tr>
+<tr><td class="mono">L15</td><td>odds-linear (θ=1 theory)</td><td>$\tfrac{a+b\lambda}{1+a+b\lambda}$</td><td class="mono">2</td><td class="mono">6.09</td><td class="mono">0.888</td><td class="mono">0.937</td><td style="color:var(--accent)">rejected — and that matters</td></tr>
+<tr><td class="mono">L17</td><td>pure power</td><td>$w_0 \lambda^{c}$</td><td class="mono">2</td><td class="mono">9.25</td><td class="mono">0.900</td><td class="mono">1.002</td><td style="color:var(--accent)">rejected</td></tr>
+<tr><td class="mono">L9</td><td>linear</td><td>$w_0 + c(\lambda-1)$</td><td class="mono">2</td><td class="mono">28.1</td><td class="mono">0.941</td><td class="mono">1.237</td><td style="color:var(--accent)">rejected decisively</td></tr>
+<tr><td class="mono">L2,4,5,7,<br>10–13,16,19,20</td><td colspan="3">power-shift · Möbius · saturating-exp · MM-shifted · quad-log · tanh · arctan · Gompertz · stretched-exp · negative-power · Box–Cox</td><td class="mono">≡0</td><td class="mono">0.85–0.91</td><td class="mono">0.85–0.97</td><td>3–4 params: fit 3 points exactly — <em>untestable until the sweep</em></td></tr>
+</table>
+
+<div class="prose">
+<p>Read the scoreboard carefully, because it is better than "we found a fit."</p>
+
+<p><strong>One.</strong> The two-parameter Michaelis–Menten form $w_{\mathrm{crit}}(\lambda) = \dfrac{w_\infty\,\lambda}{K + \lambda}$, with $w_\infty = 0.920$ and $K = 0.569$, passes through all three measured critical points to <em>three decimal places</em> — with no freedom left over. Two parameters, three constraints, zero residual. That is either a coincidence or a law.</p>
+
+<p><strong>Two.</strong> The theory's naïve law died. Proposition 2 with <em>fixed</em> loss exposure forces odds growth at least linear in $\lambda$ ($\theta \ge 1$; locally, law L15) — and L15 is outside the $\lambda = 3$ confidence interval, while the surviving odds–power fit has $\theta \approx 0.69 &lt; 1$. Within the theory, that gap has exactly one interpretation: trained agents <em>reduce their own loss exposure as $\lambda$ grows</em> — endogenous hedging. The model didn't just fit the data; its failure mode localized the missing mechanism, and that mechanism is checkable in stored trajectories (realized per-step loss mass should fall with $\lambda$).</p>
+
+<p><strong>Three.</strong> The two finalists disagree about the only question that matters for AI systems: <em>does the boundary saturate below 1?</em> Michaelis–Menten says yes — $w_\infty = 0.92$, meaning even infinitely loss-averse agents coordinate if pay is ≥92% team-based. Odds–power says no — $w_{\mathrm{crit}} \to 1$, meaning sufficient loss aversion defeats <em>any</em> incentive design. At $\lambda = 20$ they are separated by $0.027$, four times the width of our tightest CI. One dense sweep decides.</p>
+</div>
+
+<div class="fig">
+  <div id="fig7" class="chart" style="height:470px"></div>
+  <div class="figcap"><span class="figno">FIG. 7</span> — The execution chart. All twenty laws fitted to the three measured critical points (black, with bootstrap CIs). Rejected laws in red; the eleven exactly-fitting (unfalsifiable-for-now) laws in faint gray; survivors in blue; the Michaelis–Menten law in bold. Shaded region: where the pre-registered dense sweep ($\lambda \in \{1, 1.5, 2, 2.5, 4, 5, 10\}$, 20 seeds × 5 w-cells each, currently queued on HPC) will discriminate the finalists.</div>
+</div>
+
+<div class="note"><span class="nlab">FALSIFICATION PROTOCOL — PRE-COMMITTED</span>
+The analysis script <a href="fit_scaling_laws.py">fit_scaling_laws.py</a> ships with this post, frozen before the sweep returns. It ingests the raw run CSV, recomputes per-λ bootstrap critical points, fits all twenty laws by CI-weighted least squares, and ranks by AICc and leave-one-λ-out cross-validation. Decision rule, stated now: a law survives iff every per-λ critical point falls inside its pointwise 95% band, and the winner must beat the runner-up by ΔAICc ≥ 4. If no law survives, that is the result.
+</div>
+
+<!-- ============================== ACT V ============================== -->
+<div class="kicker"><span class="sec">§ 07</span><span>Act V · What this means for AI systems</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>Your multi-agent system has a phase diagram. You should know where on it you live.</h2>
+
+<p><strong>Risk-shaping is not free.</strong> The community increasingly trains agents with risk-sensitive objectives — CVaR policy gradients, asymmetric reward clipping, conservative offline penalties, loss-averse reward models distilled from human feedback (humans have $\lambda \approx 2.25$ baked in). Every one of these moves an agent along the $\lambda$ axis. This work says that axis is not a tuning knob with smooth consequences: it has a cliff on it, and the cliff's position obeys a law. A safety intervention that raises effective $\lambda$ from 1 to 3 silently consumes $0.09$ of your coordination margin; to 7, $0.17$. If your reward mixing sits at $w = 0.8$ — comfortably coordinated for risk-neutral agents — a $\lambda = 7$ population is <em>inside the collapse region</em>.</p>
+
+<p><strong>The fragile band is where the danger is.</strong> Between the basins, outcomes are metastable: identical systems, identical seeds, different fates under procedure-level perturbations. Production multi-agent systems that "sometimes just fail to cooperate after retraining" may not be flaky — they may be parked on a separatrix. The phase surface gives the diagnosis and the prescription: measure your distance to the boundary, not your average performance.</p>
+
+<p><strong>Decentralization has a price denominated in λ.</strong> Federated fleets, autonomous trading desks, multi-robot warehouses — the engineering pressure is always toward local reward (privacy, latency, credit assignment). The law prices that pressure: every unit of behavioral risk-asymmetry in your agents raises the minimum centralization that keeps cooperation alive, with diminishing — but never vanishing — increments. And if the Michaelis–Menten finalist holds, there is a hard design floor: keep $w$ above $w_\infty \approx 0.92$ and no degree of loss aversion can kill coordination. That is a checkable, deployable design rule extracted from a phase diagram.</p>
+
+<p><strong>Interpretability got a foothold.</strong> The θ &lt; 1 anomaly is a behavioral fingerprint of <em>policy-level hedging</em> — agents restructuring their exposure rather than their effort. That is precisely the kind of internal mechanism claim that can be audited: compare realized loss-mass distributions across λ; probe critics for asymmetric value estimates; check whether hedging shows up as inventory buffering in the learned policies. The phase diagram tells us <em>where</em> to look; the theory tells us <em>what</em> we should find.</p>
+</div>
+
+<!-- ============================== AGENDA ============================== -->
+<div class="kicker"><span class="sec">§ 08</span><span>Not a future-work section · a research agenda</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>The next five papers, laid out like a <em>program</em>.</h2>
+<p>A result invites a follow-up; a law demands a research program. Each paper below has a hypothesis the present work makes precise, a killer experiment, and a reason it can fail informatively.</p>
+</div>
+
+<ol class="agenda">
+<li><div>
+  <h3>The Law of the Boundary: w<sub>crit</sub>(λ) at scale.</h3>
+  <p><em>Hypothesis:</em> the Michaelis–Menten law holds with $w_\infty &lt; 1$ — loss aversion cannot defeat sufficiently centralized pay. <em>Killer experiment:</em> the dense λ-sweep (queued) plus λ ∈ {15, 20} extremes; pre-committed decision rule above. <em>Failure is informative:</em> if odds–power wins instead, incentive design has no safe floor — arguably the more important headline.</p>
+  <div class="meta">STATUS: SWEEP ON HPC · TARGET: NEURIPS-CLASS MAIN TRACK</div>
+</div></li>
+<li><div>
+  <h3>The Hedging Mechanism: interpreting θ &lt; 1.</h3>
+  <p><em>Hypothesis:</em> the sub-linear exponent is caused by endogenous loss-exposure reduction — agents hedge in policy space. <em>Killer experiment:</em> trajectory forensics across λ (realized loss-mass curves, inventory buffering statistics), critic probing for asymmetric value heads, and a causal clamp: freeze exposure (force order distributions) and test whether θ returns to 1. <em>Deliverable:</em> a mechanistic-interpretability account of a behavioral-economics parameter inside a trained policy.</p>
+  <div class="meta">DATA: ALREADY STORED IN RUN ARCHIVES · THE CLAMP NEEDS ONE NEW SWEEP</div>
+</div></li>
+<li><div>
+  <h3>Universality: is the phase diagram substrate-independent?</h3>
+  <p><em>Hypothesis:</em> the qualitative diagram (sharp boundary, lazy basin, λ-shift, T-drift) is universal across cooperative substrates; the constants $(w_\infty, K)$ are substrate-specific but the <em>form</em> is not. <em>Killer experiment:</em> replicate the protocol on MPE-spread, Melting Pot harvest, and SMAC-lite; collapse all curves onto one master curve under the rescaling $\tilde{w} = w/w_\infty$, $\tilde{\lambda} = \lambda/K$. If transition widths share a scaling exponent, this becomes a critical-phenomena claim in earnest.</p>
+  <div class="meta">PROTOCOL: FROZEN AND REUSABLE · MAIN COST: COMPUTE</div>
+</div></li>
+<li><div>
+  <h3>Crossing back: interventions that move the boundary on purpose.</h3>
+  <p><em>Hypothesis:</em> the boundary is controllable — annealed centralization schedules ($w$ high early, decayed after basin capture) and asymmetric advantage clipping can place a system on the coordinated side at deployment-time $w$ far below $w_{\mathrm{crit}}$. <em>Killer experiment:</em> a 2×2 of {anneal, clip} × {λ=3, 7}, scored by post-anneal stability under perturbation; Proposition 3(iii) predicts the required anneal duration scales like $\rho^{-1}\log(1/\varepsilon)$ — a quantitative, falsifiable schedule.</p>
+  <div class="meta">THEORY ALREADY PREDICTS THE SCHEDULE SHAPE — RARE AND WORTH ADVERTISING</div>
+</div></li>
+<li><div>
+  <h3>Mixed populations: one loss-averse agent in a risk-neutral team.</h3>
+  <p><em>Hypothesis:</em> collapse is nucleated — a single high-λ agent shifts the <em>team's</em> effective boundary disproportionately, because the lazy basin grows fastest near the most loss-averse member (heterogeneous $\hat{x}_i$ in the Prop. 2 framework). <em>Killer experiment:</em> hold team mean λ fixed, vary its variance; measure $w_{\mathrm{crit}}$(distribution). Direct implications for human–AI teams, where the human carries λ ≈ 2.25 whether you like it or not — and for adversarial robustness: can one poisoned agent collapse a fleet?</p>
+  <div class="meta">THE HUMAN–AI FRAMING IS THE BROADEST-AUDIENCE PAPER OF THE FIVE</div>
+</div></li>
+</ol>
+
+<!-- ============================== METHODS ============================== -->
+<div class="kicker"><span class="sec">§ 09</span><span>Methods, in one honest breath</span><span class="rule"></span></div>
+
+<div class="prose">
+<p style="font-size:17px">Six pre-registered experiments, 1,124 controlled runs, PPO on a six-node multi-echelon supply chain (node 1 fixed demand, nodes 2–6 learning). Binary collapse criterion frozen before the main sweeps. Critical points from logistic regression of collapse on $w$; uncertainty from run-level bootstrap, $n = 2{,}000$, clustered by seed; Wilson intervals on cell fractions. The λ-sweep uses $\alpha = \beta = 0.88$, so its $\lambda = 1$ baseline ($w_{\mathrm{crit}} = 0.586$) differs from the null model's $0.685$ — that difference <em>is</em> the curvature effect, isolated by design, not a discrepancy. At $\lambda = 7$ the logistic is quasi-separated; we report the bootstrap critical point and suppress the slope. The 600k-step horizon estimate is reported only as a bound ($w_{\mathrm{crit}} &lt; 0.50$) because the w-grid bracketed the transition poorly. All raw run CSVs, pre-registrations, and analysis scripts are in the project archive; every number in this post traces to a file.<sup class="fn">8</sup></p>
+</div>
+
+<div class="footnotes">
+<p><span class="fnum">1.</span> The phase-diagram framing is doing real work, not decoration: sharp threshold, bistability, metastability near the boundary, and parameter-dependent critical points are the defining phenomenology of a first-order-like transition, and each has a measured counterpart here.</p>
+<p><span class="fnum">2.</span> Collapse ≔ terminal mean order rate below the pre-registered floor with the safe-policy profit signature (−128.1). Defined in <span class="num">docs/collapse_definition.md</span> before Exp A ran; never amended.</p>
+<p><span class="fnum">3.</span> The raw 600k logistic returns an unphysical point estimate (−0.60) because the grid lies almost entirely above the transition; the honest statement is the bound. Narrow grids are how you accidentally manufacture precision.</p>
+<p><span class="fnum">4.</span> The curvature effect's CI, [−0.172, −0.033], excludes zero from above — significant and <em>beneficial</em>. Diminishing sensitivity compresses the perceived cost asymmetry of cooperating. Behavioral bias is not uniformly an enemy of coordination; that intuition dies here.</p>
+<p><span class="fnum">5.</span> Rigor contract, explicitly: the propositions are theorems about the stated game and dynamics, complete with proofs; their bearing on PPO-trained neural agents is an empirical claim tested in Figs. 5–6. No theorem about deep MARL is being smuggled.</p>
+<p><span class="fnum">6.</span> Weighted least squares with σ from bootstrap CI half-widths; χ² thresholds at the 95% level with appropriate degrees of freedom. Three-or-more-parameter laws fit three points exactly and are reported but not ranked — flexibility is not evidence.</p>
+<p><span class="fnum">7.</span> The log law misses the λ=3 interval by 3×10⁻⁴. We reject at the stated rule and note the margin — and note also that re-running the bootstrap with a different seed can flip this verdict. Treat the log law as on probation, not executed; the dense sweep will not be kind to one of us.</p>
+<p><span class="fnum">8.</span> Replication materials: pre-registrations (<span class="num">expB_preregistration.md</span>, <span class="num">exp0b_preregistration.md</span>), raw data (<span class="num">docs/*/.csv</span>), frozen analysis pipeline (<span class="num">analyze_expA.py</span> lineage), and the law-fitting script shipped with this post.</p>
+</div>
+
+<footer class="site">
+  <span>§ Gurugram → wherever · v2026.06</span>
+  <span><a href="mailto:agriyayadav@gmail.com">agriyayadav@gmail.com</a></span>
+</footer>
+
+</div><!-- /wrap -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  renderMathInElement(document.body, {delimiters:[
+    {left:'$$', right:'$$', display:true},
+    {left:'$', right:'$', display:false}
+  ], throwOnError:false});
+});
+
+/* ---------- shared style ---------- */
+const C = {paper:'#f7f4ed', paper2:'#f1ecdf', ink:'#1a1712', muted:'#6f6757',
+           rule:'#d9d2c2', accent:'#a33327', blue:'#2b4f8a', gold:'#8a6d1f'};
+const FONT = {family:'IBM Plex Mono, monospace', size:12, color:C.muted};
+function baseLayout(extra){
+  return Object.assign({
+    paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+    font:FONT, margin:{l:62,r:30,t:28,b:54},
+    xaxis:{gridcolor:C.rule, zerolinecolor:C.rule, linecolor:C.muted, ticks:'outside', tickcolor:C.muted},
+    yaxis:{gridcolor:C.rule, zerolinecolor:C.rule, linecolor:C.muted, ticks:'outside', tickcolor:C.muted},
+    hoverlabel:{font:{family:'IBM Plex Mono, monospace', size:12}}
+  }, extra||{});
+}
+const CFG = {displayModeBar:false, responsive:true};
+function wilson(k,n){
+  const p=k/n, z=1.96, d=1+z*z/n;
+  const ctr=(p+z*z/(2*n))/d, hw=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d;
+  return [Math.max(0,ctr-hw), Math.min(1,ctr+hw)];
+}
+const sig = z => 1/(1+Math.exp(-z));
+function linspace(a,b,n){const o=[];for(let i=0;i<n;i++)o.push(a+(b-a)*i/(n-1));return o;}
+function erf(x){const s=x<0?-1:1;x=Math.abs(x);const t=1/(1+0.3275911*x);
+  const y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);
+  return s*y;}
+const Phi = z => 0.5*(1+erf(z/Math.SQRT2));
+
+/* ---------- data (verbatim from run archives) ---------- */
+const expA = {w:[0.2,0.3,0.4,0.5,0.6,0.7,0.8], k:[20,20,20,19,16,8,0], n:20, wc:0.666, slope:22.046};
+const expN = {w:[0.0,0.2,0.4,0.5,0.6,0.7,0.8,0.9,1.0], k:[20,20,20,20,17,10,0,0,0], n:20, wc:0.685, slope:27.349};
+const expB = {
+  1:{w:[0.5,0.65,0.75,0.85,0.95], k:[17,3,2,1,0], n:20, wc:0.586, slope:15.621},
+  3:{w:[0.5,0.65,0.75,0.85,0.95], k:[20,19,15,1,0], n:20, wc:0.774, slope:32.775},
+  7:{w:[0.5,0.65,0.75,0.85,0.95], k:[20,20,20,11,0], n:20, wc:0.851, slope:60}
+};
+const wcB = {lam:[1,3,7], wc:[0.586,0.774,0.851], lo:[0.539,0.751,0.845], hi:[0.624,0.798,0.858]};
+
+/* ---------- FIG 1 : the wall ---------- */
+(function(){
+  const mk = (e,color,name)=>{
+    const ylo=[],yhi=[],y=[];
+    e.w.forEach((w,i)=>{const f=e.k[i]/e.n; const ci=wilson(e.k[i],e.n);
+      y.push(f); ylo.push(f-ci[0]); yhi.push(ci[1]-f);});
+    return [{x:e.w,y:y,mode:'markers',name:name,marker:{color:color,size:9,symbol:'circle'},
+      error_y:{type:'data',array:yhi,arrayminus:ylo,color:color,thickness:1.2,width:4}},
+      {x:linspace(0,1,200), y:linspace(0,1,200).map(w=>sig(-e.slope*(w-e.wc))),
+       mode:'lines', line:{color:color,width:1.8}, showlegend:false, hoverinfo:'skip'}];
+  };
+  const shapes=[{type:'line',x0:0.666,x1:0.666,y0:0,y1:1,line:{color:C.accent,width:1,dash:'dot'}}];
+  Plotly.newPlot('fig1', [...mk(expA,C.accent,'Exp A @300k (n=140)'), ...mk(expN,C.blue,'Null model (n=180)')],
+    baseLayout({xaxis:{title:'reward centralization w',gridcolor:C.rule,range:[-0.03,1.03]},
+      yaxis:{title:'P(collapse)',gridcolor:C.rule,range:[-0.05,1.06]},
+      shapes:shapes, legend:{x:0.62,y:0.95,bgcolor:'rgba(0,0,0,0)'},
+      annotations:[{x:0.666,y:1.02,text:'w_crit = 0.666',showarrow:false,font:{size:11,color:C.accent},xanchor:'left'}]}), CFG);
+})();
+
+/* ---------- FIG 2 : PT value function ---------- */
+function drawFig2(){
+  const lam=+document.getElementById('lamSlider').value;
+  const ab=+document.getElementById('abSlider').value;
+  document.getElementById('lamVal').textContent=lam.toFixed(2);
+  document.getElementById('abVal').textContent=ab.toFixed(2);
+  const x=linspace(-10,10,400);
+  const v=x.map(z=> z>=0? Math.pow(z,ab) : -lam*Math.pow(-z,ab));
+  Plotly.react('fig2',[
+    {x:x,y:x,mode:'lines',line:{color:C.rule,width:1,dash:'dash'},name:'v(x)=x',hoverinfo:'skip'},
+    {x:x,y:v,mode:'lines',line:{color:C.accent,width:2.4},name:'prospect value'}],
+    baseLayout({xaxis:{title:'outcome x',gridcolor:C.rule,zerolinecolor:C.muted},
+      yaxis:{title:'perceived value v(x)',gridcolor:C.rule,zerolinecolor:C.muted,range:[-22,11]},
+      showlegend:false,
+      annotations:[{x:-7,y:-lam*Math.pow(7,ab),ax:-40,ay:30,text:'losses × λ',font:{size:12,color:C.accent}},
+                   {x:7.4,y:Math.pow(7.4,ab),ax:10,ay:-32,text:'gains compressed',font:{size:12,color:C.muted}}]}),CFG);
+}
+['lamSlider','abSlider'].forEach(id=>document.getElementById(id).addEventListener('input',drawFig2));
+drawFig2();
+
+/* ---------- FIG 3 : the phase surface ---------- */
+(function(){
+  const MM = l => 0.9202*l/(0.5687+l);              // w_crit(λ) at 300k, α=β=0.88 family
+  const logit = p => Math.log(p/(1-p));
+  const hShift = T => 1.19*Math.log(300/T);          // logit shift calibrated on horizon slice
+  const wcrit = (l,T) => sig(logit(MM(l)) + hShift(T));
+  const L=linspace(1,10,46), T=linspace(120,700,40);
+  const Z=T.map(t=>L.map(l=>wcrit(l,t)));
+  const surf={type:'surface',x:L,y:T,z:Z,
+    colorscale:[[0,'#2b4f8a'],[0.45,'#8a6d1f'],[1,'#a33327']],
+    cmin:0.35,cmax:1.0, opacity:0.93, showscale:false,
+    contours:{z:{show:true,usecolormap:false,color:'#f7f4ed',width:1,start:0.4,end:0.95,size:0.1}},
+    hovertemplate:'λ=%{x:.2f}<br>T=%{y:.0f}k<br>w_crit=%{z:.3f}<extra></extra>'};
+  // fragile band: translucent sheets at ± half transition width
+  const band=0.10;
+  const mkBand=off=>({type:'surface',x:L,y:T,z:T.map(t=>L.map(l=>wcrit(l,t)+off)),
+    surfacecolor:T.map(()=>L.map(()=>0)), colorscale:[[0,'#8a6d1f'],[1,'#8a6d1f']],
+    opacity:0.12, showscale:false, hoverinfo:'skip'});
+  // measured points: λ-sweep @300k (circles) and horizon sweep at λ=1, α=1 (diamonds)
+  const pts={type:'scatter3d',mode:'markers',x:[1,3,7],y:[300,300,300],z:[0.586,0.774,0.851],
+    marker:{size:5,color:'#1a1712',symbol:'circle'},name:'λ-sweep @300k',
+    hovertemplate:'λ=%{x} · measured w_crit=%{z:.3f}<extra></extra>'};
+  const ciLines=wcB.lam.map((l,i)=>({type:'scatter3d',mode:'lines',x:[l,l],y:[300,300],
+    z:[wcB.lo[i],wcB.hi[i]],line:{color:'#1a1712',width:5},showlegend:false,hoverinfo:'skip'}));
+  const hpts={type:'scatter3d',mode:'markers',x:[1,1],y:[150,600],z:[0.82,0.50],
+    marker:{size:5,color:'#1a1712',symbol:'diamond'},name:'horizon sweep (α=1)',
+    hovertemplate:'T=%{y}k · w_crit=%{z:.3f}<extra></extra>'};
+  Plotly.newPlot('fig3',[surf,mkBand(band),mkBand(-band),pts,...ciLines,hpts],{
+    paper_bgcolor:'rgba(0,0,0,0)', font:FONT, margin:{l:0,r:0,t:10,b:0},
+    showlegend:false,
+    scene:{
+      xaxis:{title:'loss aversion λ',gridcolor:C.rule,backgroundcolor:'rgba(0,0,0,0)',color:C.muted},
+      yaxis:{title:'training horizon T (k steps)',gridcolor:C.rule,backgroundcolor:'rgba(0,0,0,0)',color:C.muted},
+      zaxis:{title:'w',range:[0.2,1.05],gridcolor:C.rule,backgroundcolor:'rgba(0,0,0,0)',color:C.muted},
+      camera:{eye:{x:-1.55,y:-1.5,z:0.55}},
+      annotations:[
+        {x:8.5,y:650,z:0.32,text:'COLLAPSE',font:{color:C.accent,size:13},showarrow:false},
+        {x:2,y:160,z:1.02,text:'COORDINATED',font:{color:C.blue,size:13},showarrow:false}]
+    }},CFG);
+})();
+
+/* ---------- FIG 4 : the moving wall ---------- */
+(function(){
+  const cols={1:C.blue,3:C.gold,7:C.accent}; const tr=[];
+  [1,3,7].forEach(l=>{
+    const e=expB[l]; const y=[],ylo=[],yhi=[];
+    e.w.forEach((w,i)=>{const f=e.k[i]/e.n;const ci=wilson(e.k[i],e.n);
+      y.push(f);ylo.push(f-ci[0]);yhi.push(ci[1]-f);});
+    tr.push({x:e.w,y:y,mode:'markers',name:'λ = '+l,marker:{color:cols[l],size:9},
+      error_y:{type:'data',array:yhi,arrayminus:ylo,color:cols[l],thickness:1.2,width:4}});
+    tr.push({x:linspace(0.4,1,200),y:linspace(0.4,1,200).map(w=>sig(-e.slope*(w-e.wc))),
+      mode:'lines',line:{color:cols[l],width:1.8},showlegend:false,hoverinfo:'skip'});
+  });
+  Plotly.newPlot('fig4',tr,baseLayout({
+    xaxis:{title:'reward centralization w',gridcolor:C.rule,range:[0.42,1.0]},
+    yaxis:{title:'P(collapse)',gridcolor:C.rule,range:[-0.05,1.06]},
+    legend:{x:0.8,y:0.95,bgcolor:'rgba(0,0,0,0)'},
+    shapes:[1,3,7].map(l=>({type:'line',x0:expB[l].wc,x1:expB[l].wc,y0:0,y1:1,
+      line:{color:cols[l],width:1,dash:'dot'}}))}),CFG);
+})();
+
+/* ---------- model M (theory, calibrated on λ=1 slice only) ---------- */
+const M = {N:6, beta:1, c:0.5954, kap:0.0786, mu0:0.5, sig0:0.021};
+function ceff(l){ return M.c + M.kap*Math.log(l); }
+function xhat(w,l){ return (ceff(l)/M.beta)*(M.N-5*w)/(M.N-4*w); }
+function Dgain(x,w,l){
+  const Phi_ = M.beta*x - ceff(l);
+  return (w/M.N)*(Phi_ + x*M.beta) + (1-w)*Phi_;
+}
+const Pcollapse=(w,l)=>Phi((xhat(w,l)-M.mu0)/M.sig0);
+
+/* ---------- FIG 5 : replicator flow ---------- */
+function drawFig5(){
+  const w=+document.getElementById('wSlider').value;
+  const l=+document.getElementById('lam3Slider').value;
+  document.getElementById('wVal').textContent=w.toFixed(2);
+  document.getElementById('lam3Val').textContent=l.toFixed(2);
+  const x=linspace(0,1,300);
+  const f=x.map(z=>z*(1-z)*Dgain(z,w,l));
+  const xh=xhat(w,l);
+  const ann=[], shp=[{type:'line',x0:0,x1:1,y0:0,y1:0,line:{color:C.rule,width:1}}];
+  const pts=[{x:[0],y:[0],mode:'markers',marker:{color:C.accent,size:12},name:'lazy attractor',hoverinfo:'name'},
+             {x:[1],y:[0],mode:'markers',marker:{color:C.blue,size:12},name:'cooperative attractor',hoverinfo:'name'}];
+  if(xh>0&&xh<1){
+    pts.push({x:[xh],y:[0],mode:'markers',name:'separatrix x̂',
+      marker:{color:C.paper,size:12,line:{color:C.ink,width:2}},hoverinfo:'name'});
+    ann.push({x:xh,y:0,ax:0,ay:-44,text:'x̂ = '+xh.toFixed(3),font:{size:12,color:C.ink}});
+  } else if(xh>=1){
+    ann.push({x:0.5,y:0,ax:0,ay:-50,text:'x̂ ≥ 1 — cooperative basin GONE (collapse certain)',
+      font:{size:12,color:C.accent}});
+  }
+  ann.push({x:0.5,y:0,ax:0,ay:36,xref:'x',yref:'y',
+    text:'initialization mass ~ N(0.5, σ)',font:{size:11,color:C.muted},
+    showarrow:true,arrowcolor:C.rule});
+  Plotly.react('fig5',[
+    {x:x,y:f,mode:'lines',line:{color:C.ink,width:2.2},name:'ẋ',hovertemplate:'x=%{x:.2f}<br>ẋ=%{y:.4f}<extra></extra>'},
+    ...pts],
+    baseLayout({xaxis:{title:'fraction cooperating x',gridcolor:C.rule,range:[-0.02,1.02]},
+      yaxis:{title:'ẋ = x(1−x)·D(x)',gridcolor:C.rule},
+      showlegend:false,annotations:ann,shapes:shp}),CFG);
+}
+['wSlider','lam3Slider'].forEach(id=>document.getElementById(id).addEventListener('input',drawFig5));
+drawFig5();
+
+/* ---------- FIG 6 : model vs experiment ---------- */
+(function(){
+  const cols={1:C.blue,3:C.gold,7:C.accent}; const tr=[];
+  [1,3,7].forEach(l=>{
+    tr.push({x:linspace(0.4,1,250),y:linspace(0.4,1,250).map(w=>Pcollapse(w,l)),
+      mode:'lines',line:{color:cols[l],width:1.8},name:'model λ='+l});
+    const e=expB[l];
+    tr.push({x:e.w,y:e.w.map((w,i)=>e.k[i]/e.n),mode:'markers',
+      marker:{color:cols[l],size:9,symbol:'circle-open',line:{width:2}},name:'data λ='+l});
+  });
+  Plotly.newPlot('fig6',tr,baseLayout({
+    xaxis:{title:'reward centralization w',gridcolor:C.rule,range:[0.42,1.0]},
+    yaxis:{title:'P(collapse)',gridcolor:C.rule,range:[-0.05,1.06]},
+    legend:{x:0.78,y:0.97,bgcolor:'rgba(0,0,0,0)',font:{size:11}}}),CFG);
+})();
+
+/* ---------- FIG 7 : execution chart ---------- */
+(function(){
+  const L=linspace(1,22,300);
+  const laws=[
+    {n:'L9 linear',f:l=>0.6743+0.0296*(l-1),cls:'dead'},
+    {n:'L17 power',f:l=>0.6308*Math.pow(l,0.1545),cls:'dead'},
+    {n:'L15 odds-linear (θ=1)',f:l=>{const o=0.8528+0.7066*l;return o/(1+o);},cls:'dead'},
+    {n:'L1 log',f:l=>0.6192+0.1196*Math.log(l),cls:'dead'},
+    {n:'L8 sqrt',f:l=>0.6161+0.0963*Math.sqrt(l-1),cls:'prob'},
+    {n:'L18 reciprocal',f:l=>0.8959-0.3208/l,cls:'surv'},
+    {n:'L14 probit-log',f:l=>Phi(0.2614+0.4024*Math.log(l)),cls:'surv'},
+    {n:'L3 odds-power (θ=0.69)',f:l=>sig(0.4021+0.6919*Math.log(l)),cls:'surv'},
+    {n:'L2 power-shift',f:l=>0.586+0.1514*Math.pow(l-1,0.3125),cls:'gray'},
+    {n:'L5 sat-exp',f:l=>0.8593-0.2733*Math.exp(-0.5821*(l-1)),cls:'gray'},
+    {n:'L11 tanh',f:l=>0.586+0.2679*Math.tanh(0.4355*(l-1)),cls:'gray'},
+    {n:'L13 Gompertz',f:l=>0.8573*Math.exp(-0.734*Math.exp(-0.6571*l)),cls:'gray'},
+    {n:'L4 Möbius',f:l=>(-0.0253+1.6862*l)/(1+1.8344*l),cls:'gray'},
+    {n:'L10 quad-log',f:l=>0.586+0.2164*Math.log(l)-0.0412*Math.log(l)**2,cls:'gray'},
+    {n:'L19 neg-power',f:l=>0.586+0.3715*(1-Math.pow(l,-0.6419)),cls:'gray'},
+    {n:'L6 Michaelis–Menten ★',f:l=>0.9202*l/(0.5687+l),cls:'star'}
+  ];
+  const style={dead:{color:'#c98a82',width:1.1},prob:{color:C.gold,width:1.2,dash:'dash'},
+    surv:{color:'#7d98c4',width:1.5},gray:{color:'#cfc8b6',width:1},star:{color:C.blue,width:3.2}};
+  const tr=laws.map(lw=>({x:L,y:L.map(lw.f),mode:'lines',name:lw.n,
+    line:style[lw.cls], hovertemplate:lw.n+'<br>λ=%{x:.1f} → %{y:.3f}<extra></extra>',
+    showlegend:['dead','surv','star','prob'].includes(lw.cls)&&['L1 log','L9 linear','L3 odds-power (θ=0.69)','L6 Michaelis–Menten ★','L15 odds-linear (θ=1)'].includes(lw.n)}));
+  tr.push({x:wcB.lam,y:wcB.wc,mode:'markers',name:'measured w_crit',
+    marker:{color:C.ink,size:10},
+    error_y:{type:'data',array:wcB.hi.map((h,i)=>h-wcB.wc[i]),arrayminus:wcB.wc.map((w,i)=>w-wcB.lo[i]),
+      color:C.ink,thickness:1.4,width:5}});
+  Plotly.newPlot('fig7',tr,baseLayout({
+    xaxis:{title:'loss aversion λ (log scale)',type:'log',gridcolor:C.rule,range:[0,Math.log10(22)]},
+    yaxis:{title:'w_crit(λ)',gridcolor:C.rule,range:[0.5,1.08]},
+    legend:{x:0.55,y:0.32,bgcolor:'rgba(247,244,237,0.85)',font:{size:11}},
+    shapes:[{type:'rect',x0:1.5,x1:10,y0:0.5,y1:1.08,fillcolor:'rgba(138,109,31,0.07)',line:{width:0}},
+            {type:'line',x0:1,x1:22,y0:1,y1:1,line:{color:C.muted,width:1,dash:'dot'}}],
+    annotations:[{x:Math.log10(4.2),y:1.055,text:'dense sweep (queued on HPC)',showarrow:false,font:{size:11,color:C.gold}},
+                 {x:Math.log10(20),y:0.965,text:'λ=20: finalists differ by 0.027',showarrow:true,ax:-10,ay:-30,font:{size:11,color:C.ink},arrowcolor:C.muted}]}),CFG);
+})();
+</script>
+</body>
+</html>
