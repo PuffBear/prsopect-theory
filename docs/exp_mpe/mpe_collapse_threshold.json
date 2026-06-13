@@ -1,0 +1,11 @@
+{
+  "threshold": -65.166,
+  "w0_mean": -34.278,
+  "w1_mean": -96.054,
+  "w0_max": -27.791,
+  "w1_min": -149.189,
+  "clean_separation": false,
+  "n_seeds_per_w": 20,
+  "rule": "midpoint of mean(true_reward) at w=0 (worst) and w=1 (best)",
+  "source_csv": "docs/exp_mpe/mpe_calibration_raw_data.csv"
+}
