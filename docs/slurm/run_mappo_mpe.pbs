@@ -1,16 +1,17 @@
 #!/bin/bash
 #PBS -N mappo_mpe
-#PBS -J 0-839
+#PBS -q cpu
+#PBS -J 0-1259
 #PBS -l select=1:ncpus=1:mem=4gb
-#PBS -l walltime=01:00:00
-#PBS -o logs/mappo_mpe_^array_index^.out
-#PBS -e logs/mappo_mpe_^array_index^.err
+#PBS -l walltime=01:30:00
+#PBS -j oe
 
 set -euo pipefail
 
 PROJECT_ROOT="$HOME/prospect-theory"
 cd "$PROJECT_ROOT"
 mkdir -p logs docs/expMAPPO_mpe_figures
+exec >> "$PROJECT_ROOT/logs/mappo_mpe_${PBS_ARRAY_INDEX}.log" 2>&1
 
 export OMP_NUM_THREADS=1
 export MKL_NUM_THREADS=1
@@ -21,4 +22,7 @@ conda activate marl
 # MPE needs mpe2 in the conda env -- run ONCE on the login node:
 #   conda activate marl && pip install mpe2
 
-python experiments/exp_mappo_mpe.py --run_idx "$PBS_ARRAY_INDEX"
+python experiments/exp_mappo_mpe.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 600000 \
+    --out docs/expMAPPO_mpe_figures/mappo_mpe_raw_data.csv
