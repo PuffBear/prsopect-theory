@@ -1,16 +1,17 @@
 #!/bin/bash
 #PBS -N mpe_calibrate
+#PBS -q cpu
 #PBS -J 0-39
 #PBS -l select=1:ncpus=1:mem=4gb
-#PBS -l walltime=01:00:00
-#PBS -o logs/mpe_calib_^array_index^.out
-#PBS -e logs/mpe_calib_^array_index^.err
+#PBS -l walltime=01:30:00
+#PBS -j oe
 
 set -euo pipefail
 
 PROJECT_ROOT="$HOME/prospect-theory"
 cd "$PROJECT_ROOT"
 mkdir -p logs docs/exp_mpe
+exec >> "$PROJECT_ROOT/logs/mpe_calib_${PBS_ARRAY_INDEX}.log" 2>&1
 
 export OMP_NUM_THREADS=1
 export MKL_NUM_THREADS=1
@@ -21,7 +22,7 @@ conda activate marl
 # MPE needs mpe2 in the conda env -- run ONCE on the login node:
 #   conda activate marl && pip install mpe2
 
-# 40 runs = w in {0.0, 1.0} x 20 seeds, trained 300k (same pipeline as the sweep).
+# 40 runs = w in {0.0, 1.0} x 20 seeds, trained 600k (matches the main sweep).
 # After this array finishes:  python experiments/analyze_mpe_calibrate.py
 #   -> writes docs/exp_mpe/mpe_collapse_threshold.json (theta) used by the analysis.
-python experiments/exp_mpe_calibrate.py --run_idx "$PBS_ARRAY_INDEX" --timesteps 300000
+python experiments/exp_mpe_calibrate.py --run_idx "$PBS_ARRAY_INDEX" --timesteps 600000
