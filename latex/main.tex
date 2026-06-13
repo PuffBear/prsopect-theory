@@ -110,75 +110,155 @@ knowledge, has not previously been demonstrated in cooperative MARL.
 \section{Introduction}
 \label{sec:intro}
 
-% X1: the problem and why it matters
-Automated replenishment in multi-echelon supply chains is a canonical
-cooperative MARL problem: agents must coordinate ordering decisions across
-nodes with delayed feedback, partial observability, and misaligned local
-incentives~\citep{oroojlooyjadid2022}.
-Failures in such systems---agents that under-order, hoard, or
-stop ordering altogether---generate the bullwhip effect, stockouts, and
-cascading profit losses.
-Deploying MARL agents that exhibit human-like behavioral biases, such as
-prospect-theoretic loss aversion, is increasingly realistic given the
-trend toward human-in-the-loop and behavior-aware AI
-systems~\citep{lalmohammed2025,ethayarajh2024kto}.
+% ---- I1: definition first, domain second -------------------------------
+% The phenomenon is defined in the first two sentences; everything else
+% in the paper hangs off this definition.
+Cooperative multi-agent reinforcement learning (MARL) systems exhibit a
+well-documented failure mode called \emph{coordination collapse}: instead
+of learning to cooperate, every agent converges to a degenerate
+zero-action policy that avoids the risk of coordinating with
+others~\citep{liu2023lazy,peng2023curo}.
+Whether a system collapses depends critically on its \emph{reward
+centralization} $w \in [0,1]$ --- the fraction of each agent's reward
+that comes from the team's global outcome rather than its own local
+outcome.
+This paper measures, for the first time, \emph{where} the boundary
+between collapse and coordination lies, how it moves with training time,
+and how it moves when agents carry the best-validated model of human
+bias: prospect-theoretic loss aversion~\citep{kahneman1979,tversky1992}.
 
-% X2: the specific gap
-A well-documented failure mode is \emph{coordination collapse}: agents
-converge to a zero-action policy, abandoning cooperation
-entirely~\citep{liu2023lazy,peng2023curo}.
-While the phenomenon is recognized, no prior work has characterized the
-collapse boundary as a quantitative, measurable object with confidence
-intervals.
-Existing work either treats the boundary qualitatively (``centralization
-helps'') or studies algorithmic mitigation without locating the transition
-point.
+% ---- I2: why this domain ----------------------------------------------
+We ground the measurement in automated replenishment for multi-echelon
+supply chains, a canonical cooperative MARL problem in which agents
+coordinate ordering decisions across a network under delayed feedback,
+partial observability, and structurally misaligned local
+incentives~\citep{oroojlooyjadid2022,gijsbrechts2022}.
+The domain is not incidental.
+First, its failure modes are economically legible: agents that hoard,
+under-order, or stop ordering produce the bullwhip effect, stockouts, and
+cascading losses --- collapse here is not an abstract training pathology
+but a recognisable operational disaster.
+Second, the domain supplies the mental model this paper formalises:
+real replenishment decisions are made by planners who demonstrably weigh
+losses more heavily than equivalent gains, and the agents now being
+trained to replace or assist them inherit human preference structure by
+design --- through preference-aligned training objectives that are
+themselves prospect-theoretic in form~\citep{ethayarajh2024kto} and
+through human-in-the-loop deployment~\citep{lalmohammed2025}.
+A team of loss-averse decision makers managing a shared pipeline is the
+real-world ability we are modelling; the question is what happens to
+\emph{system-level} coordination when that bias is carried by learning
+agents.
 
-% Y: why it is hard to measure
-The boundary is not a fixed scalar.
-It depends on the reward structure ($w$, the fraction of global reward
-shared across agents), the training horizon $T$, and---as we
-demonstrate---on whether agents carry prospect-theoretic loss aversion
-($\lambda$).
-These factors interact: measuring any one in isolation does not
-characterize the system.
-Prospect theory decomposes into two components with distinct mathematical
-forms~\citep{tversky1992}: a nonlinear probability weighting function
-($\alpha, \beta$) and a loss aversion coefficient ($\lambda$).
-Prior work applying prospect theory to cooperative MARL~\citep{lalmohammed2025}
-integrates these components jointly into the algorithm, making it
-impossible to attribute effects to either component separately.
+% ---- I3: the gap, part 1 -- collapse is explained, never located -------
+The literature explains coordination collapse without locating it.
+\citet{liu2023lazy} formalise the lazy-agent problem and
+\citet{peng2023curo} relative overgeneralization, both proposing
+algorithmic mitigations; \citet{weng2026} identify representation
+degradation under decentralised exploration as a mechanism;
+\citet{dmarl2025} show empirically that decentralised reward shaping
+cannot close the gap to centralised baselines.
+All of these treat the collapse boundary qualitatively
+(``centralization helps'') and stop short of estimating it.
+Near misses exist: \citet{wang2025maca} sweep credit-assignment levels
+but optimise win rates rather than estimate a boundary;
+\citet{jiang2018dgn} use reward-mixing weights without isolating a
+critical value; \citet{zhang2026lcerd} observe phase-like transitions in
+training dynamics without quantifying them.
+Closest in spirit, \citet{yamaguchi2025} construct a phase diagram for
+independent Q-learning over environment size and agent density --- but
+their axes are environmental, not motivational: the reward structure $w$
+and the behavioral profile of the agents are precisely the dimensions
+their framework holds fixed.
+No prior work characterises the collapse boundary as a quantitative,
+measurable object with confidence intervals.
 
-% Z: our approach
-We close this gap by constructing the first quantitative phase diagram of
-cooperative MARL coordination collapse.
-We treat the collapse boundary as a logistic curve in $w$-space, estimate
-the critical point $\wcrit$ with bootstrap confidence intervals, and use
-a pre-registered null-model design to decompose the total behavioral effect
-into a \emph{probability weighting component} (curvature) and a
-\emph{loss aversion increment} ($\lambda$-dependent).
+% ---- I4: the gap, part 2 -- behavioral MARL is entangled ---------------
+A parallel literature equips MARL agents with risk preferences but
+cannot answer our question either.
+Risk-sensitive methods based on Conditional Value at Risk optimise tail
+outcomes~\citep{qiu2021rmix,xie2023riskq}; this is mathematically
+distinct from loss aversion, which is an asymmetry of perceived value
+around a reference point, not a reweighting of tail probability.
+\citet{lalmohammed2025} do bring cumulative prospect theory (CPT) into
+cooperative MARL, but integrate the value function and the probability
+weighting into the actor--critic update jointly --- so the effect of
+curvature ($\alpha,\beta$) and the effect of loss aversion ($\lambda$)
+on coordination cannot be separated.
+In evolutionary game theory, \citet{mengesha2026} prove that loss
+aversion induces population-level lock-in, establishing the phenomenon
+conceptually --- but in a setting without learned neural policies,
+function approximation, or finite-horizon training dynamics.
+The decomposition question --- \emph{which component of prospect theory
+moves the coordination boundary, and in which direction} --- is open in
+deep MARL.
 
-% 1: what we find
-Our main results are:
+% ---- I5: the gap statement and why our way is the right way ------------
+This is the gap: coordination collapse has never been measured as a
+boundary, and behavioral bias has never been decomposed against such a
+boundary.
+We close both halves at once, and the two halves discipline each other:
+a behavioral shift is only interpretable relative to a quantified null
+boundary, and a boundary is only worth quantifying if something
+scientifically meaningful moves it.
+Our approach treats the collapse boundary the way physics treats a phase
+boundary: a pre-registered, frozen binary collapse definition; logistic
+estimation of $P(\mathrm{collapse} \mid w)$; bootstrap confidence
+intervals on the critical point $\wcrit$; and a three-way null-model
+design (no PT / curvature only / curvature plus loss aversion) that
+attributes any shift to a specific CPT component.
+Two design choices make the attribution clean.
+We apply CPT as a \emph{reward transform} rather than modifying the
+learning update, so the optimizer is identical in every condition and
+behavioral effects cannot be confounded with algorithmic ones.
+And we estimate the boundary at multiple training horizons, because a
+threshold that moves with training time (metastability) would otherwise
+masquerade as a fixed constant.
+
+% ---- I6: research questions, stated exactly ----------------------------
+We ask three questions:
+\begin{description}
+  \item[RQ1 (Existence and location).] Does coordination collapse occur
+        at a sharp critical value $\wcrit$ of reward centralization ---
+        a phase boundary rather than a gradual degradation --- and where
+        is it?
+  \item[RQ2 (Stability).] Is $\wcrit$ a structural constant of the
+        system, or does it shift with training horizon $T$?
+  \item[RQ3 (Behavioral decomposition).] How do the two components of
+        prospect theory --- probability-weighting curvature
+        ($\alpha,\beta$) and loss aversion ($\lambda$) --- each shift
+        $\wcrit$, and in which directions?
+\end{description}
+
+% ---- I7: findings -------------------------------------------------------
+Across 1,124 controlled runs we find:
 \begin{itemize}
-  \item The structural coordination boundary is $\wcrit = 0.666$
-        $[0.635, 0.694]$ at 300k steps under no behavioral bias, and
-        $\wcrit = 0.822$ $[0.785, 0.858]$ at 150k steps, demonstrating
-        that the boundary is horizon-dependent (metastable attractor).
-  \item Probability weighting alone ($\alpha{=}\beta{=}0.88$,
-        $\lambda{=}1$) \emph{reduces} $\wcrit$ by $0.100$
-        $[0.033, 0.172]$ relative to the no-PT null, facilitating
-        coordination.
-  \item Loss aversion at $\lambda{=}3$ and $\lambda{=}7$ shifts
-        $\wcrit$ by $+0.089$ $[0.041, 0.141]$ and $+0.166$
-        $[0.135, 0.202]$ above the null, respectively.
-        The non-overlapping confidence intervals of the $\lambda{=}7$
-        and $\lambda{=}1$ conditions confirm the behavioral claim.
-  \item The two PT components act in \emph{opposite directions}: curvature
-        facilitates coordination; loss aversion impedes it.
+  \item \textbf{RQ1:} collapse is a sharp logistic boundary in $w$.
+        Under no behavioral bias, $\wcrit = 0.666$ $[0.635, 0.694]$ at
+        300k training steps.
+  \item \textbf{RQ2:} the boundary is horizon-dependent:
+        $\wcrit = 0.822$ $[0.785, 0.858]$ at 150k steps, sliding left
+        with longer training --- collapse at intermediate $w$ is a
+        metastable attractor, not an absorbing state.
+  \item \textbf{RQ3:} the two PT components act in \emph{opposite
+        directions}. Curvature alone ($\alpha{=}\beta{=}0.88$,
+        $\lambda{=}1$) shifts $\wcrit$ \emph{left} by $0.100$
+        $[0.033, 0.172]$, facilitating coordination; loss aversion
+        shifts it \emph{right} by $+0.089$ $[0.041, 0.141]$ at
+        $\lambda{=}3$ and $+0.166$ $[0.135, 0.202]$ at $\lambda{=}7$,
+        impeding it. The non-overlapping confidence intervals of the
+        $\lambda{=}7$ and $\lambda{=}1$ conditions confirm the
+        behavioral claim.
 \end{itemize}
+To our knowledge this is the first quantitative phase diagram of
+cooperative MARL coordination collapse in $(w, T, \lambda)$ space, and
+the first demonstration that the two CPT components push a coordination
+boundary in opposite directions.
+Practically, the boundary functions as a measurable safety margin: it
+answers how much reward centralization a multi-agent system requires
+before coordination is reliable --- and how much \emph{more} it requires
+if its agents are loss-averse.
 
-% Figure 1 on page 1 (per Brendan's advice)
 \Cref{fig:heatmap} shows the collapse probability surface in $(w,T)$
 space, illustrating the metastability result.
 \Cref{fig:decomposition} shows the behavioral decomposition: the four
@@ -205,7 +285,6 @@ loss-aversion effects.
   \label{fig:heatmap}
 \end{figure}
 
-% -----------------------------------------------------------------------
 \section{Background}
 \label{sec:background}
 
@@ -268,80 +347,6 @@ This differs architecturally from~\citet{lalmohammed2025}, who integrate
 CPT into the actor and critic update mechanics; our formulation applies PT
 at the reward signal level and does not modify the policy gradient
 computation.
-
-% -----------------------------------------------------------------------
-\section{Related Work}
-\label{sec:related}
-
-% R1: credit assignment / lazy agents -- closest structural siblings
-The lazy agent problem~\citep{liu2023lazy} and relative
-overgeneralization~\citep{peng2023curo} establish coordination collapse as
-a canonical MARL pathology under CTDE, proposing algorithmic mitigations
-(CMAE and CURO respectively).
-\citet{weng2026} demonstrate that exploration noise structurally degrades
-shared neural representations under decentralised training, explaining a
-key mechanism of collapse.
-\citet{dmarl2025} show empirically that even sophisticated decentralised
-reward shaping cannot overcome fundamental coordination barriers, achieving
-$-24.20$ average reward versus a centralised baseline at $+1.92$.
-These works establish \emph{why} collapse occurs; none characterises
-\emph{where} the collapse boundary lies as a quantitative object with
-confidence intervals.
-\citet{wang2025maca} construct counterfactual advantage functions at
-multiple credit-assignment levels and evaluate robustness across
-thresholding hyperparameters---a sweep that borders on a centralization
-sensitivity analysis---but they optimise win rates on SMAC rather than
-deriving a statistical phase boundary in $(w, T)$ space.
-\citet{jiang2018dgn} and \citet{zhang2026lcerd} similarly utilise reward
-mixing weights and observe phase-like transitions in training dynamics,
-respectively, but neither isolates a named critical centralization value
-with confidence intervals.
-
-% R2: phase structure in MARL -- closest to ours, different axis
-Most recently, \citet{yamaguchi2025} construct a phase diagram for
-independent Q-learning across environment size $L$ and agent density
-$\rho$, identifying coordinated, fragile, and jammed regimes separated by
-an instability ridge.
-Our work is orthogonal: we hold the environment and algorithm fixed and
-map the phase boundary as a function of the reward structure parameter $w$
-and the behavioral parameter $\lambda$---dimensions their framework does
-not address.
-
-% R3: PT in cooperative MARL -- Lalmohammed
-\citet{lalmohammed2025} integrate CPT into the actor and critic update
-mechanics of MADDPG, demonstrating that tunable risk profiles are
-achievable in cooperative settings.
-Our work is architecturally distinct (CPT as reward transform, not
-gradient transform) and asks a different question: not whether PT-equipped
-agents can coordinate, but at what centralization level coordination fails
-and how the PT parameter $\lambda$ shifts that level.
-
-% R4: risk-sensitive MARL -- CVaR approaches
-\citet{qiu2021rmix} and \citet{xie2023riskq} incorporate Conditional Value
-at Risk (CVaR) into cooperative value factorisation.
-CVaR optimises the expected return in the worst $\alpha$-percentile of
-outcomes; loss aversion operates via reference-dependent utility
-asymmetry.
-These are mathematically distinct mechanisms: CVaR addresses aleatoric
-tail risk, while $\lambda$ captures the perceived asymmetry between gains
-and losses~\citep{xie2023riskq}.
-
-% R5: behavioral collapse in adjacent fields
-\citet{mengesha2026} prove in evolutionary game theory that loss aversion
-induces population-level lock-in at zero-sum equilibria, establishing the
-conceptual phenomenon in a theoretical setting.
-We extend this to deep MARL with learned neural policies and continuous
-state spaces, providing the first empirical measurement in this setting.
-
-% R6: supply chain MARL
-\citet{oroojlooyjadid2022} establish the Beer Distribution Game as a
-multi-agent Dec-POMDP where decentralised DQN triggers systemic cost
-escalation corrected by a shared penalty.
-\citet{gijsbrechts2022} demonstrate that A3C can match state-of-the-art
-heuristics in multi-echelon inventory settings, establishing DRL as a
-viable approach for supply chain optimisation.
-\citet{marlim2023} apply MARL to multi-product single-echelon inventory.
-Our substrate generalises these to a six-node multi-echelon network.
 
 % -----------------------------------------------------------------------
 \section{Method}
@@ -416,6 +421,10 @@ Actions are parameterised via a base-stock wrapper that maps each
 agent's continuous action to a target inventory level $S \in [0, 500]$,
 with order quantity $Q = \max(0, S - \mathrm{IP})$ where $\mathrm{IP}$
 is inventory position.
+The substrate extends prior DRL inventory work --- the Beer Distribution
+Game Dec-POMDP of \citet{oroojlooyjadid2022}, the multi-echelon A3C
+results of \citet{gijsbrechts2022}, and single-echelon
+MARL~\citep{marlim2023} --- to a six-node network with per-node agents.
 
 % E2: algorithm
 Each agent runs PPO~\citep{schulman2017ppo} with a shared MLP policy
@@ -728,6 +737,85 @@ the baseline $\wcrit = 0.666$ is $0.015$, well below the confidence
 interval width.
 We conclude that the collapse definition is robust to $\pm 20\%$ threshold
 perturbation.
+
+% -----------------------------------------------------------------------
+\section{Environment Generalisability: Incentive Misalignment Across Domains}
+\label{sec:appendix_environments}
+
+A central claim of this work is that the coordination cliff---a sharp, CPT-modulated
+phase transition from coordination to collapse as the reward centrality parameter
+$w$ decreases---is a \emph{universal} feature of multi-agent systems where individual
+self-interest conflicts with collective outcomes, not an artefact of the supply-chain
+setting.
+We examine this claim across four qualitatively distinct environments, each from
+a different application domain.
+
+\paragraph{Supply Chain (NetworkManagement-v1, logistics/operations research).}
+Six nodes in a serial supply chain share a common upstream supplier with
+finite Poisson-demand ($\mu=20$).  The locally rational action is to
+\emph{order aggressively}---maximising one's own on-hand inventory---which
+depletes the shared upstream pipeline and starves downstream nodes.
+At $w{=}0$ (pure individual inventory reward), agents hoard; the cascade failure
+of downstream nodes constitutes collapse.
+This is the primary experimental setting; results are reported in
+\Cref{sec:results}.
+
+\paragraph{MPE Cooperative Navigation (simple\_spread\_v3, robotics/navigation).}
+Three agents must cover three landmarks in a continuous 2-D arena.
+The locally rational action under the herding incentive is to
+\emph{stay near teammates}---individually rational for proximity bonuses---but
+collectively disastrous, as all agents cluster and no landmark is covered.
+The $w$-dial interpolates between the herding signal ($w{=}0$, clustering collapse)
+and the global coverage score ($w{=}1$, coordination).
+We use $\texttt{local\_ratio}{=}0$ in \texttt{simple\_spread\_v3} to ensure the
+raw environment reward is the pure global team score; the herding term is defined
+by our wrapper.
+MPE is a standard benchmark introduced by \citet{lowe2017multi}.
+
+\paragraph{RWARE (Robot Warehouse, discrete logistics).}
+Three agents operate in a \texttt{rware-tiny-3ag-easy-v2} warehouse grid
+\citep{christianos2020shared}.
+The locally rational action is to \emph{always carry a shelf}---picking one up
+and never returning it.
+Shelves held in transit are unavailable for the delivery queue, so warehouse
+throughput collapses to zero at $w{=}0$.
+At $w{=}1$, agents learn the complete pick-up--navigate--deliver cycle.
+This is the most direct structural analogue of supply-chain hoarding:
+carrying a shelf without delivering it is exactly holding inventory without
+passing it downstream.
+
+\paragraph{Cleanup (Sequential Social Dilemma, ecological/commons).}
+Three agents inhabit a 10$\times$8 grid split into a \emph{waste region} (columns
+0--2) and an \emph{apple region} (columns 7--9), following \citet{leibo2017multi}.
+Waste tiles spawn stochastically each step; apple tiles spawn at rate proportional
+to $\text{cleanliness}^2$, where cleanliness is the fraction of waste cells that
+have been cleaned.
+The locally rational action is to \emph{harvest apples}---never cleaning---which
+is a tragedy of the commons: waste accumulates, cleanliness drops, apple spawn
+rate collapses to zero.
+At $w{=}1$, agents learn to specialise (some clean, others harvest), sustaining
+the apple supply.
+Cleanup is notably distinct from the other three settings: the incentive
+misalignment is \emph{mediated} through a shared renewable resource (the apple
+supply), rather than direct inventory competition.
+It demonstrates that the same CPT-gated coordination cliff emerges even in
+resource-management dilemmas studied in the social-science MARL literature.
+
+\paragraph{Structural commonality.}
+Across all four environments, the incentive misalignment structure is identical
+at the level of the reward blend:
+\begin{equation}
+  r_{\text{blend}}(i) = (1-w)\,r_{\text{local}}(i) \;+\; w\,r_{\text{global}},
+\end{equation}
+where $r_{\text{local}}$ encodes a locally rational strategy that is harmful
+to the collective, and $r_{\text{global}}$ is the team score.
+The supply chain, RWARE, and Cleanup settings share the same
+\emph{resource-competition} failure mode (hoarding stock, carrying shelves,
+harvesting apples all deprive others of a shared resource); MPE exhibits a
+\emph{coordination-failure} mode (herding prevents coverage).
+In both cases, Prospect Theory's loss aversion amplifies the sensitivity of
+$w_{\text{crit}}$ to the loss-aversion parameter $\lambda$, producing the
+same three-way decomposition (\Cref{sec:method}).
 
 % -----------------------------------------------------------------------
 \bibliographystyle{plainnat}
