@@ -1,0 +1,110 @@
+#!/bin/bash
+# =============================================================================
+# Unified MARL sweep -- all algo × env combinations in a single script.
+#
+# Usage (submit one job per combination):
+#
+#   qsub -v COMBO=ppo_mpe       -J 0-1259 run_marl_sweep.pbs   # 21w x 3lam x 20s
+#   qsub -v COMBO=mappo_mpe     -J 0-1259 run_marl_sweep.pbs   # 21w x 3lam x 20s
+#   qsub -v COMBO=ppo_rware     -J 0-1019 run_marl_sweep.pbs   # 17w x 3lam x 20s
+#   qsub -v COMBO=mappo_rware   -J 0-1019 run_marl_sweep.pbs   # 17w x 3lam x 20s
+#   qsub -v COMBO=ppo_cleanup   -J 0-1019 run_marl_sweep.pbs   # 17w x 3lam x 20s
+#   qsub -v COMBO=mappo_cleanup -J 0-1019 run_marl_sweep.pbs   # 17w x 3lam x 20s
+#
+# Supply-chain experiments use separate scripts (different schema / grid):
+#   run_ppo_lambda_sweep.pbs   (PPO-SupplyChain)
+#   run_mappo_orgym.pbs        (MAPPO-SupplyChain)
+#
+# Pre-requisites (run ONCE on login node before submitting):
+#   conda activate marl
+#   pip install mpe2          # for COMBO=*_mpe
+#   pip install rware         # for COMBO=*_rware
+#   # Cleanup uses only numpy + pettingzoo (already installed)
+#
+# Walltime is set to 2 h (covers RWARE at 600k steps; MPE/Cleanup finish ~1.5 h).
+# =============================================================================
+
+#PBS -N marl_sweep
+#PBS -q cpu
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+
+set -euo pipefail
+
+if [[ -z "${COMBO:-}" ]]; then
+    echo "ERROR: COMBO is not set.  Submit with: qsub -v COMBO=ppo_mpe ..."
+    exit 1
+fi
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs
+exec >> "$PROJECT_ROOT/logs/marl_${COMBO}_${PBS_ARRAY_INDEX}.log" 2>&1
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+IDX="$PBS_ARRAY_INDEX"
+
+case "$COMBO" in
+
+  ppo_mpe)
+    mkdir -p docs/expPPO_mpe_figures
+    python experiments/exp_ppo_mpe.py \
+        --run_idx "$IDX" \
+        --timesteps 600000 \
+        --out docs/expPPO_mpe_figures/ppo_mpe_raw_data.csv
+    ;;
+
+  mappo_mpe)
+    mkdir -p docs/expMAPPO_mpe_figures
+    python experiments/exp_mappo_mpe.py \
+        --run_idx "$IDX" \
+        --timesteps 600000 \
+        --out docs/expMAPPO_mpe_figures/mappo_mpe_raw_data.csv
+    ;;
+
+  ppo_rware)
+    mkdir -p docs/exp_rware
+    python experiments/exp_ppo_rware.py \
+        --run_idx "$IDX" \
+        --timesteps 600000 \
+        --out docs/exp_rware/ppo_rware_raw_data.csv
+    ;;
+
+  mappo_rware)
+    mkdir -p docs/exp_rware
+    python experiments/exp_mappo_rware.py \
+        --run_idx "$IDX" \
+        --timesteps 600000 \
+        --out docs/exp_rware/mappo_rware_raw_data.csv
+    ;;
+
+  ppo_cleanup)
+    mkdir -p docs/exp_cleanup
+    python experiments/exp_ppo_cleanup.py \
+        --run_idx "$IDX" \
+        --timesteps 600000 \
+        --out docs/exp_cleanup/ppo_cleanup_raw_data.csv
+    ;;
+
+  mappo_cleanup)
+    mkdir -p docs/exp_cleanup
+    python experiments/exp_mappo_cleanup.py \
+        --run_idx "$IDX" \
+        --timesteps 600000 \
+        --out docs/exp_cleanup/mappo_cleanup_raw_data.csv
+    ;;
+
+  *)
+    echo "ERROR: Unknown COMBO='$COMBO'."
+    echo "Valid values: ppo_mpe  mappo_mpe  ppo_rware  mappo_rware  ppo_cleanup  mappo_cleanup"
+    exit 1
+    ;;
+
+esac
