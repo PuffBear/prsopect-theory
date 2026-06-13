@@ -1,10 +1,11 @@
 #!/bin/bash
 #PBS -N exp1_null_600k
+#PBS -q cpu
 #PBS -J 0-159
 #PBS -l select=1:ncpus=1:mem=4gb
 #PBS -l walltime=03:00:00
-#PBS -o logs/exp1_600k_^array_index^.out
-#PBS -e logs/exp1_600k_^array_index^.err
+#PBS -o logs/exp1_600k_%I.out
+#PBS -e logs/exp1_600k_%I.err
 
 set -euo pipefail
 
