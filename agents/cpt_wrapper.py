@@ -42,6 +42,10 @@ class CPTRewardWrapper(BaseParallelWrapper):
             info[agent]["blended_reward"] = blended_reward
             info[agent]["scaled_reward"] = scaled_reward
             info[agent]["cpt_reward"] = cpt_reward
-            info[agent]["true_reward"] = reward
+            # Preserve true_reward set by an inner wrapper (e.g. MPELocalRewardWrapper
+            # sets this to the raw env reward before w-blending).  Only fall back to
+            # the blended reward if no inner wrapper has set it.
+            if "true_reward" not in info[agent]:
+                info[agent]["true_reward"] = reward
                 
         return obs, cpt_rewards, term, trunc, info
