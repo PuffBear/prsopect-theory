@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N rware_calib_v2
+#PBS -q cpu
+#PBS -J 0-19
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=10:00:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/exp_rware
+exec >> "$PROJECT_ROOT/logs/rware_calib_v2_${PBS_ARRAY_INDEX}.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+# RWARE must be installed in the marl env (login node, ONCE):
+#   conda activate marl && pip install rware
+# Verify BEFORE submitting:  python -c "import rware; print('ok')"
+
+python experiments/exp_rware_calibrate.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 2000000 \
+    --out docs/exp_rware/rware_calibration_v2_raw_data.csv
