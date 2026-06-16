@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -N mappo_mpe_calib
+#PBS -q cpu
+#PBS -J 0-19
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=12:00:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/exp_mpe
+exec >> "$PROJECT_ROOT/logs/mappo_mpe_calib_${PBS_ARRAY_INDEX}.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+# MAPPO calibration: 20 runs = w in {0.0,1.0} x 10 seeds, NULL condition,
+# 4M steps, centralized critic + agent-id + 50-step horizon (shared
+# train_mappo_model -- matches the main sweep exactly).
+# AFTER this array finishes:  python experiments/analyze_mappo_mpe_calibrate.py
+# *** GATE: only submit run_mappo_mpe.pbs if it prints "Gate PASSED". ***
+python experiments/exp_mappo_mpe_calibrate.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 4000000 \
+    --out docs/exp_mpe/mappo_mpe_calibration_raw_data.csv
