@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N mpe_calib_gate
+#PBS -q cpu
+#PBS -l select=1:ncpus=1:mem=2gb
+#PBS -l walltime=00:10:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs
+exec >> "$PROJECT_ROOT/logs/mpe_calib_gate.log" 2>&1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+# Reads docs/exp_mpe/mpe_calibration_v2_raw_data.csv, writes
+# docs/exp_mpe/mpe_collapse_threshold_v2.json, and prints the gate verdict.
+# Check the verdict with:  grep -A2 "Gate\|GATE\|FAILED" logs/mpe_calib_gate.log
+python experiments/analyze_mpe_calibrate.py
