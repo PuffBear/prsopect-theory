@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -N lbf_detcheck
+#PBS -q cpu
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/exp_lbf
+exec >> "$PROJECT_ROOT/logs/lbf_detcheck.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+# Run the SAME index (w=1, seed 42) twice; with the seed fix live the two
+# CSVs must be byte-identical. DIFFERS => fixed code was not synced before
+# the calibration run; IDENTICAL => fix is live (LBF genuinely fails on HPC).
+python experiments/exp_lbf_calibrate.py --run_idx 10 --timesteps 2000000 --out docs/exp_lbf/_detcheck_1.csv
+python experiments/exp_lbf_calibrate.py --run_idx 10 --timesteps 2000000 --out docs/exp_lbf/_detcheck_2.csv
+
+echo "=== mean_reward both runs ==="
+cat docs/exp_lbf/_detcheck_1.csv
+cat docs/exp_lbf/_detcheck_2.csv
+if diff -q docs/exp_lbf/_detcheck_1.csv docs/exp_lbf/_detcheck_2.csv >/dev/null; then
+  echo "VERDICT: IDENTICAL -> seed fix is live"
+else
+  echo "VERDICT: DIFFERS -> old (unfixed) code ran; rsync the fixed files and re-calibrate"
+fi
