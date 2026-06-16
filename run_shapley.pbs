@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -N exp_shapley
+#PBS -o logs/shapley.out
+#PBS -e logs/shapley.err
+#PBS -l ncpus=1
+#PBS -l walltime=10:00:00
+#PBS -q cpu
+#PBS -J 0-79
+
+# Reviewer point 2: Shapley / difference-reward structural credit assignment (80 runs).
+# Counterfactual rollouts make this slower than a plain PPO run -> larger walltime.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_shapley.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 300000 \
+    --out docs/expShapley_figures/expShapley_raw_data.csv
