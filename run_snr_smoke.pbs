@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -N snr_smoke
+#PBS -o logs/snr_smoke.out
+#PBS -e logs/snr_smoke.err
+#PBS -l ncpus=1
+#PBS -l walltime=00:30:00
+#PBS -q cpu
+
+# --- single short run to validate env + logging before the full array ---
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_snr_validation.py \
+    --run_idx 80 --timesteps 30000 --window_steps 15000 \
+    --out docs/expSNR_figures/expSNR_smoke.csv
