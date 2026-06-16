@@ -124,7 +124,13 @@ def make_mpe_coop_nav(n_agents=3, max_cycles=25, continuous_actions=True):
     return env
 
 
-HERDING_SCALE = 4.0   # see module docstring for calibration rationale
+HERDING_SCALE = 2.0   # v4b: lowered 4.0->2.0. At 4.0 the empirical MAPPO
+# boundary jammed against the grid edge (w*~0.95-1.0), leaving no room to
+# resolve the CPT decomposition. 2.0 weakens the collapse end so the
+# transition moves into the interior (~0.6-0.7), where curvature/lambda
+# shifts are measurable. Occupancy at the w=0/w=1 endpoints is ~unchanged
+# (it scales with reward magnitude, not the argmax policy), so the
+# calibration threshold is expected to be stable.
 
 
 class MPELocalRewardWrapper(BaseParallelWrapper):
