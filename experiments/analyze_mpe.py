@@ -51,14 +51,100 @@ def analyze_lambda(df, lam):
             "pval": pval, "r2": r2, "w_crit": w_crit, "ci_lo": wc_lo, "ci_hi": wc_hi}
 
 
+# --- Decomposition by CONDITION (the RQ3 design) ----------------------------
+# The sweep grid is {null, curvature, lambda3}, NOT a lambda sweep. null and
+# curvature BOTH have lambda=1 (they differ in alpha,beta), so grouping by
+# lambda would merge them and destroy the curvature-vs-null contrast. The
+# decomposition must group by the `condition` column.
+CONDITIONS = ["null", "curvature", "lambda3"]
+
+
+def analyze_condition(df, cond):
+    sub = df[df["condition"] == cond]
+    if len(sub) < 5:
+        return None
+    try:
+        m, slope, pval, r2, w_crit = fit_logistic(sub)
+        wc_med, wc_lo, wc_hi = bootstrap_wcrit(sub)
+    except Exception as e:
+        print(f"  condition={cond}: logistic fit failed ({e})")
+        return None
+    return {"condition": cond, "n": len(sub), "w_crit": w_crit,
+            "ci_lo": wc_lo, "ci_hi": wc_hi, "slope": slope, "pval": pval, "r2": r2}
+
+
+def _occupancy_threshold():
+    """Calibrated occupancy theta the COLLAPSE flag must use. The sweep's stored
+    `collapsed` column can be wrong if it was written against a stale threshold
+    file, so we always recompute from raw occupancy here."""
+    try:
+        sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+        from env.mpe_coop_nav import load_occupancy_threshold
+        return float(load_occupancy_threshold())
+    except Exception:
+        return 0.164  # MAPPO calibration midpoint (w=0 0.053 / w=1 0.276)
+
+
+def _safe_read(csv_path):
+    """Robust read: keep the literal string 'null' (pandas parses it as NaN by
+    default, which would erase the null condition); skip malformed legacy rows;
+    and RECOMPUTE the collapse flag from raw occupancy with the calibrated
+    threshold (the stored `collapsed` column may use a stale threshold)."""
+    df = pd.read_csv(csv_path, keep_default_na=False,
+                     na_values=["", "NaN", "nan"], on_bad_lines="skip")
+    if "condition" in df.columns:
+        df["condition"] = df["condition"].replace({"": "null"}).fillna("null")
+    if "mean_occupancy" in df.columns:
+        theta = _occupancy_threshold()
+        df["mean_occupancy"] = pd.to_numeric(df["mean_occupancy"], errors="coerce")
+        df["collapsed"] = df["mean_occupancy"] < theta
+    return df
+
+
+def analyze_decomposition(csv_path, algo_name):
+    """Per-CONDITION w_crit + excess vs null (the 3-way decomposition)."""
+    if not os.path.exists(csv_path):
+        return None
+    df = _safe_read(csv_path)
+    df = _coerce(df)
+    if "condition" not in df.columns:
+        print(f"[{algo_name}] no 'condition' column; cannot run decomposition.")
+        return None
+    res = {c: analyze_condition(df, c) for c in CONDITIONS}
+    res = {c: r for c, r in res.items() if r is not None}
+    if "null" not in res:
+        print(f"[{algo_name}] null condition missing; cannot compute excess.")
+        return res
+    w0 = res["null"]["w_crit"]
+    print(f"\n=== {algo_name} MPE decomposition (by condition) ===")
+    lines = ["| condition | w_crit | 95% CI | excess vs null |",
+             "|---|---|---|---|"]
+    for c in CONDITIONS:
+        if c not in res:
+            continue
+        r = res[c]
+        exc = r["w_crit"] - w0
+        print(f"  {c:10s}: w_crit={r['w_crit']:.3f} [{r['ci_lo']:.3f}, {r['ci_hi']:.3f}]"
+              f"  excess={exc:+.3f}")
+        lines.append(f"| {c} | {r['w_crit']:.3f} | [{r['ci_lo']:.3f}, {r['ci_hi']:.3f}] | {exc:+.3f} |")
+    os.makedirs(OUTDIR, exist_ok=True)
+    with open(os.path.join(OUTDIR, f"{algo_name.lower()}_mpe_decomposition.md"), "w") as f:
+        f.write("\n".join(lines) + "\n")
+    return res
+
+
 def analyze_algo(csv_path, algo_name):
     """Run per-lambda analysis for one algorithm's CSV."""
     if not os.path.exists(csv_path):
         print(f"Missing: {csv_path}")
         return None, None
-    df = pd.read_csv(csv_path)
-    df["lambda_loss"] = df["lambda_loss"].astype(float).round().astype(int)
-    df = _coerce(df)
+    try:
+        df = _safe_read(csv_path)
+        df["lambda_loss"] = df["lambda_loss"].astype(float).round().astype(int)
+        df = _coerce(df)
+    except Exception as e:
+        print(f"[{algo_name}] could not read {csv_path} ({e}); skipping.")
+        return None, None
     res = {}
     print(f"\n{'='*60}")
     print(f"  {algo_name} on MPE ({len(df)} runs)")
@@ -76,6 +162,10 @@ def main():
 
     ppo_df, ppo_res = analyze_algo(PPO_MPE_CSV, "PPO")
     mappo_df, mappo_res = analyze_algo(MAPPO_MPE_CSV, "MAPPO")
+
+    # Primary RQ3 output: w_crit per CONDITION (null / curvature / lambda3).
+    analyze_decomposition(PPO_MPE_CSV, "PPO")
+    analyze_decomposition(MAPPO_MPE_CSV, "MAPPO")
 
     if ppo_res is None and mappo_res is None:
         print("No data available for either PPO or MAPPO on MPE.")
