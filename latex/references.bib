@@ -10,15 +10,14 @@
 %%   marlim2023     — correct authors: Leluc et al. (not Stranieri et al.)
 %%   anon2024risk   — full authors: Ghaemi, Kebriaei, Moghaddam, Ahamdabadi
 %%   dmarl2025      — full author name: Akella, Aditya
-%%   mengesha2026   — full authors: Mengesha, Sun, Roy (year 2025 per arXiv)
+%%   mengesha2025   — full authors: Mengesha, Sun, Roy (year 2025 per arXiv; key renamed
+%%                    from mengesha2026 to match the year field)
 %%   hubbs2020orgym — CORRECTED arXiv ID: 2008.06319 (was 2011.06020, wrong paper)
 %%   gijsbrechts2022 — CORRECTED DOI: 10.1287/msom.2021.1064 (was .1034); pages 1349--1368
 %%   wang2025maca   — correct authors: Zhao, Xutong and Xie, Yaqi
 %%   jiang2018dgn   — arXiv year is 2020 (v1 submitted Oct 2018, published ICLR 2020)
-%%   lowe2017maddpg — arXiv entry uses year 2020; NeurIPS 2017 publication year noted
-%%   zhang2026lcerd — WARNING: arXiv:2511.17653 points to a different paper entirely.
-%%                    Could not locate this paper on arXiv or Semantic Scholar.
-%%                    Entry retained from original; verify before submission.
+%%   lowe2017maddpg — REMOVED (duplicate of lowe2017multi); all cites use lowe2017multi
+%%   zhang2026lcerd — REMOVED: unverifiable, arXiv:2511.17653 is a different paper; cite dropped
 
 @article{kahneman1979,
   title     = {Prospect Theory: An Analysis of Decision under Risk},
@@ -51,6 +50,13 @@
   author    = {Lalmohammed, Sheyan and Gupta, Khush and Shah, Alok and Ramji, Keshav},
   booktitle = {International Conference on Machine Learning},
   year      = {2025},
+}
+
+@inproceedings{yu2022surprising,
+  title     = {The Surprising Effectiveness of {PPO} in Cooperative Multi-Agent Games},
+  author    = {Yu, Chao and Velu, Akash and Vinitsky, Eugene and Gao, Jiaxuan and Wang, Yu and Bayen, Alexandre and Wu, Yi},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track},
+  year      = {2022},
 }
 
 @inproceedings{liu2023lazy,
@@ -114,7 +120,7 @@
   year    = {2023},
 }
 
-@article{mengesha2026,
+@article{mengesha2025,
   title   = {Cognitive Biases and the Evolutionary Origins of Zero-Sum Norms},
   author  = {Mengesha, Isaak and Sun, Meiqi and Roy, Debraj},
   journal = {arXiv preprint arXiv:2511.16453},
@@ -233,17 +239,8 @@
   note          = {ICLR 2020},
 }
 
-%% WARNING: arXiv:2511.17653 resolves to a different paper (MARL-CC by Taghavi & Vahidi).
-%% "Latent Logic Expertise Discovery for Cooperative MARL Credit Assignment" by Zhang et al.
-%% could not be located on arXiv or Semantic Scholar. Verify this reference before submission.
-@article{zhang2026lcerd,
-  author  = {Zhang, Rui and others},
-  title   = {Latent Logic Expertise Discovery for Cooperative {MARL} Credit Assignment},
-  journal = {arXiv preprint arXiv:2511.17653},
-  year    = {2026},
-  url     = {https://arxiv.org/abs/2511.17653},
-  note    = {WARNING: arXiv ID unverified --- may be incorrect},
-}
+%% Removed zhang2026lcerd: unverifiable (arXiv:2511.17653 resolves to a different
+%% paper; placeholder author "Zhang, Rui and others"). Cite dropped from main.tex.
 
 @article{gijsbrechts2022,
   title     = {Can Deep Reinforcement Learning Improve Inventory Management? {P}erformance on Lost Sales, Dual-Sourcing, and Multi-Echelon Problems},
@@ -260,16 +257,8 @@
   issn      = {1526-5498},
 }
 
-@misc{lowe2017maddpg,
-  title         = {Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments},
-  author        = {Ryan Lowe and Yi Wu and Aviv Tamar and Jean Harb and Pieter Abbeel and Igor Mordatch},
-  year          = {2017},
-  eprint        = {1706.02275},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.LG},
-  url           = {https://arxiv.org/abs/1706.02275},
-  note          = {NeurIPS 2017},
-}
+%% Consolidated: lowe2017maddpg (duplicate misc entry for same MADDPG paper) removed;
+%% all cite sites now use lowe2017multi (article entry) below.
 
 @article{lowe2017multi,
   title     = {Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments},
