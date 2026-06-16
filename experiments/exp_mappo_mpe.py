@@ -32,10 +32,6 @@ from filelock import FileLock
 
 import supersuit as ss
 from stable_baselines3 import PPO
-from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
-import torch
-import torch.nn as nn
-import gymnasium as gym
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
@@ -43,8 +39,11 @@ from env.mpe_coop_nav import (
     MPELocalRewardWrapper, make_mpe_coop_nav,
     is_collapsed_mpe, is_collapsed_mpe_occupancy, HERDING_SCALE,
 )
+from env.global_state_wrapper import GlobalStateWrapper
 from agents.cpt_wrapper import CPTRewardWrapper
-from exp_ppo_mpe import MetricsCallback, evaluate_mpe
+from agents.mappo_policy import CentralizedCriticPolicy
+from stable_baselines3.common.callbacks import CallbackList
+from exp_ppo_mpe import MetricsCallback, evaluate_mpe, EntCoefDecay
 
 # --- Sweep grid (must match exp_ppo_mpe.py exactly) -------------------------
 # Grid, conditions, training config, and CSV schema are IMPORTED from
@@ -55,22 +54,6 @@ from exp_ppo_mpe import (
 )
 
 
-# --- MAPPO: centralised critic via custom feature extractor -----------------
-
-class MAPPOCriticExtractor(BaseFeaturesExtractor):
-    """Wider centralised critic for MAPPO (Yu et al. 2022)."""
-    def __init__(self, observation_space: gym.Space, features_dim: int = 128):
-        super().__init__(observation_space, features_dim)
-        n_input = observation_space.shape[0]
-        self.net = nn.Sequential(
-            nn.Linear(n_input, 128), nn.ReLU(),
-            nn.Linear(128, features_dim), nn.ReLU(),
-        )
-
-    def forward(self, observations: torch.Tensor) -> torch.Tensor:
-        return self.net(observations)
-
-
 # --- Index mapping -----------------------------------------------------------
 
 def map_run_idx(run_idx):
@@ -78,15 +61,49 @@ def map_run_idx(run_idx):
     return _map_run_idx(run_idx)
 
 
-# --- Env builder (identical to exp_ppo_mpe._build_env) ----------------------
+# --- Env builder: SAME stack as PPO + GlobalStateWrapper for the critic ------
+# GlobalStateWrapper is OUTERMOST: it only augments observations (appends the
+# joint state for the centralized critic); rewards / info (true_reward,
+# r_global, occupancy) pass through unchanged, so eval is identical to PPO.
 
 def _build_env(w, lam, alpha, beta, herding_scale=HERDING_SCALE):
-    raw     = make_mpe_coop_nav(n_agents=3, max_cycles=25, continuous_actions=False)
+    raw     = make_mpe_coop_nav(n_agents=3, max_cycles=50, continuous_actions=False)  # v4: 25->50 lifts occupancy ceiling
     local_w = MPELocalRewardWrapper(raw, w=w, herding_scale=herding_scale)
     params  = {a: {"lambda": lam, "alpha": alpha, "beta": beta}
                for a in local_w.possible_agents}
-    return CPTRewardWrapper(local_w, params, reward_scale=1.0,
-                            global_reward_weight=0.0)
+    cpt = CPTRewardWrapper(local_w, params, reward_scale=1.0,
+                           global_reward_weight=0.0)
+    return GlobalStateWrapper(cpt)
+
+
+# --- Shared MAPPO training setup (one path for sweep + calibrate + smoke) ----
+
+def build_mappo_vec(w, alpha, beta, lam, seed, herding_scale=HERDING_SCALE):
+    env = _build_env(w, lam, alpha, beta, herding_scale=herding_scale)
+    local_dim = env.local_dim                      # set by GlobalStateWrapper
+    vec = ss.pad_action_space_v0(env)
+    vec = ss.pad_observations_v0(vec)
+    vec = ss.pettingzoo_env_to_vec_env_v1(vec)
+    vec = ss.concat_vec_envs_v1(vec, N_ENV_COPIES, num_cpus=0,
+                                base_class='stable_baselines3')
+    _inner = getattr(vec, "venv", vec)
+    vec.seed = lambda s, _v=_inner: _v.reset(seed=int(s))
+    return vec, _inner, local_dim
+
+
+def train_mappo_model(w, alpha, beta, lam, seed, timesteps,
+                      herding_scale=HERDING_SCALE, verbose=0):
+    vec, _inner, local_dim = build_mappo_vec(w, alpha, beta, lam, seed,
+                                             herding_scale)
+    policy_kwargs = dict(local_dim=local_dim,
+                         net_arch=dict(pi=[64, 64], vf=[128, 128]))
+    model = PPO(CentralizedCriticPolicy, vec, verbose=verbose, seed=seed,
+                policy_kwargs=policy_kwargs, **PPO_KWARGS)
+    metrics = MetricsCallback()
+    _inner.reset(seed=int(seed))
+    model.learn(total_timesteps=timesteps,
+                callback=CallbackList([metrics, EntCoefDecay()]))
+    return model, metrics
 
 
 # --- Main job ----------------------------------------------------------------
@@ -98,30 +115,8 @@ def run_one(run_idx, timesteps, out_path, herding_scale=HERDING_SCALE):
     np.random.seed(seed)
     warnings.filterwarnings("ignore")
 
-    train_env = _build_env(w, lam, alpha, beta, herding_scale=herding_scale)
-    vec = ss.pad_action_space_v0(train_env)
-    vec = ss.pad_observations_v0(vec)
-    vec = ss.pettingzoo_env_to_vec_env_v1(vec)
-    vec = ss.concat_vec_envs_v1(vec, N_ENV_COPIES, num_cpus=0,
-                                base_class='stable_baselines3')
-    # --- reproducible env-spawn seeding (v3 fix) --------------------------
-    # np.random.seed() does NOT reach the gymnasium env's internal np_random,
-    # so v2 runs were not reproducible across seeds. ConcatVecEnv.reset(seed)
-    # assigns seed+i per copy (decorrelated); SB3's later reset(None) keeps
-    # that np_random, making the whole run reproducible.
-    _inner_vec = getattr(vec, "venv", vec)
-    vec.seed = lambda s, _v=_inner_vec: _v.reset(seed=int(s))
-
-    policy_kwargs = dict(
-        features_extractor_class=MAPPOCriticExtractor,
-        features_extractor_kwargs=dict(features_dim=128),
-        net_arch=dict(pi=[64, 64], vf=[128, 128]),
-    )
-    model = PPO("MlpPolicy", vec, verbose=0, seed=seed,
-                policy_kwargs=policy_kwargs, **PPO_KWARGS)
-    cb = MetricsCallback()
-    _inner_vec.reset(seed=int(seed))
-    model.learn(total_timesteps=timesteps, callback=cb)
+    model, cb = train_mappo_model(w, alpha, beta, lam, seed, timesteps,
+                                  herding_scale=herding_scale)
 
     eval_env  = _build_env(w, lam, alpha, beta, herding_scale=herding_scale)
     mean_reward, mean_occ = evaluate_mpe(model, eval_env, num_episodes=10,
