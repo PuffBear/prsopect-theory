@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -N mappo_mpe_gate
+#PBS -q cpu
+#PBS -l select=1:ncpus=1:mem=2gb
+#PBS -l walltime=00:20:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/exp_mpe
+exec >> "$PROJECT_ROOT/logs/mappo_mpe_gate.log" 2>&1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+# Gate analysis (seconds of CPU). Run AFTER the 20 calibration jobs finish.
+# Verdict + threshold -> docs/exp_mpe/mappo_mpe_collapse_threshold.json
+python experiments/analyze_mappo_mpe_calibrate.py
