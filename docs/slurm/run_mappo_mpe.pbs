@@ -1,28 +1,30 @@
 #!/bin/bash
 #PBS -N mappo_mpe
 #PBS -q cpu
-#PBS -J 0-1259
+#PBS -J 0-329
 #PBS -l select=1:ncpus=1:mem=4gb
-#PBS -l walltime=01:30:00
+#PBS -l walltime=12:00:00
 #PBS -j oe
-
 set -euo pipefail
-
 PROJECT_ROOT="$HOME/prospect-theory"
 cd "$PROJECT_ROOT"
 mkdir -p logs docs/expMAPPO_mpe_figures
 exec >> "$PROJECT_ROOT/logs/mappo_mpe_${PBS_ARRAY_INDEX}.log" 2>&1
-
 export OMP_NUM_THREADS=1
 export MKL_NUM_THREADS=1
 export OPENBLAS_NUM_THREADS=1
-
 source /apps/miniconda3/etc/profile.d/conda.sh
 conda activate marl
 # MPE needs mpe2 in the conda env -- run ONCE on the login node:
 #   conda activate marl && pip install mpe2
 
+# MAPPO sweep (v4): 330 runs = w(11) x condition{null,curvature,lambda3} x 10
+# seeds. Centralized critic + agent-id + 50-step horizon, 4M steps.
+# PRE-CONDITIONS (all must hold before qsub):
+#   1. MAPPO smoke passed (run_mappo_smoke_local.py --train: separation OK)
+#   2. calibration array finished and analyze_mappo_mpe_calibrate.py printed
+#      "Gate PASSED" (docs/exp_mpe/mappo_mpe_collapse_threshold.json)
 python experiments/exp_mappo_mpe.py \
     --run_idx "$PBS_ARRAY_INDEX" \
-    --timesteps 600000 \
+    --timesteps 4000000 \
     --out docs/expMAPPO_mpe_figures/mappo_mpe_raw_data.csv
