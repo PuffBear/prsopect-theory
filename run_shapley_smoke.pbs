@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -N shapley_smoke
+#PBS -o logs/shapley_smoke.out
+#PBS -e logs/shapley_smoke.err
+#PBS -l ncpus=1
+#PBS -l walltime=01:00:00
+#PBS -q cpu
+
+# Single short Shapley run to validate the counterfactual / RNG-pinning path
+# BEFORE launching the 80-run array (see REVIEWER_RESPONSE_EXPERIMENTS.md).
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_shapley.py \
+    --run_idx 0 --timesteps 20000 \
+    --out docs/expShapley_figures/expShapley_smoke.csv
