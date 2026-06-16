@@ -58,7 +58,7 @@ from filelock import FileLock
 
 import supersuit as ss
 from stable_baselines3 import PPO
-from stable_baselines3.common.callbacks import BaseCallback
+from stable_baselines3.common.callbacks import BaseCallback, CallbackList
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from env.mpe_coop_nav import (
@@ -95,7 +95,51 @@ ALPHA, BETA = 0.88, 0.88
 # degraded -- local smoke test 2026-06-13). Discrete MPE is also the standard
 # benchmark setup (Yu et al. 2022). ent_coef=0.01 is safe for categorical.
 N_ENV_COPIES = 8
-PPO_KWARGS = dict(n_steps=256, batch_size=512, ent_coef=0.01)
+
+# --- Training strength (v4) --------------------------------------------------
+# v3 was reproducible but UNDER-TRAINED at the coordination end: trained w=1
+# reached only ~0.26 landmark occupancy vs the scripted-spread ceiling of ~0.64
+# (calibration 2026-06-13), with value_loss ~40-60 and explained_variance ~0.5
+# still mediocre at 2M steps -- the policy never sharpened into coverage.
+# v4 levers (all CRUX-SAFE: occupancy is reward-scale-invariant, and a CONSTANT
+# reward scale + decay schedules preserve the relative lambda / alpha-beta
+# magnitudes the CPT decomposition depends on -- unlike VecNormalize, which
+# would normalise those differences away per-run):
+#   (1) entropy decay 0.01 -> 1e-3 -> the deterministic-eval policy commits to
+#       covering landmarks late in training instead of staying diffuse
+#   (2) larger rollout (n_steps 512) -> lower-variance advantages for the
+#       harder coordination credit-assignment at high w
+#   (3) longer horizon (default 4M; set per-PBS)
+# NOTE: LR is kept CONSTANT at 3e-4. A v4a attempt with linear LR annealing to
+# zero crippled training (the policy is far from optimal -- 0.26 vs 0.64 ceiling
+# -- so it needs learning BUDGET, not late-stage refinement). Reward scaling was
+# also dropped (REWARD_SCALE=1.0): it added no benefit under PPO's advantage
+# normalisation and would perturb the absolute lambda/alpha-beta magnitudes the
+# CPT decomposition compares. Occupancy (the gate metric) is scale-invariant.
+REWARD_SCALE = 1.0
+ENT_START, ENT_END = 0.01, 0.001
+
+
+class EntCoefDecay(BaseCallback):
+    """Linearly decay PPO's entropy coefficient start -> end over training."""
+
+    def __init__(self, start=ENT_START, end=ENT_END):
+        super().__init__()
+        self.start, self.end = float(start), float(end)
+
+    def _on_step(self) -> bool:
+        total = getattr(self.model, "_total_timesteps", 0) or 1
+        frac = min(self.num_timesteps / total, 1.0)
+        self.model.ent_coef = self.start + (self.end - self.start) * frac
+        return True
+
+
+PPO_KWARGS = dict(
+    n_steps=512,
+    batch_size=512,
+    ent_coef=ENT_START,
+    learning_rate=3e-4,
+)
 
 COLUMNS = ["run_idx", "w", "condition", "alpha", "beta", "lambda_loss",
            "seed", "algo", "env",
@@ -153,15 +197,44 @@ def _build_env(w, lam, alpha, beta, herding_scale=HERDING_SCALE):
         -> MPELocalRewardWrapper(w, herding_scale)
         -> CPTRewardWrapper(lam, alpha, beta)
     """
-    raw = make_mpe_coop_nav(n_agents=3, max_cycles=25, continuous_actions=False)
+    raw = make_mpe_coop_nav(n_agents=3, max_cycles=50, continuous_actions=False)
     local_w = MPELocalRewardWrapper(raw, w=w, herding_scale=herding_scale)
     params = {a: {"lambda": lam, "alpha": alpha, "beta": beta}
               for a in local_w.possible_agents}
     # global_reward_weight=0.0 because w-blending is already done by
     # MPELocalRewardWrapper; CPTRewardWrapper only applies the PT transform.
-    cpt = CPTRewardWrapper(local_w, params, reward_scale=1.0,
+    cpt = CPTRewardWrapper(local_w, params, reward_scale=REWARD_SCALE,
                            global_reward_weight=0.0)
     return cpt
+
+
+# --- Shared training setup (v4) ---------------------------------------------
+# One code path for sweep + calibration + smoke so config CANNOT drift between
+# them (the drift between smoke and HPC calibration is what produced the
+# spurious LBF result). Returns (trained_model, metrics_callback).
+
+def build_mpe_vec(w, alpha, beta, lam, seed, herding_scale=HERDING_SCALE):
+    train_env = _build_env(w, lam, alpha, beta, herding_scale=herding_scale)
+    vec = ss.pad_action_space_v0(train_env)
+    vec = ss.pad_observations_v0(vec)
+    vec = ss.pettingzoo_env_to_vec_env_v1(vec)
+    vec = ss.concat_vec_envs_v1(vec, N_ENV_COPIES, num_cpus=0,
+                                base_class='stable_baselines3')
+    # reproducible, decorrelated env-spawn seeding (v3 fix)
+    _inner = getattr(vec, "venv", vec)
+    vec.seed = lambda s, _v=_inner: _v.reset(seed=int(s))
+    return vec, _inner
+
+
+def train_mpe_model(w, alpha, beta, lam, seed, timesteps,
+                    herding_scale=HERDING_SCALE, verbose=0):
+    vec, _inner = build_mpe_vec(w, alpha, beta, lam, seed, herding_scale)
+    model = PPO("MlpPolicy", vec, verbose=verbose, seed=seed, **PPO_KWARGS)
+    metrics = MetricsCallback()
+    _inner.reset(seed=int(seed))
+    model.learn(total_timesteps=timesteps,
+                callback=CallbackList([metrics, EntCoefDecay()]))
+    return model, metrics
 
 
 # --- Evaluation -------------------------------------------------------------
@@ -226,24 +299,8 @@ def run_one(run_idx, timesteps, out_path, herding_scale=HERDING_SCALE):
     np.random.seed(seed)
     warnings.filterwarnings("ignore")
 
-    train_env = _build_env(w, lam, alpha, beta, herding_scale=herding_scale)
-    vec = ss.pad_action_space_v0(train_env)
-    vec = ss.pad_observations_v0(vec)
-    vec = ss.pettingzoo_env_to_vec_env_v1(vec)
-    vec = ss.concat_vec_envs_v1(vec, N_ENV_COPIES, num_cpus=0,
-                                base_class='stable_baselines3')
-    # --- reproducible env-spawn seeding (v3 fix) --------------------------
-    # np.random.seed() does NOT reach the gymnasium env's internal np_random,
-    # so v2 runs were not reproducible across seeds. ConcatVecEnv.reset(seed)
-    # assigns seed+i per copy (decorrelated); SB3's later reset(None) keeps
-    # that np_random, making the whole run reproducible.
-    _inner_vec = getattr(vec, "venv", vec)
-    vec.seed = lambda s, _v=_inner_vec: _v.reset(seed=int(s))
-
-    model = PPO("MlpPolicy", vec, verbose=0, seed=seed, **PPO_KWARGS)
-    cb = MetricsCallback()
-    _inner_vec.reset(seed=int(seed))
-    model.learn(total_timesteps=timesteps, callback=cb)
+    model, cb = train_mpe_model(w, alpha, beta, lam, seed, timesteps,
+                                herding_scale=herding_scale)
 
     eval_env = _build_env(w, lam, alpha, beta, herding_scale=herding_scale)
     mean_reward, mean_occ = evaluate_mpe(model, eval_env, num_episodes=10,
@@ -278,7 +335,7 @@ def _append_row(row, out_path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run_idx",      type=int,   required=True, help="0..%d" % (N_RUNS-1))
-    ap.add_argument("--timesteps",    type=int,   default=2_000_000)
+    ap.add_argument("--timesteps",    type=int,   default=4_000_000)
     ap.add_argument("--herding_scale",type=float, default=HERDING_SCALE)
     ap.add_argument("--out", default="docs/expPPO_mpe_figures/ppo_mpe_raw_data.csv")
     args = ap.parse_args()
