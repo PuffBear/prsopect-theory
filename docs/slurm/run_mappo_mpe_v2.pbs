@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N mappo_mpe_v2
+#PBS -q cpu
+#PBS -J 0-329
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=08:00:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expMAPPO_mpe_figures
+exec >> "$PROJECT_ROOT/logs/mappo_mpe_v2_${PBS_ARRAY_INDEX}.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+# v2 MAPPO sweep: same grid as ppo_mpe_v2; only the algorithm differs.
+# Submit ONLY after the PPO v2 sweep confirms an interior transition.
+python experiments/exp_mappo_mpe.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 2000000 \
+    --out docs/expMAPPO_mpe_figures/mappo_mpe_v2_raw_data.csv
