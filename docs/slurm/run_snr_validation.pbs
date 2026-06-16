@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N snr_val
+#PBS -q cpu
+#PBS -J 0-179
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expSNR_figures
+exec >> "$PROJECT_ROOT/logs/snr_val_${PBS_ARRAY_INDEX}.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+# SNR validation: 180 runs = W_LIST(9) x seeds 42-61 (20).
+python experiments/exp_snr_validation.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 150000 \
+    --window_steps 60000 \
+    --out docs/expSNR_figures/expSNR_raw_data.csv
