@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -N lbf_calib_gate
+#PBS -q cpu
+#PBS -l select=1:ncpus=1:mem=2gb
+#PBS -l walltime=00:10:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs
+exec >> "$PROJECT_ROOT/logs/lbf_calib_gate.log" 2>&1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+# Verdict:  grep -B8 "Gate\|FAILED" logs/lbf_calib_gate.log
+python experiments/analyze_lbf_calibrate.py
