@@ -41,8 +41,7 @@ from stable_baselines3 import PPO
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from exp_ppo_mpe import (
-    _build_env, evaluate_mpe, MetricsCallback, HERDING_SCALE,
-    N_ENV_COPIES, PPO_KWARGS,
+    _build_env, evaluate_mpe, train_mpe_model, HERDING_SCALE,
 )
 
 # v2: calibrate under the NULL condition (no behavioral bias). The occupancy
@@ -70,24 +69,8 @@ def run_one(run_idx, timesteps, out_path, herding_scale=HERDING_SCALE):
     np.random.seed(seed)
     warnings.filterwarnings("ignore")
 
-    train_env = _build_env(w, LAMBDA, ALPHA, BETA, herding_scale=herding_scale)
-    vec = ss.pad_action_space_v0(train_env)
-    vec = ss.pad_observations_v0(vec)
-    vec = ss.pettingzoo_env_to_vec_env_v1(vec)
-    vec = ss.concat_vec_envs_v1(vec, N_ENV_COPIES, num_cpus=0,
-                                base_class='stable_baselines3')
-    # --- reproducible env-spawn seeding (v3 fix) --------------------------
-    # np.random.seed() does NOT reach the gymnasium env's internal np_random,
-    # so v2 runs were not reproducible across seeds. ConcatVecEnv.reset(seed)
-    # assigns seed+i per copy (decorrelated); SB3's later reset(None) keeps
-    # that np_random, making the whole run reproducible.
-    _inner_vec = getattr(vec, "venv", vec)
-    vec.seed = lambda s, _v=_inner_vec: _v.reset(seed=int(s))
-
-    model = PPO("MlpPolicy", vec, verbose=0, seed=seed, **PPO_KWARGS)
-    cb = MetricsCallback()
-    _inner_vec.reset(seed=int(seed))
-    model.learn(total_timesteps=timesteps, callback=cb)
+    model, cb = train_mpe_model(w, ALPHA, BETA, LAMBDA, seed, timesteps,
+                                herding_scale=herding_scale)
 
     eval_env = _build_env(w, LAMBDA, ALPHA, BETA, herding_scale=herding_scale)
     mean_reward, mean_occ = evaluate_mpe(model, eval_env, num_episodes=10,
@@ -112,7 +95,7 @@ def run_one(run_idx, timesteps, out_path, herding_scale=HERDING_SCALE):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run_idx",      type=int,   required=True, help="0..39")
-    ap.add_argument("--timesteps",    type=int,   default=2_000_000)
+    ap.add_argument("--timesteps",    type=int,   default=4_000_000)
     ap.add_argument("--herding_scale",type=float, default=HERDING_SCALE)
     ap.add_argument("--out", default="docs/exp_mpe/mpe_calibration_v2_raw_data.csv")
     args = ap.parse_args()
