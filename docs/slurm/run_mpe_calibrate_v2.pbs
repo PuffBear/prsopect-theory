@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -N mpe_calib_v2
+#PBS -q cpu
+#PBS -J 0-19
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=10:00:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/exp_mpe
+exec >> "$PROJECT_ROOT/logs/mpe_calib_v2_${PBS_ARRAY_INDEX}.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+# v2 calibration: 20 runs = w in {0.0, 1.0} x 10 seeds, NULL condition,
+# 2M steps, 8 env copies (matches the main sweep training config exactly).
+# AFTER this array finishes:
+#   python experiments/analyze_mpe_calibrate.py
+# -> writes docs/exp_mpe/mpe_collapse_threshold_v2.json
+# *** GATE: only submit run_ppo_mpe.pbs if it prints "Gate PASSED". ***
+python experiments/exp_mpe_calibrate.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 4000000 \
+    --out docs/exp_mpe/mpe_calibration_v2_raw_data.csv
