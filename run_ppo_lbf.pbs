@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -N ppo_lbf
+#PBS -o logs/ppo_lbf.out
+#PBS -e logs/ppo_lbf.err
+#PBS -l ncpus=1
+#PBS -l walltime=03:00:00
+#PBS -q cpu
+#PBS -J 0-329
+
+# Third environment: PPO on Level-Based Foraging with CPT reward shaping.
+# w in {0.0..1.0} x {null, curvature, lambda3} x seeds 42-51 = 330 runs.
+# Gate: run_lbf_calibrate.pbs + analyze_lbf_calibrate.py must pass first.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs docs/exp_lbf
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+python3 experiments/exp_ppo_lbf.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --out docs/exp_lbf/lbf_raw_data.csv
