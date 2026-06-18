@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N mappo_mpe_hl
+#PBS -o logs/mappo_mpe_hl.out
+#PBS -e logs/mappo_mpe_hl.err
+#PBS -l ncpus=1
+#PBS -l walltime=24:00:00
+#PBS -q cpu
+#PBS -J 0-219
+
+# Cross-environment loss-aversion test: high-lambda MPE/MAPPO decomposition.
+# Adds conditions {lambda5, lambda7} to the existing {null,curvature,lambda3}
+# (220 runs). 4M steps so the w=1 coordination end is well-trained and a
+# rightward shift in w_crit is detectable rather than masked by under-training.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs docs/expMAPPO_mpe_highlambda_figures
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+python3 experiments/exp_mappo_mpe_highlambda.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 4000000 \
+    --out docs/expMAPPO_mpe_highlambda_figures/mappo_mpe_highlambda_raw_data.csv
