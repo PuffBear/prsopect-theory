@@ -39,12 +39,18 @@ from pettingzoo.utils import BaseParallelWrapper
 
 class ShapleyRewardWrapper(BaseParallelWrapper):
     def __init__(self, env, mode="difference", n_perm=8, default_order=0.0,
-                 cpt_params=None, reward_scale=1.0, seed=0):
+                 cpt_params=None, reward_scale=1.0, seed=0, baseline="mean"):
         super().__init__(env)
         assert mode in ("difference", "shapley")
+        assert baseline in ("zero", "mean")
         self.mode = mode
         self.n_perm = int(n_perm)
         self.default_order = float(default_order)
+        # Counterfactual baseline for non-coalition agents:
+        #   "zero" -> order `default_order` (extreme; high variance, lazy-biased)
+        #   "mean" -> order the population-mean action (mild, low-variance; the
+        #             agent is replaced by a "typical" agent rather than removed)
+        self.baseline = baseline
         self.cpt_params = cpt_params or {}
         self.reward_scale = float(reward_scale)
         self._rng = np.random.RandomState(seed)
@@ -63,10 +69,19 @@ class ShapleyRewardWrapper(BaseParallelWrapper):
         rng_state = np.random.get_state()
         env_clone = copy.deepcopy(self.env)
         try:
+            if self.baseline == "mean":
+                # per-dimension population-mean action across all agents
+                stack = np.array([np.asarray(a, dtype=np.float64) for a in actions.values()])
+                baseline_act = stack.mean(axis=0)
             modified = {}
             for a, act in actions.items():
-                modified[a] = act if a in coalition else np.array(
-                    [self.default_order] * np.asarray(act).shape[-1], dtype=np.float64)
+                if a in coalition:
+                    modified[a] = act
+                elif self.baseline == "mean":
+                    modified[a] = baseline_act.copy()
+                else:
+                    modified[a] = np.array(
+                        [self.default_order] * np.asarray(act).shape[-1], dtype=np.float64)
             # restore RNG so the clone samples the same demand as the real step
             np.random.set_state(rng_state)
             env_clone.step(modified)
