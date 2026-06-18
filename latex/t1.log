@@ -1,0 +1,390 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main_aaai.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo)) (./aaai/aaai.sty
+Conference Style for AAAI for LaTeX 2e -- version of 1 December 2013
+) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/helvet.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/courier.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/glossaries.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/share/texlive/texmf-dist/tex/latex/mfirstuc/mfirstuc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/textcase/textcase.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/xfor/xfor.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/datatool/datatool-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/substr/substr.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/datatool/datatool-fp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp.sty
+`Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
+(/usr/share/texlive/texmf-dist/tex/latex/fp/defpattern.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-basic.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-addons.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-snap.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-exp.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-trigo.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-pas.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-random.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-eqn.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-upn.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fp/fp-eval.sty))))
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/base/glossaries-compatible-
+307.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-hypernav.st
+y) (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-list.sty
+) (/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-long.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-super.sty
+(/usr/share/texlive/texmf-dist/tex/latex/supertabular/supertabular.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/glossaries/styles/glossary-tree.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/csquotes/csquotes.sty
+(/usr/share/texlive/texmf-dist/tex/latex/csquotes/csquotes.def)
+(/usr/share/texlive/texmf-dist/tex/latex/csquotes/csquotes.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/cleveref/cleveref.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./main_aaai.aux)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(./main_aaai.out) (./main_aaai.out)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-ptm.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+Underfull \vbox (badness 1400) has occurred while \output is active [1{/var/lib
+/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+
+Package hyperref Warning: Suppressing empty link on input line 240.
+
+
+Package hyperref Warning: Suppressing empty link on input line 244.
+
+
+Package hyperref Warning: Suppressing empty link on input line 245.
+
+
+Package hyperref Warning: Suppressing empty link on input line 278.
+
+
+Package hyperref Warning: Suppressing empty link on input line 278.
+
+[2] (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd)
+
+Package hyperref Warning: Suppressing empty link on input line 367.
+
+
+Underfull \hbox (badness 4156) in paragraph at lines 399--405
+\OT1/ptm/m/n/10 (+20) The cur-va-ture ef-fect is de-fined as $\OML/cmm/m/it/10 
+w[]\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ; ^^U[]\OT1/cmr/m/n/10 1) \OMS/cmsy/m/n/
+10 ^^@
+[3 <../docs/expT_figures/collapse_heatmap.png>]
+Underfull \hbox (badness 1460) in paragraph at lines 517--526
+\OT1/ptm/m/n/10 (+20) Exp N (null: $\OML/cmm/m/it/10 []^^L[]\OT1/cmr/m/n/10 1$
+\OT1/ptm/m/n/10 (+20) , $\OML/cmm/m/it/10 ^^U[]\OT1/cmr/m/n/10 1$\OT1/ptm/m/n/1
+0 (+20) ) yields $\OML/cmm/m/it/10 w[] \OT1/cmr/m/n/10 = 0\OML/cmm/m/it/10 :\OT
+1/cmr/m/n/10 685$
+
+Underfull \hbox (badness 1888) in paragraph at lines 551--551
+[][][]\OT1/ptm/m/n/9 (+20) At high loss aver-sion the tran-si-tion is very stee
+p and
+
+Underfull \hbox (badness 2111) in paragraph at lines 531--556
+\OT1/ptm/m/n/10 (+20) We sweep loss aver-sion across the full range $\OML/cmm/m
+/it/10 ^^U \OMS/cmsy/m/n/10 2
+
+Underfull \hbox (badness 3009) in paragraph at lines 531--556
+\OT1/ptm/m/n/10 (+20) with a ded-i-cated fill-in sweep at $\OML/cmm/m/it/10 ^^U
+ \OMS/cmsy/m/n/10 2 f\OT1/cmr/m/n/10 2\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 4\OML/
+cmm/m/it/10 ; \OT1/cmr/m/n/10 5\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 6\OMS/cmsy/m/
+n/10 g$\OT1/ptm/m/n/10 (+20) .
+
+Package hyperref Warning: Suppressing empty link on input line 589.
+
+
+Package hyperref Warning: Suppressing empty link on input line 589.
+
+
+Package hyperref Warning: Suppressing empty link on input line 605.
+
+
+Package hyperref Warning: Suppressing empty link on input line 605.
+
+[4 <../docs/expB_reduced_figures/fig2_behavioral_decomposition.png>]
+
+Package hyperref Warning: Suppressing empty link on input line 672.
+
+
+Package hyperref Warning: Suppressing empty link on input line 672.
+
+[5 <../docs/expPPO_lambda_sweep_figures/ppo_full_lambda_collapse_curves.png> <.
+./docs/expPPO_lambda_sweep_figures/ppo_wcrit_vs_lambda_full.png>]
+
+Package hyperref Warning: Suppressing empty link on input line 786.
+
+
+Package hyperref Warning: Suppressing empty link on input line 794.
+
+
+Package hyperref Warning: Suppressing empty link on input line 811.
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 900--900
+[]\OT1/ptm/b/n/9 (+20) Empirically con-
+
+Package hyperref Warning: Suppressing empty link on input line 901.
+
+
+Package hyperref Warning: Suppressing empty link on input line 904.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 906--906
+[]\OT1/ptm/b/n/9 (+20) Calibrated (1
+
+Package hyperref Warning: Suppressing empty link on input line 931.
+
+
+Package hyperref Warning: Suppressing empty link on input line 932.
+
+[7 <../docs/meanfield_figures/fig_meanfield_validation.png> <../docs/expPPO_lam
+bda_sweep_figures/affine_law_7pt.png>]
+
+Package hyperref Warning: Suppressing empty link on input line 941.
+
+
+Package hyperref Warning: Suppressing empty link on input line 976.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 969--977
+ []\OT1/ptm/b/n/10 (+20) Supply Chain (NetworkManagement-v1, lo-gis-
+
+Underfull \hbox (badness 2035) in paragraph at lines 969--977
+\OT1/ptm/m/n/10 (+20) chain share a com-mon up-stream sup-plier with fi-nite
+
+Underfull \hbox (badness 10000) in paragraph at lines 979--1006
+ []\OT1/ptm/b/n/10 (+20) MPE Co-op-er-a-tive Nav-i-ga-tion (sim-ple[]spread[]v3
+,
+
+Underfull \hbox (badness 2503) in paragraph at lines 979--1006
+\OT1/ptm/b/n/10 (+20) robotics/navigation).[] \OT1/ptm/m/n/10 (+20) Three agent
+s must cover three
+
+Underfull \hbox (badness 1152) in paragraph at lines 979--1006
+\OT1/ptm/m/n/10 (+20) We use $[][]\OT1/cmr/m/n/10 0$ \OT1/ptm/m/n/10 (+20) in \
+OT1/pcr/m/n/10 simple[]spread[]v3 \OT1/ptm/m/n/10 (+20) to
+
+Underfull \hbox (badness 6944) in paragraph at lines 979--1006
+\OT1/ptm/m/n/10 (+20) credit---precisely the con-found the reward-transform
+
+Underfull \hbox (badness 10000) in paragraph at lines 1008--1026
+ []\OT1/ptm/b/n/10 (+20) RWARE (Robot Ware-house, dis-crete logistics)---
+
+Underfull \hbox (badness 10000) in paragraph at lines 1008--1026
+\OT1/ptm/b/n/10 (+20) negative re-sult.[] \OT1/ptm/m/n/10 (+20) Three agents op
+-er-ate in a
+
+Underfull \hbox (badness 2245) in paragraph at lines 1008--1026
+\OT1/pcr/m/n/10 rware-tiny-3ag-easy-v2 \OT1/ptm/m/n/10 (+20) ware-house grid ([
+][]Chris-
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 1028--1046
+ []\OT1/ptm/b/n/10 (+20) Cleanup (Se-quen-tial So-cial Dilemma, eco-log-i-
+
+Underfull \hbox (badness 7796) in paragraph at lines 1028--1046
+\OT1/ptm/b/n/10 (+20) cal/commons).[] \OT1/ptm/m/n/10 (+20) Three agents in-hab
+it a 10$\OMS/cmsy/m/n/10 ^^B$\OT1/ptm/m/n/10 (+20) 8 grid
+
+Underfull \vbox (badness 10000) has occurred while \output is active [9 <../doc
+s/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png>]
+Underfull \hbox (badness 5288) in paragraph at lines 1134--1147
+\OT1/ptm/m/n/10 (+20) crit-i-cal cen-tral-iza-tion rises with loss aver-sion fr
+om
+
+Underfull \hbox (badness 10000) in paragraph at lines 1134--1147
+\OML/cmm/m/it/10 w[][]\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 796$ $
+[0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 742\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML
+/cmm/m/it/10 :\OT1/cmr/m/n/10 860]$ \OT1/ptm/m/n/10 (+20) at $\OML/cmm/m/it/10 
+^^U[]\OT1/cmr/m/n/10 1$ \OT1/ptm/m/n/10 (+20) to $\OML/cmm/m/it/10 w[][]\OT1/cm
+r/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 889$
+
+Underfull \hbox (badness 3460) in paragraph at lines 1134--1147
+\OT1/cmr/m/n/10 [0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 856\OML/cmm/m/it/10 ; \OT1/
+cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 917]$ \OT1/ptm/m/n/10 (+20) at $\
+OML/cmm/m/it/10 ^^U[]\OT1/cmr/m/n/10 7$\OT1/ptm/m/n/10 (+20) , mono-tone from $
+\OML/cmm/m/it/10 ^^U[]\OT1/cmr/m/n/10 2$ \OT1/ptm/m/n/10 (+20) on-ward
+
+Underfull \hbox (badness 5050) in paragraph at lines 1134--1147
+\OT1/ptm/m/n/10 (+20) ($\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 747\
+OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 795\OML/cm
+m/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 800\OML/cmm/m/it
+/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 851\OML/cmm/m/it/10 ; 
+\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 861\OML/cmm/m/it/10 ; \OT1/c
+mr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 889$\OT1/ptm/m/n/10 (+20) ) and wi
+th non-
+
+Underfull \hbox (badness 5832) in paragraph at lines 1160--1160
+[]\OT1/ptm/m/n/10 (+20) Figure 9: |Cross-algorithm repli-ca-tion on the sup-
+
+Underfull \hbox (badness 3343) in paragraph at lines 1160--1160
+\OT1/ptm/m/n/10 (+20) ply chain. $\OML/cmm/m/it/10 w[]$ \OT1/ptm/m/n/10 (+20) v
+er-sus loss aver-sion $\OML/cmm/m/it/10 ^^U$ \OT1/ptm/m/n/10 (+20) for in-de-
+
+Underfull \hbox (badness 4391) in paragraph at lines 1160--1160
+\OT1/ptm/m/n/10 (+20) pen-dent PPO and centralized-critic MAPPO on the
+
+Package hyperref Warning: Suppressing empty link on input line 1194.
+
+
+Underfull \vbox (badness 1910) has occurred while \output is active [10 <../doc
+s/expMAPPO_mpe_figures/cross_env_wcrit_vs_lambda.png> <../docs/expMAPPO_orgym_f
+igures/ppo_vs_mappo_wcrit.png>]
+Underfull \hbox (badness 5711) in paragraph at lines 1219--1234
+[][][]\OT1/ptm/m/n/10 (+20) Yamaguchi[][] ([][]2025[][]) con-struct a phase di-
+a-gram in
+
+Underfull \hbox (badness 5077) in paragraph at lines 1219--1234
+\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 L; ^^Z\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 (+20
+) space for IQL, iden-ti-fy-ing anal-o-gous co-or-di-
+
+Package hyperref Warning: Suppressing empty link on input line 1241.
+
+
+Package hyperref Warning: Suppressing empty link on input line 1248.
+
+
+Package hyperref Warning: Suppressing empty link on input line 1281.
+
+
+Package hyperref Warning: Suppressing empty link on input line 1283.
+
+
+Package hyperref Warning: Suppressing empty link on input line 1318.
+
+
+Package hyperref Warning: Suppressing empty link on input line 1336.
+
+
+Underfull \hbox (badness 8019) in paragraph at lines 1332--1338
+ []\OT1/ptm/b/n/10 (+20) Prediction and de-ci-sion rule.[] \OT1/ptm/m/n/10 (+20
+) We sweep $\OML/cmm/m/it/10 w \OMS/cmsy/m/n/10 2
+[11]
+
+Package hyperref Warning: Suppressing empty link on input line 1367.
+
+
+Package hyperref Warning: Suppressing empty link on input line 1404.
+
+
+Package hyperref Warning: Suppressing empty link on input line 1404.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+(./main_aaai.bbl
+Underfull \hbox (badness 1881) in paragraph at lines 9--14
+\OT1/ptm/m/n/10 (+20) cen-tral-ized learn-able re-ward shap-ing in co-op-er-a-t
+ive
+
+Underfull \hbox (badness 1383) in paragraph at lines 9--14
+\OT1/ptm/m/n/10 (+20) multi-agent re-in-force-ment learn-ing.  \OT1/ptm/m/it/10
+ (+20) arXiv preprint
+
+Underfull \vbox (badness 1888) has occurred while \output is active [12 <../doc
+s/expEnt_figures/entropy_ablation.png> <../docs/expHet_figures/heterogeneous.pn
+g>]
+Underfull \hbox (badness 1253) in paragraph at lines 96--101
+[]\OT1/ptm/m/n/10 (+20) R[]emi Leluc, Elie Kadoche, An-toine Berton-cello, and
+[13]) [14] (./main_aaai.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information){/usr/share/texlive/texmf-d
+ist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/urw/times/utmri8a.pfb>
+Output written on main_aaai.pdf (14 pages, 1180554 bytes).
+Transcript written on main_aaai.log.
