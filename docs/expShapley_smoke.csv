@@ -1,0 +1,2 @@
+run_idx,credit_mode,lambda_loss,seed,mean_S,profit,lost_sales,collapsed,final_value_loss,final_explained_variance
+0,difference,1,42,24.636104702949524,260.12059999999997,0.18037336711012786,False,149.09550051535328,0.15848076343536377
