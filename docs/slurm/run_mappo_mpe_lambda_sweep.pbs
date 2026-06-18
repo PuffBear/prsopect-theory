@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -N mappo_mpe_lam
+#PBS -q cpu
+#PBS -J 0-549
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=12:00:00
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expMAPPO_mpe_figures
+exec >> "$PROJECT_ROOT/logs/mappo_mpe_lam_${PBS_ARRAY_INDEX}.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+# requires mpe2 in the marl env (already installed for the decomposition sweep)
+
+# MAPPO-MPE lambda fill-in: 550 runs = lambda{2,4,5,6,7} x w(11) x seeds(10),
+# alpha=beta=0.88, herding=2, 4M steps. Combine with the decomposition sweep's
+# lambda=1 (curvature) and lambda=3 (lambda3) cells for the full 7-point curve.
+python experiments/exp_mappo_mpe_lambda_sweep.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 4000000 \
+    --out docs/expMAPPO_mpe_figures/mappo_mpe_lambda_sweep_raw_data.csv
