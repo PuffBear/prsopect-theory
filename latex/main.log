@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.10.19)  15 JUN 2026 11:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.10.19)  16 JUN 2026 22:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -738,19 +738,19 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local
 /texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 
 [2]
-Overfull \hbox (0.42801pt too wide) in paragraph at lines 232--236
+Overfull \hbox (0.42801pt too wide) in paragraph at lines 237--241
 []\T1/cmr/m/n/10.95 (-20) How do the two com-po-nents of prospect the-ory --- p
 robability-
  []
 
 </Users/Agriya/Desktop/prospect theory/docs/expT_figures/collapse_heatmap.png, 
-id=165, 578.16pt x 289.08pt>
+id=172, 578.16pt x 289.08pt>
 File: /Users/Agriya/Desktop/prospect theory/docs/expT_figures/collapse_heatmap.
 png Graphic file (type png)
 <use /Users/Agriya/Desktop/prospect theory/docs/expT_figures/collapse_heatmap.p
 ng>
 Package pdftex.def Info: /Users/Agriya/Desktop/prospect theory/docs/expT_figure
-s/collapse_heatmap.png  used on input line 278.
+s/collapse_heatmap.png  used on input line 296.
 (pdftex.def)             Requested size: 352.31625pt x 176.15768pt.
 
 
@@ -758,112 +758,171 @@ s/collapse_heatmap.png  used on input line 278.
 
 [4 </Users/Agriya/Desktop/prospect theory/docs/expT_figures/collapse_heatmap.pn
 g>]
-Overfull \hbox (6.32623pt too wide) in paragraph at lines 455--468
+
+[5]
+Overfull \hbox (6.32623pt too wide) in paragraph at lines 473--486
  [][] 
  []
 
 
 
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 559--559
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 577--577
 [][][]\T1/cmr/m/n/9 (+20) At high loss aver-sion the out-comes be-come near-com
 pletely separated---e.g. col-lapse frac-tions
  []
 
-
-
-[6]
 </Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/fig2_behaviora
-l_decomposition.png, id=250, 578.16pt x 433.62pt>
+l_decomposition.png, id=257, 578.16pt x 433.62pt>
 File: /Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/fig2_beha
 vioral_decomposition.png Graphic file (type png)
 <use /Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/fig2_behav
 ioral_decomposition.png>
 Package pdftex.def Info: /Users/Agriya/Desktop/prospect theory/docs/expB_reduce
-d_figures/fig2_behavioral_decomposition.png  used on input line 567.
+d_figures/fig2_behavioral_decomposition.png  used on input line 585.
 (pdftex.def)             Requested size: 385.20255pt x 288.90285pt.
 </Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/ppo_ful
-l_lambda_collapse_curves.png, id=251, 650.43pt x 433.62pt>
+l_lambda_collapse_curves.png, id=258, 650.43pt x 433.62pt>
 File: /Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/pp
 o_full_lambda_collapse_curves.png Graphic file (type png)
 <use /Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/ppo
 _full_lambda_collapse_curves.png>
 Package pdftex.def Info: /Users/Agriya/Desktop/prospect theory/docs/expPPO_lamb
-da_sweep_figures/ppo_full_lambda_collapse_curves.png  used on input line 587.
+da_sweep_figures/ppo_full_lambda_collapse_curves.png  used on input line 605.
 (pdftex.def)             Requested size: 385.20255pt x 256.80621pt.
 </Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/ppo_wcr
-it_vs_lambda_full.png, id=254, 578.16pt x 361.35pt>
+it_vs_lambda_full.png, id=261, 578.16pt x 361.35pt>
 File: /Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/pp
 o_wcrit_vs_lambda_full.png Graphic file (type png)
 <use /Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/ppo
 _wcrit_vs_lambda_full.png>
 Package pdftex.def Info: /Users/Agriya/Desktop/prospect theory/docs/expPPO_lamb
-da_sweep_figures/ppo_wcrit_vs_lambda_full.png  used on input line 603.
+da_sweep_figures/ppo_wcrit_vs_lambda_full.png  used on input line 621.
 (pdftex.def)             Requested size: 281.85587pt x 176.1588pt.
 
 
-[7 </Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/fig2_behavi
+[7]
+
+[8 </Users/Agriya/Desktop/prospect theory/docs/expB_reduced_figures/fig2_behavi
 oral_decomposition.png>]
 
-[8 </Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/ppo_
+[9 </Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/ppo_
 full_lambda_collapse_curves.png> </Users/Agriya/Desktop/prospect theory/docs/ex
 pPPO_lambda_sweep_figures/ppo_wcrit_vs_lambda_full.png>]
 
-[9]
-
 [10]
+
+[11]
+Overfull \hbox (56.73816pt too wide) in paragraph at lines 851--873
+\OMS/cmsy/m/n/10.95 f\OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/
+n/10.95 (-20) 586\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/
+10.95 :\OT1/cmr/m/n/10.95 (-20) 695\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-2
+0) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 759\OML/cmm/m/it/10.95 ; \OT1
+/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 800\OML/cmm
+/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95
+ (-20) 830\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :
+\OT1/cmr/m/n/10.95 (-20) 851\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OM
+L/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 868\OMS/cmsy/m/n/10.95 g$ \T1/cmr/m/
+n/10.95 (-20) against the mea-sured $\OMS/cmsy/m/n/10.95 f\OT1/cmr/m/n/10.95 (-
+20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 586\OML/cmm/m/it/10.95 ; \OT
+1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 715\OML/cm
+m/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.9
+5 (-20) 774\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 
+:\OT1/cmr/m/n/10.95 (-20) 806\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\O
+ML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 839\OML/cmm/m/it/10.95 ; \OT1/cmr/m
+/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20) 836\OML/cmm/m/it/
+10.95 ; \OT1/cmr/m/n/10.95 (-20) 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 (-20)
+ 851\OMS/cmsy/m/n/10.95 g$\T1/cmr/m/n/10.95 (-20) ,
+ []
+
 </Users/Agriya/Desktop/prospect theory/docs/meanfield_figures/fig_meanfield_val
-idation.png, id=317, 1074.11287pt x 306.69582pt>
+idation.png, id=337, 1074.11287pt x 306.69582pt>
 File: /Users/Agriya/Desktop/prospect theory/docs/meanfield_figures/fig_meanfiel
 d_validation.png Graphic file (type png)
 <use /Users/Agriya/Desktop/prospect theory/docs/meanfield_figures/fig_meanfield
 _validation.png>
 Package pdftex.def Info: /Users/Agriya/Desktop/prospect theory/docs/meanfield_f
-igures/fig_meanfield_validation.png  used on input line 833.
+igures/fig_meanfield_validation.png  used on input line 876.
 (pdftex.def)             Requested size: 469.75502pt x 134.13228pt.
 </Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/affine_
-law_7pt.png, id=324, 433.62pt x 289.08pt>
+law_7pt.png, id=344, 433.62pt x 289.08pt>
 File: /Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/af
 fine_law_7pt.png Graphic file (type png)
 <use /Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_sweep_figures/aff
 ine_law_7pt.png>
 Package pdftex.def Info: /Users/Agriya/Desktop/prospect theory/docs/expPPO_lamb
-da_sweep_figures/affine_law_7pt.png  used on input line 853.
+da_sweep_figures/affine_law_7pt.png  used on input line 896.
 (pdftex.def)             Requested size: 291.2458pt x 194.17221pt.
 
 
-[11]
+[12]
 
-[12 </Users/Agriya/Desktop/prospect theory/docs/meanfield_figures/fig_meanfield
+[13 </Users/Agriya/Desktop/prospect theory/docs/meanfield_figures/fig_meanfield
 _validation.png> </Users/Agriya/Desktop/prospect theory/docs/expPPO_lambda_swee
 p_figures/affine_law_7pt.png>]
 
-[13]
-
 [14]
 
-[15] (./main.bbl
+[15]
 
 [16]
 
-[17])
+[17]
+</Users/Agriya/Desktop/prospect theory/docs/expEnt_figures/entropy_ablation.png
+, id=435, 785.48456pt x 299.46881pt>
+File: /Users/Agriya/Desktop/prospect theory/docs/expEnt_figures/entropy_ablatio
+n.png Graphic file (type png)
+<use /Users/Agriya/Desktop/prospect theory/docs/expEnt_figures/entropy_ablation
+.png>
+Package pdftex.def Info: /Users/Agriya/Desktop/prospect theory/docs/expEnt_figu
+res/entropy_ablation.png  used on input line 1286.
+(pdftex.def)             Requested size: 469.75502pt x 179.09776pt.
 
-[18] (./main.aux)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+[18]
+</Users/Agriya/Desktop/prospect theory/docs/expHet_figures/heterogeneous.png, i
+d=452, 785.48456pt x 300.3722pt>
+File: /Users/Agriya/Desktop/prospect theory/docs/expHet_figures/heterogeneous.p
+ng Graphic file (type png)
+<use /Users/Agriya/Desktop/prospect theory/docs/expHet_figures/heterogeneous.pn
+g>
+Package pdftex.def Info: /Users/Agriya/Desktop/prospect theory/docs/expHet_figu
+res/heterogeneous.png  used on input line 1335.
+(pdftex.def)             Requested size: 469.75502pt x 179.63803pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+(./main.bbl
+
+[19 </Users/Agriya/Desktop/prospect theory/docs/expEnt_figures/entropy_ablation
+.png>]
+
+[20 </Users/Agriya/Desktop/prospect theory/docs/expHet_figures/heterogeneous.pn
+g>]
+
+[21])
+
+[22] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F9972CB1F6622827E2B9899D3679F6AD;3814.
+(rerunfilecheck)             Checksum: 07D48641A3D54117B42A2E29A5C43ADD;4169.
  ) 
 Here is how much of TeX's memory you used:
- 24265 strings out of 473190
- 440631 string characters out of 5715799
- 939177 words of memory out of 5000000
- 46789 multiletter control sequences out of 15000+600000
- 597083 words of font info for 275 fonts, out of 8000000 for 9000
+ 24331 strings out of 473190
+ 442401 string characters out of 5715799
+ 940515 words of memory out of 5000000
+ 46814 multiletter control sequences out of 15000+600000
+ 598270 words of font info for 289 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 83i,15n,131p,2371b,650s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 83i,15n,131p,2371b,668s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
@@ -896,10 +955,10 @@ type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
 pe1/public/cm-super/sfti1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
 1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
 public/cm-super/sftt1095.pfb>
-Output written on main.pdf (18 pages, 1072131 bytes).
+Output written on main.pdf (22 pages, 1271666 bytes).
 PDF statistics:
- 600 PDF objects out of 1000 (max. 8388607)
- 487 compressed objects within 5 object streams
- 104 named destinations out of 1000 (max. 500000)
- 73911 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 665 PDF objects out of 1000 (max. 8388607)
+ 542 compressed objects within 6 object streams
+ 117 named destinations out of 1000 (max. 500000)
+ 73929 words of extra memory for PDF output out of 74296 (max. 10000000)
 

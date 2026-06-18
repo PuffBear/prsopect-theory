@@ -4,15 +4,15 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \citation{liu2023lazy,peng2023curo}
 \citation{kahneman1979,tversky1992}
-\citation{oroojlooyjadid2022,gijsbrechts2022}
-\citation{ethayarajh2024kto}
-\citation{lalmohammed2025}
 \providecommand\@newglossary[4]{}
 \@newglossary{main}{glg}{gls}{glo}
 \@newglossary{acronym}{alg}{acr}{acn}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
 \newlabel{sec:intro@cref}{{[section][1][]1}{[1][1][]1}{}{}{}}
+\citation{oroojlooyjadid2022,gijsbrechts2022}
+\citation{ethayarajh2024kto}
+\citation{lalmohammed2025}
 \citation{liu2023lazy}
 \citation{peng2023curo}
 \citation{weng2026}
@@ -26,20 +26,18 @@
 \citation{lowe2017multi}
 \citation{liu2023lazy}
 \citation{peng2023curo}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{3}{section.2}\protected@file@percent }
-\newlabel{sec:background}{{2}{3}{Background}{section.2}{}}
-\newlabel{sec:background@cref}{{[section][2][]2}{[1][3][]3}{}{}{}}
 \citation{kahneman1979}
 \citation{tversky1992}
-\citation{lalmohammed2025}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces $P(\mathrm  {collapse})$ in $(w, T)$ space. Each cell shows the empirical collapse fraction across 20 seeds. The 150k and 300k rows are from Exp~A ($\alpha {=}\beta {=}1$); the 600k row is from Exp~T ($\alpha {=}\beta {=}0.88$). Because $\alpha {=}\beta {=}0.88$ shifts $w_{\mathrm  {crit}}$ left by 0.100 (§\ref {sec:results_behavioral}), the apparent 300k$\to $600k slide is partially curvature-inflated. Under matched $\alpha {=}\beta {=}1$ conditions (Exp~0b), $P(\mathrm  {collapse}\mid w{=}0.6) = 0.35$ and $P(\mathrm  {collapse}\mid w{=}0.7) = 0.20$ at 600k, confirming that metastability holds with $\alpha {=}\beta $ held constant; only the magnitude is curvature-inflated in this figure. }}{4}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:heatmap}{{1}{4}{$P(\mathrm {collapse})$ in $(w, T)$ space. Each cell shows the empirical collapse fraction across 20 seeds. The 150k and 300k rows are from Exp~A ($\alpha {=}\beta {=}1$); the 600k row is from Exp~T ($\alpha {=}\beta {=}0.88$). Because $\alpha {=}\beta {=}0.88$ shifts $\wcrit $ left by 0.100 (§\ref {sec:results_behavioral}), the apparent 300k$\to $600k slide is partially curvature-inflated. Under matched $\alpha {=}\beta {=}1$ conditions (Exp~0b), $P(\mathrm {collapse}\mid w{=}0.6) = 0.35$ and $P(\mathrm {collapse}\mid w{=}0.7) = 0.20$ at 600k, confirming that metastability holds with $\alpha {=}\beta $ held constant; only the magnitude is curvature-inflated in this figure}{figure.caption.1}{}}
 \newlabel{fig:heatmap@cref}{{[figure][1][]1}{[1][3][]4}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{4}{section.2}\protected@file@percent }
+\newlabel{sec:background}{{2}{4}{Background}{section.2}{}}
+\newlabel{sec:background@cref}{{[section][2][]2}{[1][3][]4}{}{}{}}
 \newlabel{eq:cpt}{{1}{4}{Background}{equation.1}{}}
 \newlabel{eq:cpt@cref}{{[equation][1][]1}{[1][4][]4}{}{}{}}
-\newlabel{eq:reward}{{2}{4}{Background}{equation.2}{}}
-\newlabel{eq:reward@cref}{{[equation][2][]2}{[1][4][]4}{}{}{}}
+\citation{lalmohammed2025}
 \citation{hubbs2020orgym}
 \citation{oroojlooyjadid2022}
 \citation{gijsbrechts2022}
@@ -48,9 +46,11 @@
 \citation{raffin2021sb3}
 \citation{terry2021pettingzoo}
 \citation{terry2020supersuit}
+\newlabel{eq:reward}{{2}{5}{Background}{equation.2}{}}
+\newlabel{eq:reward@cref}{{[equation][2][]2}{[1][4][]5}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Method}{5}{section.3}\protected@file@percent }
 \newlabel{sec:method}{{3}{5}{Method}{section.3}{}}
-\newlabel{sec:method@cref}{{[section][3][]3}{[1][4][]5}{}{}{}}
+\newlabel{sec:method@cref}{{[section][3][]3}{[1][5][]5}{}{}{}}
 \newlabel{eq:collapse}{{3}{5}{Method}{equation.3}{}}
 \newlabel{eq:collapse@cref}{{[equation][3][]3}{[1][5][]5}{}{}{}}
 \newlabel{eq:logistic}{{4}{5}{Method}{equation.4}{}}
@@ -60,104 +60,121 @@
 \newlabel{sec:setup@cref}{{[section][4][]4}{[1][5][]5}{}{}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Experiment summary. All experiments use the same environment and algorithm. $\alpha {=}\beta {=}1$ denotes the linear (no-PT) condition.}}{6}{table.caption.2}\protected@file@percent }
 \newlabel{tab:experiments}{{1}{6}{Experiment summary. All experiments use the same environment and algorithm. $\alpha {=}\beta {=}1$ denotes the linear (no-PT) condition}{table.caption.2}{}}
-\newlabel{tab:experiments@cref}{{[table][1][]1}{[1][5][]6}{}{}{}}
+\newlabel{tab:experiments@cref}{{[table][1][]1}{[1][6][]6}{}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Results}{6}{section.5}\protected@file@percent }
 \newlabel{sec:results}{{5}{6}{Results}{section.5}{}}
-\newlabel{sec:results@cref}{{[section][5][]5}{[1][5][]6}{}{}{}}
+\newlabel{sec:results@cref}{{[section][5][]5}{[1][6][]6}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Structural Phase Transition and Metastability}{6}{subsection.5.1}\protected@file@percent }
 \newlabel{sec:results_structural}{{5.1}{6}{Structural Phase Transition and Metastability}{subsection.5.1}{}}
-\newlabel{sec:results_structural@cref}{{[subsection][1][5]5.1}{[1][5][]6}{}{}{}}
+\newlabel{sec:results_structural@cref}{{[subsection][1][5]5.1}{[1][6][]6}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{Note on the 600k row.}{6}{section*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Null Model and Reproducibility}{6}{subsection.5.2}\protected@file@percent }
-\newlabel{sec:results_null}{{5.2}{6}{Null Model and Reproducibility}{subsection.5.2}{}}
-\newlabel{sec:results_null@cref}{{[subsection][2][5]5.2}{[1][6][]6}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Behavioral decomposition of the collapse boundary. Each curve shows $P(\mathrm  {collapse} \mid w)$ at 300k steps. The null ($\alpha {=}\beta {=}1$, gray dashed) is the structural baseline. The $\lambda {=}1$, $\alpha {=}\beta {=}0.88$ curve (blue) shifts \emph  {left} of the null by 0.100, indicating that probability weighting alone facilitates coordination. The $\lambda {=}3$ (orange) and $\lambda {=}7$ (red) curves shift progressively \emph  {right}, indicating that loss aversion raises the centralization requirement. Vertical dashed lines mark $w_{\mathrm  {crit}}$ estimates; shaded bands show bootstrap 95\% confidence intervals. }}{7}{figure.caption.4}\protected@file@percent }
-\newlabel{fig:decomposition}{{2}{7}{Behavioral decomposition of the collapse boundary. Each curve shows $P(\mathrm {collapse} \mid w)$ at 300k steps. The null ($\alpha {=}\beta {=}1$, gray dashed) is the structural baseline. The $\lambda {=}1$, $\alpha {=}\beta {=}0.88$ curve (blue) shifts \emph {left} of the null by 0.100, indicating that probability weighting alone facilitates coordination. The $\lambda {=}3$ (orange) and $\lambda {=}7$ (red) curves shift progressively \emph {right}, indicating that loss aversion raises the centralization requirement. Vertical dashed lines mark $\wcrit $ estimates; shaded bands show bootstrap 95\% confidence intervals}{figure.caption.4}{}}
-\newlabel{fig:decomposition@cref}{{[figure][2][]2}{[1][7][]7}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Full loss-aversion sweep ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per $(w,\lambda )$ cell, $n{=}100$ runs per $\lambda $). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs. $^{\dagger }$Slope/p-value unreliable due to quasi-complete separation; $w_{\mathrm  {crit}}$ from bootstrap only.}}{7}{table.caption.7}\protected@file@percent }
+\newlabel{tab:lambda_sweep}{{2}{7}{Full loss-aversion sweep ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per $(w,\lambda )$ cell, $n{=}100$ runs per $\lambda $). $\wcrit $ with bootstrap 95\% CIs. $^{\dagger }$Slope/p-value unreliable due to quasi-complete separation; $\wcrit $ from bootstrap only}{table.caption.7}{}}
+\newlabel{tab:lambda_sweep@cref}{{[table][2][]2}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Null Model and Reproducibility}{7}{subsection.5.2}\protected@file@percent }
+\newlabel{sec:results_null}{{5.2}{7}{Null Model and Reproducibility}{subsection.5.2}{}}
+\newlabel{sec:results_null@cref}{{[subsection][2][5]5.2}{[1][6][]7}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Behavioral Phase Boundary}{7}{subsection.5.3}\protected@file@percent }
 \newlabel{sec:results_behavioral}{{5.3}{7}{Behavioral Phase Boundary}{subsection.5.3}{}}
-\newlabel{sec:results_behavioral@cref}{{[subsection][3][5]5.3}{[1][6][]7}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Full loss-aversion sweep: fitted collapse-probability curves $P(\mathrm  {collapse}\mid w)$ for $\lambda = 1,\ldots  ,7$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell). The family shifts coherently rightward as loss aversion grows---each increment of $\lambda $ raises the centralization $w$ required to avert collapse---with the vertical dashed $w_{\mathrm  {crit}}$ lines ordered accordingly. The curves steepen and crowd together at high $\lambda $, the quasi-separation plateau discussed in \Cref  {sec:results_behavioral}. }}{8}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:lambda_curves}{{3}{8}{Full loss-aversion sweep: fitted collapse-probability curves $P(\mathrm {collapse}\mid w)$ for $\lambda = 1,\ldots ,7$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell). The family shifts coherently rightward as loss aversion grows---each increment of $\lambda $ raises the centralization $w$ required to avert collapse---with the vertical dashed $\wcrit $ lines ordered accordingly. The curves steepen and crowd together at high $\lambda $, the quasi-separation plateau discussed in \Cref {sec:results_behavioral}}{figure.caption.5}{}}
-\newlabel{fig:lambda_curves@cref}{{[figure][3][]3}{[1][7][]8}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces $w_{\mathrm  {crit}}$ as a function of loss aversion $\lambda \in \{1,\ldots  ,7\}$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell). Error bars show bootstrap 95\% confidence intervals. The seven-point trend rises monotonically through $\lambda {=}5$ and then saturates; the non-overlapping CIs between $\lambda {=}1$ and $\lambda {=}7$ confirm the behavioral claim. The $\lambda \in \{5,7\}$ CIs reflect quasi-complete separation and should be read with caution (\Cref  {sec:results_behavioral}). }}{8}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:wcrit_lambda}{{4}{8}{$\wcrit $ as a function of loss aversion $\lambda \in \{1,\ldots ,7\}$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell). Error bars show bootstrap 95\% confidence intervals. The seven-point trend rises monotonically through $\lambda {=}5$ and then saturates; the non-overlapping CIs between $\lambda {=}1$ and $\lambda {=}7$ confirm the behavioral claim. The $\lambda \in \{5,7\}$ CIs reflect quasi-complete separation and should be read with caution (\Cref {sec:results_behavioral})}{figure.caption.6}{}}
-\newlabel{fig:wcrit_lambda@cref}{{[figure][4][]4}{[1][7][]8}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Full loss-aversion sweep ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per $(w,\lambda )$ cell, $n{=}100$ runs per $\lambda $). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs. $^{\dagger }$Slope/p-value unreliable due to quasi-complete separation; $w_{\mathrm  {crit}}$ from bootstrap only.}}{9}{table.caption.7}\protected@file@percent }
-\newlabel{tab:lambda_sweep}{{2}{9}{Full loss-aversion sweep ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per $(w,\lambda )$ cell, $n{=}100$ runs per $\lambda $). $\wcrit $ with bootstrap 95\% CIs. $^{\dagger }$Slope/p-value unreliable due to quasi-complete separation; $\wcrit $ from bootstrap only}{table.caption.7}{}}
-\newlabel{tab:lambda_sweep@cref}{{[table][2][]2}{[1][7][]9}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Three-way behavioral decomposition of $w_{\mathrm  {crit}}$ relative to the null model. ``Significant'' denotes that the conservative difference confidence interval excludes zero. $^{\dagger }$For $\lambda {=}7$, $w_{\mathrm  {crit}}$ is from bootstrap only; see footnote in \Cref  {sec:results_behavioral}.}}{9}{table.caption.8}\protected@file@percent }
-\newlabel{tab:decomposition}{{3}{9}{Three-way behavioral decomposition of $\wcrit $ relative to the null model. ``Significant'' denotes that the conservative difference confidence interval excludes zero. $^{\dagger }$For $\lambda {=}7$, $\wcrit $ is from bootstrap only; see footnote in \Cref {sec:results_behavioral}}{table.caption.8}{}}
-\newlabel{tab:decomposition@cref}{{[table][3][]3}{[1][9][]9}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}A Mean-Field Mechanism for the Collapse Boundary}{9}{section.6}\protected@file@percent }
-\newlabel{sec:meanfield}{{6}{9}{A Mean-Field Mechanism for the Collapse Boundary}{section.6}{}}
-\newlabel{sec:meanfield@cref}{{[section][6][]6}{[1][9][]9}{}{}{}}
+\newlabel{sec:results_behavioral@cref}{{[subsection][3][5]5.3}{[1][7][]7}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Behavioral decomposition of the collapse boundary. Each curve shows $P(\mathrm  {collapse} \mid w)$ at 300k steps. The null ($\alpha {=}\beta {=}1$, gray dashed) is the structural baseline. The $\lambda {=}1$, $\alpha {=}\beta {=}0.88$ curve (blue) shifts \emph  {left} of the null by 0.100, indicating that probability weighting alone facilitates coordination. The $\lambda {=}3$ (orange) and $\lambda {=}7$ (red) curves shift progressively \emph  {right}, indicating that loss aversion raises the centralization requirement. Vertical dashed lines mark $w_{\mathrm  {crit}}$ estimates; shaded bands show bootstrap 95\% confidence intervals. }}{8}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:decomposition}{{2}{8}{Behavioral decomposition of the collapse boundary. Each curve shows $P(\mathrm {collapse} \mid w)$ at 300k steps. The null ($\alpha {=}\beta {=}1$, gray dashed) is the structural baseline. The $\lambda {=}1$, $\alpha {=}\beta {=}0.88$ curve (blue) shifts \emph {left} of the null by 0.100, indicating that probability weighting alone facilitates coordination. The $\lambda {=}3$ (orange) and $\lambda {=}7$ (red) curves shift progressively \emph {right}, indicating that loss aversion raises the centralization requirement. Vertical dashed lines mark $\wcrit $ estimates; shaded bands show bootstrap 95\% confidence intervals}{figure.caption.4}{}}
+\newlabel{fig:decomposition@cref}{{[figure][2][]2}{[1][7][]8}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Full loss-aversion sweep: fitted collapse-probability curves $P(\mathrm  {collapse}\mid w)$ for $\lambda = 1,\ldots  ,7$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell). The family shifts coherently rightward as loss aversion grows---each increment of $\lambda $ raises the centralization $w$ required to avert collapse---with the vertical dashed $w_{\mathrm  {crit}}$ lines ordered accordingly. The curves steepen and crowd together at high $\lambda $, the quasi-separation plateau discussed in \Cref  {sec:results_behavioral}. }}{9}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:lambda_curves}{{3}{9}{Full loss-aversion sweep: fitted collapse-probability curves $P(\mathrm {collapse}\mid w)$ for $\lambda = 1,\ldots ,7$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell). The family shifts coherently rightward as loss aversion grows---each increment of $\lambda $ raises the centralization $w$ required to avert collapse---with the vertical dashed $\wcrit $ lines ordered accordingly. The curves steepen and crowd together at high $\lambda $, the quasi-separation plateau discussed in \Cref {sec:results_behavioral}}{figure.caption.5}{}}
+\newlabel{fig:lambda_curves@cref}{{[figure][3][]3}{[1][7][]9}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces $w_{\mathrm  {crit}}$ as a function of loss aversion $\lambda \in \{1,\ldots  ,7\}$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell). Error bars show bootstrap 95\% confidence intervals. The seven-point trend rises monotonically through $\lambda {=}5$ and then saturates; the non-overlapping CIs between $\lambda {=}1$ and $\lambda {=}7$ confirm the behavioral claim. The $\lambda \in \{5,7\}$ CIs reflect quasi-complete separation and should be read with caution (\Cref  {sec:results_behavioral}). }}{9}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:wcrit_lambda}{{4}{9}{$\wcrit $ as a function of loss aversion $\lambda \in \{1,\ldots ,7\}$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell). Error bars show bootstrap 95\% confidence intervals. The seven-point trend rises monotonically through $\lambda {=}5$ and then saturates; the non-overlapping CIs between $\lambda {=}1$ and $\lambda {=}7$ confirm the behavioral claim. The $\lambda \in \{5,7\}$ CIs reflect quasi-complete separation and should be read with caution (\Cref {sec:results_behavioral})}{figure.caption.6}{}}
+\newlabel{fig:wcrit_lambda@cref}{{[figure][4][]4}{[1][7][]9}{}{}{}}
+\citation{mengesha2025}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Three-way behavioral decomposition of $w_{\mathrm  {crit}}$ relative to the null model. ``Significant'' denotes that the conservative difference confidence interval excludes zero. $^{\dagger }$For $\lambda {=}7$, $w_{\mathrm  {crit}}$ is from bootstrap only; see footnote in \Cref  {sec:results_behavioral}.}}{10}{table.caption.8}\protected@file@percent }
+\newlabel{tab:decomposition}{{3}{10}{Three-way behavioral decomposition of $\wcrit $ relative to the null model. ``Significant'' denotes that the conservative difference confidence interval excludes zero. $^{\dagger }$For $\lambda {=}7$, $\wcrit $ is from bootstrap only; see footnote in \Cref {sec:results_behavioral}}{table.caption.8}{}}
+\newlabel{tab:decomposition@cref}{{[table][3][]3}{[1][10][]10}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}A Mean-Field Mechanism for the Collapse Boundary}{10}{section.6}\protected@file@percent }
+\newlabel{sec:meanfield}{{6}{10}{A Mean-Field Mechanism for the Collapse Boundary}{section.6}{}}
+\newlabel{sec:meanfield@cref}{{[section][6][]6}{[1][10][]10}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Gradient flow and its noise}{10}{subsection.6.1}\protected@file@percent }
 \newlabel{eq:blend}{{5}{10}{Gradient flow and its noise}{equation.5}{}}
 \newlabel{eq:blend@cref}{{[equation][5][]5}{[1][10][]10}{}{}{}}
 \newlabel{eq:langevin}{{6}{10}{Gradient flow and its noise}{equation.6}{}}
 \newlabel{eq:langevin@cref}{{[equation][6][]6}{[1][10][]10}{}{}{}}
-\newlabel{eq:diffusion}{{7}{10}{Gradient flow and its noise}{equation.7}{}}
-\newlabel{eq:diffusion@cref}{{[equation][7][]7}{[1][10][]10}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}The boundary is a signal-to-noise crossing}{10}{subsection.6.2}\protected@file@percent }
-\newlabel{eq:drift}{{8}{10}{The boundary is a signal-to-noise crossing}{equation.8}{}}
-\newlabel{eq:drift@cref}{{[equation][8][]8}{[1][10][]10}{}{}{}}
-\newlabel{eq:snr}{{9}{10}{The boundary is a signal-to-noise crossing}{equation.9}{}}
-\newlabel{eq:snr@cref}{{[equation][9][]9}{[1][10][]10}{}{}{}}
-\newlabel{eq:wcrit}{{10}{10}{The boundary is a signal-to-noise crossing}{equation.10}{}}
-\newlabel{eq:wcrit@cref}{{[equation][10][]10}{[1][10][]10}{}{}{}}
-\citation{weng2026}
+\newlabel{eq:diffusion}{{7}{11}{Gradient flow and its noise}{equation.7}{}}
+\newlabel{eq:diffusion@cref}{{[equation][7][]7}{[1][10][]11}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}The boundary is a signal-to-noise crossing}{11}{subsection.6.2}\protected@file@percent }
+\newlabel{eq:drift}{{8}{11}{The boundary is a signal-to-noise crossing}{equation.8}{}}
+\newlabel{eq:drift@cref}{{[equation][8][]8}{[1][11][]11}{}{}{}}
+\newlabel{eq:snr}{{9}{11}{The boundary is a signal-to-noise crossing}{equation.9}{}}
+\newlabel{eq:snr@cref}{{[equation][9][]9}{[1][11][]11}{}{}{}}
+\newlabel{eq:wcrit}{{10}{11}{The boundary is a signal-to-noise crossing}{equation.10}{}}
+\newlabel{eq:wcrit@cref}{{[equation][10][]10}{[1][11][]11}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Sharpness and metastability}{11}{subsection.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Opposite signs of the two prospect-theory components}{11}{subsection.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Derived form of the loss-aversion law}{11}{subsection.6.5}\protected@file@percent }
-\newlabel{eq:wcrit_lambda}{{11}{11}{Derived form of the loss-aversion law}{equation.11}{}}
-\newlabel{eq:wcrit_lambda@cref}{{[equation][11][]11}{[1][11][]11}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{Scope.}{11}{section*.12}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Mean-field mechanism versus empirics. (a)~Mechanism (schematic): the cooperative gradient signal grows with centralisation ($\propto w\,g$) while partner exploration injects a roughly $w$-independent noise floor; $w_{\mathrm  {crit}}$ is the signal-to-noise crossing \eqref  {eq:snr}, below which the lazy policy is the effective attractor. (b)~Schematic of the \emph  {derived affine} loss-aversion law \eqref  {eq:wcrit_lambda}: CPT predicts $\phi (\lambda )=1+\rho (\lambda -1)$ with slope $\rho \in [0,1]$; the single data-implied slope $\rho =0.61$ respects the bound. The quantitative fit against the full seven-point sweep is shown separately in \Cref  {fig:affine_law}. (c)~The Kramers escape picture predicts the metastable leftward slide of $w_{\mathrm  {crit}}$ with training horizon $T$.}}{12}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:meanfield}{{5}{12}{Mean-field mechanism versus empirics. (a)~Mechanism (schematic): the cooperative gradient signal grows with centralisation ($\propto w\,g$) while partner exploration injects a roughly $w$-independent noise floor; $\wcrit $ is the signal-to-noise crossing \eqref {eq:snr}, below which the lazy policy is the effective attractor. (b)~Schematic of the \emph {derived affine} loss-aversion law \eqref {eq:wcrit_lambda}: CPT predicts $\phi (\lambda )=1+\rho (\lambda -1)$ with slope $\rho \in [0,1]$; the single data-implied slope $\rho =0.61$ respects the bound. The quantitative fit against the full seven-point sweep is shown separately in \Cref {fig:affine_law}. (c)~The Kramers escape picture predicts the metastable leftward slide of $\wcrit $ with training horizon $T$}{figure.caption.9}{}}
-\newlabel{fig:meanfield@cref}{{[figure][5][]5}{[1][11][]12}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The derived affine loss-aversion law \eqref  {eq:wcrit_lambda} against the full sweep. Points are the measured $w_{\mathrm  {crit}}(\lambda )$ for $\lambda =1,\ldots  ,7$ with bootstrap 95\% CIs (\Cref  {tab:lambda_sweep}); the line is the one-parameter law with $g/c$ fixed at the $\lambda {=}1$ baseline and a single theory-bounded slope $\rho =0.61$. The law tracks all seven points to RMSE $0.014$, with a mild concave residual at the high-$\lambda $ saturation plateau.}}{12}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:affine_law}{{6}{12}{The derived affine loss-aversion law \eqref {eq:wcrit_lambda} against the full sweep. Points are the measured $\wcrit (\lambda )$ for $\lambda =1,\ldots ,7$ with bootstrap 95\% CIs (\Cref {tab:lambda_sweep}); the line is the one-parameter law with $g/c$ fixed at the $\lambda {=}1$ baseline and a single theory-bounded slope $\rho =0.61$. The law tracks all seven points to RMSE $0.014$, with a mild concave residual at the high-$\lambda $ saturation plateau}{figure.caption.10}{}}
-\newlabel{fig:affine_law@cref}{{[figure][6][]6}{[1][11][]12}{}{}{}}
+\citation{weng2026}
 \citation{lalmohammed2025,anon2024risk}
 \citation{tversky1992}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Opposite signs of the two prospect-theory components}{12}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Derived form of the loss-aversion law}{12}{subsection.6.5}\protected@file@percent }
+\newlabel{eq:wcrit_lambda}{{11}{12}{Derived form of the loss-aversion law}{equation.11}{}}
+\newlabel{eq:wcrit_lambda@cref}{{[equation][11][]11}{[1][12][]12}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Scope.}{12}{section*.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Mean-field mechanism versus empirics. (a)~Mechanism (schematic): the cooperative gradient signal grows with centralisation ($\propto w\,g$) while partner exploration injects a roughly $w$-independent noise floor; $w_{\mathrm  {crit}}$ is the signal-to-noise crossing \eqref  {eq:snr}, below which the lazy policy is the effective attractor. (b)~Schematic of the \emph  {derived affine} loss-aversion law \eqref  {eq:wcrit_lambda}: CPT predicts $\phi (\lambda )=1+\rho (\lambda -1)$ with slope $\rho \in [0,1]$; the single data-implied slope $\rho =0.61$ respects the bound. The quantitative fit against the full seven-point sweep is shown separately in \Cref  {fig:affine_law}. (c)~The Kramers escape picture predicts the metastable leftward slide of $w_{\mathrm  {crit}}$ with training horizon $T$.}}{13}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:meanfield}{{5}{13}{Mean-field mechanism versus empirics. (a)~Mechanism (schematic): the cooperative gradient signal grows with centralisation ($\propto w\,g$) while partner exploration injects a roughly $w$-independent noise floor; $\wcrit $ is the signal-to-noise crossing \eqref {eq:snr}, below which the lazy policy is the effective attractor. (b)~Schematic of the \emph {derived affine} loss-aversion law \eqref {eq:wcrit_lambda}: CPT predicts $\phi (\lambda )=1+\rho (\lambda -1)$ with slope $\rho \in [0,1]$; the single data-implied slope $\rho =0.61$ respects the bound. The quantitative fit against the full seven-point sweep is shown separately in \Cref {fig:affine_law}. (c)~The Kramers escape picture predicts the metastable leftward slide of $\wcrit $ with training horizon $T$}{figure.caption.9}{}}
+\newlabel{fig:meanfield@cref}{{[figure][5][]5}{[1][12][]13}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The derived affine loss-aversion law \eqref  {eq:wcrit_lambda} against the full sweep. Points are the measured $w_{\mathrm  {crit}}(\lambda )$ for $\lambda =1,\ldots  ,7$ with bootstrap 95\% CIs (\Cref  {tab:lambda_sweep}); the line is the one-parameter law with $g/c$ fixed at the $\lambda {=}1$ baseline and a single theory-bounded slope $\rho =0.61$. The law tracks all seven points to RMSE $0.014$, with a mild concave residual at the high-$\lambda $ saturation plateau.}}{13}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:affine_law}{{6}{13}{The derived affine loss-aversion law \eqref {eq:wcrit_lambda} against the full sweep. Points are the measured $\wcrit (\lambda )$ for $\lambda =1,\ldots ,7$ with bootstrap 95\% CIs (\Cref {tab:lambda_sweep}); the line is the one-parameter law with $g/c$ fixed at the $\lambda {=}1$ baseline and a single theory-bounded slope $\rho =0.61$. The law tracks all seven points to RMSE $0.014$, with a mild concave residual at the high-$\lambda $ saturation plateau}{figure.caption.10}{}}
+\newlabel{fig:affine_law@cref}{{[figure][6][]6}{[1][12][]13}{}{}{}}
+\citation{mengesha2025}
 \citation{weng2026}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces What the mean-field mechanism claims. We separate predictions made \emph  {a priori} from quantities calibrated to data and from claims we explicitly do \emph  {not} make.}}{14}{table.caption.11}\protected@file@percent }
+\newlabel{tab:ledger}{{4}{14}{What the mean-field mechanism claims. We separate predictions made \emph {a priori} from quantities calibrated to data and from claims we explicitly do \emph {not} make}{table.caption.11}{}}
+\newlabel{tab:ledger@cref}{{[table][4][]4}{[1][12][]14}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{14}{section.7}\protected@file@percent }
+\newlabel{sec:discussion}{{7}{14}{Discussion}{section.7}{}}
+\newlabel{sec:discussion@cref}{{[section][7][]7}{[1][12][]14}{}{}{}}
 \citation{yamaguchi2025}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces What the mean-field mechanism claims. We separate predictions made \emph  {a priori} from quantities calibrated to data and from claims we explicitly do \emph  {not} make.}}{13}{table.caption.11}\protected@file@percent }
-\newlabel{tab:ledger}{{4}{13}{What the mean-field mechanism claims. We separate predictions made \emph {a priori} from quantities calibrated to data and from claims we explicitly do \emph {not} make}{table.caption.11}{}}
-\newlabel{tab:ledger@cref}{{[table][4][]4}{[1][11][]13}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{13}{section.7}\protected@file@percent }
-\newlabel{sec:discussion}{{7}{13}{Discussion}{section.7}{}}
-\newlabel{sec:discussion@cref}{{[section][7][]7}{[1][13][]13}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{14}{section.8}\protected@file@percent }
-\newlabel{sec:conclusion}{{8}{14}{Conclusion}{section.8}{}}
-\newlabel{sec:conclusion@cref}{{[section][8][]8}{[1][14][]14}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Threshold Robustness}{14}{appendix.A}\protected@file@percent }
-\newlabel{sec:appendix_robustness}{{A}{14}{Threshold Robustness}{appendix.A}{}}
-\newlabel{sec:appendix_robustness@cref}{{[section][1][]A}{[1][14][]14}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Environment Generalisability: Incentive Misalignment Across Domains}{14}{appendix.B}\protected@file@percent }
-\newlabel{sec:appendix_environments}{{B}{14}{Environment Generalisability: Incentive Misalignment Across Domains}{appendix.B}{}}
-\newlabel{sec:appendix_environments@cref}{{[section][2][]B}{[1][14][]14}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{Supply Chain (NetworkManagement-v1, logistics/operations research).}{14}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{15}{section.8}\protected@file@percent }
+\newlabel{sec:conclusion}{{8}{15}{Conclusion}{section.8}{}}
+\newlabel{sec:conclusion@cref}{{[section][8][]8}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Threshold Robustness}{15}{appendix.A}\protected@file@percent }
+\newlabel{sec:appendix_robustness}{{A}{15}{Threshold Robustness}{appendix.A}{}}
+\newlabel{sec:appendix_robustness@cref}{{[section][1][]A}{[1][15][]15}{}{}{}}
 \citation{yu2022surprising}
 \citation{lowe2017multi}
 \citation{christianos2020shared}
 \citation{christianos2020shared}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Environment Generalisability: Incentive Misalignment Across Domains}{16}{appendix.B}\protected@file@percent }
+\newlabel{sec:appendix_environments}{{B}{16}{Environment Generalisability: Incentive Misalignment Across Domains}{appendix.B}{}}
+\newlabel{sec:appendix_environments@cref}{{[section][2][]B}{[1][15][]16}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Supply Chain (NetworkManagement-v1, logistics/operations research).}{16}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{MPE Cooperative Navigation (simple\_spread\_v3, robotics/navigation).}{16}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{RWARE (Robot Warehouse, discrete logistics)---negative result.}{16}{section*.15}\protected@file@percent }
 \citation{leibo2017multi}
-\@writefile{toc}{\contentsline {paragraph}{MPE Cooperative Navigation (simple\_spread\_v3, robotics/navigation).}{15}{section*.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{RWARE (Robot Warehouse, discrete logistics)---negative result.}{15}{section*.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Cleanup (Sequential Social Dilemma, ecological/commons).}{15}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cleanup (Sequential Social Dilemma, ecological/commons).}{17}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Structural commonality.}{17}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C}Pre-registered Test of the Signal-to-Noise Mechanism}{17}{appendix.C}\protected@file@percent }
+\newlabel{sec:appendix_snr}{{C}{17}{Pre-registered Test of the Signal-to-Noise Mechanism}{appendix.C}{}}
+\newlabel{sec:appendix_snr@cref}{{[section][3][]C}{[1][17][]17}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Observable.}{17}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Prediction and decision rule.}{18}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Outcome.}{18}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {D}Robustness: Exploration Noise and Heterogeneous Populations}{18}{appendix.D}\protected@file@percent }
+\newlabel{sec:appendix_robustness2}{{D}{18}{Robustness: Exploration Noise and Heterogeneous Populations}{appendix.D}{}}
+\newlabel{sec:appendix_robustness2@cref}{{[section][4][]D}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Exploration noise (entropy coefficient).}{18}{section*.21}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Entropy-coefficient ablation ($\alpha {=}\beta {=}1$, $\lambda {=}1$, 300k, 20 seeds/cell). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs.}}{18}{table.caption.22}\protected@file@percent }
+\newlabel{tab:entropy}{{5}{18}{Entropy-coefficient ablation ($\alpha {=}\beta {=}1$, $\lambda {=}1$, 300k, 20 seeds/cell). $\wcrit $ with bootstrap 95\% CIs}{table.caption.22}{}}
+\newlabel{tab:entropy@cref}{{[table][5][]5}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Heterogeneous cognitive profiles.}{18}{section*.24}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{references}
 \bibcite{dmarl2025}{{1}{2025}{{Akella}}{{}}}
 \bibcite{christianos2020shared}{{2}{2020}{{Christianos et~al.}}{{Christianos, Sch{\"a}fer, and Albrecht}}}
 \bibcite{ethayarajh2024kto}{{3}{2024}{{Ethayarajh et~al.}}{{Ethayarajh, Xu, Muennighoff, Jurafsky, and Kiela}}}
-\@writefile{toc}{\contentsline {paragraph}{Structural commonality.}{16}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {C}Pre-registered Test of the Signal-to-Noise Mechanism}{16}{appendix.C}\protected@file@percent }
-\newlabel{sec:appendix_snr}{{C}{16}{Pre-registered Test of the Signal-to-Noise Mechanism}{appendix.C}{}}
-\newlabel{sec:appendix_snr@cref}{{[section][3][]C}{[1][16][]16}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{Observable.}{16}{section*.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Prediction and decision rule.}{16}{section*.19}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Exploration-noise ablation. (a)~Collapse curves shift right as the entropy coefficient grows. (b)~$w_{\mathrm  {crit}}$ rises monotonically with exploration noise, corroborating the signal-to-noise mechanism (\Cref  {sec:meanfield}); $\text  {ent}{=}0$ reproduces the null boundary $0.685$.}}{19}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:entropy}{{7}{19}{Exploration-noise ablation. (a)~Collapse curves shift right as the entropy coefficient grows. (b)~$\wcrit $ rises monotonically with exploration noise, corroborating the signal-to-noise mechanism (\Cref {sec:meanfield}); $\text {ent}{=}0$ reproduces the null boundary $0.685$}{figure.caption.23}{}}
+\newlabel{fig:entropy@cref}{{[figure][7][]7}{[1][18][]19}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Heterogeneous-population sweep ($\alpha {=}\beta {=}0.88$; loss-averse nodes at $\lambda {=}7$, others $\lambda {=}1$; 300k, 20 seeds/cell). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs. Homogeneous references: all risk-neutral $\approx 0.586$, all loss-averse $0.851$.}}{19}{table.caption.25}\protected@file@percent }
+\newlabel{tab:hetero}{{6}{19}{Heterogeneous-population sweep ($\alpha {=}\beta {=}0.88$; loss-averse nodes at $\lambda {=}7$, others $\lambda {=}1$; 300k, 20 seeds/cell). $\wcrit $ with bootstrap 95\% CIs. Homogeneous references: all risk-neutral $\approx 0.586$, all loss-averse $0.851$}{table.caption.25}{}}
+\newlabel{tab:hetero@cref}{{[table][6][]6}{[1][19][]19}{}{}{}}
 \bibcite{anon2024risk}{{4}{2024}{{Ghaemi et~al.}}{{Ghaemi, Kebriaei, Moghaddam, and Ahamdabadi}}}
 \bibcite{gijsbrechts2022}{{5}{2022}{{Gijsbrechts et~al.}}{{Gijsbrechts, Boute, Van~Mieghem, and Zhang}}}
 \bibcite{hubbs2020orgym}{{6}{2020}{{Hubbs et~al.}}{{Hubbs, Perez, Sarwar, Sahinidis, Grossmann, and Wassick}}}
@@ -165,6 +182,9 @@
 \bibcite{kahneman1979}{{8}{1979}{{Kahneman and Tversky}}{{}}}
 \bibcite{lalmohammed2025}{{9}{2025}{{Lalmohammed et~al.}}{{Lalmohammed, Gupta, Shah, and Ramji}}}
 \bibcite{leibo2017multi}{{10}{2017}{{Leibo et~al.}}{{Leibo, Zambaldi, Lanctot, Marecki, and Graepel}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Heterogeneous cognitive profiles. (a)~Collapse curves: a single downstream loss-averse node (orange) tracks the fully loss-averse population (red), while a single upstream node (blue) is far milder. (b)~$w_{\mathrm  {crit}}$ by configuration: one downstream loss-averse node already reaches the homogeneous loss-averse boundary; loss aversion cascades upstream but not downstream.}}{20}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:hetero}{{8}{20}{Heterogeneous cognitive profiles. (a)~Collapse curves: a single downstream loss-averse node (orange) tracks the fully loss-averse population (red), while a single upstream node (blue) is far milder. (b)~$\wcrit $ by configuration: one downstream loss-averse node already reaches the homogeneous loss-averse boundary; loss aversion cascades upstream but not downstream}{figure.caption.26}{}}
+\newlabel{fig:hetero@cref}{{[figure][8][]8}{[1][19][]20}{}{}{}}
 \bibcite{marlim2023}{{11}{2023}{{Leluc et~al.}}{{Leluc, Kadoche, Bertoncello, and Gourv{\'e}nec}}}
 \bibcite{liu2023lazy}{{12}{2023}{{Liu et~al.}}{{Liu, Pu, Pan, Yi, Liang, and Zhang}}}
 \bibcite{lowe2017multi}{{13}{2017}{{Lowe et~al.}}{{Lowe, Wu, Tamar, Harb, Abbeel, and Mordatch}}}
@@ -182,4 +202,4 @@
 \bibcite{yamaguchi2025}{{25}{2025}{{Yamaguchi}}{{}}}
 \bibcite{yu2022surprising}{{26}{2022}{{Yu et~al.}}{{Yu, Velu, Vinitsky, Gao, Wang, Bayen, and Wu}}}
 \bibcite{wang2025maca}{{27}{2025}{{Zhao and Xie}}{{}}}
-\gdef \@abspage@last{18}
+\gdef \@abspage@last{22}
