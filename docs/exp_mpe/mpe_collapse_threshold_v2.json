@@ -1,0 +1,4 @@
+{
+  "threshold_occupancy": 0.164,
+  "note": "MAPPO calib midpoint (w0 0.053 / w1 0.276)"
+}
