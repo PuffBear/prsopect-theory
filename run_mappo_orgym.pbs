@@ -1,0 +1,23 @@
+#!/bin/bash
+#PBS -N mappo_orgym
+#PBS -o logs/mappo_orgym.out
+#PBS -e logs/mappo_orgym.err
+#PBS -l ncpus=1
+#PBS -l walltime=03:00:00
+#PBS -q cpu
+#PBS -J 0-699
+
+# Second algorithm on the PRIMARY environment: MAPPO (centralised critic) on the
+# or-gym supply chain, full lambda=1..7 sweep x 5 w x 20 seeds = 700 runs.
+# Tests whether the loss-aversion rightward shift in w_crit reproduces under a
+# different learner on the same substrate (answers the "single-algorithm" review).
+cd "$PBS_O_WORKDIR"
+mkdir -p logs docs/expMAPPO_orgym_figures
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+python3 experiments/exp_mappo_orgym.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --out docs/expMAPPO_orgym_figures/mappo_orgym_raw_data.csv
