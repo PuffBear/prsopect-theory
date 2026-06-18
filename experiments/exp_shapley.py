@@ -47,7 +47,8 @@ def _build_env(mode, lam, seed):
     interv = DiagnosticWrapper(raw, scripted_nodes=["node_1"])
     cpt_params = {a: {"lambda": lam, "alpha": ALPHA, "beta": BETA} for a in raw.agents}
     shap = ShapleyRewardWrapper(interv, mode=mode, n_perm=8, default_order=0.0,
-                                cpt_params=cpt_params, reward_scale=1.0, seed=seed)
+                                cpt_params=cpt_params, reward_scale=1.0, seed=seed,
+                                baseline="mean")
     return ScaledBaseStockWrapper(shap, low_bound=LOW_BOUND, high_bound=HIGH_BOUND)
 
 
