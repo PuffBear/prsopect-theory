@@ -110,6 +110,11 @@ knowledge, has not previously been demonstrated in cooperative MARL.
 A full loss-aversion sweep ($\lambda = 1,\ldots,7$) shows $\wcrit$ rising
 monotonically and then saturating, tracked by a one-parameter,
 theory-bounded affine law to an RMSE of $0.014$.
+The shift is driven by a minority: a single \emph{downstream} loss-averse
+node moves the system boundary as far as a fully loss-averse population,
+revealing an upstream-propagating cascade.
+A mean-field signal-to-noise account explains the sign and form of these
+shifts, and an exploration-noise ablation confirms its central prediction.
 \end{abstract}
 
 % -----------------------------------------------------------------------
@@ -257,6 +262,19 @@ Across 1,524 controlled runs we find:
         confirming the behavioral claim; a one-parameter affine law
         derived from the value function tracks all seven points
         (RMSE $0.014$).
+  \item \textbf{Heterogeneity:} the effect is driven by a
+        \emph{minority}. A single loss-averse node placed \emph{downstream}
+        moves the system boundary to $\wcrit = 0.853$---statistically
+        indistinguishable from a fully loss-averse population
+        ($0.851$)---while an upstream node shifts it far less ($0.726$).
+        One downstream biased agent is enough to poison the whole network;
+        loss aversion cascades upstream but not downstream
+        (\Cref{sec:appendix_robustness2}).
+  \item \textbf{Mechanism (tested, not just calibrated):} raising the PPO
+        exploration term moves $\wcrit$ monotonically right and eventually
+        collapses the system at every $w$, the direct empirical signature of
+        the signal-to-noise mechanism (\Cref{sec:meanfield},
+        \Cref{sec:appendix_robustness2}).
 \end{itemize}
 To our knowledge this is the first quantitative phase diagram of
 cooperative MARL coordination collapse in $(w, T, \lambda)$ space, and
@@ -899,7 +917,13 @@ explicitly do \emph{not} make.}
 \textbf{Derived (no fit)} & opposite signs of curvature vs.\ loss aversion;
 monotonic $\wcrit(\lambda)$; \emph{affine} form of $\phi(\lambda)$ with
 slope $\rho\in[0,1]$; abrupt (phase-transition) sharpness; $\wcrit$
-decreasing with horizon $T$. \\
+decreasing with horizon $T$; $\wcrit$ increasing with exploration noise. \\
+\midrule
+\textbf{Empirically confirmed} & the opposite signs and affine form
+(\Cref{sec:results_behavioral}); the horizon slide (Exp~A/T); and the
+exploration-noise dependence---raising the entropy coefficient moves
+$\wcrit$ right and collapses the system at large noise
+(\Cref{sec:appendix_robustness2}). \\
 \midrule
 \textbf{Calibrated (1 param/axis)} & $g/c$ (from the $\lambda{=}1$
 boundary); loss-domain share $\rho$; noise scale setting the absolute
@@ -919,12 +943,14 @@ substrate confirms the \emph{sign} of the local-cost/global-benefit
 asymmetry but shows the marginal coefficients are operating-point dependent,
 so the absolute boundary is a property of the stochastic multi-agent
 dynamics rather than a static gradient---which is why we calibrate rather
-than predict its magnitude. The contribution is therefore a falsifiable
-\emph{mechanism}: it commits in advance to the signs, the ordering, the
-affine $\lambda$-law with a bounded slope, the sharpness, and the horizon
-direction (\Cref{tab:ledger}), all of which the data bear out, consistent
+than predict its magnitude. This section is not the paper's contribution---
+the decomposition is---but a supporting, falsifiable \emph{mechanism}: it
+commits in advance to the signs, the ordering, the affine $\lambda$-law with
+a bounded slope, the sharpness, and the horizon and exploration-noise
+directions (\Cref{tab:ledger}), all of which the data bear out, consistent
 with exploration-driven accounts of cooperation failure in shared-policy
-MARL~\citep{weng2026}. \Cref{sec:appendix_snr} reports a direct test that
+MARL~\citep{weng2026}. The exploration-noise prediction is confirmed
+directly by the entropy ablation (\Cref{sec:appendix_robustness2}). \Cref{sec:appendix_snr} reports a direct test that
 measures the Langevin drift and diffusion from PPO training: it reproduces
 the matched-horizon boundary but leaves the magnitude calibrated, as the
 drift-sign observable is confounded by basin geometry.
@@ -951,6 +977,25 @@ behavioral bias ($\wcrit(\lambda{=}7) - \wcrit(\text{null}) =
 0.851 - 0.685 = 0.166$, consistent with the excess in
 \Cref{tab:decomposition}) are a quantified cost of deploying loss-averse
 agents in a cooperative system.
+
+% D1b: heterogeneous minority -- promoted to a main result
+The shift is not an averaged, population-wide property: it is driven by a
+minority, and by network position. A single \emph{downstream} loss-averse
+node ($\lambda{=}7$ at the most demand-facing learning node) moves the
+system boundary to $\wcrit = 0.853$, matching a fully loss-averse
+population ($0.851$), whereas the same node placed upstream reaches only
+$0.726$ (\Cref{sec:appendix_robustness2}). Loss aversion therefore cascades
+\emph{upstream}---a downstream node's bias propagates back along the
+ordering chain and dominates the system boundary---but not downstream, a
+directional asymmetry that mirrors the bullwhip structure of the substrate.
+That a behavioral minority can move a system-level tipping point is itself
+established in evolutionary game theory via replicator
+selection~\citep{mengesha2025}; our contribution is the deep-MARL
+instantiation, where the effect emerges from gradient learning dynamics and
+carries a concrete network-position signature absent from the EGT account.
+The operational reading is sharper than a population average would suggest:
+in a mixed human--agent supply chain, the centralization a system needs is
+set by its most downstream loss-averse participant, not by the mean bias.
 
 % D2: metastability -- lazy agent attractor is escapable
 The sliding $\wcrit$ result is a positive finding, not a pathology.
