@@ -1,0 +1,75 @@
+% ============================================================================
+% DROP-IN DRAFT: action-space dissection of the value-based nulls.
+% Locked regardless of the MPE outcome. Place in the Generalization section
+% (after the cross-algorithm subsection) or as its own short subsection.
+% Replace bracketed [...] with final analyzer numbers / CIs before submission.
+% ============================================================================
+
+\subsection{Paradigm or action space? A controlled dissection}
+\label{sec:action_space_dissection}
+
+Extending the cross-algorithm test to value-based learners raised a sharper
+question than replication alone. Value-based methods require a discrete action
+space, so we discretized each node's continuous base-stock level into $K{=}11$
+bins over $[0,500]$ and trained two value-based learners under the identical
+reward pipeline, $w$-grid, $\lambda$-sweep, and collapse label used throughout:
+an independent value learner (IQL) and a centralized monotonic-mixing learner
+(QMIX). Both produced a \emph{flat, $w$-independent} collapse rate
+(QMIX ${\approx}18\%$, IQL ${\approx}0\text{--}15\%$) with no fittable
+$w_{\mathrm{crit}}$ in any condition, null included. Mean base-stock parked at a
+stable interior level irrespective of $w$ (IQL: $\overline{S}\approx[155,157,152,141,151]$
+across the grid), and refining the grid to $K{=}41$ or extending the training
+budget did not recover a boundary ($K{=}41$ gave $\overline{S}$ identical at
+$w{=}0.5$ and $w{=}0.95$).
+
+Two factors separate these learners from the continuous PPO and MAPPO runs that
+yield our headline boundary: the \emph{learning paradigm} (on-policy policy
+gradient vs.\ off-policy value-based) and the \emph{action representation}
+(continuous vs.\ discrete). We isolate them with a control that varies only the
+latter: PPO---the learner that produces a clean loss-aversion boundary under
+continuous control---trained on the identical $K{=}11$ discrete action shell,
+with every other component held fixed. It too goes flat
+(Table~\ref{tab:action_dissection}): mean base-stock overlaps across $w$
+($\overline{S}\in[100,200]$ at both $w{=}0.5$ and $w{=}0.95$), profit stays
+healthy and $w$-independent ($\approx[438,513]$), and no collapse regime
+appears.
+
+This control is decisive for the attribution. Holding the learner fixed at PPO,
+\emph{discretization alone is sufficient to erase the boundary}; the QMIX and IQL
+nulls therefore require no appeal to the value-based paradigm. We make only this
+claim, and not its converse: because no continuous-action value-based learner was
+run, we do not assert that a value-based method would \emph{preserve} the
+boundary given continuous actions---only that discreteness is sufficient to
+account for the observed nulls.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+Learner & Action space & Boundary? \\
+\midrule
+PPO / MAPPO              & continuous   & yes (Sec.~\ref{sec:results}) \\
+QMIX (centralized value) & discrete $K{=}11$ & no \\
+IQL (independent value)  & discrete $K{=}11$ & no \\
+PPO (control)            & discrete $K{=}11$ & \textbf{no} \\
+\bottomrule
+\end{tabular}
+\caption{Action-space dissection. The control (last row) changes only the action
+representation while holding the learner fixed at PPO, isolating discretization
+---not the value-based paradigm---as the cause of the value-based nulls.}
+\label{tab:action_dissection}
+\end{table}
+
+The mechanism of Sec.~\ref{sec:mechanism} reads this result as a prediction
+confirmed rather than a failure. The boundary is located there at a
+signal-to-noise crossing of the \emph{continuous} policy gradient: the $w$-blend
+moves the \emph{value} of the optimal base-stock level, not \emph{which} of the
+coarse bins is the arg-max. A discrete arg-max policy therefore snaps to a stable
+interior bin and never visits the near-threshold $(s,S)$ region where collapse
+occurs, so the mechanism predicts that coarse discretization should remove the
+boundary---which the control confirms. We accordingly scope the phenomenon as one
+of \emph{continuous-control} cooperative MARL, replicating across environments and
+across continuous policy-gradient learners (PPO, MAPPO), and we report the
+discretized regime as a controlled boundary condition rather than a competing
+result.
