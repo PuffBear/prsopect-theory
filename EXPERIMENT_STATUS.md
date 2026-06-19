@@ -20,6 +20,21 @@ HPC: `ssh <user>@10.1.4.95`, project dir `~/prospect-theory`, scheduler **PBS/To
 | **Entropy ablation (Pt 4)** | exp_entropy_ablation | 400 | ❌ | run_entropy.pbs | **queued** |
 | **MAPPO on or-gym (2nd algo)** | exp_mappo_orgym | 700 | ❌ | run_mappo_orgym.pbs | **FIXED + PREPARED — wiring-check then submit** |
 | MPE full λ sweep (2nd env) | (your queued job) | — | ❌ | — | **queued by you** |
+| **QMIX · supply (value-based, Tier 1)** | exp_qmix_orgym --algo qmix | 800 | ❌ | run_qmix_orgym(.pbs/_null.pbs) | **BUILT — smoke then submit** |
+| **IQL · supply (Tier 2)** | exp_qmix_orgym --algo iql | 800 | ❌ | run_iql_orgym(.pbs/_null.pbs) | **BUILT** |
+| **QMIX · MPE (Tier 2)** | exp_qmix_mpe --algo qmix | 880 | ❌ | run_qmix_mpe(.pbs/_null.pbs) | **BUILT** |
+| **IQL · MPE (Tier 3)** | exp_qmix_mpe --algo iql | 880 | ❌ | run_iql_mpe(.pbs/_null.pbs) | **BUILT** |
+
+> **Value-based 2×2 (VALUE_BASED_EXPERIMENT_PLAN.md):** self-contained QMIX
+> (monotonic mixer) + IQL on the existing SB3/SuperSuit stack — NOT EPyMARL (not
+> installed locally or on HPC). Supply gets a `Discrete(K=11)` base-stock shell;
+> MPE is natively `Discrete(5)`. CSV schema mirrors exp_mappo_orgym so
+> analyze_firth_lambda_sweep ingests it. Three local PASS gates before any qsub:
+> `--wiring_check` (mixer monotone + reads joint state; IQL has none),
+> `run_qmix_toy_sanity.py` (known-good 2-agent coordination matrix),
+> `run_qmix_smoke_local.py` (20k-step real run). Supply budget 300k env steps,
+> MPE 4M. PBS lives in `docs/slurm/` (8 files: sweep+null × 4 cells). Each cell =
+> 700 sweep (λ∈1..7, curvature = the λ=1 point) + 100/110 null (α=β=1, λ=1).
 
 > **⚠️ FIX (this session): `exp_mappo_orgym.py` was NOT real MAPPO.** The previous
 > version fed the critic only local observations (a renamed wider MLP, shared
