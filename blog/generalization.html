@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generalization &amp; Agenda — The Boundary Where Cooperation Dies</title>
+<meta name="description" content="The loss-aversion boundary effect across environment and algorithm, what it means for AI systems, and the research program it opens.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,300;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <div class="logo">Agriya Yadav</div>
+  <nav><a href="https://agriya-yadav.vercel.app/">Index</a><a href="https://agriya-yadav.vercel.app/work">Work</a><a href="https://agriya-yadav.vercel.app/research">Research</a><a href="mailto:agriyayadav@gmail.com">Email →</a></nav>
+</header>
+
+<div class="kicker"><span class="sec">§ 07</span><span>Research note · 2026 · Part 4 of 4</span><span class="rule"></span><span>~11 min</span></div>
+
+<nav class="toc">
+  <a href="index.html">1 · The phase diagram</a>
+  <a href="theory.html">2 · Theory</a>
+  <a href="law.html">3 · The law</a>
+  <a href="generalization.html" class="here">4 · Generalization &amp; agenda</a>
+</nav>
+
+<!-- ============================== GENERALIZATION ============================== -->
+<div class="prose">
+<h1>Is the phase diagram <em>substrate-independent?</em></h1>
+
+<p class="lede">Everything so far lives in one environment (a supply chain) under one algorithm (PPO). The obvious objection: maybe the boundary, and loss aversion's grip on it, are artifacts of <em>that</em> substrate. So we changed both — the algorithm and the environment — and asked whether the <em>direction</em> of the effect survives.</p>
+
+<p>Two replications. First, swap the algorithm: re-run the same supply chain under <strong>MAPPO</strong> (centralized-critic actor–critic) instead of independent PPO. Second, swap the environment entirely: <strong>MPE Cooperative Navigation</strong> — a spatial multi-agent particle task where agents must spread to cover landmarks, nothing like a supply chain — under MAPPO. In every case we apply the identical prospect-theoretic transform, the identical $w$-mixing, and the identical pre-registered estimator stack (Firth-corrected logistic, bootstrap $n=2000$).</p>
+</div>
+
+<div class="fig">
+  <div id="figG" class="chart" style="height:470px"></div>
+  <div class="figcap"><span class="figno">FIG. 8</span> — <b>The generalization crux.</b> $w_{\mathrm{crit}}(\lambda)$ for three settings on one axis: supply chain under PPO (blue), supply chain under MAPPO (green), and MPE Cooperative Navigation under MAPPO (red). Bars are bootstrap 95% CIs. The <em>absolute level</em> differs — MAPPO and the spatial task sit higher, and MPE's boundary crowds against $w \approx 1$ with wide intervals — but the <b>upward direction with $\lambda$ is shared across both algorithm and environment</b>. Loss aversion raises the coordination boundary regardless of substrate.</div>
+</div>
+
+<div class="prose">
+<p>Three things to read off it, in decreasing order of confidence.</p>
+
+<p><strong>The direction generalizes.</strong> All three series trend upward in $\lambda$: more loss aversion, more team-pay required to coordinate. This is the robust, cross-cutting claim — it holds when we change the credit-assignment machinery (PPO → MAPPO) and when we change the world (supply chain → spatial navigation). The qualitative phase-diagram story is not a supply-chain artifact.</p>
+
+<p><strong>The constants do not.</strong> MAPPO's centralized critic shifts the whole boundary up — at $\lambda = 1$ it needs $w_{\mathrm{crit}} \approx 0.80$ where PPO needs $0.59$ — which is exactly what Proposition 1's $(N, \beta, c)$ dependence predicts when you change how the team term is estimated. The <em>form</em> is shared; $(w_\infty, K)$ are substrate-specific. That is the right kind of universality: structure invariant, scale not.</p>
+
+<p><strong>MPE is a directional confirmation, not a second precise phase diagram — and the writeup says so.</strong> Cooperative Navigation's collapse boundary sits near $w \approx 1$ with wide, sometimes-unbounded bootstrap intervals (the high-$\lambda$ CIs run past 1.0), and the behavioral decomposition there is unstable across re-estimation — the null $w_{\mathrm{crit}}$ floats between $\approx 0.71$ and $\approx 1.0$ depending on the collapse-threshold calibration. So we report MPE as evidence for the <em>sign</em> of the effect across environments, and explicitly <em>not</em> as a clean $w_{\mathrm{crit}}(\lambda)$ measurement on par with the supply chain. Under independent PPO on MPE the boundary degenerates entirely (the logistic doesn't identify), which is itself informative: the centralized critic is doing real coordination work in the spatial task.</p>
+
+<blockquote>Change the algorithm, change the world — the boundary still climbs with loss aversion. The slope is the finding; the intercept is the substrate.<span class="attr">— the cross-environment result, one line</span></blockquote>
+</div>
+
+<!-- ============================== IMPLICATIONS ============================== -->
+<div class="kicker"><span class="sec">§ 08</span><span>What this means for AI systems</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>Your multi-agent system has a phase diagram. You should know where on it you live.</h2>
+
+<p><strong>Risk-shaping is not free.</strong> The community increasingly trains agents with risk-sensitive objectives — CVaR policy gradients, asymmetric reward clipping, conservative offline penalties, loss-averse reward models distilled from human feedback (humans have $\lambda \approx 2.25$ baked in). Every one of these moves an agent along the $\lambda$ axis. This work says that axis is not a tuning knob with smooth consequences: it has a cliff on it, and the cliff's position rises and saturates with $\lambda$. A safety intervention that raises effective $\lambda$ from 1 to 3 silently consumes $\approx 0.19$ of your coordination margin ($0.586 \to 0.774$); to 7, $\approx 0.27$. If your reward mixing sits at $w = 0.8$ — comfortably coordinated for risk-neutral agents — a high-$\lambda$ population is <em>at or inside the collapse region</em>.</p>
+
+<p><strong>The fragile band is where the danger is.</strong> Between the basins, outcomes are metastable: identical systems, identical seeds, different fates under procedure-level perturbations. Production multi-agent systems that "sometimes just fail to cooperate after retraining" may not be flaky — they may be parked on a separatrix. The phase surface gives the diagnosis and the prescription: measure your distance to the boundary, not your average performance.</p>
+
+<p><strong>Decentralization has a price denominated in λ.</strong> Federated fleets, autonomous trading desks, multi-robot warehouses — the engineering pressure is always toward local reward (privacy, latency, credit assignment). The boundary prices that pressure: every unit of behavioral risk-asymmetry in your agents raises the minimum centralization that keeps cooperation alive, with diminishing — but, within the measured range, never-vanishing — increments. <em>Whether</em> there is a hard design floor — a $w_\infty < 1$ above which no loss aversion can kill coordination — is the open finalist question from <a href="law.html">Part 3</a>: if Michaelis–Menten holds, keep $w$ above $\approx 0.9$ and you are safe at any $\lambda$; if odds–power holds, no such floor exists. The next sweep decides, and the answer is a deployable design rule either way.</p>
+
+<p><strong>Interpretability got a foothold.</strong> The $\theta &lt; 1$ anomaly is a behavioral fingerprint of <em>policy-level hedging</em> — agents restructuring their exposure rather than their effort. That is precisely the kind of internal mechanism claim that can be audited: compare realized loss-mass distributions across $\lambda$; probe critics for asymmetric value estimates; check whether hedging shows up as inventory buffering in the learned policies. The phase diagram tells us <em>where</em> to look; the theory tells us <em>what</em> we should find.</p>
+</div>
+
+<!-- ============================== AGENDA ============================== -->
+<div class="kicker"><span class="sec">§ 09</span><span>Not a future-work section · a research agenda</span><span class="rule"></span></div>
+
+<div class="prose">
+<h2>The next five papers, laid out like a <em>program</em>.</h2>
+<p>A result invites a follow-up; a law demands a research program. Each paper below has a hypothesis the present work makes precise, a killer experiment, and a reason it can fail informatively. Two of the five are already partway done.</p>
+</div>
+
+<ol class="agenda">
+<li><div>
+  <h3>The Law of the Boundary: w<sub>crit</sub>(λ) to the extremes.</h3>
+  <p><em>Hypothesis:</em> the saturating law holds with $w_\infty &lt; 1$ — loss aversion cannot defeat sufficiently centralized pay. <em>Status:</em> the seven-point sweep is <strong>done</strong> and confirmed the saturating shape, but left Michaelis–Menten and odds–power statistically tied. <em>Killer experiment:</em> the $\lambda \in \{10, 15, 20\}$ extremes, where the finalists separate by $\approx 0.04$ — several CI-widths. <em>Failure is informative:</em> if odds–power wins, incentive design has no safe floor — arguably the more important headline.</p>
+  <div class="meta">STATUS: 7-POINT SWEEP COMPLETE · EXTREMES ARE A 3-POINT EXPERIMENT</div>
+</div></li>
+<li><div>
+  <h3>The Hedging Mechanism: interpreting θ &lt; 1.</h3>
+  <p><em>Hypothesis:</em> the sub-linear exponent is caused by endogenous loss-exposure reduction — agents hedge in policy space. <em>Killer experiment:</em> trajectory forensics across λ (realized loss-mass curves, inventory buffering statistics), critic probing for asymmetric value heads, and a causal clamp: freeze exposure (force order distributions) and test whether θ returns to 1. <em>Deliverable:</em> a mechanistic-interpretability account of a behavioral-economics parameter inside a trained policy.</p>
+  <div class="meta">DATA: ALREADY STORED IN RUN ARCHIVES · THE CLAMP NEEDS ONE NEW SWEEP</div>
+</div></li>
+<li><div>
+  <h3>Universality: is the phase diagram substrate-independent?</h3>
+  <p><em>Hypothesis:</em> the qualitative diagram (sharp boundary, lazy basin, λ-shift) is universal across cooperative substrates; the constants $(w_\infty, K)$ are substrate-specific but the <em>form</em> is not. <em>Status:</em> <strong>first evidence in hand</strong> — the direction generalizes across PPO→MAPPO and supply-chain→MPE (§ 07, Fig. 8). <em>Killer experiment:</em> add Melting Pot harvest and SMAC-lite, then collapse all curves onto one master curve under the rescaling $\tilde{w} = w/w_\infty$, $\tilde{\lambda} = \lambda/K$. If transition widths share a scaling exponent, this becomes a critical-phenomena claim in earnest.</p>
+  <div class="meta">STATUS: 2 OF ≥4 SUBSTRATES DONE · MAIN REMAINING COST: COMPUTE</div>
+</div></li>
+<li><div>
+  <h3>Crossing back: interventions that move the boundary on purpose.</h3>
+  <p><em>Hypothesis:</em> the boundary is controllable — annealed centralization schedules ($w$ high early, decayed after basin capture) and asymmetric advantage clipping can place a system on the coordinated side at deployment-time $w$ far below $w_{\mathrm{crit}}$. <em>Killer experiment:</em> a 2×2 of {anneal, clip} × {λ=3, 7}, scored by post-anneal stability under perturbation; Proposition 3(iii) predicts the required anneal duration scales like $\rho^{-1}\log(1/\varepsilon)$ — a quantitative, falsifiable schedule.</p>
+  <div class="meta">THEORY ALREADY PREDICTS THE SCHEDULE SHAPE — RARE AND WORTH ADVERTISING</div>
+</div></li>
+<li><div>
+  <h3>Mixed populations: one loss-averse agent in a risk-neutral team.</h3>
+  <p><em>Hypothesis:</em> collapse is nucleated — a single high-λ agent shifts the <em>team's</em> effective boundary disproportionately, because the lazy basin grows fastest near the most loss-averse member (heterogeneous $\hat{x}_i$ in the Prop. 2 framework). <em>Killer experiment:</em> hold team mean λ fixed, vary its variance; measure $w_{\mathrm{crit}}$(distribution). Direct implications for human–AI teams, where the human carries λ ≈ 2.25 whether you like it or not — and for adversarial robustness: can one poisoned agent collapse a fleet?</p>
+  <div class="meta">THE HUMAN–AI FRAMING IS THE BROADEST-AUDIENCE PAPER OF THE FIVE</div>
+</div></li>
+</ol>
+
+<!-- ============================== METHODS ============================== -->
+<div class="kicker"><span class="sec">§ 10</span><span>Methods, in one honest breath</span><span class="rule"></span></div>
+
+<div class="prose">
+<p style="font-size:17px">Pre-registered experiments, 2,500+ controlled runs across PPO and MAPPO on a six-node multi-echelon supply chain (node 1 fixed demand, nodes 2–6 learning) and MPE Cooperative Navigation. Binary collapse criterion frozen before the main sweeps. Critical points from logistic regression of collapse on $w$ (Firth-corrected where quasi-separated); uncertainty from run-level bootstrap, $n = 2{,}000$, clustered by seed; Wilson intervals on cell fractions. The λ-sweep uses $\alpha = \beta = 0.88$, so its $\lambda = 1$ baseline ($w_{\mathrm{crit}} = 0.586$) differs from the null model's $0.685$ — that difference <em>is</em> the curvature effect, isolated by design, not a discrepancy. The seven-point PPO sweep combines the original Exp B cells ($\lambda \in \{1,3,7\}$) with the dense in-between points ($\lambda \in \{2,4,5,6\}$), 100 runs per λ. At high λ the logistic is quasi-separated; we report the bootstrap critical point and suppress the slope. The 600k-step horizon estimate is reported only as a bound ($w_{\mathrm{crit}} &lt; 0.50$) because the w-grid bracketed the transition poorly. The MPE boundary sits near $w \approx 1$ with wide, threshold-sensitive intervals and is reported as a directional cross-environment check, not a precise second phase diagram. All raw run CSVs, pre-registrations, and analysis scripts are in the project archive; every number in this post traces to a file.<sup class="fn">8</sup></p>
+</div>
+
+<nav class="pagenav">
+  <a href="law.html"><span class="dir">← Part 3</span><span class="ttl">From result to law</span></a>
+  <a href="index.html" class="next"><span class="dir">↻ Back to start</span><span class="ttl">The phase diagram</span></a>
+</nav>
+
+<div class="footnotes">
+<p><span class="fnum">1.</span> The phase-diagram framing is doing real work, not decoration: sharp threshold, bistability, metastability near the boundary, and parameter-dependent critical points are the defining phenomenology of a first-order-like transition, and each has a measured counterpart here.</p>
+<p><span class="fnum">2.</span> Collapse ≔ terminal mean order rate below the pre-registered floor with the safe-policy profit signature (−128.1). Defined in <span class="num">docs/collapse_definition.md</span> before Exp A ran; never amended. For MPE, collapse is defined on landmark occupancy below a calibrated threshold — and that calibration is the source of MPE's reported instability.</p>
+<p><span class="fnum">3.</span> The raw 600k logistic returns an unphysical point estimate (−0.60) because the grid lies almost entirely above the transition; the honest statement is the bound. Narrow grids are how you accidentally manufacture precision.</p>
+<p><span class="fnum">4.</span> The curvature effect's CI, [−0.172, −0.033], excludes zero from above — significant and <em>beneficial</em>. Diminishing sensitivity compresses the perceived cost asymmetry of cooperating. Behavioral bias is not uniformly an enemy of coordination; that intuition dies here.</p>
+<p><span class="fnum">8.</span> Replication materials: pre-registrations (<span class="num">expB_preregistration.md</span>, <span class="num">exp0b_preregistration.md</span>), raw data (<span class="num">docs/*/*.csv</span>), frozen analysis pipeline (<span class="num">analyze_expA.py</span> lineage, <span class="num">analyze_mpe.py</span>, <span class="num">make_generalization_figure.py</span>), and the law-fitting script shipped with this post.</p>
+</div>
+
+<footer class="site">
+  <span>§ Gurugram → wherever · v2026.06</span>
+  <span><a href="mailto:agriyayadav@gmail.com">agriyayadav@gmail.com</a></span>
+</footer>
+
+</div><!-- /wrap -->
+
+<script src="shared.js"></script>
+<script>
+/* ---------- FIG 8 : cross-environment generalization ---------- */
+(function(){
+  const series=[
+    {key:'ppoSupply',  name:'Supply chain · PPO',   color:C.blue,  dash:'solid',  sym:'circle'},
+    {key:'mappoSupply',name:'Supply chain · MAPPO', color:'#3f7d4f',dash:'dash',  sym:'square'},
+    {key:'mappoMPE',   name:'MPE Coop-Nav · MAPPO', color:C.accent,dash:'dot',    sym:'diamond'}
+  ];
+  const tr=[];
+  series.forEach(s=>{
+    const d=xenv[s.key];
+    tr.push({x:d.lam,y:d.wc,mode:'lines+markers',name:s.name,
+      line:{color:s.color,width:2,dash:s.dash},
+      marker:{color:s.color,size:8,symbol:s.sym},
+      error_y:{type:'data',array:d.hi.map((h,i)=>h-d.wc[i]),arrayminus:d.wc.map((w,i)=>w-d.lo[i]),
+        color:s.color,thickness:1.1,width:4},
+      hovertemplate:s.name+'<br>λ=%{x} → w_crit=%{y:.3f}<extra></extra>'});
+  });
+  Plotly.newPlot('figG',tr,baseLayout({
+    xaxis:{title:'loss aversion λ',gridcolor:C.rule,range:[0.6,7.4],dtick:1},
+    yaxis:{title:'w_crit (collapse boundary)',gridcolor:C.rule,range:[0.5,1.08]},
+    legend:{x:0.04,y:0.97,bgcolor:'rgba(247,244,237,0.85)',font:{size:11}},
+    shapes:[{type:'line',x0:0.6,x1:7.4,y0:1,y1:1,line:{color:C.muted,width:1,dash:'dot'}}],
+    annotations:[{x:6.6,y:1.01,text:'w = 1 (full centralization)',showarrow:false,font:{size:10,color:C.muted},xanchor:'right'}]}),CFG);
+})();
+</script>
+</body>
+</html>
