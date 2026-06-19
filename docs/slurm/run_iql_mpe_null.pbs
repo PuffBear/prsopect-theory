@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -N iql_mpe_null
+#PBS -q cpu
+#PBS -J 0-109
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=08:00:00
+#PBS -o logs/iql_mpe_null_%I.out
+#PBS -e logs/iql_mpe_null_%I.err
+
+# Tier 3: IQL on MPE -- NULL baseline array (alpha=beta=1, lambda=1).
+# 11 w x 10 seed = 110. Budget 4M env steps.
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expVB_iql_mpe_figures
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+python experiments/exp_qmix_mpe.py --algo iql --null --run_idx "$PBS_ARRAY_INDEX" \
+  --out docs/expVB_iql_mpe_figures/iql_mpe_raw_data.csv
