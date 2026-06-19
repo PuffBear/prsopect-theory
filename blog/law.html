@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Law — The Boundary Where Cooperation Dies</title>
+<meta name="description" content="Twenty candidate scaling laws for w_crit(lambda), the seven-point sweep that tests them, and what it does and does not decide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,300;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <div class="logo">Agriya Yadav</div>
+  <nav><a href="https://agriya-yadav.vercel.app/">Index</a><a href="https://agriya-yadav.vercel.app/work">Work</a><a href="https://agriya-yadav.vercel.app/research">Research</a><a href="mailto:agriyayadav@gmail.com">Email →</a></nav>
+</header>
+
+<div class="kicker"><span class="sec">§ 06</span><span>Research note · 2026 · Part 3 of 4</span><span class="rule"></span><span>~10 min</span></div>
+
+<nav class="toc">
+  <a href="index.html">1 · The phase diagram</a>
+  <a href="theory.html">2 · Theory</a>
+  <a href="law.html" class="here">3 · The law</a>
+  <a href="generalization.html">4 · Generalization &amp; agenda</a>
+</nav>
+
+<div class="prose">
+<h1>Assume the result is true. What <em>law</em> generates it?</h1>
+
+<p class="lede">A result says "the boundary moved." A law says "here is the function, here are its parameters, here is the number it forces at $\lambda = 20$ — go falsify it." We enumerated twenty candidate scaling laws $w_{\mathrm{crit}}(\lambda)$ before the data, then fit every one against the measured critical points, weighted by their bootstrap intervals.<sup class="fn">6</sup></p>
+
+<p>The first version of this note had three points and a queued sweep. <strong>The sweep has since returned.</strong> We now have seven measured critical points spanning $\lambda \in \{1,\dots,7\}$ — and they change the verdict in a way three points could not have.</p>
+</div>
+
+<div class="note"><span class="nlab">WHAT THE SEVEN-POINT SWEEP SETTLED — AND WHAT IT DIDN'T</span>
+The boundary rises <b>monotonically</b> and <b>saturates</b>: $w_{\mathrm{crit}}$ climbs from $0.586$ at $\lambda=1$ to $0.851$ at $\lambda=7$, with the increments shrinking — exactly the concave, ceiling-bound shape the saturating laws predict. Every two-parameter law now passes the pre-committed CI test. But the decisive separation we hoped for did <b>not</b> arrive: the leader (reciprocal-approach) beats the runner-up by only $\Delta\mathrm{AICc} \approx 0.2$, far short of the pre-registered $\ge 4$. <b>The shape is a law; the exact functional form is still underdetermined within this λ-range.</b> The honest headline is the saturation, not a single winning equation.
+</div>
+
+<div class="prose">
+<p>Here are the seven measured critical points the sweep produced (bootstrap $n=2000$, 100 runs per $\lambda$):</p>
+</div>
+
+<table style="max-width:640px">
+<tr><th>λ</th><th>w_crit</th><th>95% CI</th><th>increment</th></tr>
+<tr><td class="mono">1</td><td class="mono">0.586</td><td class="mono">[0.539, 0.624]</td><td class="mono">—</td></tr>
+<tr><td class="mono">2</td><td class="mono">0.715</td><td class="mono">[0.687, 0.745]</td><td class="mono">+0.129</td></tr>
+<tr><td class="mono">3</td><td class="mono">0.774</td><td class="mono">[0.751, 0.798]</td><td class="mono">+0.059</td></tr>
+<tr><td class="mono">4</td><td class="mono">0.806</td><td class="mono">[0.766, 0.841]</td><td class="mono">+0.032</td></tr>
+<tr><td class="mono">5</td><td class="mono">0.839</td><td class="mono">[0.788, 0.845]</td><td class="mono">+0.033</td></tr>
+<tr><td class="mono">6</td><td class="mono">0.836</td><td class="mono">[0.806, 0.860]</td><td class="mono">−0.003</td></tr>
+<tr><td class="mono">7</td><td class="mono">0.851</td><td class="mono">[0.845, 0.858]</td><td class="mono">+0.015</td></tr>
+</table>
+
+<div class="prose">
+<p>Read the increment column: each unit of $\lambda$ buys less rightward shift than the last, and by $\lambda \approx 6$ the boundary is flat within noise. That is saturation, measured. Now the law table, refit on all seven points (two-parameter laws only — three-parameter forms fit seven points too easily to rank by fit alone<sup class="fn">6</sup>):</p>
+</div>
+
+<table>
+<tr><th>#</th><th>law</th><th>form</th><th class="mono">χ²</th><th class="mono">AICc</th><th class="mono">λ=10</th><th class="mono">λ=20</th><th>verdict</th></tr>
+<tr class="win"><td class="mono">L18</td><td><b>reciprocal approach</b></td><td>$w_\infty - c/\lambda$</td><td class="mono">1.52</td><td class="mono">17.5</td><td class="mono">0.872</td><td class="mono">0.892</td><td><b>leader (ΔAICc 0.2)</b></td></tr>
+<tr class="win"><td class="mono">L6</td><td><b>Michaelis–Menten</b></td><td>$w_\infty \lambda / (K + \lambda)$</td><td class="mono">1.73</td><td class="mono">17.7</td><td class="mono">0.879</td><td class="mono">0.905</td><td><b>finalist — saturates</b></td></tr>
+<tr class="win"><td class="mono">L3</td><td><b>odds–power (logit-log)</b></td><td>$\sigma(b_0 + \theta \ln\lambda)$</td><td class="mono">2.06</td><td class="mono">18.1</td><td class="mono">0.891</td><td class="mono">0.931</td><td><b>finalist — no ceiling</b></td></tr>
+<tr><td class="mono">L14</td><td>probit-log</td><td>$\Phi(b_0 + b_1 \ln\lambda)$</td><td class="mono">2.18</td><td class="mono">18.2</td><td class="mono">0.894</td><td class="mono">0.938</td><td>survives CI</td></tr>
+<tr><td class="mono">L15</td><td>odds-linear (θ=1 theory)</td><td>$\tfrac{a+b\lambda}{1+a+b\lambda}$</td><td class="mono">2.40</td><td class="mono">18.4</td><td class="mono">0.899</td><td class="mono">0.944</td><td>survives — and that matters<sup class="fn">7</sup></td></tr>
+<tr><td class="mono">L1</td><td>logarithmic</td><td>$w_0 + c\ln\lambda$</td><td class="mono">2.83</td><td class="mono">18.8</td><td class="mono">0.913</td><td class="mono">0.997</td><td>survives — unbounded</td></tr>
+<tr><td class="mono">L17</td><td>pure power</td><td>$w_0 \lambda^{c}$</td><td class="mono">3.18</td><td class="mono">19.2</td><td class="mono">0.922</td><td class="mono">1.025</td><td>survives — exceeds 1</td></tr>
+<tr><td class="mono">L8</td><td>square root</td><td>$w_0 + c\sqrt{\lambda - 1}$</td><td class="mono">3.60</td><td class="mono">19.6</td><td class="mono">0.935</td><td class="mono">1.081</td><td style="color:var(--accent)">unphysical (&gt;1)</td></tr>
+<tr><td class="mono">L9</td><td>linear</td><td>$w_0 + c(\lambda-1)$</td><td class="mono">5.96</td><td class="mono">22.0</td><td class="mono">0.988</td><td class="mono">1.316</td><td style="color:var(--accent)">worst — diverges</td></tr>
+</table>
+
+<div class="prose">
+<p>Read the scoreboard carefully, because what it does <em>not</em> say is the point.</p>
+
+<p><strong>One — the shape is settled.</strong> The two-parameter saturating forms — Michaelis–Menten, reciprocal-approach — sit within every bootstrap interval, with a $w_\infty$ in the $0.89$–$0.93$ range. Whatever the precise equation, the boundary bends toward a ceiling below 1. Seven points are enough to assert that; three were not.</p>
+
+<p><strong>Two — the finalists still disagree about the only thing that matters for AI systems, and the data cannot yet referee them.</strong> Michaelis–Menten (and reciprocal) say the boundary <em>saturates below 1</em>: even infinitely loss-averse agents coordinate if pay is $\ge w_\infty \approx 0.9$. Odds–power says <em>no ceiling</em> — $w_{\mathrm{crit}} \to 1$, so sufficient loss aversion defeats any incentive design. At $\lambda = 20$ they differ by $\approx 0.04$, several times our tightest CI — but the current sweep tops out at $\lambda = 7$, where the families are still nested inside each other's intervals. <strong>Deciding between "there is a safe floor" and "there is none" requires the $\lambda \in \{10, 15, 20\}$ extremes.</strong> That is the single most consequential follow-up, and it is now a two-point experiment, not a research program.</p>
+
+<p><strong>Three — the theory's naïve law is on the ropes, not dead.</strong> Proposition 2 with <em>fixed</em> loss exposure forces odds growth at least linear in $\lambda$ ($\theta \ge 1$; the odds-linear form L15). The surviving odds–power fit has $\theta \approx 0.69 < 1$. Within the theory that gap has one reading: trained agents <em>reduce their own loss exposure as $\lambda$ grows</em> — endogenous hedging. L15 is not cleanly rejected on seven points the way it was projected to be, but it sits at the high-χ² edge of the survivors while the sub-linear fit sits at the low edge. The model's stress point localized the missing mechanism even where it didn't break — and that mechanism is checkable in stored trajectories (realized per-step loss mass should fall with $\lambda$).</p>
+</div>
+
+<div class="fig">
+  <div id="fig7" class="chart" style="height:470px"></div>
+  <div class="figcap"><span class="figno">FIG. 7</span> — The execution chart, after the sweep. All laws fitted to the seven measured critical points (black, with bootstrap CIs). Diverging laws (linear, sqrt) in red; survivors in blue; the two saturating finalists in bold. Shaded region beyond $\lambda = 7$: where the finalists split and the next sweep ($\lambda \in \{10, 15, 20\}$) will discriminate "safe floor" (Michaelis–Menten, flattening) from "no floor" (odds–power, still climbing).</div>
+</div>
+
+<div class="note"><span class="nlab">FALSIFICATION PROTOCOL — PRE-COMMITTED, NOW EXECUTED ONCE</span>
+The analysis script <a href="fit_scaling_laws.py">fit_scaling_laws.py</a> shipped with this post, frozen before the sweep returned. It ingests the raw run CSV, recomputes per-λ bootstrap critical points, fits all twenty laws by CI-weighted least squares, and ranks by AICc and leave-one-λ-out cross-validation. Decision rule, stated in advance: a law survives iff every per-λ critical point falls inside its pointwise 95% band, and the winner must beat the runner-up by ΔAICc ≥ 4. <b>Outcome on the seven-point sweep:</b> the saturating shape survives decisively; no single law clears the ΔAICc ≥ 4 bar. Per the rule, we report the finalists rather than crown one — and name the experiment that breaks the tie.
+</div>
+
+<nav class="pagenav">
+  <a href="theory.html"><span class="dir">← Part 2</span><span class="ttl">Theorem → mechanism → data</span></a>
+  <a href="generalization.html" class="next"><span class="dir">Part 4 →</span><span class="ttl">Generalization &amp; the agenda</span></a>
+</nav>
+
+<div class="footnotes">
+<p><span class="fnum">6.</span> Weighted least squares with σ from bootstrap CI half-widths; χ² thresholds at the 95% level with appropriate degrees of freedom. Three-or-more-parameter laws fit seven points nearly exactly and are reported in the shipped CSV but not ranked here — flexibility is not evidence.</p>
+<p><span class="fnum">7.</span> On three points the log law and the odds-linear (θ=1) law were rejected at the margin; on seven points both re-enter the survivor set, because the added mid-range points are consistent with a wider family. This is the expected behavior of a CI-survival rule as data accrues — and the reason the ΔAICc ≥ 4 separation clause exists. It is not yet met.</p>
+</div>
+
+<footer class="site">
+  <span>§ Gurugram → wherever · v2026.06</span>
+  <span><a href="mailto:agriyayadav@gmail.com">agriyayadav@gmail.com</a></span>
+</footer>
+
+</div><!-- /wrap -->
+
+<script src="shared.js"></script>
+<script>
+/* ---------- FIG 7 : execution chart (refit on 7 points) ---------- */
+(function(){
+  const L=linspace(1,22,300);
+  const laws=[
+    {n:'L9 linear',f:l=>0.6934+0.0328*(l-1),cls:'dead'},
+    {n:'L8 sqrt',f:l=>0.6137+0.1072*Math.sqrt(l-1),cls:'dead'},
+    {n:'L1 log',f:l=>0.6356+0.1205*Math.log(l),cls:'surv'},
+    {n:'L15 odds-linear (θ=1)',f:l=>{const o=0.9302+0.7998*l;return o/(1+o);},cls:'surv'},
+    {n:'L14 probit-log',f:l=>Phi(0.2834+0.4199*Math.log(l)),cls:'surv'},
+    {n:'L3 odds-power (θ=0.73)',f:l=>sig(0.4233+0.7293*Math.log(l)),cls:'star'},
+    {n:'L18 reciprocal',f:l=>0.9111-0.3909/l,cls:'star'},
+    {n:'L6 Michaelis–Menten ★',f:l=>0.9324*l/(0.6022+l),cls:'star'}
+  ];
+  const style={dead:{color:'#c98a82',width:1.1},
+    surv:{color:'#7d98c4',width:1.4},star:{color:C.blue,width:3.0}};
+  // distinct dashes for the three bold finalists so they read apart
+  const dash={'L6 Michaelis–Menten ★':'solid','L18 reciprocal':'dot','L3 odds-power (θ=0.73)':'dash'};
+  const tr=laws.map(lw=>({x:L,y:L.map(lw.f),mode:'lines',name:lw.n,
+    line:Object.assign({},style[lw.cls],dash[lw.n]?{dash:dash[lw.n]}:{}),
+    hovertemplate:lw.n+'<br>λ=%{x:.1f} → %{y:.3f}<extra></extra>',
+    showlegend:['L9 linear','L1 log','L15 odds-linear (θ=1)','L3 odds-power (θ=0.73)','L18 reciprocal','L6 Michaelis–Menten ★'].includes(lw.n)}));
+  tr.push({x:wcB.lam,y:wcB.wc,mode:'markers',name:'measured w_crit',
+    marker:{color:C.ink,size:9},
+    error_y:{type:'data',array:wcB.hi.map((h,i)=>h-wcB.wc[i]),arrayminus:wcB.wc.map((w,i)=>w-wcB.lo[i]),
+      color:C.ink,thickness:1.4,width:5}});
+  Plotly.newPlot('fig7',tr,baseLayout({
+    xaxis:{title:'loss aversion λ (log scale)',type:'log',gridcolor:C.rule,range:[0,Math.log10(22)]},
+    yaxis:{title:'w_crit(λ)',gridcolor:C.rule,range:[0.5,1.08]},
+    legend:{x:0.55,y:0.30,bgcolor:'rgba(247,244,237,0.85)',font:{size:11}},
+    shapes:[{type:'rect',x0:7,x1:22,y0:0.5,y1:1.08,fillcolor:'rgba(138,109,31,0.07)',line:{width:0}},
+            {type:'line',x0:1,x1:22,y0:1,y1:1,line:{color:C.muted,width:1,dash:'dot'}}],
+    annotations:[{x:Math.log10(12),y:1.055,text:'next sweep splits the finalists here',showarrow:false,font:{size:11,color:C.gold}},
+                 {x:Math.log10(20),y:0.935,text:'λ=20: finalists differ by ~0.04',showarrow:true,ax:-10,ay:-30,font:{size:11,color:C.ink},arrowcolor:C.muted}]}),CFG);
+})();
+</script>
+</body>
+</html>
