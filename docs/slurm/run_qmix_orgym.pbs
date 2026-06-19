@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N qmix_orgym
+#PBS -q cpu
+#PBS -J 0-699
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=04:00:00
+#PBS -o logs/qmix_orgym_%I.out
+#PBS -e logs/qmix_orgym_%I.err
+
+# Tier 1: QMIX (centralized value-based) on supply chain -- SWEEP array.
+# run_idx -> (w, lambda in 2..7 + curvature lambda=1, seed). 5 w x 7 lambda x 20 seed = 700.
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expVB_qmix_orgym_figures
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+python experiments/exp_qmix_orgym.py --algo qmix --run_idx "$PBS_ARRAY_INDEX"
