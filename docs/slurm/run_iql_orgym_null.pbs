@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N iql_orgym_null
+#PBS -q cpu
+#PBS -J 0-99
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=04:00:00
+#PBS -o logs/iql_orgym_null_%I.out
+#PBS -e logs/iql_orgym_null_%I.err
+
+# Tier 2: IQL on supply chain -- NULL baseline array (alpha=beta=1, lambda=1).
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expVB_iql_orgym_figures
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+python experiments/exp_qmix_orgym.py --algo iql --null --run_idx "$PBS_ARRAY_INDEX" \
+  --out docs/expVB_iql_orgym_figures/iql_orgym_raw_data.csv
