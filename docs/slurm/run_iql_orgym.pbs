@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N iql_orgym
+#PBS -q cpu
+#PBS -J 0-699
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=04:00:00
+#PBS -o logs/iql_orgym_%I.out
+#PBS -e logs/iql_orgym_%I.err
+
+# Tier 2: IQL (independent value-based) on supply chain -- SWEEP array.
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expVB_iql_orgym_figures
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+python experiments/exp_qmix_orgym.py --algo iql --run_idx "$PBS_ARRAY_INDEX"
