@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N qmix_mpe
+#PBS -q cpu
+#PBS -J 0-769
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=08:00:00
+#PBS -o logs/qmix_mpe_%I.out
+#PBS -e logs/qmix_mpe_%I.err
+
+# Tier 2: QMIX on MPE Cooperative Navigation -- SWEEP array.
+# run_idx -> (w, lambda, seed). 11 w x 7 lambda x 10 seed = 770. Budget 4M env steps.
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expVB_qmix_mpe_figures
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+python experiments/exp_qmix_mpe.py --algo qmix --run_idx "$PBS_ARRAY_INDEX"
