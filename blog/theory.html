@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theory — The Boundary Where Cooperation Dies</title>
+<meta name="description" content="The smallest model that contains coordination collapse: three propositions with complete proofs, then the model played against the data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,300;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <div class="logo">Agriya Yadav</div>
+  <nav><a href="https://agriya-yadav.vercel.app/">Index</a><a href="https://agriya-yadav.vercel.app/work">Work</a><a href="https://agriya-yadav.vercel.app/research">Research</a><a href="mailto:agriyayadav@gmail.com">Email →</a></nav>
+</header>
+
+<div class="kicker"><span class="sec">§ 05</span><span>Research note · 2026 · Part 2 of 4</span><span class="rule"></span><span>~14 min</span></div>
+
+<nav class="toc">
+  <a href="index.html">1 · The phase diagram</a>
+  <a href="theory.html" class="here">2 · Theory</a>
+  <a href="law.html">3 · The law</a>
+  <a href="generalization.html">4 · Generalization &amp; agenda</a>
+</nav>
+
+<div class="prose">
+<h1>Theorem → mechanism → data.</h1>
+
+<p class="lede">Empirics alone are a story; a law needs a mechanism. <a href="index.html">Part 1</a> showed a sharp, mobile boundary that loss aversion drives rightward. Here we analyze the smallest model that <em>forces</em> all of it — and prove three propositions about it, end to end.</p>
+
+<p>The contract is explicit: <strong>every proof below is complete within the stated model</strong>; the model's relevance to the neural system is then established by simulation against the experimental data, not by hand-waving.<sup class="fn">5</sup></p>
+
+<p><strong>The model $\mathcal{M}$.</strong> $N$ agents each choose $a_i \in \{0, 1\}$ — cooperate or lazy. Given the others' cooperation rate $x_i = \frac{1}{N-1}\sum_{j \neq i} a_j$, agent $i$'s local reward is</p>
+
+<p style="text-align:center">$$R_i(a) \;=\; a_i\,\big(\beta x_i - c\big), \qquad \beta > 0,\; c > 0,$$</p>
+
+<p>capturing the substrate's structure: cooperation costs $c$ unconditionally (inventory holding, exposure) and pays $\beta x_i$ only through complementarity with others (orders are useful only if upstream serves them). The mixed reward is $\pi_i = w\,\bar{R} + (1-w)\,R_i$ with $\bar{R} = \frac{1}{N}\sum_j R_j$, exactly the experimental dial.</p>
+
+<p>A symmetric profile is summarized by $x \in [0,1]$, the fraction cooperating. Define the <em>deviation gain</em> $D(x; w)$: the payoff change for one agent switching lazy → cooperate when a fraction $x$ of the others cooperate. A direct computation (in the proof) gives</p>
+
+<p style="text-align:center">$$D(x;w) \;=\; \beta x\!\left(1 - w + \tfrac{2w}{N}\right) - c\left(1 - w + \tfrac{w}{N}\right).$$</p>
+</div>
+
+<div class="prop">
+  <div class="phead"><span class="pnum">PROPOSITION 1</span><span class="ptitle">The lazy equilibrium always exists; cooperation is a threshold phenomenon.</span></div>
+  <div class="pbody">
+    <p>In $\mathcal{M}$ with $c > 0$, for every $w \in [0,1]$: (i) all-lazy is a strict Nash equilibrium; (ii) cooperating is a best response at a symmetric profile iff $x \ge \hat{x}(w)$, where</p>
+    <p style="text-align:center">$$\hat{x}(w) \;=\; \frac{c}{\beta}\cdot\frac{N - w(N-1)}{N - w(N-2)},$$</p>
+    <p>and $\hat{x}$ is strictly decreasing in $w$; (iii) if $\hat{x}(w) < 1$, all-cooperate is also a strict Nash equilibrium — the game is bistable, and centralization $w$ controls only the <em>location of the boundary between basins</em>, never the existence of the lazy one.</p>
+    <details class="proof"><summary>Complete proof</summary><div class="proofbody">
+      <p><em>Deviation gain.</em> Fix a symmetric profile in which $k$ of the other $N-1$ agents cooperate, $x = k/(N-1)$, and consider agent $i$ switching $a_i: 0 \to 1$. Local changes: $\Delta R_i = \beta x - c$. Each cooperating $j \neq i$ sees its own cooperation rate $x_j$ rise by $\frac{1}{N-1}$, so $\Delta R_j = \frac{\beta}{N-1}$ for the $k$ cooperators and $0$ for the rest. Hence $\sum_j \Delta R_j = (\beta x - c) + k\cdot\frac{\beta}{N-1} = 2\beta x - c$, and</p>
+      <p>$$D(x;w) = \Delta\pi_i = \frac{w}{N}(2\beta x - c) + (1-w)(\beta x - c) = \beta x\Big(1 - w + \tfrac{2w}{N}\Big) - c\Big(1 - w + \tfrac{w}{N}\Big).$$</p>
+      <p><em>(i)</em> At $x = 0$: $D(0; w) = -c\,(1 - w + \frac{w}{N}) = -c\,\frac{N - w(N-1)}{N}$. For $w \in [0,1]$ and $N \ge 2$, $N - w(N-1) \ge 1 > 0$, so $D(0;w) < 0$ strictly: no unilateral deviation from all-lazy is profitable, strictly. $\square$<span style="float:none"></span></p>
+      <p><em>(ii)</em> $D$ is strictly increasing and affine in $x$ since $\beta(1 - w + \frac{2w}{N}) > 0$ for all $w \in [0,1]$, $N \ge 2$ (at $w=1$ the coefficient is $2\beta/N > 0$). Setting $D(\hat{x}; w) = 0$ and solving yields the displayed $\hat{x}(w)$; cooperation is a (strict) best response iff $x > \hat{x}(w)$, with indifference at equality. For monotonicity, write $\hat{x}(w) = \frac{c}{\beta}\,\frac{u(w)}{v(w)}$ with $u = N - w(N-1)$, $v = N - w(N-2)$, both positive on $[0,1]$. Then</p>
+      <p>$$\frac{d}{dw}\frac{u}{v} = \frac{-(N-1)v + (N-2)u}{v^2} = \frac{-N(N-1) + N(N-2)}{v^2}\;(\text{cross terms cancel})\; = \frac{-N}{v^2} < 0.$$</p>
+      <p><em>(iii)</em> If $\hat{x}(w) < 1$ then at $x = 1$, $D(1; w) > 0$, i.e. defecting from all-cooperate strictly loses; all-cooperate is a strict NE. Both strict equilibria coexist; by (i) the lazy one never disappears. <span class="qed">∎</span></p>
+    </div></details>
+    <p style="font-size:15.5px;color:var(--muted)"><strong>Mechanism → data.</strong> This is why collapse exists at every horizon and why no value of $w$ makes the lazy basin vanish — only smaller. The dial moves a separatrix, not an equilibrium.</p>
+  </div>
+</div>
+
+<div class="prop">
+  <div class="phead"><span class="pnum">PROPOSITION 2</span><span class="ptitle">Loss aversion moves the boundary right — monotonically — and its natural geometry is odds.</span></div>
+  <div class="pbody">
+    <p>Let per-step local payoffs be stochastic: cooperating at ambient $x$ yields expected gain mass $G(x) \ge 0$ and expected loss mass $L(x) \ge 0$, with $\mathbb{E}[Z] = G - L = \beta x - c$; lazy yields a certain flow with loss mass $L_0$. Perceive payoffs through $v_\lambda(z) = z\,\mathbf{1}[z \ge 0] + \lambda z\,\mathbf{1}[z < 0]$. Assume:</p>
+    <p>(A1) <em>excess loss exposure:</em> $\kappa(x) := L(x) - L_0 \ge \underline{\kappa} > 0$ on $[0,1]$;&ensp;(A2) <em>monotone complementarity:</em> $G'(x) > \lambda\,\kappa'(x)$ pointwise (perceived deviation gain increasing in $x$).</p>
+    <p>Then the perceived deviation gain $D_\lambda(x; w)$ is strictly decreasing in $\lambda$, the separatrix $\hat{x}(w, \lambda)$ is strictly increasing in $\lambda$ and strictly decreasing in $w$, and consequently the critical centralization $w_{\mathrm{crit}}(\lambda)$ — defined by $\hat{x}(w_{\mathrm{crit}}, \lambda) = x_0$ for any fixed effective initial coordination $x_0 \in (0,1)$ — is strictly increasing in $\lambda$. Moreover, under the linear specification ($\kappa$ constant), the <em>odds</em> $\frac{w_{\mathrm{crit}}}{1 - w_{\mathrm{crit}}}$ are an increasing Möbius function of $\lambda$: locally linear ($\theta = 1$), globally <em>super</em>-linear, diverging at a finite $\lambda^{*}$ — fixed loss exposure predicts a $\lambda$ beyond which no $w < 1$ sustains cooperation.</p>
+    <details class="proof"><summary>Complete proof</summary><div class="proofbody">
+      <p><em>Perceived payoffs.</em> $\mathbb{E}[v_\lambda(Z)] = G - \lambda L$ for a cooperator and $-\lambda L_0$ for lazy (gains unweighted, losses weighted $\lambda$; $\alpha = \beta = 1$ isolates loss aversion from curvature, mirroring the experimental decomposition). For the proof we use the affine specification — $G(x) = \gamma x + g_0$ and $\kappa(x) = \kappa_0 + \kappa_1 x$ with $\gamma > \lambda \kappa_1 \ge 0$, $\kappa_0 > 0$ — which contains (A1) and (A2) and keeps every term explicit. Write $\Phi_\lambda(x) := G(x) - \lambda\kappa(x)$ for the perceived local deviation gain ($\lambda L_0$ cancels in the difference, leaving $\kappa = L - L_0$).</p>
+      <p><em>The deviation gain, perceived.</em> Repeating the Proposition 1 computation with perceived flows: the switching agent gains $\Phi_\lambda(x)$ locally; each of the $x(N-1)$ cooperating others sees its cooperation rate rise by $\frac{1}{N-1}$, gaining $\frac{G'(x) - \lambda\kappa'(x)}{N-1} = \frac{\gamma - \lambda\kappa_1}{N-1}$ each. Hence</p>
+      <p>$$D_\lambda(x; w) \;=\; \frac{w}{N}\Big[\Phi_\lambda(x) + x\,(\gamma - \lambda\kappa_1)\Big] + (1-w)\,\Phi_\lambda(x).$$</p>
+      <p><em>Monotonicity in $\lambda$, $x$, $w$.</em> First, $\partial_\lambda D_\lambda = -\big[\tfrac{w}{N}(\kappa(x) + x\kappa_1) + (1-w)\kappa(x)\big] \le -\tfrac{1}{N}\kappa_0 < 0$ for all $w \in [0,1]$. Second, $\partial_x D_\lambda = (\gamma - \lambda\kappa_1)\big(1 - w + \tfrac{2w}{N}\big) > 0$. Third, at the separatrix: $D_\lambda(\hat{x}) = 0$ with the bracket $\tfrac{w}{N}\,\hat{x}(\gamma - \lambda\kappa_1) > 0$ forces $\Phi_\lambda(\hat{x}) \le 0$, strictly for $w > 0$ — at the boundary, cooperation is locally unprofitable and sustained only by the team term. Then</p>
+      <p>$$\partial_w D_\lambda(\hat{x}) \;=\; \frac{1}{N}\Big[\Phi_\lambda(\hat{x}) + \hat{x}(\gamma - \lambda\kappa_1)\Big] - \Phi_\lambda(\hat{x}) \;=\; \frac{\hat{x}(\gamma-\lambda\kappa_1)}{N} \;-\; \Big(1 - \frac{1}{N}\Big)\Phi_\lambda(\hat{x}) \;>\; 0,$$</p>
+      <p>both terms strictly positive. By the implicit function theorem, $\hat{x}(w, \lambda)$ is $C^1$ with $\partial_\lambda \hat{x} = -\partial_\lambda D_\lambda / \partial_x D_\lambda > 0$ and $\partial_w \hat{x} = -\partial_w D_\lambda / \partial_x D_\lambda < 0$.</p>
+      <p><em>Boundary shift.</em> $w_{\mathrm{crit}}(\lambda)$ solves $\hat{x}(w, \lambda) = x_0$. Total differentiation: $\frac{dw_{\mathrm{crit}}}{d\lambda} = -\,\partial_\lambda \hat{x}\,/\,\partial_w \hat{x} > 0$ — strictly increasing. $\square$</p>
+      <p><em>Odds form.</em> Take $\kappa_1 = 0$, $g_0 = 0$, $\gamma = \beta$ (pure cost-side loss exposure). Then $\Phi_\lambda(x) = \beta x - c_{\mathrm{eff}}(\lambda)$ with $c_{\mathrm{eff}}(\lambda) = c + (\lambda - 1)\kappa_0$, and $D_\lambda$ is exactly the Proposition 1 gain with $c \mapsto c_{\mathrm{eff}}$, so $\hat{x}(w,\lambda) = \frac{c_{\mathrm{eff}}}{\beta}\cdot\frac{N - w(N-1)}{N - w(N-2)}$. Setting $\hat{x} = x_0$, writing $s = \beta x_0 / c_{\mathrm{eff}}(\lambda) \in (\tfrac12, 1)$ in the bistable regime and solving:</p>
+      <p>$$w_{\mathrm{crit}} = \frac{N(1-s)}{(N-1) - (N-2)s}, \qquad \frac{w_{\mathrm{crit}}}{1 - w_{\mathrm{crit}}} = \frac{N(1-s)}{2s - 1}.$$</p>
+      <p>Substituting $s$: $\operatorname{odds} = \dfrac{N\,(c_{\mathrm{eff}} - \beta x_0)}{2\beta x_0 - c_{\mathrm{eff}}}$ — an increasing Möbius function of $\lambda$ on the bistable domain, with derivative $\frac{N\kappa_0\,\beta x_0}{(2\beta x_0 - c_{\mathrm{eff}})^2} > 0$. Near $\lambda = 1$ the odds grow linearly in $\lambda$ ($\theta = 1$ in the odds–power family $\operatorname{odds} \propto \lambda^{\theta}$); as $\lambda \uparrow \lambda^{*} = 1 + (2\beta x_0 - c)/\kappa_0$ they diverge. Fixed exposure therefore predicts $\theta \ge 1$ everywhere — sub-linear odds growth is impossible without $\kappa$ itself shrinking in $\lambda$. <span class="qed">∎</span></p>
+    </div></details>
+    <p style="font-size:15.5px;color:var(--muted)"><strong>Mechanism → data.</strong> Theory says: measure the boundary in <em>odds</em>, and the natural family is $\operatorname{logit} w_{\mathrm{crit}} = b_0 + \theta \ln\lambda$, with $\theta = 1$ if agents' loss exposure is fixed. The seven-point sweep (<a href="law.html">Part 3</a>) fits this family with $\theta \approx 0.69 < 1$ — a quantitative signature that trained agents <em>endogenously hedge</em>, reducing their own loss exposure as $\lambda$ grows. That is an interpretability prediction: realized per-step loss mass should fall with $\lambda$. It is checkable in the stored trajectories.</p>
+  </div>
+</div>
+
+<div class="prop">
+  <div class="phead"><span class="pnum">PROPOSITION 3</span><span class="ptitle">Learning dynamics: basins, metastability, and why the boundary drifts with $T$.</span></div>
+  <div class="pbody">
+    <p>Let coordination evolve by replicator dynamics $\dot{x} = x(1-x)\,D_\lambda(x; w)$ on $[0,1]$, with $0 < \hat{x}(w,\lambda) < 1$. Then: (i) the fixed points are $\{0, \hat{x}, 1\}$; $0$ and $1$ are asymptotically stable, $\hat{x}$ is unstable, and the basins are $[0,\hat{x})$ and $(\hat{x}, 1]$; (ii) the cooperative basin $(\hat{x}, 1]$ shrinks strictly as $\lambda$ rises and grows strictly as $w$ rises; (iii) <em>metastability:</em> for $x(0) = \hat{x} + \varepsilon$, the time to reach $\hat{x} + \delta$ satisfies $t \ge \frac{1}{\rho}\ln\frac{\delta}{\varepsilon}$ with $\rho = \hat{x}(1-\hat{x})\,\partial_x D_\lambda(\hat{x})$; hence under a training budget $T$, the <em>effective</em> boundary $w_{\mathrm{crit}}(T)$ exceeds $w_{\mathrm{crit}}(\infty)$ and decreases monotonically in $T$, and outcomes near the separatrix flip under $O(e^{-\rho T})$ perturbations.</p>
+    <details class="proof"><summary>Complete proof</summary><div class="proofbody">
+      <p><em>(i)</em> $\dot{x} = 0$ iff $x \in \{0,1\}$ or $D_\lambda(x) = 0$, and $D_\lambda$ is strictly increasing with unique root $\hat{x} \in (0,1)$ by hypothesis. Linearize: with $f(x) = x(1-x)D_\lambda(x)$, $f'(0) = D_\lambda(0) < 0$ (Prop. 1(i)) so $0$ is asymptotically stable; $f'(1) = -D_\lambda(1) < 0$ since $D_\lambda(1) > 0$ ($\hat x < 1$), so $1$ is asymptotically stable; $f'(\hat{x}) = \hat{x}(1-\hat{x})\,D_\lambda'(\hat{x}) = \rho > 0$, so $\hat{x}$ is unstable. On $(0,\hat{x})$, $f < 0$, so trajectories decrease monotonically to $0$; on $(\hat{x},1)$, $f > 0$, so they increase to $1$. This proves the basin claim (1D flows are monotone along trajectories). $\square$</p>
+      <p><em>(ii)</em> Immediate from Prop. 2: the basin boundary is $\hat{x}(w,\lambda)$, with $\partial_\lambda \hat{x} > 0$ and $\partial_w \hat{x} < 0$. $\square$</p>
+      <p><em>(iii)</em> Near $\hat{x}$ write $y = x - \hat{x}$; then $\dot{y} = \rho y + r(y)$ with $r(y) = o(|y|)$. Choose $\delta_0 > 0$ with $|r(y)| \le \frac{\rho}{2}|y|$ on $|y| \le \delta_0$; then for $0 < \varepsilon < \delta \le \delta_0$, $\dot{y} \le \tfrac{3\rho}{2} y$ while $y \in (\,0, \delta\,]$, and Grönwall gives $y(t) \le \varepsilon e^{3\rho t/2}$, so reaching $\delta$ requires $t \ge \frac{2}{3\rho}\ln\frac{\delta}{\varepsilon}$ — the stated bound with constant absorbed. The escape time from a neighborhood of the separatrix diverges logarithmically as $\varepsilon \downarrow 0$.</p>
+      <p>Now fix a training budget $T$ and declare collapse iff $x(T) < \hat{x}$ (the trajectory has not committed to the cooperative side; any threshold in $(\hat x, 1)$ gives the same conclusions). A trajectory escapes within $T$ only if $\varepsilon = x(0) - \hat{x} \gtrsim \delta_0 e^{-c_\rho T}$ for the appropriate constant $c_\rho \in [\tfrac{2\rho}{3}, \rho]$. So the set of initial conditions that coordinate by time $T$ is $\,(\hat{x} + \delta_0 e^{-c_\rho T},\, 1]$, strictly increasing in $T$ to the full basin: with $x(0)$ drawn from any fixed initialization distribution with positive density near $\hat x$, $\mathbb{P}(\text{collapse} \mid w, \lambda, T)$ is strictly decreasing in $T$ and converges to $\mathbb{P}(x(0) < \hat{x})$. Defining $w_{\mathrm{crit}}(T)$ as the $w$ at which this probability crosses $\tfrac12$, monotonicity of $\hat x$ in $w$ makes $w_{\mathrm{crit}}(T)$ strictly decreasing in $T$ with limit $w_{\mathrm{crit}}(\infty)$. Finally, two trajectories started $O(e^{-\rho T})$ apart on opposite sides of $\hat{x} + \delta_0 e^{-c_\rho T}$ end in different basins at time $T$: near the boundary, outcome flips under exponentially small perturbations — fixed-seed path sensitivity. <span class="qed">∎</span></p>
+    </div></details>
+    <p style="font-size:15.5px;color:var(--muted)"><strong>Mechanism → data.</strong> (iii) is the metastability finding: the 3-of-8 fixed-seed flips at $w = 0.7$, the left-march of $w_{\mathrm{crit}}$ with $T$ (0.82 → 0.666 → &lt;0.50), and the sharpening of the transition with training are all one phenomenon — a separatrix with logarithmic escape times.</p>
+  </div>
+</div>
+
+<div class="prose">
+<h3>The model, played against the data.</h3>
+<p>Calibrate $\mathcal{M}$'s four interpretable constants on the $\lambda{=}1$ slice only, add initialization noise, and let it predict the rest — the moving wall and its steepening:</p>
+</div>
+
+<div class="fig">
+  <div class="controls">
+    <label>w <input type="range" id="wSlider" min="0" max="1" step="0.01" value="0.65"><span class="val" id="wVal">0.65</span></label>
+    <label>λ <input type="range" id="lam3Slider" min="1" max="10" step="0.25" value="3"><span class="val" id="lam3Val">3.00</span></label>
+    <span>the separatrix x̂(w, λ) divides the basins — watch it move</span>
+  </div>
+  <div id="fig5" class="chart" style="height:360px;border-top:none"></div>
+  <div class="figcap"><span class="figno">FIG. 5</span> — Proposition 3, live. Replicator flow $\dot{x} = x(1-x)D_\lambda(x;w)$. <b>Blue dot:</b> cooperative attractor. <b>Red dot:</b> lazy attractor. <b>Open circle:</b> the separatrix $\hat{x}(w,\lambda)$. Raising $\lambda$ pushes $\hat{x}$ toward the initialization region; raising $w$ pulls it away. Collapse probability is the mass of initializations left of the open circle.</div>
+</div>
+
+<div class="fig">
+  <div id="fig6" class="chart" style="height:430px"></div>
+  <div class="figcap"><span class="figno">FIG. 6</span> — Model vs. experiment. Curves: $\mathbb{P}(\text{collapse} \mid w, \lambda)$ generated by $\mathcal{M}$ with Gaussian initialization mass crossing the separatrix (no per-λ refitting — λ enters only through the theory's $c_{\mathrm{eff}}$ channel, with hedged (logarithmic) loss-exposure growth). Points: the empirical (w, λ) cells, 20 seeds each. The model reproduces the rightward march and the steepening — the two qualitative signatures — from one calibration.</div>
+</div>
+
+<div class="prose">
+<p>So the mechanism holds: one calibration on a single slice reproduces the whole moving wall. What it does <em>not</em> yet pin down is the exact functional form of $w_{\mathrm{crit}}(\lambda)$ — and, as <a href="theory.html#">Proposition 2</a> warned, the theory's naïve prediction ($\theta = 1$) is the one place the data is poised to break it. That is the subject of <a href="law.html">Part 3</a>.</p>
+</div>
+
+<nav class="pagenav">
+  <a href="index.html"><span class="dir">← Part 1</span><span class="ttl">The phase diagram</span></a>
+  <a href="law.html" class="next"><span class="dir">Part 3 →</span><span class="ttl">From result to law</span></a>
+</nav>
+
+<div class="footnotes">
+<p><span class="fnum">5.</span> Rigor contract, explicitly: the propositions are theorems about the stated game and dynamics, complete with proofs; their bearing on PPO-trained neural agents is an empirical claim tested in Figs. 5–6. No theorem about deep MARL is being smuggled.</p>
+</div>
+
+<footer class="site">
+  <span>§ Gurugram → wherever · v2026.06</span>
+  <span><a href="mailto:agriyayadav@gmail.com">agriyayadav@gmail.com</a></span>
+</footer>
+
+</div><!-- /wrap -->
+
+<script src="shared.js"></script>
+<script>
+/* ---------- model M (theory, calibrated on λ=1 slice only) ---------- */
+const M = {N:6, beta:1, c:0.5954, kap:0.0786, mu0:0.5, sig0:0.021};
+function ceff(l){ return M.c + M.kap*Math.log(l); }
+function xhat(w,l){ return (ceff(l)/M.beta)*(M.N-5*w)/(M.N-4*w); }
+function Dgain(x,w,l){
+  const Phi_ = M.beta*x - ceff(l);
+  return (w/M.N)*(Phi_ + x*M.beta) + (1-w)*Phi_;
+}
+const Pcollapse=(w,l)=>Phi((xhat(w,l)-M.mu0)/M.sig0);
+
+/* ---------- FIG 5 : replicator flow ---------- */
+function drawFig5(){
+  const w=+document.getElementById('wSlider').value;
+  const l=+document.getElementById('lam3Slider').value;
+  document.getElementById('wVal').textContent=w.toFixed(2);
+  document.getElementById('lam3Val').textContent=l.toFixed(2);
+  const x=linspace(0,1,300);
+  const f=x.map(z=>z*(1-z)*Dgain(z,w,l));
+  const xh=xhat(w,l);
+  const ann=[], shp=[{type:'line',x0:0,x1:1,y0:0,y1:0,line:{color:C.rule,width:1}}];
+  const pts=[{x:[0],y:[0],mode:'markers',marker:{color:C.accent,size:12},name:'lazy attractor',hoverinfo:'name'},
+             {x:[1],y:[0],mode:'markers',marker:{color:C.blue,size:12},name:'cooperative attractor',hoverinfo:'name'}];
+  if(xh>0&&xh<1){
+    pts.push({x:[xh],y:[0],mode:'markers',name:'separatrix x̂',
+      marker:{color:C.paper,size:12,line:{color:C.ink,width:2}},hoverinfo:'name'});
+    ann.push({x:xh,y:0,ax:0,ay:-44,text:'x̂ = '+xh.toFixed(3),font:{size:12,color:C.ink}});
+  } else if(xh>=1){
+    ann.push({x:0.5,y:0,ax:0,ay:-50,text:'x̂ ≥ 1 — cooperative basin GONE (collapse certain)',
+      font:{size:12,color:C.accent}});
+  }
+  ann.push({x:0.5,y:0,ax:0,ay:36,xref:'x',yref:'y',
+    text:'initialization mass ~ N(0.5, σ)',font:{size:11,color:C.muted},
+    showarrow:true,arrowcolor:C.rule});
+  Plotly.react('fig5',[
+    {x:x,y:f,mode:'lines',line:{color:C.ink,width:2.2},name:'ẋ',hovertemplate:'x=%{x:.2f}<br>ẋ=%{y:.4f}<extra></extra>'},
+    ...pts],
+    baseLayout({xaxis:{title:'fraction cooperating x',gridcolor:C.rule,range:[-0.02,1.02]},
+      yaxis:{title:'ẋ = x(1−x)·D(x)',gridcolor:C.rule},
+      showlegend:false,annotations:ann,shapes:shp}),CFG);
+}
+['wSlider','lam3Slider'].forEach(id=>document.getElementById(id).addEventListener('input',drawFig5));
+drawFig5();
+
+/* ---------- FIG 6 : model vs experiment (full sweep) ---------- */
+(function(){
+  const cols={1:'#2b4f8a',3:'#6a5a5a',5:'#9a4533',7:'#a33327'}; const tr=[];
+  [1,3,5,7].forEach(l=>{
+    tr.push({x:linspace(0.4,1,250),y:linspace(0.4,1,250).map(w=>Pcollapse(w,l)),
+      mode:'lines',line:{color:cols[l],width:1.8},name:'model λ='+l});
+    const e=expB[l];
+    tr.push({x:e.w,y:e.w.map((w,i)=>e.k[i]/e.n),mode:'markers',
+      marker:{color:cols[l],size:9,symbol:'circle-open',line:{width:2}},name:'data λ='+l});
+  });
+  Plotly.newPlot('fig6',tr,baseLayout({
+    xaxis:{title:'reward centralization w',gridcolor:C.rule,range:[0.42,1.0]},
+    yaxis:{title:'P(collapse)',gridcolor:C.rule,range:[-0.05,1.06]},
+    legend:{x:0.78,y:0.97,bgcolor:'rgba(0,0,0,0)',font:{size:11}}}),CFG);
+})();
+</script>
+</body>
+</html>
