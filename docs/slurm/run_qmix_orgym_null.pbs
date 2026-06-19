@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -N qmix_orgym_null
+#PBS -q cpu
+#PBS -J 0-99
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=04:00:00
+#PBS -o logs/qmix_orgym_null_%I.out
+#PBS -e logs/qmix_orgym_null_%I.err
+
+# Tier 1: QMIX on supply chain -- NULL baseline array (alpha=beta=1, lambda=1).
+# Re-anchors the value-based learner's own null boundary. 5 w x 20 seed = 100.
+set -euo pipefail
+
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expVB_qmix_orgym_figures
+
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+
+python experiments/exp_qmix_orgym.py --algo qmix --null --run_idx "$PBS_ARRAY_INDEX" \
+  --out docs/expVB_qmix_orgym_figures/qmix_orgym_raw_data.csv
