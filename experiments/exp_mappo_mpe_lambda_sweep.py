@@ -9,7 +9,7 @@ w-grid / seeds, under the same centralized-critic MAPPO + 50-step horizon config
 (shared train_mappo_model). Combine with the decomposition CSV in analysis to
 build the 7-point curve.
 
-Grid: lambda in {2,4,5,6,7} x W_LIST(11) x seeds 42-51 -> 550 runs.
+Grid: lambda in {2,4,5,6,7} x W_LIST(11) x seeds 42-61 -> 1100 runs.
 """
 import os
 import sys
@@ -28,7 +28,7 @@ from env.mpe_coop_nav import is_collapsed_mpe_occupancy
 LAMBDA_FILL = [2.0, 4.0, 5.0, 6.0, 7.0]   # 1 and 3 already done in the decomposition sweep
 ALPHA, BETA = 0.88, 0.88                  # curvature held fixed; vary loss aversion
 N_W, N_LAM, N_SEED = len(W_LIST), len(LAMBDA_FILL), len(SEEDS)
-N_RUNS = N_W * N_LAM * N_SEED             # 11 * 5 * 10 = 550
+N_RUNS = N_W * N_LAM * N_SEED             # 11 * 5 * 20 = 1100  (20 seeds; AAAI rev.)
 
 COLUMNS = ["run_idx", "w", "alpha", "beta", "lambda_loss", "seed",
            "algo", "env", "mean_reward", "mean_occupancy", "collapsed",
