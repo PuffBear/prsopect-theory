@@ -78,10 +78,34 @@ def series_mpe_mappo(theta=0.164):
     return data
 
 
+def series_lbf_mappo(theta=0.626):
+    """Third environment. theta=0.626 is the collapsed-vs-coordinated midpoint
+    (analyze_mappo_lbf.recalibrate_theta) on the MERGED main + low-w sweep. The
+    low-w extension (w in {0.0,0.1,0.2}) lands the null cliff in-grid; here only
+    the alpha=beta=0.88 sweep (curvature lambda=1 + loss aversion lambda=2..7) is
+    plotted, on the same lambda axis as the other environments."""
+    data = {}
+    for path in ("docs/expMAPPO_lbf_figures/mappo_lbf_raw_data.csv",
+                 "docs/expMAPPO_lbf_figures/mappo_lbf_loww_raw_data.csv"):
+        for r in rows(path):
+            if r.get("condition") == "null":
+                continue
+            try:
+                lam = int(float(r["lambda_loss"])); mr = float(r["mean_reward"])
+            except (ValueError, KeyError, TypeError):
+                continue  # skip malformed/partial-write rows (blank or None fields)
+            data.setdefault(lam, []).append((float(r["w"]), 1 if mr < theta else 0))
+    return data
+
+
 def collect(data):
     lams = sorted(data); pts = []; los = []; his = []
     for l in lams:
-        p, lo, hi = wcrit_ci(data[l]); pts.append(p); los.append(p - lo); his.append(hi - p)
+        p, lo, hi = wcrit_ci(data[l])
+        # boundaries near the grid ceiling can bootstrap slightly above 1; clip
+        # for display (the effect is saturation, not an out-of-range w_crit).
+        p, lo, hi = min(p, 1.0), min(lo, 1.0), min(hi, 1.0)
+        pts.append(p); los.append(p - lo); his.append(hi - p)
     return np.array(lams), np.array(pts), np.array([los, his])
 
 
@@ -92,6 +116,7 @@ def main():
         ("Supply chain (PPO)", series_supply_ppo(), "tab:blue", "o-"),
         ("Supply chain (MAPPO)", series_supply_mappo(), "tab:green", "s--"),
         ("MPE Coop-Nav (MAPPO)", series_mpe_mappo(), "tab:red", "^:"),
+        ("LBF foraging (MAPPO)", series_lbf_mappo(), "tab:purple", "D-."),
     ]
     for label, data, color, fmt in specs:
         if not data:
