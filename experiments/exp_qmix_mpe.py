@@ -41,7 +41,12 @@ from agents.cpt_wrapper import CPTRewardWrapper
 from agents.qmix_rollout import make_learner, train, greedy_action_fn, _split
 
 # Inherit the MPE w-grid and seeds so QMIX/IQL-MPE share MAPPO-MPE's axis.
-from exp_ppo_mpe import W_LIST, SEEDS  # 11 w-levels, 10 seeds (MPE axis)
+from exp_ppo_mpe import W_LIST  # 11 w-levels (shared MPE axis)
+# Value-based MPE cells stay at 10 seeds: they are NOT the headline MPE result
+# (the AAAI 20-seed request targets MAPPO/PPO-MPE), and pinning here keeps the
+# already-running QMIX/IQL-MPE cluster arrays (0-769 / 0-109) consistent. Defined
+# locally so the PPO-MPE 20-seed bump does NOT propagate into these arrays.
+SEEDS = list(range(42, 52))  # 10 seeds (value-based MPE; intentionally not 20)
 
 LAMBDA_LIST = [1, 2, 3, 4, 5, 6, 7]
 N_W, N_LAM, N_SEED = len(W_LIST), len(LAMBDA_LIST), len(SEEDS)
