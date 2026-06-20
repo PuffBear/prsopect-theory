@@ -21,8 +21,8 @@ GRID
 ----
     w          in {0.0, 0.1, ..., 1.0}      (11 levels, imported)
     condition  in {lambda5, lambda7}        (alpha=beta=0.88; NEW)
-    seeds      42-51                         (10 seeds, imported)
-    Total: 11 x 2 x 10 = 220 runs   ->  PBS array 0..219
+    seeds      42-61                         (20 seeds, imported; AAAI rev.)
+    Total: 11 x 2 x 20 = 440 runs   ->  PBS array 0..439
 
 NOTE ON TRAINING BUDGET: MPE's null boundary previously measured ~1.0, partly an
 under-training artifact at the coordination end (w=1 reached only 0.26 occupancy
@@ -51,7 +51,7 @@ CONDITIONS_HL = [
     ("lambda7", 0.88, 0.88, 7.0),
 ]
 N_W, N_COND, N_SEED = len(W_LIST), len(CONDITIONS_HL), len(SEEDS)
-N_RUNS = N_W * N_COND * N_SEED  # 220
+N_RUNS = N_W * N_COND * N_SEED  # 11 * 2 * 20 = 440  (20 seeds; AAAI rev.)
 
 
 def map_run_idx(run_idx):
