@@ -17,10 +17,10 @@ the only variable between the two experiments is the algorithm.
 
     w          in {0.0, 0.1, ..., 1.0}        (11 levels)
     condition  in {null, curvature, lambda3}  (decomposition design)
-    seeds      42-51                          (10 seeds)
-    Total: 11 x 3 x 10 = 330 runs
+    seeds      42-61                          (20 seeds; AAAI rev.)
+    Total: 11 x 3 x 20 = 660 runs
 
-PBS array: run_idx 0..329
+PBS array: run_idx 0..659
 """
 import os
 import sys
