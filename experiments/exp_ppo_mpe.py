@@ -31,10 +31,10 @@ benchmark (Lowe et al. 2017).
 
     w          in {0.0, 0.1, ..., 1.0}        (11 levels)
     condition  in {null, curvature, lambda3}  (decomposition design)
-    seeds      42-51                          (10 seeds per cell)
-    Total: 11 x 3 x 10 = 330 runs
+    seeds      42-61                          (20 seeds per cell; AAAI rev.)
+    Total: 11 x 3 x 20 = 660 runs
 
-PBS array job: run_idx 0..329
+PBS array job: run_idx 0..659
 
 === REPRODUCIBILITY NOTES ===
 
@@ -79,9 +79,9 @@ CONDITIONS = [
     ("lambda3",   0.88, 0.88, 3.0),   # weighting + loss aversion
 ]
 W_LIST = [round(0.1 * i, 1) for i in range(11)]   # 0.0, 0.1, ..., 1.0
-SEEDS  = list(range(42, 52))                       # 10 seeds
+SEEDS  = list(range(42, 62))                       # 20 seeds (matched to supply chain; AAAI rev.)
 N_W, N_COND, N_SEED = len(W_LIST), len(CONDITIONS), len(SEEDS)
-N_RUNS = N_W * N_COND * N_SEED   # 330
+N_RUNS = N_W * N_COND * N_SEED   # 11 * 3 * 20 = 660
 
 # Backwards-compat constants (calibration script imports these)
 ALPHA, BETA = 0.88, 0.88
