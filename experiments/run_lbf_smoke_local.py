@@ -1,16 +1,25 @@
 """
-Local smoke test for the LBF v2 design.
+Local smoke test for the LBF v2 design -- MAPPO (centralized critic) GATE.
 
     python experiments/run_lbf_smoke_local.py            # probe (~30s)
-    python experiments/run_lbf_smoke_local.py --train    # + PPO w=1 (~5-15 min)
+    python experiments/run_lbf_smoke_local.py --train    # + MAPPO w=0/w=1 (~5-15 min)
 
-PART 1: random-policy probe through the full stack (expect team return
-  ~0.1-0.3/episode; verifies plumbing and a nonzero learning signal).
-PART 2 (--train): trains BOTH endpoints (w=0 and w=1), null condition.
+WHY MAPPO HERE: PPO/IPPO on LBF failed to coordinate. Before committing a night
+to the full lambda x w sweep we need to know whether that failure was task
+sparsity (LBF is dead, pick another 3rd domain) or just the missing centralized
+critic (MAPPO fixes it, sweep is worth running). This is the GATE, not the result
+-- "MAPPO coordinates on LBF" only licenses the sweep; the breadth result is the
+sweep showing w_crit rises with lambda.
+
+PART 0 (with --train): MAPPO wiring check -- centralized critic built, trainable,
+  reads the joint-state slice (guards against silently falling back to IPPO).
+PART 1: random-policy probe through the full stack (nonzero team return = plumbing
+  + learning signal present).
+PART 2 (--train): trains BOTH endpoints (w=0 and w=1), null condition, with MAPPO.
   PASS: w=1 team return >= 0.7 absolute (random ~0.46; max ~1.0)
   AND >= w=0 team return + 0.15.
-  (w=0 should free-ride under the effort cost; w=1 should coordinate.
-   This is a miniature of the calibration gate.)
+  (w=0 should free-ride under the effort cost; w=1 should coordinate. Miniature
+   of the calibration gate -- if w=1 flatlines like RWARE, LBF is dead.)
 """
 import sys, os, argparse
 import numpy as np
@@ -53,30 +62,66 @@ def main():
     import supersuit as ss
     from stable_baselines3 import PPO
     from stable_baselines3.common.callbacks import BaseCallback
-    from exp_ppo_lbf import _build_env, evaluate_lbf, N_ENV_COPIES, PPO_KWARGS
+    from exp_ppo_lbf import _build_env as _build_ppo_env, evaluate_lbf, N_ENV_COPIES, PPO_KWARGS
+    from env.global_state_wrapper import GlobalStateWrapper
+    from agents.mappo_policy import CentralizedCriticPolicy, _CentralCriticExtractor
 
-    class Heartbeat(BaseCallback):
-        def _on_step(self):
-            if self.num_timesteps % 200_000 < 48:   # 48 = 8 copies x 2 agents x 3? safe window
-                print(f"    ... {self.num_timesteps:,} steps", flush=True)
-            return True
+    def _build_mappo_env(w, lam, alpha, beta):
+        # MAPPO = the SAME LBF stack with GlobalStateWrapper OUTERMOST so the
+        # centralized critic can read the joint state; rewards/info pass through,
+        # so evaluate_lbf (uses info['true_reward']) is unchanged.
+        return GlobalStateWrapper(_build_ppo_env(w, lam, alpha, beta))
 
-    results = {}
-    for w_end in (0.0, 1.0):
-        print(f"\n=== PART 2: PPO w={w_end} null condition, {args.timesteps} steps ===")
-        env = _build_env(w_end, 1.0, 1.0, 1.0)
+    def _build_mappo_vec(w, lam, alpha, beta, seed):
+        env = _build_mappo_env(w, lam, alpha, beta)
+        local_dim = env.local_dim
         vec = ss.pad_action_space_v0(env)
         vec = ss.pad_observations_v0(vec)
         vec = ss.pettingzoo_env_to_vec_env_v1(vec)
         vec = ss.concat_vec_envs_v1(vec, N_ENV_COPIES, num_cpus=0,
                                     base_class='stable_baselines3')
-        # reproducible env-spawn seeding (v3 fix): see exp_ppo_lbf.py
-        _inner_vec = getattr(vec, "venv", vec)
-        vec.seed = lambda s, _v=_inner_vec: _v.reset(seed=int(s))
-        model = PPO("MlpPolicy", vec, verbose=0, seed=42, **PPO_KWARGS)
+        _inner = getattr(vec, "venv", vec)
+        vec.seed = lambda s, _v=_inner: _v.reset(seed=int(s))
+        return vec, _inner, local_dim
+
+    def _build_mappo_model(w, lam, alpha, beta, seed):
+        vec, _inner, local_dim = _build_mappo_vec(w, lam, alpha, beta, seed)
+        policy_kwargs = dict(local_dim=local_dim,
+                             net_arch=dict(pi=[64, 64], vf=[128, 128]))
+        model = PPO(CentralizedCriticPolicy, vec, verbose=0, seed=seed,
+                    policy_kwargs=policy_kwargs, **PPO_KWARGS)
+        return model, _inner
+
+    class Heartbeat(BaseCallback):
+        def _on_step(self):
+            if self.num_timesteps % 200_000 < 48:
+                print(f"    ... {self.num_timesteps:,} steps", flush=True)
+            return True
+
+    # --- PART 0: MAPPO wiring check (centralized critic is real) -----------
+    print("\n=== PART 0: MAPPO wiring check (centralized critic reads joint state) ===")
+    m0, _ = _build_mappo_model(1.0, 1.0, 1.0, 1.0, seed=42)
+    pol = m0.policy
+    obs_dim = m0.observation_space.shape[0]
+    ldim = pol._local_dim
+    assert isinstance(pol.vf_features_extractor, _CentralCriticExtractor), \
+        "vf extractor is NOT the centralized critic (silently IPPO!)"
+    opt_ids = {id(p) for g in pol.optimizer.param_groups for p in g["params"]}
+    crit = list(pol.vf_features_extractor.parameters())
+    assert crit and all(id(p) in opt_ids for p in crit), \
+        "centralized critic params are NOT in the optimizer!"
+    assert pol.vf_features_extractor.net[0].in_features == obs_dim - ldim, \
+        "critic input != global-state slice"
+    print(f"  local_dim={ldim} augmented_obs={obs_dim} global_slice={obs_dim - ldim}")
+    print("  PART 0: PASS (centralized critic wired, trainable, reads joint state)")
+
+    results = {}
+    for w_end in (0.0, 1.0):
+        print(f"\n=== PART 2: MAPPO w={w_end} null condition, {args.timesteps} steps ===")
+        model, _inner_vec = _build_mappo_model(w_end, 1.0, 1.0, 1.0, seed=42)
         _inner_vec.reset(seed=42)
         model.learn(total_timesteps=args.timesteps, callback=Heartbeat())
-        eval_env = _build_env(w_end, 1.0, 1.0, 1.0)
+        eval_env = _build_mappo_env(w_end, 1.0, 1.0, 1.0)
         results[w_end] = evaluate_lbf(model, eval_env, num_episodes=20,
                                       base_seed=420)
         print(f"  trained w={w_end}: team return/episode = {results[w_end]:.3f}")
