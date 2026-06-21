@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -N mappo_mpe_v2_resume
+#PBS -q cpu
+#PBS -J 330-659
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=08:00:00
+#PBS -o logs/
+#PBS -e logs/
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expMAPPO_mpe_figures
+# RESUME of run_mappo_mpe_v2.pbs: subjobs 0-329 completed cleanly (330 rows, no
+# dups) before a "Post job file processing error" halted the array at index 330.
+# This re-runs ONLY the missing contiguous block 330-659 and APPENDS to the same
+# CSV. Logging fix: PBS -o/-e -> logs/ (writable) so the post-job copyback can't
+# fail the way it did on the first run.
+exec >> "$PROJECT_ROOT/logs/mappo_mpe_v2_${PBS_ARRAY_INDEX}.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+python experiments/exp_mappo_mpe.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 2000000 \
+    --out docs/expMAPPO_mpe_figures/mappo_mpe_v2_raw_data.csv
