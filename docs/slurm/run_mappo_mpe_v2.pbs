@@ -4,11 +4,17 @@
 #PBS -J 0-659
 #PBS -l select=1:ncpus=1:mem=4gb
 #PBS -l walltime=08:00:00
-#PBS -j oe
+#PBS -o logs/
+#PBS -e logs/
 set -euo pipefail
 PROJECT_ROOT="$HOME/prospect-theory"
 cd "$PROJECT_ROOT"
 mkdir -p logs docs/expMAPPO_mpe_figures
+# Point PBS's own stdout/stderr spool at logs/ (an existing, writable dir) so the
+# post-job copyback cannot fail -- the default copyback to the home spool dir was
+# throwing intermittent "Post job file processing error" aborts that halted the
+# array around subjob 100 (AAAI rev.). We still tee the run's own output to a
+# per-subjob file below for convenient inspection.
 exec >> "$PROJECT_ROOT/logs/mappo_mpe_v2_${PBS_ARRAY_INDEX}.log" 2>&1
 export OMP_NUM_THREADS=1
 export MKL_NUM_THREADS=1
