@@ -24,3 +24,5 @@ n = 1439 runs. Collapse theta = 0.626 (collapsed-vs-coordinated midpoint, same c
 - theta=0.62: lambda1->7 = [0.22 0.5  0.71 0.84 0.85 0.91 1.02]  monotone=True
 - theta=0.63: lambda1->7 = [0.26 0.53 0.73 0.85 0.86 0.92 1.12]  monotone=True
 - theta=0.70: lambda1->7 = [0.32 0.63 0.78 0.88 0.9  0.97 1.28]  monotone=True
+
+**Affine-law transfer** (supply-chain reference rho=0.61, RMSE=0.014): g/c=2.910 from lambda=1, best rho=1.000, RMSE=0.147 on 3 in-grid lambdas -> **does NOT transfer** (form is substrate-specific; the *method* generalizes, the affine *constants/form* do not).
