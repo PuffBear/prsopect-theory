@@ -110,9 +110,15 @@ def power_law(T, a, b, c):
     return a * T ** (-b) + c
 
 
-def log_decay(T, a, c):
-    """w_crit = a / log(T) + c"""
-    return a / np.log(T) + c
+def kramers_log(T, a, c):
+    """Kramers / Arrhenius escape prediction: the mean escape time from the
+    cooperative basin is exponential in the barrier, so the marginal coordination
+    weight needed to keep P(escape within T) fixed falls LINEARLY in log T:
+        w_crit(T) = c - a * ln(T),   a > 0  (negative slope in ln T).
+    This is the theory-driven form (Sec. Mean-Field / Kramers). It is DISTINCT
+    from `a/log(T)+c`, which decays toward c from above but is not the Kramers
+    barrier law."""
+    return c - a * np.log(T)
 
 
 def r_squared(y_true, y_pred):
@@ -121,67 +127,84 @@ def r_squared(y_true, y_pred):
     return 1 - ss_res / ss_tot if ss_tot > 0 else np.nan
 
 
-def fit_decay_models(T_arr, wcrit_arr):
-    results = {}
+def fit_decay_models(T_arr, wcrit_arr, sigma_arr=None):
+    """Fit the Kramers (theory) and power-law (empirical) forms.
 
-    # Model 1: power law
+    NOTE: with only THREE horizons and a 2-parameter model there is ONE residual
+    degree of freedom, so R^2 is nearly uninformative and CANNOT discriminate the
+    two forms. We report both and deliberately decline a verdict (see results md).
+    If per-horizon CI half-widths are supplied (sigma_arr) the fit is weighted by
+    1/sigma so the essentially-unconstrained 600k point cannot dominate.
+    """
+    results = {}
+    # absolute_sigma weights points by their logistic-fit uncertainty
+    fit_kw = {}
+    if sigma_arr is not None and np.all(np.isfinite(sigma_arr)) and np.all(sigma_arr > 0):
+        fit_kw = dict(sigma=sigma_arr, absolute_sigma=True)
+
+    # Kramers / Arrhenius barrier law (THEORY-DRIVEN, pre-registered prediction)
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            pk, _ = curve_fit(kramers_log, T_arr, wcrit_arr,
+                              p0=[0.05, 1.0], maxfev=10000, **fit_kw)
+        predk = kramers_log(T_arr, *pk)
+        results["kramers_log"] = {"params": pk, "r2": r_squared(wcrit_arr, predk),
+                                  "label": "Kramers (theory): $c - a\\,\\ln T$"}
+    except Exception as e:
+        print(f"  Kramers-log fit failed: {e}")
+        results["kramers_log"] = {"params": None, "r2": -np.inf, "label": "Kramers (failed)"}
+
+    # Power law (EMPIRICAL comparison form, not theory-derived)
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             p1, _ = curve_fit(power_law, T_arr, wcrit_arr,
                               p0=[1.0, 0.1, 0.5], maxfev=10000,
-                              bounds=([0, 1e-6, 0], [np.inf, 10, 1]))
-        pred1 = power_law(T_arr, *p1)
-        r2_1 = r_squared(wcrit_arr, pred1)
-        results["power_law"] = {"params": p1, "r2": r2_1, "label": "Power law: $a T^{-b} + c$"}
+                              bounds=([0, 1e-6, 0], [np.inf, 10, 1]), **fit_kw)
+        results["power_law"] = {"params": p1, "r2": r_squared(wcrit_arr, power_law(T_arr, *p1)),
+                                "label": "Power law (empirical): $a T^{-b} + c$"}
     except Exception as e:
         print(f"  Power-law fit failed: {e}")
         results["power_law"] = {"params": None, "r2": -np.inf, "label": "Power law (failed)"}
 
-    # Model 2: log decay
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            p2, _ = curve_fit(log_decay, T_arr, wcrit_arr,
-                              p0=[1.0, 0.5], maxfev=10000,
-                              bounds=([0, 0], [np.inf, 1]))
-        pred2 = log_decay(T_arr, *p2)
-        r2_2 = r_squared(wcrit_arr, pred2)
-        results["log_decay"] = {"params": p2, "r2": r2_2, "label": "Log decay: $a / \\log(T) + c$"}
-    except Exception as e:
-        print(f"  Log-decay fit failed: {e}")
-        results["log_decay"] = {"params": None, "r2": -np.inf, "label": "Log decay (failed)"}
-
     return results
+
+
+def eval_fit(key, params, T):
+    if key == "power_law":
+        return power_law(T, *params)
+    return kramers_log(T, *params)
 
 
 # ---------------------------------------------------------------------------
 # Plotting
 # ---------------------------------------------------------------------------
 
-def plot_wcrit_vs_horizon(T_arr, wcrit_arr, lo_arr, hi_arr, decay_results, best_key, out_path):
+def plot_wcrit_vs_horizon(T_arr, wcrit_arr, lo_arr, hi_arr, decay_results, out_path):
     fig, ax = plt.subplots(figsize=(7, 5))
 
     ax.errorbar(T_arr, wcrit_arr,
                 yerr=[wcrit_arr - lo_arr, hi_arr - wcrit_arr],
-                fmt="o", color="steelblue", capsize=5, markersize=8,
+                fmt="o", color="steelblue", capsize=5, markersize=8, zorder=5,
                 label="$w_{\\mathrm{crit}}$ (logistic fit +/- 95% CI)")
 
+    # Draw BOTH candidate forms -- no "best" is declared (3 points cannot
+    # discriminate them; see results md). Kramers is the theory-driven curve.
     T_fine = np.logspace(np.log10(T_arr.min() * 0.8), np.log10(T_arr.max() * 1.2), 300)
-    best = decay_results[best_key]
-    if best["params"] is not None:
-        if best_key == "power_law":
-            y_fine = power_law(T_fine, *best["params"])
-        else:
-            y_fine = log_decay(T_fine, *best["params"])
-        ax.plot(T_fine, y_fine, "r-", lw=2,
-                label=f"{best['label']}  ($R^2={best['r2']:.3f}$)")
+    styles = {"kramers_log": ("#c00000", "-"), "power_law": ("#2e7d32", "--")}
+    for key, (color, ls) in styles.items():
+        res = decay_results.get(key)
+        if res and res["params"] is not None:
+            ax.plot(T_fine, eval_fit(key, res["params"], T_fine), color=color, ls=ls,
+                    lw=2, label=f"{res['label']}  ($R^2={res['r2']:.3f}$)")
 
     ax.set_xscale("log")
     ax.set_xlabel("Training horizon $T$ (timesteps)", fontsize=12)
     ax.set_ylabel("$w_{\\mathrm{crit}}$", fontsize=12)
-    ax.set_title("Coordination Boundary Decreases with Training Horizon", fontsize=13)
-    ax.legend(fontsize=10)
+    ax.set_title("Coordination boundary vs training horizon (3 points; both forms shown)",
+                 fontsize=11)
+    ax.legend(fontsize=9)
     ax.grid(True, which="both", alpha=0.3)
 
     xtick_vals = T_arr
@@ -238,9 +261,28 @@ def plot_heatmap(df_all, out_path):
 # Results markdown
 # ---------------------------------------------------------------------------
 
-def write_results_md(T_arr, wcrit_arr, lo_arr, hi_arr, decay_results, best_key, df_all, out_path):
+def _params_str(key, params):
+    if key == "power_law":
+        a, b, c = params
+        return f"a={a:.4g}, b={b:.4g}, c={c:.4g}"
+    a, c = params
+    return f"a={a:.4g}, c={c:.4g}"
+
+
+def write_results_md(T_arr, wcrit_arr, lo_arr, hi_arr, decay_results, df_all, out_path):
     lines = [
         "# Exp T: Training-Horizon Collapse-Boundary Results",
+        "",
+        "> **Scope caveat.** This is a THREE-POINT fit (T = 150k, 300k, 600k). With",
+        "> a 2-parameter model that leaves one residual degree of freedom, so R^2",
+        "> cannot discriminate functional forms and no model selection is claimed.",
+        "> The per-horizon w_crit values are themselves logistic *extrapolations*:",
+        "> at 150k the collapse curve has not crossed 0.5 within the sampled w-grid",
+        "> (w_crit > 1) and at 600k it has nearly cleared it (point estimate < 0),",
+        "> so both endpoints lie outside the meaningful [0,1] range and carry wide",
+        "> CIs. We therefore report this as a SIGN-AND-DIRECTION result (w_crit",
+        "> decreases with T) plus the theory-driven Kramers form for reference,",
+        "> NOT a calibrated asymptotic bound.",
         "",
         "## Estimated w_crit by Horizon",
         "",
@@ -252,24 +294,31 @@ def write_results_md(T_arr, wcrit_arr, lo_arr, hi_arr, decay_results, best_key, 
 
     lines += [
         "",
-        "## Decay-Model Fit",
+        "## Candidate decay forms (BOTH reported; no verdict)",
         "",
-        "| Model | R^2 |",
-        "|-------|----|",
+        "The Kramers / Arrhenius barrier law is the theory-driven prediction",
+        "(mean escape time ~ exp(barrier), so the marginal w to hold P(escape | T)",
+        "fixed falls linearly in ln T: w_crit = c - a ln T). The power law is an",
+        "unconstrained empirical comparison. R^2 is shown for completeness only --",
+        "with 3 points it does NOT select between them.",
+        "",
+        "| Form | R^2 | parameters |",
+        "|------|-----|------------|",
     ]
-    for key, res in decay_results.items():
-        tag = " **(best)**" if key == best_key else ""
-        lines.append(f"| {res['label']}{tag} | {res['r2']:.4f} |")
+    for key in ("kramers_log", "power_law"):
+        res = decay_results.get(key)
+        if res and res["params"] is not None:
+            lines.append(f"| {res['label']} | {res['r2']:.4f} | {_params_str(key, res['params'])} |")
 
-    best = decay_results[best_key]
-    if best["params"] is not None:
-        lines += ["", f"**Best model:** {best['label']}"]
-        if best_key == "power_law":
-            a, b, c = best["params"]
-            lines.append(f"  Parameters: a={a:.4f}, b={b:.4f}, c={c:.4f}")
-        else:
-            a, c = best["params"]
-            lines.append(f"  Parameters: a={a:.4f}, c={c:.4f}")
+    kr = decay_results.get("kramers_log")
+    if kr and kr["params"] is not None:
+        a, c = kr["params"]
+        lines += [
+            "",
+            f"**Kramers slope** a = {a:.4g} (w_crit per unit ln T). a > 0 means the",
+            "coordination boundary recedes as training lengthens, the predicted",
+            "direction. Magnitude is indicative only given the caveats above.",
+        ]
 
     lines += [
         "",
@@ -289,10 +338,12 @@ def write_results_md(T_arr, wcrit_arr, lo_arr, hi_arr, decay_results, best_key, 
         "",
         "## Interpretation",
         "",
-        "w_crit decreases as training horizon increases, indicating that agents"
-        " require *less* reward centralization to coordinate when given more"
-        " training time. The collapse boundary shifts left with T, consistent"
-        " with improved policy quality reducing reliance on shared incentives.",
+        "w_crit decreases as training horizon increases: agents require *less*"
+        " reward centralization to coordinate when given more training time, the"
+        " direction the Kramers escape picture predicts. We claim only the sign"
+        " and direction of this dependence -- the three-point fit does not support"
+        " a calibrated asymptotic bound or a selection between the log and"
+        " power-law forms.",
         "",
     ]
 
@@ -336,24 +387,27 @@ def main():
         print("Not enough horizons with valid w_crit to fit decay models. Exiting.")
         sys.exit(1)
 
-    print("\nFitting decay models ...")
-    decay_results = fit_decay_models(T_arr[valid], wcrit_arr[valid])
-    best_key = max(decay_results, key=lambda k: decay_results[k]["r2"])
-    for key, res in decay_results.items():
-        tag = "  <-- BEST" if key == best_key else ""
-        print(f"  {res['label']}: R^2 = {res['r2']:.4f}{tag}")
-
-    print(f"\nBest fit: {decay_results[best_key]['label']}")
+    print("\nFitting decay forms (BOTH reported; 3 points => no model selection) ...")
+    # weight each horizon by its logistic-fit CI half-width so the
+    # essentially-unconstrained 600k point cannot dominate the curve fit
+    sigma = np.maximum((hi_arr[valid] - lo_arr[valid]) / 2.0, 1e-3)
+    decay_results = fit_decay_models(T_arr[valid], wcrit_arr[valid], sigma_arr=sigma)
+    for key in ("kramers_log", "power_law"):
+        res = decay_results.get(key)
+        if res:
+            print(f"  {res['label']}: R^2 = {res['r2']:.4f}  "
+                  f"({_params_str(key, res['params']) if res['params'] is not None else 'fit failed'})")
+    print("  (no 'best' is declared -- see results md scope caveat)")
 
     print("\nGenerating figures ...")
     plot_wcrit_vs_horizon(T_arr[valid], wcrit_arr[valid], lo_arr[valid], hi_arr[valid],
-                          decay_results, best_key,
+                          decay_results,
                           os.path.join(OUT_DIR, "wcrit_vs_horizon.png"))
 
     plot_heatmap(df_all, os.path.join(OUT_DIR, "collapse_heatmap.png"))
 
     write_results_md(T_arr[valid], wcrit_arr[valid], lo_arr[valid], hi_arr[valid],
-                     decay_results, best_key, df_all,
+                     decay_results, df_all,
                      os.path.join(OUT_DIR, "expT_results.md"))
 
     print("\nDone.")
