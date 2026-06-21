@@ -585,8 +585,8 @@ relationship is systematic, not a two-point artefact.
     ($\wcrit{=}0.685$). Probability-weighting \emph{curvature} alone
     ($\lambda{=}1$, $\alpha{=}\beta{=}0.88$) shifts $\wcrit$ \emph{left} of the
     null---facilitating coordination---while \emph{loss aversion}
-    ($\lambda{=}2,\ldots,7$, $\alpha{=}\beta{=}0.88$) shifts it monotonically
-    \emph{right}. The two prospect-theory components thus move the boundary in
+    ($\lambda{=}2,\ldots,7$, $\alpha{=}\beta{=}0.88$) shifts it
+    \emph{right} (rising, then saturating). The two prospect-theory components thus move the boundary in
     opposite directions, and the full sweep traces the resulting
     $\wcrit(\lambda)$ progression in one panel.
   }
@@ -920,6 +920,11 @@ Section~\ref{sec:appendix_snr} reports a direct test that
 measures the Langevin drift and diffusion from PPO training: it reproduces
 the matched-horizon boundary but leaves the magnitude calibrated, as the
 drift-sign observable is confounded by basin geometry.
+We therefore claim this mechanism at the \emph{sign-and-form level only}---the
+opposite signs, the monotone ordering, the affine form, and the horizon and
+exploration-noise directions---and treat the numerical value of $\wcrit$ as
+calibrated throughout. No result in this paper rests on a predicted magnitude;
+upgrading the account from calibrated to predictive is left to future work.
 
 % -----------------------------------------------------------------------
 \section{Generalization across Environments and Algorithms}
@@ -1101,6 +1106,14 @@ precisely estimated values; finer $w$-spacing in $(0.85,1)$ is left to future
 work. As in
 MPE, the \emph{direction} of the loss-aversion effect---the paper's central
 behavioural claim---replicates, while curvature sign and functional form remain
+substrate-specific. We make the latter quantitative: the supply chain's
+one-parameter affine law does \emph{not} transfer to LBF. With $g/c$ fixed from
+the $\lambda{=}1$ boundary, the best-fit slope $\rho$ saturates at its bound and
+the law misfits LBF by RMSE $0.15$ (versus $0.014$ on the supply chain), because
+the LBF boundary rises more steeply in $\lambda$ (already $0.85$ by $\lambda{=}4$).
+This converts the substrate-specificity of the functional form from an assertion
+into a measured result---the \emph{method} (a CI'd boundary that loss aversion
+shifts) generalizes, while the affine \emph{constants and form} are
 substrate-specific.
 
 \subsection{Across algorithms: MAPPO on the supply chain}
