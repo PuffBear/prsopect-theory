@@ -1,6 +1,9 @@
 """
 Analyze exp_snr_validation output: does the measured signal-to-noise crossing
-land at the empirical structural boundary w_crit = 0.666?
+land at the empirical structural boundary? The reference is HORIZON-MATCHED to
+the sweep: exp_snr_validation.py trains 150k steps, whose empirical boundary is
+w_crit = 0.822 (W_CRIT_EMPIRICAL below). (At 300k the boundary is 0.666; the
+analyzer always compares against the boundary at the SAME horizon it trained.)
 
 IMPORTANT (observable choice): PPO initialises near mu~0 (base-stock S~250),
 while the cooperative optimum is at S~150 (mu~-0.4) -- BELOW the init. So the
