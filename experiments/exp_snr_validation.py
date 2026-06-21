@@ -151,11 +151,20 @@ def run_one(run_idx, timesteps, window_steps, out_path):
 
 
 def _append_row(row, out_path):
+    """Idempotent per run_idx: a row replaces any existing row with the same
+    run_idx rather than blind-appending. This keeps array-job resubmits (and the
+    leftover smoke-pilot rows) from leaving duplicate run_idx rows, which would
+    skew analyze_snr.py's per-w means (it does not dedup on load)."""
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with FileLock(out_path + ".lock"):
-        write_header = not os.path.exists(out_path)
-        pd.DataFrame([row], columns=COLUMNS).to_csv(
-            out_path, mode="a", header=write_header, index=False)
+        if os.path.exists(out_path):
+            df = pd.read_csv(out_path)
+            df = df[df["run_idx"] != row["run_idx"]]
+            df = pd.concat([df, pd.DataFrame([row], columns=COLUMNS)],
+                           ignore_index=True)
+        else:
+            df = pd.DataFrame([row], columns=COLUMNS)
+        df.to_csv(out_path, index=False)
 
 
 def main():
