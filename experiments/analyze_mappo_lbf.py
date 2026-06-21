@@ -33,6 +33,7 @@ from analyze_expN import fit_logistic, bootstrap_wcrit, per_w_table, curve
 
 CSV = "docs/expMAPPO_lbf_figures/mappo_lbf_raw_data.csv"
 LOWW = "docs/expMAPPO_lbf_figures/mappo_lbf_loww_raw_data.csv"  # low-w extension
+HIGHW = "docs/expMAPPO_lbf_figures/mappo_lbf_highw_raw_data.csv"  # w=0.90 high-lambda resolver
 OUTDIR = "docs/expMAPPO_lbf_figures"
 LAMBDAS = [1, 2, 3, 4, 5, 6, 7]
 COLORS = {1: "tab:blue", 2: "tab:cyan", 3: "tab:orange", 4: "tab:olive",
@@ -43,6 +44,8 @@ def _load():
     frames = [pd.read_csv(CSV, keep_default_na=False)]
     if os.path.exists(LOWW):                       # auto-merge low-w cells
         frames.append(pd.read_csv(LOWW, keep_default_na=False))
+    if os.path.exists(HIGHW):                      # auto-merge w=0.90 high-lambda cells
+        frames.append(pd.read_csv(HIGHW, keep_default_na=False))
     df = pd.concat(frames, ignore_index=True)
     df["mean_reward"] = pd.to_numeric(df["mean_reward"], errors="coerce")
     df["w"] = pd.to_numeric(df["w"], errors="coerce")
@@ -95,6 +98,45 @@ def _label(df, theta):
     df = df.copy()
     df["collapsed"] = (df["mean_reward"] < theta).astype(int)
     return df
+
+
+def affine_law_transfer(perlam, saturated):
+    """Test whether the supply chain's one-parameter affine loss-aversion law
+        w_crit(lambda) = phi / (phi + g/c),   phi = 1 + rho*(lambda-1),  rho in [0,1]
+    transfers to this environment. g/c is fixed from the lambda=1 boundary
+    (phi=1 => w1 = 1/(1+g/c)); rho is grid-fit (no scipy dependency) on the
+    in-grid, non-saturated lambdas. Supply-chain reference: rho=0.61, RMSE=0.014.
+    A 'transfer' means a supply-chain-like fit: small RMSE with an interior rho
+    (not pinned at the [0,1] bound)."""
+    if 1 not in perlam:
+        return None
+    lam = np.array(sorted(perlam), dtype=float)
+    wc = np.array([perlam[int(l)]["w_crit"] for l in lam])
+    w1 = perlam[1]["w_crit"]
+    if not (0.0 < w1 < 1.0):
+        return None
+    gc = (1.0 - w1) / w1
+    reliable = np.array([int(l) not in saturated for l in lam])
+
+    def pred(rho, L):
+        phi = 1.0 + rho * (L - 1.0)
+        return phi / (phi + gc)
+
+    rhos = np.linspace(0.0, 1.0, 1001)
+
+    def _best(mask):
+        if mask.sum() < 2:
+            return float("nan"), float("nan")
+        errs = [np.sqrt(np.mean((pred(r, lam[mask]) - wc[mask]) ** 2)) for r in rhos]
+        i = int(np.argmin(errs))
+        return float(rhos[i]), float(errs[i])
+
+    rho_in, rmse_in = _best(reliable)
+    rho_all, rmse_all = _best(np.ones_like(lam, dtype=bool))
+    transfers = bool(np.isfinite(rmse_in) and rmse_in < 0.05 and rho_in < 0.999)
+    return dict(gc=gc, rho_in=rho_in, rmse_in=rmse_in, rho_all=rho_all,
+                rmse_all=rmse_all, transfers=transfers,
+                n_reliable=int(reliable.sum()))
 
 
 def _fit(sub):
@@ -187,6 +229,15 @@ def main():
         print(f"  monotone non-decreasing over swept lambda: {monotone}")
     print(f"  PRE-REGISTERED VERDICT: {verdict}")
 
+    # --- affine-law transfer test: does the supply-chain one-parameter affine
+    #     lambda-law transfer here? (reproduces the RMSE comparison in the paper) -
+    aff = affine_law_transfer(perlam, saturated)
+    if aff is not None:
+        print("\n  affine-law transfer (supply-chain reference rho=0.61, RMSE=0.014):")
+        print(f"    g/c={aff['gc']:.3f} (fixed from lambda=1); best rho={aff['rho_in']:.3f}, "
+              f"RMSE={aff['rmse_in']:.3f} on {aff['n_reliable']} in-grid lambdas "
+              f"-> {'TRANSFERS' if aff['transfers'] else 'does NOT transfer'}")
+
     # --- threshold robustness: the loss-aversion direction must survive the
     #     theta choice (reported as a strength, mirroring the supply-chain
     #     threshold-robustness appendix) ----------------------------------------
@@ -222,6 +273,14 @@ def main():
                 "invariant to theta):\n\n")
         for line in robustness_lines:
             f.write(f"- {line}\n")
+        if aff is not None:
+            f.write(f"\n**Affine-law transfer** (supply-chain reference "
+                    f"rho=0.61, RMSE=0.014): g/c={aff['gc']:.3f} from lambda=1, "
+                    f"best rho={aff['rho_in']:.3f}, RMSE={aff['rmse_in']:.3f} on "
+                    f"{aff['n_reliable']} in-grid lambdas -> "
+                    f"**{'transfers' if aff['transfers'] else 'does NOT transfer'}** "
+                    f"(form is substrate-specific; the *method* generalizes, the "
+                    f"affine *constants/form* do not).\n")
 
 
 def _figures(null, perlam, theta):
