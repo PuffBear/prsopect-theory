@@ -507,6 +507,12 @@ $\alpha{=}\beta{=}1$).
 \Cref{fig:heatmap} visualises the collapse surface in $(w, T)$ space.
 This constitutes a \emph{metastability} result: the lazy-agent attractor
 is not absorbing.
+The same leftward slide appears in \emph{both} cross-environment substrates under
+centralized-critic MAPPO, so metastability is not a supply-chain artifact: on MPE
+$\wcrit$ falls $0.82\!\to\!0.68$ as $T$ grows $2\mathrm{M}\!\to\!8\mathrm{M}$
+(slide $+0.14$), and on Level-Based Foraging $0.33\!\to\!0.20$ as
+$T$ grows $1\mathrm{M}\!\to\!4\mathrm{M}$ (slide $+0.13$), both with
+non-overlapping bootstrap intervals (\Cref{sec:appendix_robustness2}).
 Agents trapped below the isocline at finite $T$ can escape given
 sufficient training; $w$ controls the energy barrier height of the
 attractor.
