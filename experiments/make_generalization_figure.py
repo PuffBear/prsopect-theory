@@ -65,13 +65,19 @@ def series_supply_mappo():
     return data
 
 
-def series_mpe_mappo(theta=0.164):
+def series_mpe_mappo(theta=0.144):
+    """MPE 20-seed re-run (AAAI rev.). Reads the SAME files and uses the SAME
+    occupancy threshold (theta=0.144, recalibrated from this run's null endpoints)
+    as analyze_mpe_decomposition.py, so the standalone and combined figures agree.
+    Sources: v2 decomposition (curvature=lambda1, lambda3) + lambda-fill sweep
+    (lambda 2,4,5,6,7). The old mappo_mpe_raw_data.csv / highlambda are NOT used
+    (stale 10-seed / would double-count)."""
     data = {}
-    for r in rows("docs/expMAPPO_mpe_figures/mappo_mpe_raw_data.csv"):
-        cond = r.get("condition")
-        lam = {"curvature": 1, "lambda3": 3}.get(cond)
+    for r in rows("docs/expMAPPO_mpe_figures/mappo_mpe_v2_raw_data.csv"):
+        lam = {"curvature": 1, "lambda3": 3}.get(r.get("condition"))
         if lam:
-            data.setdefault(lam, []).append((float(r["w"]), 1 if float(r["mean_occupancy"]) < theta else 0))
+            data.setdefault(lam, []).append(
+                (float(r["w"]), 1 if float(r["mean_occupancy"]) < theta else 0))
     for r in rows("docs/expMAPPO_mpe_figures/mappo_mpe_lambda_sweep_raw_data.csv"):
         data.setdefault(int(float(r["lambda_loss"])), []).append(
             (float(r["w"]), 1 if float(r["mean_occupancy"]) < theta else 0))
@@ -80,13 +86,17 @@ def series_mpe_mappo(theta=0.164):
 
 def series_lbf_mappo(theta=0.626):
     """Third environment. theta=0.626 is the collapsed-vs-coordinated midpoint
-    (analyze_mappo_lbf.recalibrate_theta) on the MERGED main + low-w sweep. The
-    low-w extension (w in {0.0,0.1,0.2}) lands the null cliff in-grid; here only
+    (analyze_mappo_lbf.recalibrate_theta) on the MERGED main + low-w + high-w
+    sweep. The low-w extension (w in {0.0,0.1,0.2}) lands the null cliff in-grid
+    and the high-w extension (w=0.90) refines the high-lambda boundary; here only
     the alpha=beta=0.88 sweep (curvature lambda=1 + loss aversion lambda=2..7) is
-    plotted, on the same lambda axis as the other environments."""
+    plotted, on the same lambda axis as the other environments. Must match
+    analyze_mappo_lbf._load() (same three CSVs) so the standalone and combined
+    figures agree."""
     data = {}
     for path in ("docs/expMAPPO_lbf_figures/mappo_lbf_raw_data.csv",
-                 "docs/expMAPPO_lbf_figures/mappo_lbf_loww_raw_data.csv"):
+                 "docs/expMAPPO_lbf_figures/mappo_lbf_loww_raw_data.csv",
+                 "docs/expMAPPO_lbf_figures/mappo_lbf_highw_raw_data.csv"):
         for r in rows(path):
             if r.get("condition") == "null":
                 continue
@@ -105,7 +115,9 @@ def collect(data):
         # boundaries near the grid ceiling can bootstrap slightly above 1; clip
         # for display (the effect is saturation, not an out-of-range w_crit).
         p, lo, hi = min(p, 1.0), min(lo, 1.0), min(hi, 1.0)
-        pts.append(p); los.append(p - lo); his.append(hi - p)
+        # clipping to the ceiling can invert p vs lo/hi for saturated points;
+        # clamp error bars to be non-negative (matplotlib rejects negative yerr).
+        pts.append(p); los.append(max(0.0, p - lo)); his.append(max(0.0, hi - p))
     return np.array(lams), np.array(pts), np.array([los, his])
 
 
