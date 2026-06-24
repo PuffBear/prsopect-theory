@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.9)  23 JUN 2026 11:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.9)  24 JUN 2026 16:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -762,20 +762,24 @@ w[]\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ; ^^U[]\OT1/cmr/m/n/10 1) \OMS/cmsy/m/n/
 
 Package hyperref Warning: Suppressing empty link on input line 500.
 
+
+LaTeX Warning: Cref reference format for label type `' undefined on input line 
+515.
+
 [4]
-Underfull \hbox (badness 1888) in paragraph at lines 601--601
+Underfull \hbox (badness 1888) in paragraph at lines 607--607
 [][][]\OT1/ptm/m/n/9 (+20) At high loss aver-sion the tran-si-tion is very stee
 p and
  []
 
 
-Underfull \hbox (badness 2111) in paragraph at lines 581--606
+Underfull \hbox (badness 2111) in paragraph at lines 587--612
 \OT1/ptm/m/n/10 (+20) We sweep loss aver-sion across the full range $\OML/cmm/m
 /it/10 ^^U \OMS/cmsy/m/n/10 2
  []
 
 
-Underfull \hbox (badness 3009) in paragraph at lines 581--606
+Underfull \hbox (badness 3009) in paragraph at lines 587--612
 \OT1/ptm/m/n/10 (+20) with a ded-i-cated fill-in sweep at $\OML/cmm/m/it/10 ^^U
  \OMS/cmsy/m/n/10 2 f\OT1/cmr/m/n/10 2\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 4\OML/
 cmm/m/it/10 ; \OT1/cmr/m/n/10 5\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 6\OMS/cmsy/m/
@@ -788,34 +792,35 @@ File: ../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png Graphic file
 (type png)
 <use ../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png>
 Package pdftex.def Info: ../docs/expPPO_lambda_sweep_figures/ppo_behavioral_ful
-l.png  used on input line 620.
+l.png  used on input line 626.
 (pdftex.def)             Requested size: 220.24239pt x 140.9526pt.
+[5]
 
-Package hyperref Warning: Suppressing empty link on input line 700.
-
-
-Package hyperref Warning: Suppressing empty link on input line 700.
-
-[5] [6 <../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png>]
-
-Package hyperref Warning: Suppressing empty link on input line 807.
+Package hyperref Warning: Suppressing empty link on input line 706.
 
 
-Package hyperref Warning: Suppressing empty link on input line 815.
+Package hyperref Warning: Suppressing empty link on input line 706.
+
+[6 <../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png>]
+
+Package hyperref Warning: Suppressing empty link on input line 813.
 
 
-Package hyperref Warning: Suppressing empty link on input line 835.
+Package hyperref Warning: Suppressing empty link on input line 821.
 
 
-Package hyperref Warning: Suppressing empty link on input line 837.
+Package hyperref Warning: Suppressing empty link on input line 841.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 875--889
+Package hyperref Warning: Suppressing empty link on input line 843.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 881--895
 []\OT1/ptm/m/n/10 (+20) The sta-tion-ary den-sity of [] is
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 875--889
+Underfull \hbox (badness 10000) in paragraph at lines 881--895
 \OML/cmm/m/it/10 P[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) \OMS/c
 msy/m/n/10 / []\OT1/cmr/m/n/10 [\OMS/cmsy/m/n/10 ^^@\OML/cmm/m/it/10 U[]\OT1/cm
 r/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 )]$ \OT1/ptm/m/n/10 (+20) with $\OM
@@ -823,7 +828,7 @@ L/cmm/m/it/10 U[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) =
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 875--889
+Underfull \hbox (badness 10000) in paragraph at lines 881--895
 \OMS/cmsy/m/n/10 ^^@  [][] \OT1/cmr/m/n/10 2\OML/cmm/m/it/10 F\OT1/cmr/m/n/10 (
 \OML/cmm/m/it/10 z; w; ^^U\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 =\OT1/cmr/m/n/10 ^^
 F(\OML/cmm/m/it/10 z; N\OT1/cmr/m/n/10 ) d\OML/cmm/m/it/10 z$\OT1/ptm/m/n/10 (+
@@ -831,13 +836,13 @@ F(\OML/cmm/m/it/10 z; N\OT1/cmr/m/n/10 ) d\OML/cmm/m/it/10 z$\OT1/ptm/m/n/10 (+
  []
 
 [7]
-Underfull \hbox (badness 6775) in paragraph at lines 898--904
+Underfull \hbox (badness 6775) in paragraph at lines 904--910
 []\OT1/ptm/m/n/10 (+20) Write [] as a for-ward in-te-gral, $\OT1/cmr/m/n/10 ^^A
 \OML/cmm/m/it/10 U \OT1/cmr/m/n/10 =
  []
 
 
-Package hyperref Warning: Suppressing empty link on input line 938.
+Package hyperref Warning: Suppressing empty link on input line 944.
 
 <../docs/meanfield_figures/fig_meanfield_validation.png, id=380, 1074.11287pt x
  306.69582pt>
@@ -845,7 +850,7 @@ File: ../docs/meanfield_figures/fig_meanfield_validation.png Graphic file (type
  png)
 <use ../docs/meanfield_figures/fig_meanfield_validation.png>
 Package pdftex.def Info: ../docs/meanfield_figures/fig_meanfield_validation.png
-  used on input line 981.
+  used on input line 987.
 (pdftex.def)             Requested size: 239.39438pt x 68.35307pt.
 <../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png, id=387, 433.62pt x 289
 .08pt>
@@ -853,46 +858,46 @@ File: ../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png Graphic file (type
  png)
 <use ../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png>
 Package pdftex.def Info: ../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png
-  used on input line 1001.
+  used on input line 1007.
 (pdftex.def)             Requested size: 148.42334pt x 98.94754pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1027--1027
+Underfull \hbox (badness 10000) in paragraph at lines 1033--1033
 []\OT1/ptm/b/n/9 (+20) Empirically con-
  []
 
 
-Package hyperref Warning: Suppressing empty link on input line 1028.
+Package hyperref Warning: Suppressing empty link on input line 1034.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1031.
+Package hyperref Warning: Suppressing empty link on input line 1037.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1033--1033
+Underfull \hbox (badness 10000) in paragraph at lines 1039--1039
 []\OT1/ptm/b/n/9 (+20) Calibrated (1
  []
 
 
-Package hyperref Warning: Suppressing empty link on input line 1058.
+Package hyperref Warning: Suppressing empty link on input line 1064.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1059.
+Package hyperref Warning: Suppressing empty link on input line 1065.
 
 [8pdfTeX warning (ext4): destination with the same identifier (name{equation.0.
 13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1068 
+l.1074 
        pdfTeX warning (ext4): destination with the same identifier (name{equati
 on.0.13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1068 
+l.1074 
         <../docs/meanfield_figures/fig_meanfield_validation.png>]
 
-Package hyperref Warning: Suppressing empty link on input line 1073.
+Package hyperref Warning: Suppressing empty link on input line 1079.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1082.
+Package hyperref Warning: Suppressing empty link on input line 1088.
 
 <../docs/generalization_figures/generalization_wcrit_vs_lambda.png, id=404, 505
 .89pt x 325.215pt>
@@ -900,51 +905,51 @@ File: ../docs/generalization_figures/generalization_wcrit_vs_lambda.png Graphic
  file (type png)
 <use ../docs/generalization_figures/generalization_wcrit_vs_lambda.png>
 Package pdftex.def Info: ../docs/generalization_figures/generalization_wcrit_vs
-_lambda.png  used on input line 1090.
+_lambda.png  used on input line 1096.
 (pdftex.def)             Requested size: 196.30513pt x 126.19815pt.
 
-Package hyperref Warning: Suppressing empty link on input line 1103.
+Package hyperref Warning: Suppressing empty link on input line 1109.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1103.
+Package hyperref Warning: Suppressing empty link on input line 1109.
 
 
 Underfull \vbox (badness 5548) has occurred while \output is active []
 
 
 
-Package hyperref Warning: Suppressing empty link on input line 1131.
+Package hyperref Warning: Suppressing empty link on input line 1137.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1124--1132
+Underfull \hbox (badness 10000) in paragraph at lines 1130--1138
  []\OT1/ptm/b/n/10 (+20) Supply Chain (NetworkManagement-v1, lo-gis-
  []
 
 
-Underfull \hbox (badness 2035) in paragraph at lines 1124--1132
+Underfull \hbox (badness 2035) in paragraph at lines 1130--1138
 \OT1/ptm/m/n/10 (+20) chain share a com-mon up-stream sup-plier with fi-nite
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1134--1161
+Underfull \hbox (badness 10000) in paragraph at lines 1140--1167
  []\OT1/ptm/b/n/10 (+20) MPE Co-op-er-a-tive Nav-i-ga-tion (sim-ple[]spread[]v3
 ,
  []
 
 
-Underfull \hbox (badness 2503) in paragraph at lines 1134--1161
+Underfull \hbox (badness 2503) in paragraph at lines 1140--1167
 \OT1/ptm/b/n/10 (+20) robotics/navigation).[] \OT1/ptm/m/n/10 (+20) Three agent
 s must cover three
  []
 
 
-Underfull \hbox (badness 1152) in paragraph at lines 1134--1161
+Underfull \hbox (badness 1152) in paragraph at lines 1140--1167
 \OT1/ptm/m/n/10 (+20) We use $[][]\OT1/cmr/m/n/10 0$ \OT1/ptm/m/n/10 (+20) in \
 OT1/pcr/m/n/10 simple[]spread[]v3 \OT1/ptm/m/n/10 (+20) to
  []
 
 
-Underfull \hbox (badness 6944) in paragraph at lines 1134--1161
+Underfull \hbox (badness 6944) in paragraph at lines 1140--1167
 \OT1/ptm/m/n/10 (+20) credit---precisely the con-found the reward-transform
  []
 
@@ -953,7 +958,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-Package hyperref Warning: Suppressing empty link on input line 1193.
+Package hyperref Warning: Suppressing empty link on input line 1199.
 
 <../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png, id=421, 578.16pt x 3
 61.35pt>
@@ -961,19 +966,19 @@ File: ../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png Graphic file (ty
 pe png)
 <use ../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png>
 Package pdftex.def Info: ../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.p
-ng  used on input line 1209.
+ng  used on input line 1215.
 (pdftex.def)             Requested size: 220.24239pt x 137.65076pt.
 [10 <../docs/generalization_figures/generalization_wcrit_vs_lambda.png>]
 Underfull \vbox (badness 4634) has occurred while \output is active []
 
 
-Underfull \hbox (badness 5288) in paragraph at lines 1279--1293
+Underfull \hbox (badness 5288) in paragraph at lines 1285--1299
 \OT1/ptm/m/n/10 (+20) crit-i-cal cen-tral-iza-tion rises with loss aver-sion fr
 om
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1279--1293
+Underfull \hbox (badness 10000) in paragraph at lines 1285--1299
 \OML/cmm/m/it/10 w[][]\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 796$ $
 [0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 742\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML
 /cmm/m/it/10 :\OT1/cmr/m/n/10 860]$ \OT1/ptm/m/n/10 (+20) at $\OML/cmm/m/it/10 
@@ -982,7 +987,7 @@ r/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 889$
  []
 
 
-Underfull \hbox (badness 3460) in paragraph at lines 1279--1293
+Underfull \hbox (badness 3460) in paragraph at lines 1285--1299
 \OT1/cmr/m/n/10 [0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 856\OML/cmm/m/it/10 ; \OT1/
 cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 917]$ \OT1/ptm/m/n/10 (+20) at $\
 OML/cmm/m/it/10 ^^U[]\OT1/cmr/m/n/10 7$\OT1/ptm/m/n/10 (+20) , mono-tone from $
@@ -990,7 +995,7 @@ OML/cmm/m/it/10 ^^U[]\OT1/cmr/m/n/10 7$\OT1/ptm/m/n/10 (+20) , mono-tone from $
  []
 
 
-Underfull \hbox (badness 5050) in paragraph at lines 1279--1293
+Underfull \hbox (badness 5050) in paragraph at lines 1285--1299
 \OT1/ptm/m/n/10 (+20) ($\OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 747\
 OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 795\OML/cm
 m/m/it/10 ; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 800\OML/cmm/m/it
@@ -1006,21 +1011,21 @@ File: ../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_curves.png Graphic fi
 le (type png)
 <use ../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_curves.png>
 Package pdftex.def Info: ../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_cu
-rves.png  used on input line 1296.
+rves.png  used on input line 1302.
 (pdftex.def)             Requested size: 196.30513pt x 130.86775pt.
 
-Package hyperref Warning: Suppressing empty link on input line 1315.
+Package hyperref Warning: Suppressing empty link on input line 1321.
 
 [11 <../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png> <../docs/expMAPP
 O_orgym_figures/mappo_orgym_collapse_curves.png>]
 
-Package hyperref Warning: Suppressing empty link on input line 1342.
+Package hyperref Warning: Suppressing empty link on input line 1348.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1354.
+Package hyperref Warning: Suppressing empty link on input line 1360.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1382.
+Package hyperref Warning: Suppressing empty link on input line 1388.
 
 <../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png, id=454, 433.62pt x 
 289.08pt>
@@ -1028,118 +1033,118 @@ File: ../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png Graphic file (t
 ype png)
 <use ../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png>
 Package pdftex.def Info: ../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.
-png  used on input line 1387.
+png  used on input line 1393.
 (pdftex.def)             Requested size: 196.30513pt x 130.86995pt.
 [12 <../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png>]
 <../docs/expHet_figures/heterogeneous.png, id=468, 785.48456pt x 300.3722pt>
 File: ../docs/expHet_figures/heterogeneous.png Graphic file (type png)
 <use ../docs/expHet_figures/heterogeneous.png>
 Package pdftex.def Info: ../docs/expHet_figures/heterogeneous.png  used on inpu
-t line 1452.
+t line 1458.
 (pdftex.def)             Requested size: 239.39438pt x 91.54233pt.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1495.
+Package hyperref Warning: Suppressing empty link on input line 1501.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1533.
+Package hyperref Warning: Suppressing empty link on input line 1539.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1538.
+Package hyperref Warning: Suppressing empty link on input line 1544.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1552.
+Package hyperref Warning: Suppressing empty link on input line 1558.
 
 [13 <../docs/expHet_figures/heterogeneous.png>]
 
-Package hyperref Warning: Suppressing empty link on input line 1591.
+Package hyperref Warning: Suppressing empty link on input line 1597.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1593.
+Package hyperref Warning: Suppressing empty link on input line 1599.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1647.
+Package hyperref Warning: Suppressing empty link on input line 1653.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1659--1659
+Underfull \hbox (badness 10000) in paragraph at lines 1665--1665
 []\OT1/ptm/m/n/9 (+20) Sharp col-lapse bound-ary
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1659--1660
+Underfull \hbox (badness 10000) in paragraph at lines 1665--1666
 []\OT1/ptm/m/n/9 (+20) PPO,
  []
 
 
-Underfull \hbox (badness 5260) in paragraph at lines 1660--1660
+Underfull \hbox (badness 5260) in paragraph at lines 1666--1666
 []\OT1/ptm/m/n/9 (+20) Metastability ($\OML/cmm/m/it/9 w[]$ \OT1/ptm/m/n/9 (+20
 ) slides
  []
 
 
-Underfull \hbox (badness 1776) in paragraph at lines 1661--1661
+Underfull \hbox (badness 1776) in paragraph at lines 1667--1667
 []\OT1/ptm/m/n/9 (+20) Loss aver-sion \OT1/ptm/m/it/9 (+20) raises $\OML/cmm/m/
 it/9 w[]$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1661--1662
+Underfull \hbox (badness 10000) in paragraph at lines 1667--1668
 []\OT1/ptm/m/n/9 (+20) PPO,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1662--1662
+Underfull \hbox (badness 10000) in paragraph at lines 1668--1668
 []\OT1/ptm/m/n/9 (+20) Affine $\OML/cmm/m/it/9 ^^U$\OT1/ptm/m/n/9 (+20) -law (f
 unc-tional
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1665--1665
+Underfull \hbox (badness 10000) in paragraph at lines 1671--1671
 []\OT1/ptm/m/n/9 (+20) Downstream-minority cas-
  []
 
 
-Overfull \hbox (2.48491pt too wide) in paragraph at lines 1655--1668
+Overfull \hbox (2.48491pt too wide) in paragraph at lines 1661--1674
  [][] 
  []
 
 [14]
 
-Package hyperref Warning: Suppressing empty link on input line 1691.
+Package hyperref Warning: Suppressing empty link on input line 1697.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1709.
+Package hyperref Warning: Suppressing empty link on input line 1715.
 
 
-Underfull \hbox (badness 8019) in paragraph at lines 1705--1711
+Underfull \hbox (badness 8019) in paragraph at lines 1711--1717
  []\OT1/ptm/b/n/10 (+20) Prediction and de-ci-sion rule.[] \OT1/ptm/m/n/10 (+20
 ) We sweep $\OML/cmm/m/it/10 w \OMS/cmsy/m/n/10 2
  []
 
 
-Package hyperref Warning: Suppressing empty link on input line 1738.
+Package hyperref Warning: Suppressing empty link on input line 1744.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1739.
+Package hyperref Warning: Suppressing empty link on input line 1745.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1742.
+Package hyperref Warning: Suppressing empty link on input line 1748.
 
 <../docs/expEnt_figures/entropy_ablation.png, id=507, 785.48456pt x 299.46881pt
 >
 File: ../docs/expEnt_figures/entropy_ablation.png Graphic file (type png)
 <use ../docs/expEnt_figures/entropy_ablation.png>
 Package pdftex.def Info: ../docs/expEnt_figures/entropy_ablation.png  used on i
-nput line 1775.
+nput line 1781.
 (pdftex.def)             Requested size: 239.39438pt x 91.26701pt.
 
-Package hyperref Warning: Suppressing empty link on input line 1779.
+Package hyperref Warning: Suppressing empty link on input line 1785.
 
 
-Package hyperref Warning: Suppressing empty link on input line 1779.
+Package hyperref Warning: Suppressing empty link on input line 1785.
 
 (./main_aaai_trimmed.bbl
 Underfull \hbox (badness 1881) in paragraph at lines 9--14
@@ -1161,14 +1166,17 @@ Underfull \hbox (badness 1253) in paragraph at lines 87--92
 [16]) [17
 
 ] (./main_aaai_trimmed.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main_aaai_trimmed.out' has not changed.
 (rerunfilecheck)             Checksum: 884B8D2321B9E9220ADFB0BEF797F5EB;7933.
  ) 
 Here is how much of TeX's memory you used:
- 21185 strings out of 480247
- 357864 string characters out of 5896152
- 756039 words of memory out of 5000000
- 38201 multiletter control sequences out of 15000+600000
+ 21187 strings out of 480247
+ 357888 string characters out of 5896152
+ 755039 words of memory out of 5000000
+ 38203 multiletter control sequences out of 15000+600000
  517265 words of font info for 367 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  91i,15n,131p,1191b,544s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1194,7 +1202,7 @@ onts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/
 ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main_aaai_trimmed.pdf (17 pages, 1247435 bytes).
+Output written on main_aaai_trimmed.pdf (17 pages, 1248580 bytes).
 PDF statistics:
  687 PDF objects out of 1000 (max. 8388607)
  590 compressed objects within 6 object streams
