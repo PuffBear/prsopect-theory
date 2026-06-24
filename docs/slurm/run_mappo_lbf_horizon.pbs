@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -N mappo_lbf_hz
+#PBS -q cpu
+#PBS -J 0-239
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=02:00:00
+#PBS -o logs/
+#PBS -e logs/
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expMAPPO_lbf_horizon_figures
+# Logging: PBS writes each subjob's merged out/err to logs/ (writable). No manual
+# exec>> redirect -- that combo caused "Post job file processing error" aborts.
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+python experiments/exp_mappo_lbf_horizon.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --out docs/expMAPPO_lbf_horizon_figures/mappo_lbf_horizon_raw_data.csv
