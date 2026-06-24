@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -N mappo_mpe_lam_resume
+#PBS -q cpu
+#PBS -J 550-1099
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=12:00:00
+#PBS -o logs/
+#PBS -e logs/
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expMAPPO_mpe_figures
+# RESUME of run_mappo_mpe_lambda_sweep.pbs: subjobs 0-549 completed cleanly
+# (550 rows, no dups) before the array halted at index 550 (same "Post job file
+# processing error" that hit v2). This re-runs ONLY the missing contiguous block
+# 550-1099 and APPENDS to the same CSV. Logging fix: PBS -o/-e -> logs/ so the
+# post-job copyback cannot fail.
+# SUBMIT ONLY after confirming the original lam job (126583) has LEFT the queue
+# (qstat -u $USER) -- otherwise overlapping subjobs would duplicate rows.
+exec >> "$PROJECT_ROOT/logs/mappo_mpe_lam_${PBS_ARRAY_INDEX}.log" 2>&1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+
+python experiments/exp_mappo_mpe_lambda_sweep.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --timesteps 4000000 \
+    --out docs/expMAPPO_mpe_figures/mappo_mpe_lambda_sweep_raw_data.csv
