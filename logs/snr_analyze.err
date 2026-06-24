@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/agriya.yadav_ug2023/prospect-theory/experiments/analyze_snr.py", line 176, in <module>
+    main()
+  File "/home/agriya.yadav_ug2023/prospect-theory/experiments/analyze_snr.py", line 87, in main
+    df = pd.read_csv(args.csv)
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agriya.yadav_ug2023/.conda/envs/marl/lib/python3.11/site-packages/pandas/util/_decorators.py", line 211, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agriya.yadav_ug2023/.conda/envs/marl/lib/python3.11/site-packages/pandas/util/_decorators.py", line 331, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agriya.yadav_ug2023/.conda/envs/marl/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 950, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agriya.yadav_ug2023/.conda/envs/marl/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 605, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agriya.yadav_ug2023/.conda/envs/marl/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1442, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agriya.yadav_ug2023/.conda/envs/marl/lib/python3.11/site-packages/pandas/io/parsers/readers.py", line 1735, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "/home/agriya.yadav_ug2023/.conda/envs/marl/lib/python3.11/site-packages/pandas/io/common.py", line 856, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'docs/expSNR_figures/expSNR_full_raw_data.csv'
