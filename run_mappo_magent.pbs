@@ -1,0 +1,35 @@
+#!/bin/bash
+#PBS -N mappo_magent
+#PBS -o logs/mappo_magent.out
+#PBS -e logs/mappo_magent.err
+#PBS -l ncpus=4
+#PBS -l walltime=03:00:00
+#PBS -q cpu
+#PBS -J 0-959
+
+# FOURTH ENVIRONMENT (breadth result): CNN centralized-critic MAPPO on MAgent2
+# battle_v4 with CPT reward shaping. Spatial-combat domain, structurally distinct
+# from supply chain / MPE / LBF.
+#   6 w x (null + lambda=1..7 @ a=b=0.88) x 20 seeds = 960 runs.
+# Turns the passed coordination GATE (CNN-PPO @ w=1: -16.3 -> -2.0) into the
+# breadth result: w_crit rising with loss aversion in a 4th environment.
+#
+# PREREQUISITE: cluster conda env needs magent2 (conda activate marl; pip install magent2).
+# GATE before submitting (run locally, already PASSED):
+#   python experiments/run_magent_smoke_local.py --train   # PART 2 PASS
+#   python experiments/exp_mappo_magent.py --wiring_check   # WIRING CHECK PASS
+# Run run_magent_calibrate.pbs + analyze first so theta is calibrated.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs docs/exp_magent
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+# 4 threads: CNN-MAPPO is conv-heavy; single-core pinning gave a ~4x slowdown
+# (1M steps: 35min local -> >2h cluster). 600k steps (gate coordinated by 400k).
+conda activate marl
+export OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
+export TORCH_NUM_THREADS=4
+
+python3 experiments/exp_mappo_magent.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 600000 \
+    --out docs/exp_magent/mappo_magent_raw_data.csv
