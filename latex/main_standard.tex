@@ -20,7 +20,9 @@
 \usepackage{booktabs}
 \usepackage[acronym]{glossaries}
 \usepackage{csquotes}
-\usepackage{microtype}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[expansion=false]{microtype}
 \usepackage{xcolor}
 \usepackage{subcaption}
 
@@ -65,15 +67,19 @@ how \emph{loss aversion} governs coordination: loss-averse agents
 immediate local cost of cooperating against its diffuse, delayed global benefit,
 so the team needs more reward centralization to coordinate. This is our most
 strongly supported result: the rightward shift is monotone in $\lambda$,
-saturating, and \emph{replicates across three environments} (a multi-echelon
-supply chain, MPE Cooperative Navigation, and Level-Based Foraging) \emph{and two
-algorithms} (PPO and centralized-critic MAPPO). On the supply chain a full sweep
+saturating, and \emph{replicates across four environment--algorithm settings}---a
+multi-echelon supply chain (under both PPO and centralized-critic MAPPO), MPE
+Cooperative Navigation, and Level-Based Foraging (both under MAPPO)---i.e.\ three
+environments and two algorithms. On the supply chain a full sweep
 $\lambda{=}1{\ldots}7$ is tracked by a one-parameter, theory-bounded law (RMSE
 $0.014$): the shift is $+0.089$ $[0.041, 0.141]$ at $\lambda{=}3$ (within the
 human range) and up to $+0.166$ $[0.135, 0.202]$ at $\lambda{=}7$ (a high-stakes
 upper bound). A mean-field signal-to-noise account \emph{fixes this sign a priori}
 (proved as a sign invariant of the escape barrier) and is independently
-corroborated by an exploration-noise ablation. Two further results sharpen the
+corroborated by an exploration-noise ablation; both the metastable horizon
+dependence and the exploration-noise effect further \emph{generalize} beyond the
+supply chain (metastability to MPE and LBF; the noise effect to LBF, with a
+mechanism-predicted null on MPE). Two further results sharpen the
 picture but are scoped to the supply-chain substrate, where they hold cleanly. A
 three-way decomposition shows probability-weighting curvature moving $\wcrit$ in
 the \emph{opposite} direction (left by $0.100$ $[0.033, 0.172]$); and---a
@@ -94,7 +100,9 @@ loss-averse.
 
 % ---- Opening: motivating question and mental model ---------------------
 Cooperative systems increasingly mix human decision-makers with learning agents
-trained to act like them. In automated replenishment, fraud review, energy
+trained to act like them. Whenever individual incentives are allowed to diverge
+from the collective good, such systems face a sequential social
+dilemma~\citep{leibo2017multi}: in automated replenishment, fraud review, energy
 dispatch, and clinical triage, the deployed agents do not merely optimise a
 clean objective---they inherit human preference structure by design, either
 because they are trained on human choices through preference-aligned objectives
@@ -107,15 +115,16 @@ heavily than an equivalent gain~\citep{kahneman1979,tversky1992}.
 This raises a system-level question that individual-level behavioral economics
 does not answer. We understand what loss aversion does to a \emph{single}
 decision-maker; we do not understand what it does to the \emph{coordination} of
-many decision-makers learning together. The mental model we formalise is
-concrete: a team of loss-averse participants managing a shared pipeline, each
-acting on its own incentives, jointly responsible for an outcome none of them
-controls alone. The real-world ability we want is to say, \emph{before}
-deployment, how strongly such a system must be incentivised toward the
-collective good to keep it from quietly falling apart---and whether one biased
-participant in the wrong place can drag the whole system down. Whether that
-ability can be provided at all is the question; we show that it can, by turning
-a known-but-vague failure mode into a measured object.
+many decision-makers learning together~\citep{leibo2017multi,lowe2017multi}. The
+mental model we formalise is concrete: a team of loss-averse participants
+managing a shared pipeline, each acting on its own incentives, jointly
+responsible for an outcome none of them controls alone. The real-world ability
+we want is to say, \emph{before} deployment, how strongly such a system must be
+incentivised toward the collective good to keep it from quietly falling
+apart---and whether one biased participant in the wrong place can drag the whole
+system down. Whether that ability can be provided at all is the question; we
+show that it can, by turning a known-but-vague failure mode into a measured
+object.
 
 % ---- I3 folded in: the failure mode, never located ---------------------
 \subsection{Coordination collapse as an unmeasured boundary}
@@ -127,8 +136,10 @@ its \emph{reward centralization} $w\in[0,1]$, the fraction of each agent's rewar
 drawn from the team's global outcome rather than its own local one: push $w$ too
 low and each agent's own performance drowns out its contribution to the team, so
 cooperation carries no learnable signal and the safe, lazy policy wins. But the
-field describes this only qualitatively---``centralization helps.'' \emph{Where},
-in $w$, coordination gives way to collapse has never been measured.
+field describes this dependence only qualitatively---``centralization
+helps''~\citep{dmarl2025,liu2023lazy}. \emph{Where}, in $w$, coordination gives
+way to collapse---the critical centralization $\wcrit$ at which the probability
+of collapse crosses $0.5$---has never been measured.
 \citet{liu2023lazy} and \citet{peng2023curo} formalise the lazy-agent problem and
 relative overgeneralization and propose mitigations; \citet{weng2026} identify
 representation degradation under decentralised exploration; \citet{dmarl2025}
@@ -238,22 +249,24 @@ central and most strongly supported behavioral effect: it shifts $\wcrit$
 agent over-weights the immediate, certain local cost of cooperating---paying a
 holding cost, ordering when it might not pay off---against the diffuse, delayed,
 uncertain global benefit, so it needs a stronger centralization signal before it
-will act cooperatively. The shift is $+0.089$ $[0.041, 0.141]$ at $\lambda{=}3$
-(within the canonical human range, $\lambda\approx2.25$) and grows to
-$+0.166$ $[0.135, 0.202]$ at $\lambda{=}7$ (a high-stakes upper bound); a full
+will act cooperatively. The shift is already significant at $\lambda{=}3$
+(roughly the canonical human estimate of $\lambda\approx2.25$): $+0.089$
+$[0.041, 0.141]$, growing to $+0.166$ $[0.135, 0.202]$ at $\lambda{=}7$. A full
 sweep $\lambda{=}1{\ldots}7$ rises then saturates, tracked by a one-parameter,
 theory-bounded affine law (RMSE $0.014$; non-overlapping $\lambda{=}1$ vs
 $\lambda{=}7$ intervals). \emph{(RQ3)} Crucially, this is not a substrate
 artifact. A mean-field signal-to-noise account fixes the \emph{sign} before any
 data are seen---we prove it as a sign invariant of the escape barrier
 (\Cref{thm:sign}), and an exploration-noise ablation corroborates the same
-mechanism---and the shift itself replicates across two further
-environments (MPE Cooperative Navigation, $\wcrit$ rising $0.78\!\to\!0.89$; and
-Level-Based Foraging, $0.26\!\to\!0.83$ over $\lambda{=}1\!\to\!4$) under
-centralized-critic MAPPO, and under a different algorithm on the supply
-chain (MAPPO, $0.80\!\to\!0.89$; \Cref{fig:generalization}). \emph{Three
-environments and two algorithms} all show the same direction: this is the
-generalizing core of the paper.
+mechanism (significantly on the supply chain and LBF, with a mechanism-predicted
+null on MPE where intrinsic exploration dominates)---and the shift itself
+replicates in three further
+environment--algorithm settings: MPE Cooperative Navigation ($\wcrit$ rising
+$0.78\!\to\!0.89$) and Level-Based Foraging ($0.26\!\to\!0.83$) under
+centralized-critic MAPPO, and the supply chain under a second algorithm (MAPPO,
+$0.80\!\to\!0.89$; \Cref{fig:generalization}). The same direction thus holds
+across \emph{four environment--algorithm settings} spanning three environments
+and two algorithms: this is the generalizing core of the paper.
 
 Two further results sharpen the picture but are established on the supply-chain
 substrate alone, where its continuous, per-agent economic reward makes them
@@ -274,13 +287,18 @@ loss-averse minority should set the boundary.
 
 To our knowledge this is the first quantitative, confidence-intervalled phase
 boundary of coordination collapse in deep cooperative MARL, and the first to
-show that loss aversion shifts such a boundary. Our novelty delta is precise:
-\citet{mengesha2025} establish that loss aversion can move a coordination
-tipping point, but in evolutionary game theory over fixed strategies, and
-\citet{lalmohammed2025} bring CPT into cooperative MARL but without separating
-its components or measuring a boundary; our contribution is the \emph{measured,
-CI'd boundary} and the \emph{component decomposition} against it, in
-gradient-trained neural policies. Practically, the boundary is a measurable
+show that loss aversion shifts such a boundary. The nearest prior phase-structure
+results stop short of this object: \citet{yamaguchi2025} chart a phase diagram
+over \emph{environmental} axes for independent Q-learning, and
+\citet{capannoli2026phase} prove a metastable boundary in opinion dynamics under
+a fixed update rule---neither measures a reward-structure threshold in
+gradient-trained cooperative policies, with confidence intervals, that a
+behavioral bias then moves. Our novelty delta is precise: \citet{mengesha2025}
+establish that loss aversion can move a coordination tipping point, but in
+evolutionary game theory over fixed strategies, and \citet{lalmohammed2025} bring
+CPT into cooperative MARL but without separating its components or measuring a
+boundary; our contribution is the \emph{measured, CI'd boundary} and the
+\emph{component decomposition} against it, in gradient-trained neural policies. Practically, the boundary is a measurable
 safety margin: how much reward centralization a cooperative system needs for
 reliable coordination, and how much \emph{more} once its agents are loss-averse.
 \Cref{fig:heatmap} shows the collapse surface in $(w,T)$ space (metastability);
@@ -290,55 +308,46 @@ reliable coordination, and how much \emph{more} once its agents are loss-averse.
   \centering
   \includegraphics[width=0.75\linewidth]{../docs/expT_figures/collapse_heatmap.png}
   \caption{%
-    $P(\mathrm{collapse})$ in $(w, T)$ space.
-    Each cell shows the empirical collapse fraction across 20 seeds.
-    The 150k and 300k rows are from Exp~A ($\alpha{=}\beta{=}1$); the
-    600k row is from Exp~T ($\alpha{=}\beta{=}0.88$).
-    Because $\alpha{=}\beta{=}0.88$ shifts $\wcrit$ left by 0.100
-    (§\ref{sec:results_behavioral}), the apparent 300k$\to$600k slide
-    is partially curvature-inflated.
-    Under matched $\alpha{=}\beta{=}1$ conditions (Exp~0b),
-    $P(\mathrm{collapse}\mid w{=}0.6) = 0.35$ and
-    $P(\mathrm{collapse}\mid w{=}0.7) = 0.20$ at 600k,
-    confirming that metastability holds with $\alpha{=}\beta$ held
-    constant; only the magnitude is curvature-inflated in this figure.
+    \textbf{Collapse probability $P(\mathrm{collapse})$ across centralization
+    $w$ and training horizon $T$.} Each cell is the empirical collapse fraction
+    over 20 seeds; darker means more collapse. Reading down a column, the
+    boundary slides toward lower $w$ as $T$ grows---the metastability result:
+    longer training lets agents escape the lazy attractor at lower
+    centralization. \emph{Caveat on the 600k row:} the 150k/300k rows are
+    risk-neutral (Exp~A, $\alpha{=}\beta{=}1$) but the 600k row uses
+    $\alpha{=}\beta{=}0.88$ (Exp~T), which itself shifts $\wcrit$ left by $0.100$
+    (\S\ref{sec:results_behavioral}), so the $300\mathrm{k}\!\to\!600\mathrm{k}$
+    change here mixes horizon and curvature effects. Under matched
+    $\alpha{=}\beta{=}1$ at 600k (Exp~0b), collapse is $0.35$ at $w{=}0.6$ and
+    $0.20$ at $w{=}0.7$, confirming the horizon slide is real with curvature held
+    fixed; only its magnitude in this figure is curvature-inflated.
   }
   \label{fig:heatmap}
 \end{figure}
 
-\section{Background}
+\section{Preliminaries and Method}
 \label{sec:background}
+\label{sec:method}
 
-% B1: MARL and CTDE
-In cooperative MARL, $N$ agents share an environment and aim to maximize a
-joint objective.
-Centralised Training with Decentralised Execution
-(CTDE)~\citep{lowe2017multi} addresses the \emph{credit assignment}
-problem by allowing a centralised critic during training while agents
-execute independently.
-The degree of credit sharing is controlled by a reward mixing weight:
-a scalar $w \in [0,1]$ that interpolates between purely local ($w{=}0$)
-and purely global ($w{=}1$) reward.
+% P1: MARL, CTDE, and the centralization dial w
+In cooperative MARL, $N$ agents share an environment and maximize a joint
+objective; Centralised Training with Decentralised Execution
+(CTDE)~\citep{lowe2017multi} addresses \emph{credit assignment} by allowing a
+centralised critic during training while agents execute independently. The
+degree of credit sharing is set by a reward-mixing weight $w\in[0,1]$ that
+interpolates between purely local ($w{=}0$) and purely global ($w{=}1$) reward.
+As $w\!\to\!0$ each agent's reward is dominated by its own performance, the
+cooperative signal is diluted, and agents collapse to the safe, zero-action
+\emph{lazy} policy~\citep{liu2023lazy,peng2023curo}. This $w$ is our \emph{sole
+structural intervention}: all environment parameters, hyperparameters, and seeds
+are held constant across conditions, so any shift in the boundary is attributable
+to $w$ and the behavioral parameters alone.
 
-% B2: lazy agents
-When $w \approx 0$, each agent's reward is dominated by its own
-performance.
-The contribution of cooperative action is diluted: an agent receives no
-signal when a teammate's action improves the global outcome.
-\citet{liu2023lazy} and \citet{peng2023curo} formalise this as the
-\emph{lazy agent} problem and \emph{relative overgeneralization}
-respectively: agents converge to a safe, zero-action policy that avoids
-coordination risk.
-This paper asks: at what value of $w$ does this failure mode become
-probable, and how does agent-level loss aversion shift that value?
-
-% B3: prospect theory
-Prospect theory~\citep{kahneman1979} models human decision-making under
-uncertainty via a reference-dependent value function and a nonlinear
-probability weighting function.
-Cumulative prospect theory (CPT)~\citep{tversky1992} extends this to
-compound lotteries via rank-dependent integration.
-The CPT value function is:
+% P2: prospect theory
+Prospect theory~\citep{kahneman1979} models human choice under uncertainty via a
+reference-dependent value function and nonlinear probability weighting; cumulative
+prospect theory (CPT)~\citep{tversky1992} extends this to compound lotteries by
+rank-dependent integration. The CPT value function is
 \begin{equation}
   v(x) =
   \begin{cases}
@@ -347,37 +356,31 @@ The CPT value function is:
   \end{cases}
   \label{eq:cpt}
 \end{equation}
-where $\alpha, \beta \in (0,1]$ govern curvature (probability weighting
-sensitivity) and $\lambda > 1$ is the loss aversion coefficient.
-Setting $\alpha{=}\beta{=}1$ and $\lambda{=}1$ recovers linear expected
-utility.
-The parameters $\alpha, \beta$ and $\lambda$ have distinct effects on
-agent behaviour: curvature introduces nonlinear sensitivity to outcome
-magnitudes, while loss aversion introduces asymmetry between gains and
-losses around the reference point.
+where $\alpha,\beta\in(0,1]$ govern curvature (probability-weighting
+sensitivity) and $\lambda>1$ is the loss-aversion coefficient;
+$\alpha{=}\beta{=}1,\lambda{=}1$ recovers linear expected utility. The two
+families have distinct effects: curvature introduces nonlinear sensitivity to
+outcome magnitudes, while loss aversion introduces a gain/loss asymmetry around
+the reference point---and it is precisely the separation of these two effects
+that prior CPT-in-MARL work does not deliver.
 
-% B4: CPT as reward transform
-We apply CPT as a \emph{reward transform} applied after reward blending.
-The per-step reward for agent $i$ is:
+% P3: CPT as reward transform -- the key design choice and the Lalmohammed delta
+We therefore apply CPT as a \emph{reward transform} after reward blending. The
+per-step reward for agent $i$ is
 \begin{equation}
   r_i^{\PT} = v\!\left((1-w)\,r_i^{\mathrm{local}} + w\,r^{\mathrm{global}}\right),
   \label{eq:reward}
 \end{equation}
-where $v(\cdot)$ is given by \Cref{eq:cpt}.
-This differs architecturally from~\citet{lalmohammed2025}, who integrate
-CPT into the actor and critic update mechanics; our formulation applies PT
-at the reward signal level and does not modify the policy gradient
-computation.
-
-% -----------------------------------------------------------------------
-\section{Method}
-\label{sec:method}
-
-% M1: the w parameter
-The reward centralization parameter $w \in [0,1]$ is the sole structural
-intervention.
-All other environment parameters, algorithm hyperparameters, and random
-seeds are held constant across conditions.
+with $v(\cdot)$ from \Cref{eq:cpt}. This is the decisive architectural difference
+from \citet{lalmohammed2025}, the only prior work bringing CPT into cooperative
+MARL: they fold both the value function and the probability-weighting function
+\emph{into the actor--critic update}, which entangles the curvature and
+loss-aversion effects and confounds any behavioral shift with a change to the
+optimiser. By transforming only the scalar reward signal and leaving the policy
+gradient untouched, our optimiser is byte-for-byte identical across all
+conditions; a measured shift in $\wcrit$ is therefore a behavioral effect, not an
+algorithmic one---and the curvature ($\alpha,\beta$) and loss-aversion
+($\lambda$) channels can be dialed independently.
 
 % M2: collapse definition (pre-registered)
 We define coordination collapse as a binary outcome:
@@ -453,9 +456,9 @@ MARL~\citep{marlim2023} --- to a six-node network with per-node agents.
 
 % E2: algorithm
 Each agent runs PPO~\citep{schulman2017ppo} with a shared MLP policy
-(\texttt{n\_steps=128}, \texttt{batch\_size=256}) via
-Stable-Baselines3~\citep{raffin2021sb3}, PettingZoo~\citep{terry2021pettingzoo},
-and SuperSuit~\citep{terry2020supersuit} vectorisation.
+(\texttt{n\_steps}${=}128$, \texttt{batch\_size}${=}256$), implemented with
+Stable-Baselines3~\citep{raffin2021sb3} and PettingZoo / SuperSuit
+vectorisation~\citep{terry2021pettingzoo,terry2020supersuit}.
 Evaluation is deterministic over 10 episodes with 20 seeds per condition.
 
 % E3: experiment inventory
@@ -463,7 +466,7 @@ Evaluation is deterministic over 10 episodes with 20 seeds per condition.
 All designs were pre-registered before execution.
 Total run count: 1,524.
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \caption{Experiment summary. All experiments use the same environment and
 algorithm.  $\alpha{=}\beta{=}1$ denotes the linear (no-PT) condition.}
@@ -482,7 +485,7 @@ $\lambda$-sweep & Loss-aversion law (fill-in) & $\{0.5, 0.65, 0.75, 0.85, 0.95\}
 T (600k only) & Metastability horizon & $\{0.5, 0.55,\ldots, 0.80\}$ & 1 & 0.88 & 20 & 140 \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
 % -----------------------------------------------------------------------
 \section{Results}
@@ -512,6 +515,12 @@ $\alpha{=}\beta{=}1$).
 \Cref{fig:heatmap} visualises the collapse surface in $(w, T)$ space.
 This constitutes a \emph{metastability} result: the lazy-agent attractor
 is not absorbing.
+The same leftward slide appears in \emph{both} cross-environment substrates under
+centralized-critic MAPPO, so metastability is not a supply-chain artifact: on MPE
+$\wcrit$ falls $0.82\!\to\!0.68$ as the horizon grows $2\mathrm{M}\!\to\!8\mathrm{M}$
+(slide $+0.14$), and on Level-Based Foraging $0.33\!\to\!0.20$ as it grows
+$1\mathrm{M}\!\to\!4\mathrm{M}$ (slide $+0.13$), both with non-overlapping bootstrap
+intervals (\Cref{sec:appendix_robustness2}).
 Agents trapped below the isocline at finite $T$ can escape given
 sufficient training; $w$ controls the energy barrier height of the
 attractor.
@@ -696,7 +705,7 @@ is $+0.265$ ($= 0.851 - 0.586$), overwhelming the curvature benefit
 of $-0.100$ for a net shift of $+0.166$ above the structural null
 (rounding: $-0.100 + 0.265 \approx 0.165 \approx 0.166$).
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
 \caption{Three-way behavioral decomposition of $\wcrit$ relative to the
 null model. ``Significant'' denotes that the conservative difference
@@ -715,7 +724,7 @@ $\alpha{=}\beta{=}0.88$, $\lambda{=}3$ & 0.774 & [0.751, 0.798] & $+0.089$ & $[+
 $\alpha{=}\beta{=}0.88$, $\lambda{=}7$$^{\dagger}$ & 0.851 & [0.845, 0.858] & $+0.166$ & $[+0.135, +0.202]$ & $\checkmark$ \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
 % -----------------------------------------------------------------------
 \section{A Mean-Field Mechanism for the Collapse Boundary}
@@ -1030,9 +1039,11 @@ slope $\rho\in[0,1]$; abrupt (phase-transition) sharpness; $\wcrit$
 decreasing with horizon $T$; $\wcrit$ increasing with exploration noise. \\
 \midrule
 \textbf{Empirically confirmed} & the opposite signs and affine form
-(Section~\ref{sec:results_behavioral}); the horizon slide (Exp~A/T); and the
+(Section~\ref{sec:results_behavioral}); the horizon slide (Exp~A/T), which also
+generalizes to MPE and LBF; and the
 exploration-noise dependence---raising the entropy coefficient moves
-$\wcrit$ right and collapses the system at large noise
+$\wcrit$ right (on the supply chain and LBF; a mechanism-predicted null on MPE,
+where intrinsic exploration dominates) and collapses the system at large noise
 (Section~\ref{sec:appendix_robustness2}). \\
 \midrule
 \textbf{Calibrated (1 param/axis)} & $g/c$ (from the $\lambda{=}1$
@@ -1060,7 +1071,11 @@ a bounded slope, the sharpness, and the horizon and exploration-noise
 directions (\Cref{tab:ledger}), all of which the data bear out, consistent
 with exploration-driven accounts of cooperation failure in shared-policy
 MARL~\citep{weng2026}. The exploration-noise prediction is confirmed
-directly by the entropy ablation (Section~\ref{sec:appendix_robustness2}).
+directly by the entropy ablation (Section~\ref{sec:appendix_robustness2}), which
+moreover \emph{dissociates} as the mechanism requires: raising exploration noise
+moves the boundary on the supply chain and LBF---where the injected noise is the
+binding term---but not on MPE, whose intrinsic exploration already dominates the
+signal-to-noise ratio, a sharper test than uniform replication.
 Section~\ref{sec:appendix_snr} reports a direct test that
 measures the Langevin drift and diffusion from PPO training: it reproduces
 the matched-horizon boundary but leaves the magnitude calibrated, as the
@@ -1579,8 +1594,8 @@ prospect-theoretic loss aversion.
 Our central and most strongly supported finding is that \emph{loss aversion}
 impedes coordination---raising $\wcrit$ ($+0.089$ at $\lambda{=}3$, within the
 human range; up to $+0.166$ at $\lambda{=}7$)---a direction we predict
-mechanistically a priori and confirm across three environments and two
-algorithms. Scoped to the supply-chain substrate, two further results sharpen
+mechanistically a priori and confirm across four environment--algorithm settings
+(three environments, two algorithms). Scoped to the supply-chain substrate, two further results sharpen
 the picture: a three-way decomposition shows probability-weighting curvature
 acting in the \emph{opposite} direction (easing coordination by $0.100$), and
 the boundary is set by a downstream loss-averse \emph{minority} rather than the
@@ -1756,6 +1771,28 @@ and beyond $0.05$ the system collapses at \emph{every} tested $w$
 signal-to-noise mechanism: the location of the boundary is not a function of the
 behavioral bias alone but also of the exploration noise that competes with the
 diluted cooperative signal, exactly as \eqref{eq:snr} predicts.
+
+\paragraph{Cross-environment: a binding-noise dissociation.}
+We repeat the entropy sweep under centralized-critic MAPPO on the two transfer
+substrates. On Level-Based Foraging the prediction \emph{replicates}: $\wcrit$
+rises monotonically with the entropy coefficient, $0.13\!\to\!0.15\!\to\!0.24
+\!\to\!0.37$ over $\text{ent}\in\{0,0.001,0.01,0.05\}$ (shift $+0.24$, with
+non-overlapping endpoint intervals). On MPE Cooperative Navigation, by contrast,
+the boundary does \emph{not} move: across $\text{ent}\in\{0,\ldots,0.12\}$
+(extended to $0.12$ specifically to exceed the seed-noise floor, with the policy
+verified non-degenerate at every level) the boundary shift is $+0.05$ with
+overlapping intervals, and a pooled logistic regression over all $1{,}320$ runs
+gives an entropy-coefficient slope that is positive in sign but not significant
+($\beta{=}{+}0.47$, $95\%$ CI $[-3.4,+4.3]$). This is not a failed replication but
+a \emph{dissociation predicted by the mechanism}: \eqref{eq:snr} says exploration
+noise moves the boundary only when it is the \emph{binding} term in the
+signal-to-noise ratio. The supply chain and LBF have sparse, sharp reward
+landscapes in which the injected entropy dominates the gradient noise; MPE's
+categorical actions and dense, distance-shaped occupancy reward carry high
+\emph{intrinsic} exploration that swamps the added term, so the boundary is
+insensitive to it. The effect thus appears exactly where the mechanism says it
+should and is absent exactly where it says it should be---a sharper test of the
+account than uniform replication would provide.
 
 \begin{table}[h]
 \centering
