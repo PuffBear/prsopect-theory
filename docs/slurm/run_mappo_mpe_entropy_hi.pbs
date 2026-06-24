@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -N mpe_ent_hi
+#PBS -q cpu
+#PBS -J 0-659
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=08:00:00
+#PBS -o logs/
+#PBS -e logs/
+#PBS -j oe
+set -euo pipefail
+PROJECT_ROOT="$HOME/prospect-theory"
+cd "$PROJECT_ROOT"
+mkdir -p logs docs/expMAPPO_mpe_entropy_figures
+source /apps/miniconda3/etc/profile.d/conda.sh
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+# HIGH-entropy probe {0.05,0.08,0.12}: pushes the entropy term above the seed-noise
+# floor (base sweep ent<=0.05 found a sub-noise null) while staying below the
+# degenerate near-random regime. analyze_mpe_entropy.py merges this + flags any
+# ent level whose w=1 coordination collapsed (degeneracy, not a w_crit shift).
+python experiments/exp_mappo_mpe_entropy_hi.py \
+    --run_idx "$PBS_ARRAY_INDEX" \
+    --out docs/expMAPPO_mpe_entropy_figures/mappo_mpe_entropy_hi_raw_data.csv
