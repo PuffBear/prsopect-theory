@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{28}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -81,6 +81,15 @@ Sheyan Lalmohammed, Khush Gupta, Alok Shah, and Keshav Ramji.
 \newblock Modeling human behavior without humans: Prospect theoretic
   multi-agent reinforcement learning.
 \newblock In \emph{International Conference on Machine Learning}, 2025.
+
+\bibitem[Leibo et~al.(2017)Leibo, Zambaldi, Lanctot, Marecki, and
+  Graepel]{leibo2017multi}
+Joel~Z Leibo, Vinicius Zambaldi, Marc Lanctot, Janusz Marecki, and Thore
+  Graepel.
+\newblock Multi-agent reinforcement learning in sequential social dilemmas.
+\newblock In \emph{Proceedings of the 16th Conference on Autonomous Agents and
+  Multi-Agent Systems (AAMAS)}, pages 464--473, 2017.
+\newblock URL \url{https://arxiv.org/abs/1702.03037}.
 
 \bibitem[Leluc et~al.(2023)Leluc, Kadoche, Bertoncello, and
   Gourv{\'e}nec]{marlim2023}

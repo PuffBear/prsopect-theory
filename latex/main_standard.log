@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.10.19)  23 JUN 2026 18:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.10.19)  24 JUN 2026 23:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -346,6 +346,44 @@ Package csquotes Info: ... configuration file loaded successfully.
 (/usr/local/texlive/2025/texmf-dist/tex/latex/csquotes/csquotes.cfg
 File: csquotes.cfg 
 ))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2025/02/11 v3.2a Micro-typographical refinements (RS)
 \MT@toks=\toks42
@@ -579,10 +617,15 @@ LaTeX Info: Redefining \labelcref on input line 2370.
 LaTeX Info: Redefining \labelcpageref on input line 2370.
 Package cleveref Info: `amsthm' support loaded on input line 3026.
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 38.
+Package hyperref Info: Option `colorlinks' set `true' on input line 40.
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 51
+.
 
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count348
@@ -591,24 +634,24 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./main_standard.aux)
 \openout1 = `main_standard.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 51.
+LaTeX Font Info:    ... okay on input line 51.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -666,20 +709,17 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 49.
-Package microtype Info: Applying patch `item' on input line 49.
-Package microtype Info: Applying patch `toc' on input line 49.
-Package microtype Info: Applying patch `eqnum' on input line 49.
-Package microtype Info: Applying patch `footnote' on input line 49.
-Package microtype Info: Applying patch `verbatim' on input line 49.
-LaTeX Info: Redefining \microtypesetup on input line 49.
+LaTeX Info: Redefining \microtypecontext on input line 51.
+Package microtype Info: Applying patch `item' on input line 51.
+Package microtype Info: Applying patch `toc' on input line 51.
+Package microtype Info: Applying patch `eqnum' on input line 51.
+Package microtype Info: Applying patch `footnote' on input line 51.
+Package microtype Info: Applying patch `verbatim' on input line 51.
+LaTeX Info: Redefining \microtypesetup on input line 51.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
-Package microtype Info: Automatic font expansion enabled (level 2),
-(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
-Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 49.
+Package microtype Info: No font expansion.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -691,13 +731,43 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 49.
+Package hyperref Info: Link coloring ON on input line 51.
 
 (./main_standard.out) (./main_standard.out)
 \@outlinefile=\write3
 \openout3 = `main_standard.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 52.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 5
+4.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 5
+4.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+54.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+54.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 54.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 54.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 54.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 54.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -706,7 +776,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 52.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 54.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -715,36 +785,53 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
+4.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: OT1).
+(microtype)             `lmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 60.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 60.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 60.
 
 
 [1
 
-{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
+al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/202
+5/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-di
+st/fonts/enc/dvips/lm/lm-rm.enc}]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 135.
 
-[2]
+
+[2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
 
 [3]
 
 [4]
-<../docs/expT_figures/collapse_heatmap.png, id=240, 578.16pt x 289.08pt>
+
+[5]
+<../docs/expT_figures/collapse_heatmap.png, id=262, 578.16pt x 289.08pt>
 File: ../docs/expT_figures/collapse_heatmap.png Graphic file (type png)
 <use ../docs/expT_figures/collapse_heatmap.png>
 Package pdftex.def Info: ../docs/expT_figures/collapse_heatmap.png  used on inp
-ut line 291.
+ut line 309.
 (pdftex.def)             Requested size: 352.31625pt x 176.15768pt.
 
 
-[5]
+[6 <../docs/expT_figures/collapse_heatmap.png>]
 
-[6{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
-} <../docs/expT_figures/collapse_heatmap.png>]
-
-[7]
-Overfull \hbox (6.38467pt too wide) in paragraph at lines 472--485
+[7{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+Overfull \hbox (6.10577pt too wide) in paragraph at lines 475--488
  [][] 
  []
 
@@ -753,17 +840,20 @@ Overfull \hbox (6.38467pt too wide) in paragraph at lines 472--485
 [8]
 
 [9]
-<../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png, id=336, 542.025pt
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 615.
+
+
+[10]
+<../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png, id=367, 542.025pt
  x 346.896pt>
 File: ../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png Graphic file 
 (type png)
 <use ../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png>
 Package pdftex.def Info: ../docs/expPPO_lambda_sweep_figures/ppo_behavioral_ful
-l.png  used on input line 625.
+l.png  used on input line 634.
 (pdftex.def)             Requested size: 432.17375pt x 276.60144pt.
 
-
-[10]
 
 [11 <../docs/expPPO_lambda_sweep_figures/ppo_behavioral_full.png>]
 
@@ -772,211 +862,199 @@ l.png  used on input line 625.
 [13]
 
 [14]
-Overfull \hbox (26.0581pt too wide) in paragraph at lines 880--894
-[]\OT1/cmr/m/n/10.95 (-20) The sta-tion-ary den-sity of [] is $\OML/cmm/m/it/10
-.95 P[]\OT1/cmr/m/n/10.95 (-20) (\OML/cmm/m/it/10.95 x\OT1/cmr/m/n/10.95 (-20) 
-) \OMS/cmsy/m/n/10.95 / []\OT1/cmr/m/n/10.95 (-20) [\OMS/cmsy/m/n/10.95 ^^@\OML
-/cmm/m/it/10.95 U[]\OT1/cmr/m/n/10.95 (-20) (\OML/cmm/m/it/10.95 x\OT1/cmr/m/n/
-10.95 (-20) )]$ with $\OML/cmm/m/it/10.95 U[]\OT1/cmr/m/n/10.95 (-20) (\OML/cmm
-/m/it/10.95 x\OT1/cmr/m/n/10.95 (-20) ) = \OMS/cmsy/m/n/10.95 ^^@  [][] \OT1/cm
-r/m/n/10.95 (-20) 2\OML/cmm/m/it/10.95 F\OT1/cmr/m/n/10.95 (-20) (\OML/cmm/m/it
-/10.95 z; w; ^^U\OT1/cmr/m/n/10.95 (-20) )\OML/cmm/m/it/10.95 =\OT1/cmr/m/n/10.
-95 (-20) ^^F(\OML/cmm/m/it/10.95 z; N\OT1/cmr/m/n/10.95 (-20) ) d\OML/cmm/m/it/
-10.95 z$\OT1/cmr/m/n/10.95 (-20) ,
+Overfull \hbox (29.77881pt too wide) in paragraph at lines 889--903
+[]\T1/lmr/m/n/10.95 The sta-tion-ary den-sity of [] is $\OML/lmm/m/it/10.95 P[]
+\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 x\OT1/lmr/m/n/10.95 ) \OMS/lmsy/m/n/10.
+95 / []\OT1/lmr/m/n/10.95 [\OMS/lmsy/m/n/10.95 ^^@\OML/lmm/m/it/10.95 U[]\OT1/l
+mr/m/n/10.95 (\OML/lmm/m/it/10.95 x\OT1/lmr/m/n/10.95 )]$ \T1/lmr/m/n/10.95 wit
+h $\OML/lmm/m/it/10.95 U[]\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 x\OT1/lmr/m/n
+/10.95 ) = \OMS/lmsy/m/n/10.95 ^^@  [][] \OT1/lmr/m/n/10.95 2\OML/lmm/m/it/10.9
+5 F\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 z; w; ^^U\OT1/lmr/m/n/10.95 )\OML/lm
+m/m/it/10.95 =\OT1/lmr/m/n/10.95 ^^F(\OML/lmm/m/it/10.95 z; N\OT1/lmr/m/n/10.95
+ ) d\OML/lmm/m/it/10.95 z$\T1/lmr/m/n/10.95 ,
  []
 
 
 
-[15
+[15]
+
+[16
 pdfTeX warning (ext4): destination with the same identifier (name{equation.13})
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.931 \end{proof}
-                 ]
+l.976 \begin{equation*}
+                       
 pdfTeX warning (ext4): destination with the same identifier (name{equation.13})
  has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.952 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.13})
- has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.952 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.13})
- has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.952 \begin{equation}
-                      
-pdfTeX warning (ext4): destination with the same identifier (name{equation.13})
- has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.952 \begin{equation}
-                      
-<../docs/meanfield_figures/fig_meanfield_validation.png, id=423, 1074.11287pt x
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.976 \begin{equation*}
+                       ]
+<../docs/meanfield_figures/fig_meanfield_validation.png, id=446, 1074.11287pt x
  306.69582pt>
 File: ../docs/meanfield_figures/fig_meanfield_validation.png Graphic file (type
  png)
 <use ../docs/meanfield_figures/fig_meanfield_validation.png>
 Package pdftex.def Info: ../docs/meanfield_figures/fig_meanfield_validation.png
-  used on input line 986.
+  used on input line 995.
 (pdftex.def)             Requested size: 469.75502pt x 134.13228pt.
-
-
-[16]
-<../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png, id=434, 433.62pt x 289
+<../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png, id=453, 433.62pt x 289
 .08pt>
 File: ../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png Graphic file (type
  png)
 <use ../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png>
 Package pdftex.def Info: ../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png
-  used on input line 1006.
+  used on input line 1015.
 (pdftex.def)             Requested size: 291.2458pt x 194.17221pt.
 
 
 [17 <../docs/meanfield_figures/fig_meanfield_validation.png>]
-<../docs/generalization_figures/generalization_wcrit_vs_lambda.png, id=459, 505
+
+[18 <../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png>]
+<../docs/generalization_figures/generalization_wcrit_vs_lambda.png, id=481, 505
 .89pt x 325.215pt>
 File: ../docs/generalization_figures/generalization_wcrit_vs_lambda.png Graphic
  file (type png)
 <use ../docs/generalization_figures/generalization_wcrit_vs_lambda.png>
 Package pdftex.def Info: ../docs/generalization_figures/generalization_wcrit_vs
-_lambda.png  used on input line 1095.
+_lambda.png  used on input line 1110.
 (pdftex.def)             Requested size: 385.20255pt x 247.63243pt.
 
 
-[18 <../docs/expPPO_lambda_sweep_figures/affine_law_7pt.png>]
+[19]
 
-[19 <../docs/generalization_figures/generalization_wcrit_vs_lambda.png>]
+[20 <../docs/generalization_figures/generalization_wcrit_vs_lambda.png>]
 
-[20]
-<../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png, id=490, 578.16pt x 3
+[21]
+Overfull \hbox (0.60582pt too wide) in paragraph at lines 1215--1226
+[]\T1/lmr/m/n/10.95 The \T1/lmr/m/it/10.95 cur-va-ture \T1/lmr/m/n/10.95 ef-fec
+t does \T1/lmr/m/it/10.95 not \T1/lmr/m/n/10.95 repli-cate. On MPE the cur-va-t
+ure ex-cess is $\OT1/lmr/m/n/10.95 +0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 04
+2$ $[\OMS/lmsy/m/n/10.95 ^^@\OT1/lmr/m/n/10.95 0\OML/lmm/m/it/10.95 :\OT1/lmr/m
+/n/10.95 009\OML/lmm/m/it/10.95 ; \OT1/lmr/m/n/10.95 +0\OML/lmm/m/it/10.95 :\OT
+1/lmr/m/n/10.95 092]$\T1/lmr/m/n/10.95 ,
+ []
+
+<../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png, id=514, 578.16pt x 3
 61.35pt>
 File: ../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png Graphic file (ty
 pe png)
 <use ../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png>
 Package pdftex.def Info: ../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.p
-ng  used on input line 1214.
+ng  used on input line 1229.
 (pdftex.def)             Requested size: 432.17375pt x 270.10757pt.
 
 
-[21]
+[22]
 
-[22 <../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png>]
-
-[23]
-<../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_curves.png, id=515, 650.43
+[23 <../docs/expMAPPO_mpe_figures/mappo_mpe_lambda_curves.png>]
+<../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_curves.png, id=532, 650.43
 pt x 433.62pt>
 File: ../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_curves.png Graphic fi
 le (type png)
 <use ../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_curves.png>
 Package pdftex.def Info: ../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_cu
-rves.png  used on input line 1301.
+rves.png  used on input line 1316.
 (pdftex.def)             Requested size: 385.20255pt x 256.80621pt.
 
 
-[24 <../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_curves.png>]
+[24]
 
-[25]
-<../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png, id=537, 433.62pt x 
+[25 <../docs/expMAPPO_orgym_figures/mappo_orgym_collapse_curves.png>]
+
+[26]
+<../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png, id=558, 433.62pt x 
 289.08pt>
 File: ../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png Graphic file (t
 ype png)
 <use ../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png>
 Package pdftex.def Info: ../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.
-png  used on input line 1392.
+png  used on input line 1407.
 (pdftex.def)             Requested size: 385.20255pt x 256.81282pt.
 
 
-[26 <../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png>]
-<../docs/expHet_figures/heterogeneous.png, id=549, 785.48456pt x 300.3722pt>
+[27 <../docs/expPPO_mpe_figures/mpe_ppo_coordination_floor.png>]
+<../docs/expHet_figures/heterogeneous.png, id=571, 785.48456pt x 300.3722pt>
 File: ../docs/expHet_figures/heterogeneous.png Graphic file (type png)
 <use ../docs/expHet_figures/heterogeneous.png>
 Package pdftex.def Info: ../docs/expHet_figures/heterogeneous.png  used on inpu
-t line 1457.
+t line 1472.
 (pdftex.def)             Requested size: 469.75502pt x 179.63803pt.
 
 
-[27 <../docs/expHet_figures/heterogeneous.png>]
-
-[28]
+[28 <../docs/expHet_figures/heterogeneous.png>]
 
 [29]
 
 [30]
 
-[31]
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<../docs/expEnt_figures/entropy_ablation.png, id=613, 785.48456pt x 299.46881pt
+
+
+[31]
+
+[32]
+
+[33]
+<../docs/expEnt_figures/entropy_ablation.png, id=643, 785.48456pt x 299.46881pt
 >
 File: ../docs/expEnt_figures/entropy_ablation.png Graphic file (type png)
 <use ../docs/expEnt_figures/entropy_ablation.png>
 Package pdftex.def Info: ../docs/expEnt_figures/entropy_ablation.png  used on i
-nput line 1780.
+nput line 1817.
 (pdftex.def)             Requested size: 469.75502pt x 179.09776pt.
+ (./main_standard.bbl
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+[34 <../docs/expEnt_figures/entropy_ablation.png>]
 
-(./main_standard.bbl
+[35]
 
-[32]
+[36])
 
-[33 <../docs/expEnt_figures/entropy_ablation.png>]
-
-[34])
-
-[35] (./main_standard.aux)
+[37] (./main_standard.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main_standard.out' has not changed.
-(rerunfilecheck)             Checksum: DED357F7D3DB92C79F1203B5EFEA5DE0;7942.
+(rerunfilecheck)             Checksum: C77849585D9333F6BDF5B63FFB56EE4A;7943.
  ) 
 Here is how much of TeX's memory you used:
- 24123 strings out of 473190
- 437992 string characters out of 5715799
- 953479 words of memory out of 5000000
- 46680 multiletter control sequences out of 15000+600000
- 583486 words of font info for 234 fonts, out of 8000000 for 9000
+ 24243 strings out of 473190
+ 443085 string characters out of 5715799
+ 953903 words of memory out of 5000000
+ 47033 multiletter control sequences out of 15000+600000
+ 671812 words of font info for 108 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 83i,15n,131p,2380b,654s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
-local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
-texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/tex
-live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
-025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf-dis
-t/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on main_standard.pdf (35 pages, 1291829 bytes).
+ 83i,15n,131p,2380b,668s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/lo
+cal/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texliv
+e/2025/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fo
+nts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
+ublic/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lm
+mi9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb></u
+sr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2025/texmf-dist/fo
+nts/type1/public/lm/lmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pu
+blic/lm/lmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri
+10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri9.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1
+/public/lm/lmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/
+lmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb
+></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10
+.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
+bm10.pfb>
+Output written on main_standard.pdf (37 pages, 1381747 bytes).
 PDF statistics:
- 800 PDF objects out of 1000 (max. 8388607)
- 676 compressed objects within 7 object streams
- 154 named destinations out of 1000 (max. 500000)
- 51539 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 843 PDF objects out of 1000 (max. 8388607)
+ 713 compressed objects within 8 object streams
+ 157 named destinations out of 1000 (max. 500000)
+ 19275 words of extra memory for PDF output out of 20736 (max. 10000000)
 

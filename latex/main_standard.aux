@@ -2,13 +2,16 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{ethayarajh2024kto}
-\citation{lalmohammed2025}
-\citation{kahneman1979,tversky1992}
 \providecommand\@newglossary[4]{}
 \@newglossary{main}{glg}{gls}{glo}
 \@newglossary{acronym}{alg}{acr}{acn}
+\citation{leibo2017multi}
+\citation{ethayarajh2024kto}
+\citation{lalmohammed2025}
+\citation{kahneman1979,tversky1992}
+\citation{leibo2017multi,lowe2017multi}
 \citation{liu2023lazy,peng2023curo}
+\citation{dmarl2025,liu2023lazy}
 \citation{liu2023lazy}
 \citation{peng2023curo}
 \citation{weng2026}
@@ -18,42 +21,42 @@
 \citation{yamaguchi2025}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}{section.1}\protected@file@percent }
 \newlabel{sec:intro}{{1}{2}{Introduction}{section.1}{}}
-\newlabel{sec:intro@cref}{{[section][1][]1}{[1][1][]2}{}{}{}}
+\newlabel{sec:intro@cref}{{[section][1][]1}{[1][2][]2}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Coordination collapse as an unmeasured boundary}{2}{subsection.1.1}\protected@file@percent }
 \citation{qiu2021rmix,xie2023riskq}
 \citation{lalmohammed2025}
 \citation{mengesha2025}
-\citation{oroojlooyjadid2022,gijsbrechts2022}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Why prospect theory and MARL have not yet met cleanly}{3}{subsection.1.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Approach: the boundary as an instrument}{3}{subsection.1.3}\protected@file@percent }
+\citation{oroojlooyjadid2022,gijsbrechts2022}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Why the multi-echelon supply chain is the right substrate}{4}{subsection.1.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Research questions}{4}{subsection.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.6}Findings and contributions}{4}{subsection.1.6}\protected@file@percent }
+\citation{yamaguchi2025}
+\citation{capannoli2026phase}
 \citation{mengesha2025}
 \citation{lalmohammed2025}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6}Findings and contributions}{5}{subsection.1.6}\protected@file@percent }
 \citation{lowe2017multi}
-\citation{liu2023lazy}
-\citation{peng2023curo}
+\citation{liu2023lazy,peng2023curo}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {Collapse probability $P(\mathrm  {collapse})$ across centralization $w$ and training horizon $T$.} Each cell is the empirical collapse fraction over 20 seeds; darker means more collapse. Reading down a column, the boundary slides toward lower $w$ as $T$ grows---the metastability result: longer training lets agents escape the lazy attractor at lower centralization. \emph  {Caveat on the 600k row:} the 150k/300k rows are risk-neutral (Exp~A, $\alpha {=}\beta {=}1$) but the 600k row uses $\alpha {=}\beta {=}0.88$ (Exp~T), which itself shifts $w_{\mathrm  {crit}}$ left by $0.100$ (\S  \ref {sec:results_behavioral}), so the $300\mathrm  {k}\!\to \!600\mathrm  {k}$ change here mixes horizon and curvature effects. Under matched $\alpha {=}\beta {=}1$ at 600k (Exp~0b), collapse is $0.35$ at $w{=}0.6$ and $0.20$ at $w{=}0.7$, confirming the horizon slide is real with curvature held fixed; only its magnitude in this figure is curvature-inflated. }}{6}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:heatmap}{{1}{6}{\textbf {Collapse probability $P(\mathrm {collapse})$ across centralization $w$ and training horizon $T$.} Each cell is the empirical collapse fraction over 20 seeds; darker means more collapse. Reading down a column, the boundary slides toward lower $w$ as $T$ grows---the metastability result: longer training lets agents escape the lazy attractor at lower centralization. \emph {Caveat on the 600k row:} the 150k/300k rows are risk-neutral (Exp~A, $\alpha {=}\beta {=}1$) but the 600k row uses $\alpha {=}\beta {=}0.88$ (Exp~T), which itself shifts $\wcrit $ left by $0.100$ (\S \ref {sec:results_behavioral}), so the $300\mathrm {k}\!\to \!600\mathrm {k}$ change here mixes horizon and curvature effects. Under matched $\alpha {=}\beta {=}1$ at 600k (Exp~0b), collapse is $0.35$ at $w{=}0.6$ and $0.20$ at $w{=}0.7$, confirming the horizon slide is real with curvature held fixed; only its magnitude in this figure is curvature-inflated}{figure.caption.1}{}}
+\newlabel{fig:heatmap@cref}{{[figure][1][]1}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Preliminaries and Method}{6}{section.2}\protected@file@percent }
+\newlabel{sec:background}{{2}{6}{Preliminaries and Method}{section.2}{}}
+\newlabel{sec:background@cref}{{[section][2][]2}{[1][6][]6}{}{}{}}
+\newlabel{sec:method}{{2}{6}{Preliminaries and Method}{section.2}{}}
+\newlabel{sec:method@cref}{{[section][2][]2}{[1][6][]6}{}{}{}}
 \citation{kahneman1979}
 \citation{tversky1992}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces $P(\mathrm  {collapse})$ in $(w, T)$ space. Each cell shows the empirical collapse fraction across 20 seeds. The 150k and 300k rows are from Exp~A ($\alpha {=}\beta {=}1$); the 600k row is from Exp~T ($\alpha {=}\beta {=}0.88$). Because $\alpha {=}\beta {=}0.88$ shifts $w_{\mathrm  {crit}}$ left by 0.100 (§\ref {sec:results_behavioral}), the apparent 300k$\to $600k slide is partially curvature-inflated. Under matched $\alpha {=}\beta {=}1$ conditions (Exp~0b), $P(\mathrm  {collapse}\mid w{=}0.6) = 0.35$ and $P(\mathrm  {collapse}\mid w{=}0.7) = 0.20$ at 600k, confirming that metastability holds with $\alpha {=}\beta $ held constant; only the magnitude is curvature-inflated in this figure. }}{6}{figure.caption.1}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:heatmap}{{1}{6}{$P(\mathrm {collapse})$ in $(w, T)$ space. Each cell shows the empirical collapse fraction across 20 seeds. The 150k and 300k rows are from Exp~A ($\alpha {=}\beta {=}1$); the 600k row is from Exp~T ($\alpha {=}\beta {=}0.88$). Because $\alpha {=}\beta {=}0.88$ shifts $\wcrit $ left by 0.100 (§\ref {sec:results_behavioral}), the apparent 300k$\to $600k slide is partially curvature-inflated. Under matched $\alpha {=}\beta {=}1$ conditions (Exp~0b), $P(\mathrm {collapse}\mid w{=}0.6) = 0.35$ and $P(\mathrm {collapse}\mid w{=}0.7) = 0.20$ at 600k, confirming that metastability holds with $\alpha {=}\beta $ held constant; only the magnitude is curvature-inflated in this figure}{figure.caption.1}{}}
-\newlabel{fig:heatmap@cref}{{[figure][1][]1}{[1][5][]6}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{6}{section.2}\protected@file@percent }
-\newlabel{sec:background}{{2}{6}{Background}{section.2}{}}
-\newlabel{sec:background@cref}{{[section][2][]2}{[1][5][]6}{}{}{}}
-\newlabel{eq:cpt}{{1}{6}{Background}{equation.1}{}}
-\newlabel{eq:cpt@cref}{{[equation][1][]1}{[1][6][]6}{}{}{}}
 \citation{lalmohammed2025}
-\newlabel{eq:reward}{{2}{7}{Background}{equation.2}{}}
+\newlabel{eq:cpt}{{1}{7}{Preliminaries and Method}{equation.1}{}}
+\newlabel{eq:cpt@cref}{{[equation][1][]1}{[1][7][]7}{}{}{}}
+\newlabel{eq:reward}{{2}{7}{Preliminaries and Method}{equation.2}{}}
 \newlabel{eq:reward@cref}{{[equation][2][]2}{[1][7][]7}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Method}{7}{section.3}\protected@file@percent }
-\newlabel{sec:method}{{3}{7}{Method}{section.3}{}}
-\newlabel{sec:method@cref}{{[section][3][]3}{[1][7][]7}{}{}{}}
-\newlabel{eq:collapse}{{3}{7}{Method}{equation.3}{}}
+\newlabel{eq:collapse}{{3}{7}{Preliminaries and Method}{equation.3}{}}
 \newlabel{eq:collapse@cref}{{[equation][3][]3}{[1][7][]7}{}{}{}}
-\newlabel{eq:logistic}{{4}{7}{Method}{equation.4}{}}
+\newlabel{eq:logistic}{{4}{7}{Preliminaries and Method}{equation.4}{}}
 \newlabel{eq:logistic@cref}{{[equation][4][]4}{[1][7][]7}{}{}{}}
 \citation{hubbs2020orgym}
 \citation{oroojlooyjadid2022}
@@ -61,206 +64,207 @@
 \citation{marlim2023}
 \citation{schulman2017ppo}
 \citation{raffin2021sb3}
-\citation{terry2021pettingzoo}
-\citation{terry2020supersuit}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Experiment summary. All experiments use the same environment and algorithm. $\alpha {=}\beta {=}1$ denotes the linear (no-PT) condition.}}{8}{table.caption.2}\protected@file@percent }
-\newlabel{tab:experiments}{{1}{8}{Experiment summary. All experiments use the same environment and algorithm. $\alpha {=}\beta {=}1$ denotes the linear (no-PT) condition}{table.caption.2}{}}
-\newlabel{tab:experiments@cref}{{[table][1][]1}{[1][8][]8}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Experimental Setup}{8}{section.4}\protected@file@percent }
-\newlabel{sec:setup}{{4}{8}{Experimental Setup}{section.4}{}}
-\newlabel{sec:setup@cref}{{[section][4][]4}{[1][8][]8}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Results}{9}{section.5}\protected@file@percent }
-\newlabel{sec:results}{{5}{9}{Results}{section.5}{}}
-\newlabel{sec:results@cref}{{[section][5][]5}{[1][8][]9}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Structural Phase Transition and Metastability}{9}{subsection.5.1}\protected@file@percent }
-\newlabel{sec:results_structural}{{5.1}{9}{Structural Phase Transition and Metastability}{subsection.5.1}{}}
-\newlabel{sec:results_structural@cref}{{[subsection][1][5]5.1}{[1][8][]9}{}{}{}}
+\citation{terry2021pettingzoo,terry2020supersuit}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Experimental Setup}{8}{section.3}\protected@file@percent }
+\newlabel{sec:setup}{{3}{8}{Experimental Setup}{section.3}{}}
+\newlabel{sec:setup@cref}{{[section][3][]3}{[1][8][]8}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Experiment summary. All experiments use the same environment and algorithm. $\alpha {=}\beta {=}1$ denotes the linear (no-PT) condition.}}{9}{table.caption.2}\protected@file@percent }
+\newlabel{tab:experiments}{{1}{9}{Experiment summary. All experiments use the same environment and algorithm. $\alpha {=}\beta {=}1$ denotes the linear (no-PT) condition}{table.caption.2}{}}
+\newlabel{tab:experiments@cref}{{[table][1][]1}{[1][8][]9}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Results}{9}{section.4}\protected@file@percent }
+\newlabel{sec:results}{{4}{9}{Results}{section.4}{}}
+\newlabel{sec:results@cref}{{[section][4][]4}{[1][8][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Structural Phase Transition and Metastability}{9}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:results_structural}{{4.1}{9}{Structural Phase Transition and Metastability}{subsection.4.1}{}}
+\newlabel{sec:results_structural@cref}{{[subsection][1][4]4.1}{[1][8][]9}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{Note on the 600k row.}{9}{section*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}The structural null and its reproducibility}{9}{subsection.5.2}\protected@file@percent }
-\newlabel{sec:results_null}{{5.2}{9}{The structural null and its reproducibility}{subsection.5.2}{}}
-\newlabel{sec:results_null@cref}{{[subsection][2][5]5.2}{[1][9][]9}{}{}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces The recurring $w_{\mathrm  {crit}}$ values and the single role each plays. There is one structural null; the others are a horizon measurement of it and a curvature \emph  {result}, not independent baselines.}}{10}{table.caption.4}\protected@file@percent }
 \newlabel{tab:baselines}{{2}{10}{The recurring $\wcrit $ values and the single role each plays. There is one structural null; the others are a horizon measurement of it and a curvature \emph {result}, not independent baselines}{table.caption.4}{}}
 \newlabel{tab:baselines@cref}{{[table][2][]2}{[1][10][]10}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Behavioral Phase Boundary}{10}{subsection.5.3}\protected@file@percent }
-\newlabel{sec:results_behavioral}{{5.3}{10}{Behavioral Phase Boundary}{subsection.5.3}{}}
-\newlabel{sec:results_behavioral@cref}{{[subsection][3][5]5.3}{[1][10][]10}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}The structural null and its reproducibility}{10}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:results_null}{{4.2}{10}{The structural null and its reproducibility}{subsection.4.2}{}}
+\newlabel{sec:results_null@cref}{{[subsection][2][4]4.2}{[1][10][]10}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Behavioral Phase Boundary}{10}{subsection.4.3}\protected@file@percent }
+\newlabel{sec:results_behavioral}{{4.3}{10}{Behavioral Phase Boundary}{subsection.4.3}{}}
+\newlabel{sec:results_behavioral@cref}{{[subsection][3][4]4.3}{[1][10][]10}{}{}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Behavioral decomposition and full loss-aversion sweep on the supply chain (PPO, 300k steps, 20 seeds per cell). Each curve is the Firth-fitted $P(\mathrm  {collapse}\mid w)$; vertical dotted lines mark $w_{\mathrm  {crit}}$. The null ($\alpha {=}\beta {=}1$, gray dashed) is the structural baseline ($w_{\mathrm  {crit}}{=}0.685$). Probability-weighting \emph  {curvature} alone ($\lambda {=}1$, $\alpha {=}\beta {=}0.88$) shifts $w_{\mathrm  {crit}}$ \emph  {left} of the null---facilitating coordination---while \emph  {loss aversion} ($\lambda {=}2,\ldots  ,7$, $\alpha {=}\beta {=}0.88$) shifts it \emph  {right} (rising, then saturating). The two prospect-theory components thus move the boundary in opposite directions, and the full sweep traces the resulting $w_{\mathrm  {crit}}(\lambda )$ progression in one panel. }}{11}{figure.caption.5}\protected@file@percent }
 \newlabel{fig:decomposition}{{2}{11}{Behavioral decomposition and full loss-aversion sweep on the supply chain (PPO, 300k steps, 20 seeds per cell). Each curve is the Firth-fitted $P(\mathrm {collapse}\mid w)$; vertical dotted lines mark $\wcrit $. The null ($\alpha {=}\beta {=}1$, gray dashed) is the structural baseline ($\wcrit {=}0.685$). Probability-weighting \emph {curvature} alone ($\lambda {=}1$, $\alpha {=}\beta {=}0.88$) shifts $\wcrit $ \emph {left} of the null---facilitating coordination---while \emph {loss aversion} ($\lambda {=}2,\ldots ,7$, $\alpha {=}\beta {=}0.88$) shifts it \emph {right} (rising, then saturating). The two prospect-theory components thus move the boundary in opposite directions, and the full sweep traces the resulting $\wcrit (\lambda )$ progression in one panel}{figure.caption.5}{}}
-\newlabel{fig:decomposition@cref}{{[figure][2][]2}{[1][10][]11}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Full loss-aversion sweep ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per $(w,\lambda )$ cell, $n{=}100$ runs per $\lambda $). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs. Slope and $p$ are from \emph  {Firth penalized} logistic regression (Jeffreys-prior), which is stable under steep transitions; all seven slopes are significant ($p<10^{-3}$). The Firth $w_{\mathrm  {crit}}=-b_0/b_1$ agrees with the bootstrap estimate at every $\lambda $ (max.\ deviation $0.019$), confirming that the very large unpenalized MLE slopes previously seen at $\lambda {=}5,7$ were a fitting artifact, not separation.}}{11}{table.caption.6}\protected@file@percent }
-\newlabel{tab:lambda_sweep}{{3}{11}{Full loss-aversion sweep ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per $(w,\lambda )$ cell, $n{=}100$ runs per $\lambda $). $\wcrit $ with bootstrap 95\% CIs. Slope and $p$ are from \emph {Firth penalized} logistic regression (Jeffreys-prior), which is stable under steep transitions; all seven slopes are significant ($p<10^{-3}$). The Firth $\wcrit =-b_0/b_1$ agrees with the bootstrap estimate at every $\lambda $ (max.\ deviation $0.019$), confirming that the very large unpenalized MLE slopes previously seen at $\lambda {=}5,7$ were a fitting artifact, not separation}{table.caption.6}{}}
-\newlabel{tab:lambda_sweep@cref}{{[table][3][]3}{[1][10][]11}{}{}{}}
+\newlabel{fig:decomposition@cref}{{[figure][2][]2}{[1][11][]11}{}{}{}}
 \citation{mengesha2025}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Full loss-aversion sweep ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per $(w,\lambda )$ cell, $n{=}100$ runs per $\lambda $). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs. Slope and $p$ are from \emph  {Firth penalized} logistic regression (Jeffreys-prior), which is stable under steep transitions; all seven slopes are significant ($p<10^{-3}$). The Firth $w_{\mathrm  {crit}}=-b_0/b_1$ agrees with the bootstrap estimate at every $\lambda $ (max.\ deviation $0.019$), confirming that the very large unpenalized MLE slopes previously seen at $\lambda {=}5,7$ were a fitting artifact, not separation.}}{12}{table.caption.6}\protected@file@percent }
+\newlabel{tab:lambda_sweep}{{3}{12}{Full loss-aversion sweep ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per $(w,\lambda )$ cell, $n{=}100$ runs per $\lambda $). $\wcrit $ with bootstrap 95\% CIs. Slope and $p$ are from \emph {Firth penalized} logistic regression (Jeffreys-prior), which is stable under steep transitions; all seven slopes are significant ($p<10^{-3}$). The Firth $\wcrit =-b_0/b_1$ agrees with the bootstrap estimate at every $\lambda $ (max.\ deviation $0.019$), confirming that the very large unpenalized MLE slopes previously seen at $\lambda {=}5,7$ were a fitting artifact, not separation}{table.caption.6}{}}
+\newlabel{tab:lambda_sweep@cref}{{[table][3][]3}{[1][11][]12}{}{}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Three-way behavioral decomposition of $w_{\mathrm  {crit}}$ relative to the null model. ``Significant'' denotes that the conservative difference confidence interval excludes zero. $^{\dagger }$For $\lambda {=}7$, $w_{\mathrm  {crit}}$ is from bootstrap only; see footnote in Section~\ref {sec:results_behavioral}.}}{12}{table.caption.7}\protected@file@percent }
 \newlabel{tab:decomposition}{{4}{12}{Three-way behavioral decomposition of $\wcrit $ relative to the null model. ``Significant'' denotes that the conservative difference confidence interval excludes zero. $^{\dagger }$For $\lambda {=}7$, $\wcrit $ is from bootstrap only; see footnote in Section~\ref {sec:results_behavioral}}{table.caption.7}{}}
 \newlabel{tab:decomposition@cref}{{[table][4][]4}{[1][12][]12}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}A Mean-Field Mechanism for the Collapse Boundary}{12}{section.6}\protected@file@percent }
-\newlabel{sec:meanfield}{{6}{12}{A Mean-Field Mechanism for the Collapse Boundary}{section.6}{}}
-\newlabel{sec:meanfield@cref}{{[section][6][]6}{[1][12][]12}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Gradient flow and its noise}{13}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}A Mean-Field Mechanism for the Collapse Boundary}{13}{section.5}\protected@file@percent }
+\newlabel{sec:meanfield}{{5}{13}{A Mean-Field Mechanism for the Collapse Boundary}{section.5}{}}
+\newlabel{sec:meanfield@cref}{{[section][5][]5}{[1][12][]13}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Gradient flow and its noise}{13}{subsection.5.1}\protected@file@percent }
 \newlabel{eq:blend}{{5}{13}{Gradient flow and its noise}{equation.5}{}}
 \newlabel{eq:blend@cref}{{[equation][5][]5}{[1][13][]13}{}{}{}}
 \newlabel{eq:langevin}{{6}{13}{Gradient flow and its noise}{equation.6}{}}
 \newlabel{eq:langevin@cref}{{[equation][6][]6}{[1][13][]13}{}{}{}}
 \newlabel{eq:diffusion}{{7}{13}{Gradient flow and its noise}{equation.7}{}}
 \newlabel{eq:diffusion@cref}{{[equation][7][]7}{[1][13][]13}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}The boundary is a signal-to-noise crossing}{13}{subsection.6.2}\protected@file@percent }
-\newlabel{eq:drift}{{8}{13}{The boundary is a signal-to-noise crossing}{equation.8}{}}
-\newlabel{eq:drift@cref}{{[equation][8][]8}{[1][13][]13}{}{}{}}
-\newlabel{eq:snr}{{9}{13}{The boundary is a signal-to-noise crossing}{equation.9}{}}
-\newlabel{eq:snr@cref}{{[equation][9][]9}{[1][13][]13}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}The boundary is a signal-to-noise crossing}{14}{subsection.5.2}\protected@file@percent }
+\newlabel{eq:drift}{{8}{14}{The boundary is a signal-to-noise crossing}{equation.8}{}}
+\newlabel{eq:drift@cref}{{[equation][8][]8}{[1][14][]14}{}{}{}}
+\newlabel{eq:snr}{{9}{14}{The boundary is a signal-to-noise crossing}{equation.9}{}}
+\newlabel{eq:snr@cref}{{[equation][9][]9}{[1][14][]14}{}{}{}}
 \newlabel{eq:wcrit}{{10}{14}{The boundary is a signal-to-noise crossing}{equation.10}{}}
 \newlabel{eq:wcrit@cref}{{[equation][10][]10}{[1][14][]14}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Sharpness and metastability}{14}{subsection.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Formal account: what is predicted versus calibrated}{14}{subsection.6.4}\protected@file@percent }
-\newlabel{sec:meanfield_theorems}{{6.4}{14}{Formal account: what is predicted versus calibrated}{subsection.6.4}{}}
-\newlabel{sec:meanfield_theorems@cref}{{[subsection][4][6]6.4}{[1][14][]14}{}{}{}}
-\newlabel{eq:sde}{{11}{14}{Formal account: what is predicted versus calibrated}{equation.11}{}}
-\newlabel{eq:sde@cref}{{[equation][11][]11}{[1][14][]14}{}{}{}}
-\newlabel{thm:mf}{{1}{14}{Mean-field criticality, $N\to \infty $}{theorem.1}{}}
-\newlabel{thm:mf@cref}{{[theorem][1][]1}{[1][14][]14}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Sharpness and metastability}{14}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Formal account: what is predicted versus calibrated}{15}{subsection.5.4}\protected@file@percent }
+\newlabel{sec:meanfield_theorems}{{5.4}{15}{Formal account: what is predicted versus calibrated}{subsection.5.4}{}}
+\newlabel{sec:meanfield_theorems@cref}{{[subsection][4][5]5.4}{[1][14][]15}{}{}{}}
+\newlabel{eq:sde}{{11}{15}{Formal account: what is predicted versus calibrated}{equation.11}{}}
+\newlabel{eq:sde@cref}{{[equation][11][]11}{[1][15][]15}{}{}{}}
+\newlabel{thm:mf}{{1}{15}{Mean-field criticality, $N\to \infty $}{theorem.1}{}}
+\newlabel{thm:mf@cref}{{[theorem][1][]1}{[1][15][]15}{}{}{}}
 \newlabel{thm:gap}{{2}{15}{Calibration gap, finite $N$ and horizon $T$}{theorem.2}{}}
 \newlabel{thm:gap@cref}{{[theorem][2][]2}{[1][15][]15}{}{}{}}
 \newlabel{eq:barrier}{{12}{15}{Calibration gap, finite $N$ and horizon $T$}{equation.12}{}}
 \newlabel{eq:barrier@cref}{{[equation][12][]12}{[1][15][]15}{}{}{}}
-\newlabel{thm:sign}{{3}{15}{Sign invariance of the loss-aversion shift}{theorem.3}{}}
-\newlabel{thm:sign@cref}{{[theorem][3][]3}{[1][15][]15}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Opposite signs of the two prospect-theory components}{16}{subsection.6.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Derived form of the loss-aversion law}{16}{subsection.6.6}\protected@file@percent }
+\newlabel{thm:sign}{{3}{16}{Sign invariance of the loss-aversion shift}{theorem.3}{}}
+\newlabel{thm:sign@cref}{{[theorem][3][]3}{[1][15][]16}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Opposite signs of the two prospect-theory components}{16}{subsection.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Derived form of the loss-aversion law}{16}{subsection.5.6}\protected@file@percent }
 \newlabel{eq:wcrit_lambda}{{13}{16}{Derived form of the loss-aversion law}{equation.13}{}}
 \newlabel{eq:wcrit_lambda@cref}{{[equation][13][]13}{[1][16][]16}{}{}{}}
 \citation{weng2026}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Mean-field mechanism versus empirics. (a)~Mechanism (schematic): the cooperative gradient signal grows with centralisation ($\propto w\,g$) while partner exploration injects a roughly $w$-independent noise floor; $w_{\mathrm  {crit}}$ is the signal-to-noise crossing \eqref  {eq:snr}, below which the lazy policy is the effective attractor. (b)~Schematic of the \emph  {derived affine} loss-aversion law \eqref  {eq:wcrit_lambda}: CPT predicts $\phi (\lambda )=1+\rho (\lambda -1)$ with slope $\rho \in [0,1]$; the single data-implied slope $\rho =0.61$ respects the bound. The quantitative fit against the full seven-point sweep is shown separately in \Cref  {fig:affine_law}. (c)~The Kramers escape picture predicts the metastable leftward slide of $w_{\mathrm  {crit}}$ with training horizon $T$.}}{17}{figure.caption.8}\protected@file@percent }
 \newlabel{fig:meanfield}{{3}{17}{Mean-field mechanism versus empirics. (a)~Mechanism (schematic): the cooperative gradient signal grows with centralisation ($\propto w\,g$) while partner exploration injects a roughly $w$-independent noise floor; $\wcrit $ is the signal-to-noise crossing \eqref {eq:snr}, below which the lazy policy is the effective attractor. (b)~Schematic of the \emph {derived affine} loss-aversion law \eqref {eq:wcrit_lambda}: CPT predicts $\phi (\lambda )=1+\rho (\lambda -1)$ with slope $\rho \in [0,1]$; the single data-implied slope $\rho =0.61$ respects the bound. The quantitative fit against the full seven-point sweep is shown separately in \Cref {fig:affine_law}. (c)~The Kramers escape picture predicts the metastable leftward slide of $\wcrit $ with training horizon $T$}{figure.caption.8}{}}
-\newlabel{fig:meanfield@cref}{{[figure][3][]3}{[1][16][]17}{}{}{}}
+\newlabel{fig:meanfield@cref}{{[figure][3][]3}{[1][17][]17}{}{}{}}
 \@writefile{toc}{\contentsline {paragraph}{Scope.}{17}{section*.11}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The derived affine loss-aversion law \eqref  {eq:wcrit_lambda} against the full sweep. Points are the measured $w_{\mathrm  {crit}}(\lambda )$ for $\lambda =1,\ldots  ,7$ with bootstrap 95\% CIs (\Cref  {tab:lambda_sweep}); the line is the one-parameter law with $g/c$ fixed at the $\lambda {=}1$ baseline and a single theory-bounded slope $\rho =0.61$. The law tracks all seven points to RMSE $0.014$, with a mild concave residual at the high-$\lambda $ saturation plateau.}}{18}{figure.caption.9}\protected@file@percent }
 \newlabel{fig:affine_law}{{4}{18}{The derived affine loss-aversion law \eqref {eq:wcrit_lambda} against the full sweep. Points are the measured $\wcrit (\lambda )$ for $\lambda =1,\ldots ,7$ with bootstrap 95\% CIs (\Cref {tab:lambda_sweep}); the line is the one-parameter law with $g/c$ fixed at the $\lambda {=}1$ baseline and a single theory-bounded slope $\rho =0.61$. The law tracks all seven points to RMSE $0.014$, with a mild concave residual at the high-$\lambda $ saturation plateau}{figure.caption.9}{}}
 \newlabel{fig:affine_law@cref}{{[figure][4][]4}{[1][17][]18}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Generalization across Environments and Algorithms}{18}{section.7}\protected@file@percent }
-\newlabel{sec:generalization}{{7}{18}{Generalization across Environments and Algorithms}{section.7}{}}
-\newlabel{sec:generalization@cref}{{[section][7][]7}{[1][17][]18}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Across environments: incentive misalignment across domains}{18}{subsection.7.1}\protected@file@percent }
-\newlabel{sec:appendix_environments}{{7.1}{18}{Across environments: incentive misalignment across domains}{subsection.7.1}{}}
-\newlabel{sec:appendix_environments@cref}{{[subsection][1][7]7.1}{[1][18][]18}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {The loss-aversion effect generalizes.} Critical centralization $w_{\mathrm  {crit}}$ versus loss aversion $\lambda $ for four settings: the supply chain under PPO (blue) and under centralized-critic MAPPO (green), MPE Cooperative Navigation under MAPPO (red), and Level-Based Foraging under MAPPO (purple). Error bars are bootstrap 95\% CIs. Across three structurally distinct environments and two algorithms, $w_{\mathrm  {crit}}$ rises with $\lambda $ then saturates---loss aversion raises the centralization a cooperative system needs to avert collapse. The \emph  {direction} is what generalizes; absolute levels differ (most at $\lambda {=}1$) and the curvature sign and exact functional form are substrate-specific. (LBF's high-$\lambda $ points saturate against the centralization ceiling and are reported as exploratory; see Section~\ref {sec:lbf}.)}}{19}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:generalization}{{5}{19}{\textbf {The loss-aversion effect generalizes.} Critical centralization $\wcrit $ versus loss aversion $\lambda $ for four settings: the supply chain under PPO (blue) and under centralized-critic MAPPO (green), MPE Cooperative Navigation under MAPPO (red), and Level-Based Foraging under MAPPO (purple). Error bars are bootstrap 95\% CIs. Across three structurally distinct environments and two algorithms, $\wcrit $ rises with $\lambda $ then saturates---loss aversion raises the centralization a cooperative system needs to avert collapse. The \emph {direction} is what generalizes; absolute levels differ (most at $\lambda {=}1$) and the curvature sign and exact functional form are substrate-specific. (LBF's high-$\lambda $ points saturate against the centralization ceiling and are reported as exploratory; see Section~\ref {sec:lbf}.)}{figure.caption.12}{}}
-\newlabel{fig:generalization@cref}{{[figure][5][]5}{[1][18][]19}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Generalization across Environments and Algorithms}{18}{section.6}\protected@file@percent }
+\newlabel{sec:generalization}{{6}{18}{Generalization across Environments and Algorithms}{section.6}{}}
+\newlabel{sec:generalization@cref}{{[section][6][]6}{[1][18][]18}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces What the mean-field mechanism claims. We separate predictions made \emph  {a priori} from quantities calibrated to data and from claims we explicitly do \emph  {not} make.}}{19}{table.caption.10}\protected@file@percent }
+\newlabel{tab:ledger}{{5}{19}{What the mean-field mechanism claims. We separate predictions made \emph {a priori} from quantities calibrated to data and from claims we explicitly do \emph {not} make}{table.caption.10}{}}
+\newlabel{tab:ledger@cref}{{[table][5][]5}{[1][17][]19}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Across environments: incentive misalignment across domains}{19}{subsection.6.1}\protected@file@percent }
+\newlabel{sec:appendix_environments}{{6.1}{19}{Across environments: incentive misalignment across domains}{subsection.6.1}{}}
+\newlabel{sec:appendix_environments@cref}{{[subsection][1][6]6.1}{[1][19][]19}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Supply Chain (NetworkManagement-v1, logistics/operations research).}{19}{section*.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {The loss-aversion effect generalizes.} Critical centralization $w_{\mathrm  {crit}}$ versus loss aversion $\lambda $ for four settings: the supply chain under PPO (blue) and under centralized-critic MAPPO (green), MPE Cooperative Navigation under MAPPO (red), and Level-Based Foraging under MAPPO (purple). Error bars are bootstrap 95\% CIs. Across three structurally distinct environments and two algorithms, $w_{\mathrm  {crit}}$ rises with $\lambda $ then saturates---loss aversion raises the centralization a cooperative system needs to avert collapse. The \emph  {direction} is what generalizes; absolute levels differ (most at $\lambda {=}1$) and the curvature sign and exact functional form are substrate-specific. (LBF's high-$\lambda $ points saturate against the centralization ceiling and are reported as exploratory; see Section~\ref {sec:lbf}.)}}{20}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:generalization}{{5}{20}{\textbf {The loss-aversion effect generalizes.} Critical centralization $\wcrit $ versus loss aversion $\lambda $ for four settings: the supply chain under PPO (blue) and under centralized-critic MAPPO (green), MPE Cooperative Navigation under MAPPO (red), and Level-Based Foraging under MAPPO (purple). Error bars are bootstrap 95\% CIs. Across three structurally distinct environments and two algorithms, $\wcrit $ rises with $\lambda $ then saturates---loss aversion raises the centralization a cooperative system needs to avert collapse. The \emph {direction} is what generalizes; absolute levels differ (most at $\lambda {=}1$) and the curvature sign and exact functional form are substrate-specific. (LBF's high-$\lambda $ points saturate against the centralization ceiling and are reported as exploratory; see Section~\ref {sec:lbf}.)}{figure.caption.12}{}}
+\newlabel{fig:generalization@cref}{{[figure][5][]5}{[1][19][]20}{}{}{}}
 \citation{yu2022surprising}
 \citation{lowe2017multi}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces What the mean-field mechanism claims. We separate predictions made \emph  {a priori} from quantities calibrated to data and from claims we explicitly do \emph  {not} make.}}{20}{table.caption.10}\protected@file@percent }
-\newlabel{tab:ledger}{{5}{20}{What the mean-field mechanism claims. We separate predictions made \emph {a priori} from quantities calibrated to data and from claims we explicitly do \emph {not} make}{table.caption.10}{}}
-\newlabel{tab:ledger@cref}{{[table][5][]5}{[1][17][]20}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{Supply Chain (NetworkManagement-v1, logistics/operations research).}{20}{section*.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{MPE Cooperative Navigation (simple\_spread\_v3, robotics/navigation).}{20}{section*.14}\protected@file@percent }
-\citation{christianos2020shared}
+\@writefile{toc}{\contentsline {paragraph}{MPE Cooperative Navigation (simple\_spread\_v3, robotics/navigation).}{21}{section*.14}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Structural commonality.}{21}{section*.15}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces MAPPO on MPE Cooperative Navigation: fitted collapse-probability curves $P(\mathrm  {collapse}\mid w)$ for the full loss-aversion sweep $\lambda {=}1,\ldots  ,7$ ($\alpha {=}\beta {=}0.88$, centralized critic, 50-step horizon, 20 seeds per cell; collapse = per-step landmark occupancy below $\theta {=}0.144$, recalibrated from this run's null $w{=}0$/$w{=}1$ endpoints). The family shifts rightward as $\lambda $ grows, with vertical dashed $w_{\mathrm  {crit}}$ lines ordered accordingly---the same loss-aversion signature found in the supply chain, recovered under a different environment and a different (centralized-critic) algorithm.}}{22}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:mpe_lambda_curves}{{6}{22}{MAPPO on MPE Cooperative Navigation: fitted collapse-probability curves $P(\mathrm {collapse}\mid w)$ for the full loss-aversion sweep $\lambda {=}1,\ldots ,7$ ($\alpha {=}\beta {=}0.88$, centralized critic, 50-step horizon, 20 seeds per cell; collapse = per-step landmark occupancy below $\theta {=}0.144$, recalibrated from this run's null $w{=}0$/$w{=}1$ endpoints). The family shifts rightward as $\lambda $ grows, with vertical dashed $\wcrit $ lines ordered accordingly---the same loss-aversion signature found in the supply chain, recovered under a different environment and a different (centralized-critic) algorithm}{figure.caption.16}{}}
-\newlabel{fig:mpe_lambda_curves@cref}{{[figure][6][]6}{[1][21][]22}{}{}{}}
+\citation{christianos2020shared}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}A third environment: Level-Based Foraging}{22}{subsection.6.2}\protected@file@percent }
+\newlabel{sec:lbf}{{6.2}{22}{A third environment: Level-Based Foraging}{subsection.6.2}{}}
+\newlabel{sec:lbf@cref}{{[subsection][2][6]6.2}{[1][22][]22}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces MAPPO on MPE Cooperative Navigation: fitted collapse-probability curves $P(\mathrm  {collapse}\mid w)$ for the full loss-aversion sweep $\lambda {=}1,\ldots  ,7$ ($\alpha {=}\beta {=}0.88$, centralized critic, 50-step horizon, 20 seeds per cell; collapse = per-step landmark occupancy below $\theta {=}0.144$, recalibrated from this run's null $w{=}0$/$w{=}1$ endpoints). The family shifts rightward as $\lambda $ grows, with vertical dashed $w_{\mathrm  {crit}}$ lines ordered accordingly---the same loss-aversion signature found in the supply chain, recovered under a different environment and a different (centralized-critic) algorithm.}}{23}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:mpe_lambda_curves}{{6}{23}{MAPPO on MPE Cooperative Navigation: fitted collapse-probability curves $P(\mathrm {collapse}\mid w)$ for the full loss-aversion sweep $\lambda {=}1,\ldots ,7$ ($\alpha {=}\beta {=}0.88$, centralized critic, 50-step horizon, 20 seeds per cell; collapse = per-step landmark occupancy below $\theta {=}0.144$, recalibrated from this run's null $w{=}0$/$w{=}1$ endpoints). The family shifts rightward as $\lambda $ grows, with vertical dashed $\wcrit $ lines ordered accordingly---the same loss-aversion signature found in the supply chain, recovered under a different environment and a different (centralized-critic) algorithm}{figure.caption.16}{}}
+\newlabel{fig:mpe_lambda_curves@cref}{{[figure][6][]6}{[1][22][]23}{}{}{}}
 \citation{yu2022surprising}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}A third environment: Level-Based Foraging}{23}{subsection.7.2}\protected@file@percent }
-\newlabel{sec:lbf}{{7.2}{23}{A third environment: Level-Based Foraging}{subsection.7.2}{}}
-\newlabel{sec:lbf@cref}{{[subsection][2][7]7.2}{[1][21][]23}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Across algorithms: MAPPO on the supply chain}{23}{subsection.7.3}\protected@file@percent }
-\newlabel{sec:appendix_crossalgo}{{7.3}{23}{Across algorithms: MAPPO on the supply chain}{subsection.7.3}{}}
-\newlabel{sec:appendix_crossalgo@cref}{{[subsection][3][7]7.3}{[1][23][]23}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Centralized-critic MAPPO on the supply chain: fitted collapse-probability curves $P(\mathrm  {collapse}\mid w)$ for $\lambda =1,\ldots  ,7$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell, 700 runs). As under PPO, the family shifts rightward as loss aversion grows---each increment of $\lambda $ raises the centralization required to avert collapse---confirming the effect is not an artifact of independent PPO. The PPO-vs-MAPPO $w_{\mathrm  {crit}}(\lambda )$ comparison is shown alongside MPE in \Cref  {fig:generalization}.}}{24}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:mappo_curves}{{7}{24}{Centralized-critic MAPPO on the supply chain: fitted collapse-probability curves $P(\mathrm {collapse}\mid w)$ for $\lambda =1,\ldots ,7$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell, 700 runs). As under PPO, the family shifts rightward as loss aversion grows---each increment of $\lambda $ raises the centralization required to avert collapse---confirming the effect is not an artifact of independent PPO. The PPO-vs-MAPPO $\wcrit (\lambda )$ comparison is shown alongside MPE in \Cref {fig:generalization}}{figure.caption.17}{}}
-\newlabel{fig:mappo_curves@cref}{{[figure][7][]7}{[1][24][]24}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Boundary Conditions: Two Ablations}{24}{section.8}\protected@file@percent }
-\newlabel{sec:ablations}{{8}{24}{Boundary Conditions: Two Ablations}{section.8}{}}
-\newlabel{sec:ablations@cref}{{[section][8][]8}{[1][24][]24}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Action-representation ablation. The control (last row) changes only the action space while holding the learner at PPO, isolating coarse discretisation of the continuous control---not the value-based paradigm---as what erases the boundary.}}{25}{table.caption.18}\protected@file@percent }
-\newlabel{tab:ablation_action}{{6}{25}{Action-representation ablation. The control (last row) changes only the action space while holding the learner at PPO, isolating coarse discretisation of the continuous control---not the value-based paradigm---as what erases the boundary}{table.caption.18}{}}
-\newlabel{tab:ablation_action@cref}{{[table][6][]6}{[1][25][]25}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Action representation}{25}{subsection.8.1}\protected@file@percent }
-\newlabel{sec:ablation_action}{{8.1}{25}{Action representation}{subsection.8.1}{}}
-\newlabel{sec:ablation_action@cref}{{[subsection][1][8]8.1}{[1][25][]25}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Credit assignment}{25}{subsection.8.2}\protected@file@percent }
-\newlabel{sec:ablation_credit}{{8.2}{25}{Credit assignment}{subsection.8.2}{}}
-\newlabel{sec:ablation_credit@cref}{{[subsection][2][8]8.2}{[1][25][]25}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Credit-assignment ablation on MPE (null, $\lambda {=}1$). Independent PPO collapses at every $w$ (a coordination floor: it cannot learn the task regardless of incentive), while the centralised-critic learner (MAPPO) crosses the boundary. The behavioural boundary is exposed only once credit assignment is handled.}}{26}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:mpe_floor}{{8}{26}{Credit-assignment ablation on MPE (null, $\lambda {=}1$). Independent PPO collapses at every $w$ (a coordination floor: it cannot learn the task regardless of incentive), while the centralised-critic learner (MAPPO) crosses the boundary. The behavioural boundary is exposed only once credit assignment is handled}{figure.caption.19}{}}
-\newlabel{fig:mpe_floor@cref}{{[figure][8][]8}{[1][26][]26}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}A Minority Sets the Boundary}{26}{section.9}\protected@file@percent }
-\newlabel{sec:heterogeneous}{{9}{26}{A Minority Sets the Boundary}{section.9}{}}
-\newlabel{sec:heterogeneous@cref}{{[section][9][]9}{[1][26][]26}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Across algorithms: MAPPO on the supply chain}{24}{subsection.6.3}\protected@file@percent }
+\newlabel{sec:appendix_crossalgo}{{6.3}{24}{Across algorithms: MAPPO on the supply chain}{subsection.6.3}{}}
+\newlabel{sec:appendix_crossalgo@cref}{{[subsection][3][6]6.3}{[1][24][]24}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Boundary Conditions: Two Ablations}{24}{section.7}\protected@file@percent }
+\newlabel{sec:ablations}{{7}{24}{Boundary Conditions: Two Ablations}{section.7}{}}
+\newlabel{sec:ablations@cref}{{[section][7][]7}{[1][24][]24}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Centralized-critic MAPPO on the supply chain: fitted collapse-probability curves $P(\mathrm  {collapse}\mid w)$ for $\lambda =1,\ldots  ,7$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell, 700 runs). As under PPO, the family shifts rightward as loss aversion grows---each increment of $\lambda $ raises the centralization required to avert collapse---confirming the effect is not an artifact of independent PPO. The PPO-vs-MAPPO $w_{\mathrm  {crit}}(\lambda )$ comparison is shown alongside MPE in \Cref  {fig:generalization}.}}{25}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:mappo_curves}{{7}{25}{Centralized-critic MAPPO on the supply chain: fitted collapse-probability curves $P(\mathrm {collapse}\mid w)$ for $\lambda =1,\ldots ,7$ ($\alpha {=}\beta {=}0.88$, 300k steps, 20 seeds per cell, 700 runs). As under PPO, the family shifts rightward as loss aversion grows---each increment of $\lambda $ raises the centralization required to avert collapse---confirming the effect is not an artifact of independent PPO. The PPO-vs-MAPPO $\wcrit (\lambda )$ comparison is shown alongside MPE in \Cref {fig:generalization}}{figure.caption.17}{}}
+\newlabel{fig:mappo_curves@cref}{{[figure][7][]7}{[1][24][]25}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Action-representation ablation. The control (last row) changes only the action space while holding the learner at PPO, isolating coarse discretisation of the continuous control---not the value-based paradigm---as what erases the boundary.}}{26}{table.caption.18}\protected@file@percent }
+\newlabel{tab:ablation_action}{{6}{26}{Action-representation ablation. The control (last row) changes only the action space while holding the learner at PPO, isolating coarse discretisation of the continuous control---not the value-based paradigm---as what erases the boundary}{table.caption.18}{}}
+\newlabel{tab:ablation_action@cref}{{[table][6][]6}{[1][26][]26}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Action representation}{26}{subsection.7.1}\protected@file@percent }
+\newlabel{sec:ablation_action}{{7.1}{26}{Action representation}{subsection.7.1}{}}
+\newlabel{sec:ablation_action@cref}{{[subsection][1][7]7.1}{[1][24][]26}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Credit assignment}{26}{subsection.7.2}\protected@file@percent }
+\newlabel{sec:ablation_credit}{{7.2}{26}{Credit assignment}{subsection.7.2}{}}
+\newlabel{sec:ablation_credit@cref}{{[subsection][2][7]7.2}{[1][26][]26}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Credit-assignment ablation on MPE (null, $\lambda {=}1$). Independent PPO collapses at every $w$ (a coordination floor: it cannot learn the task regardless of incentive), while the centralised-critic learner (MAPPO) crosses the boundary. The behavioural boundary is exposed only once credit assignment is handled.}}{27}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:mpe_floor}{{8}{27}{Credit-assignment ablation on MPE (null, $\lambda {=}1$). Independent PPO collapses at every $w$ (a coordination floor: it cannot learn the task regardless of incentive), while the centralised-critic learner (MAPPO) crosses the boundary. The behavioural boundary is exposed only once credit assignment is handled}{figure.caption.19}{}}
+\newlabel{fig:mpe_floor@cref}{{[figure][8][]8}{[1][27][]27}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}A Minority Sets the Boundary}{27}{section.8}\protected@file@percent }
+\newlabel{sec:heterogeneous}{{8}{27}{A Minority Sets the Boundary}{section.8}{}}
+\newlabel{sec:heterogeneous@cref}{{[section][8][]8}{[1][27][]27}{}{}{}}
 \citation{mengesha2025}
 \citation{lalmohammed2025,ghaemi2024risk}
 \citation{tversky1992}
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Heterogeneous-population sweep ($\alpha {=}\beta {=}0.88$; loss-averse nodes at $\lambda {=}7$, others $\lambda {=}1$; 300k, 20 seeds/cell). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs. Homogeneous references: all risk-neutral $\approx 0.586$, all loss-averse $0.851$.}}{27}{table.caption.20}\protected@file@percent }
-\newlabel{tab:hetero}{{7}{27}{Heterogeneous-population sweep ($\alpha {=}\beta {=}0.88$; loss-averse nodes at $\lambda {=}7$, others $\lambda {=}1$; 300k, 20 seeds/cell). $\wcrit $ with bootstrap 95\% CIs. Homogeneous references: all risk-neutral $\approx 0.586$, all loss-averse $0.851$}{table.caption.20}{}}
-\newlabel{tab:hetero@cref}{{[table][7][]7}{[1][27][]27}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Heterogeneous cognitive profiles. (a)~Collapse curves: a single downstream loss-averse node (orange) tracks the fully loss-averse population (red), while a single upstream node (blue) is far milder. (b)~$w_{\mathrm  {crit}}$ by configuration: one downstream loss-averse node already reaches the homogeneous loss-averse boundary; loss aversion cascades upstream but not downstream.}}{27}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:hetero}{{9}{27}{Heterogeneous cognitive profiles. (a)~Collapse curves: a single downstream loss-averse node (orange) tracks the fully loss-averse population (red), while a single upstream node (blue) is far milder. (b)~$\wcrit $ by configuration: one downstream loss-averse node already reaches the homogeneous loss-averse boundary; loss aversion cascades upstream but not downstream}{figure.caption.21}{}}
-\newlabel{fig:hetero@cref}{{[figure][9][]9}{[1][27][]27}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Heterogeneous-population sweep ($\alpha {=}\beta {=}0.88$; loss-averse nodes at $\lambda {=}7$, others $\lambda {=}1$; 300k, 20 seeds/cell). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs. Homogeneous references: all risk-neutral $\approx 0.586$, all loss-averse $0.851$.}}{28}{table.caption.20}\protected@file@percent }
+\newlabel{tab:hetero}{{7}{28}{Heterogeneous-population sweep ($\alpha {=}\beta {=}0.88$; loss-averse nodes at $\lambda {=}7$, others $\lambda {=}1$; 300k, 20 seeds/cell). $\wcrit $ with bootstrap 95\% CIs. Homogeneous references: all risk-neutral $\approx 0.586$, all loss-averse $0.851$}{table.caption.20}{}}
+\newlabel{tab:hetero@cref}{{[table][7][]7}{[1][28][]28}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Heterogeneous cognitive profiles. (a)~Collapse curves: a single downstream loss-averse node (orange) tracks the fully loss-averse population (red), while a single upstream node (blue) is far milder. (b)~$w_{\mathrm  {crit}}$ by configuration: one downstream loss-averse node already reaches the homogeneous loss-averse boundary; loss aversion cascades upstream but not downstream.}}{28}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:hetero}{{9}{28}{Heterogeneous cognitive profiles. (a)~Collapse curves: a single downstream loss-averse node (orange) tracks the fully loss-averse population (red), while a single upstream node (blue) is far milder. (b)~$\wcrit $ by configuration: one downstream loss-averse node already reaches the homogeneous loss-averse boundary; loss aversion cascades upstream but not downstream}{figure.caption.21}{}}
+\newlabel{fig:hetero@cref}{{[figure][9][]9}{[1][28][]28}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Discussion}{28}{section.9}\protected@file@percent }
+\newlabel{sec:discussion}{{9}{28}{Discussion}{section.9}{}}
+\newlabel{sec:discussion@cref}{{[section][9][]9}{[1][28][]28}{}{}{}}
 \citation{tversky1992}
 \citation{weng2026}
 \citation{yamaguchi2025}
 \citation{capannoli2026phase}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Discussion}{28}{section.10}\protected@file@percent }
-\newlabel{sec:discussion}{{10}{28}{Discussion}{section.10}{}}
-\newlabel{sec:discussion@cref}{{[section][10][]10}{[1][27][]28}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{29}{section.11}\protected@file@percent }
-\newlabel{sec:conclusion}{{11}{29}{Conclusion}{section.11}{}}
-\newlabel{sec:conclusion@cref}{{[section][11][]11}{[1][29][]29}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Notation and Abbreviations}{30}{appendix.A}\protected@file@percent }
-\newlabel{sec:appendix_notation}{{A}{30}{Notation and Abbreviations}{appendix.A}{}}
-\newlabel{sec:appendix_notation@cref}{{[section][1][]A}{[1][30][]30}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Claim--Evidence Ledger}{30}{appendix.B}\protected@file@percent }
-\newlabel{sec:appendix_ledger}{{B}{30}{Claim--Evidence Ledger}{appendix.B}{}}
-\newlabel{sec:appendix_ledger@cref}{{[section][2][]B}{[1][30][]30}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Each headline claim and the breadth of evidence behind it. Environments: SC (supply chain), MPE, LBF. Algorithms: PPO, MAPPO.}}{31}{table.caption.23}\protected@file@percent }
-\newlabel{tab:claim_ledger}{{8}{31}{Each headline claim and the breadth of evidence behind it. Environments: SC (supply chain), MPE, LBF. Algorithms: PPO, MAPPO}{table.caption.23}{}}
-\newlabel{tab:claim_ledger@cref}{{[table][8][]8}{[1][30][]31}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {C}Threshold Robustness}{31}{appendix.C}\protected@file@percent }
-\newlabel{sec:appendix_robustness}{{C}{31}{Threshold Robustness}{appendix.C}{}}
-\newlabel{sec:appendix_robustness@cref}{{[section][3][]C}{[1][31][]31}{}{}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {D}Pre-registered Test of the Signal-to-Noise Mechanism}{31}{appendix.D}\protected@file@percent }
-\newlabel{sec:appendix_snr}{{D}{31}{Pre-registered Test of the Signal-to-Noise Mechanism}{appendix.D}{}}
-\newlabel{sec:appendix_snr@cref}{{[section][4][]D}{[1][31][]31}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{Observable.}{31}{section*.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Prediction and decision rule.}{31}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{30}{section.10}\protected@file@percent }
+\newlabel{sec:conclusion}{{10}{30}{Conclusion}{section.10}{}}
+\newlabel{sec:conclusion@cref}{{[section][10][]10}{[1][30][]30}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Notation and Abbreviations}{31}{appendix.A}\protected@file@percent }
+\newlabel{sec:appendix_notation}{{A}{31}{Notation and Abbreviations}{appendix.A}{}}
+\newlabel{sec:appendix_notation@cref}{{[section][1][]A}{[1][31][]31}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Claim--Evidence Ledger}{31}{appendix.B}\protected@file@percent }
+\newlabel{sec:appendix_ledger}{{B}{31}{Claim--Evidence Ledger}{appendix.B}{}}
+\newlabel{sec:appendix_ledger@cref}{{[section][2][]B}{[1][31][]31}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Each headline claim and the breadth of evidence behind it. Environments: SC (supply chain), MPE, LBF. Algorithms: PPO, MAPPO.}}{32}{table.caption.23}\protected@file@percent }
+\newlabel{tab:claim_ledger}{{8}{32}{Each headline claim and the breadth of evidence behind it. Environments: SC (supply chain), MPE, LBF. Algorithms: PPO, MAPPO}{table.caption.23}{}}
+\newlabel{tab:claim_ledger@cref}{{[table][8][]8}{[1][31][]32}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Threshold Robustness}{32}{appendix.C}\protected@file@percent }
+\newlabel{sec:appendix_robustness}{{C}{32}{Threshold Robustness}{appendix.C}{}}
+\newlabel{sec:appendix_robustness@cref}{{[section][3][]C}{[1][31][]32}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Pre-registered Test of the Signal-to-Noise Mechanism}{32}{appendix.D}\protected@file@percent }
+\newlabel{sec:appendix_snr}{{D}{32}{Pre-registered Test of the Signal-to-Noise Mechanism}{appendix.D}{}}
+\newlabel{sec:appendix_snr@cref}{{[section][4][]D}{[1][32][]32}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Observable.}{32}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Prediction and decision rule.}{32}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Outcome.}{33}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {E}Exploration-Noise Ablation}{33}{appendix.E}\protected@file@percent }
+\newlabel{sec:appendix_robustness2}{{E}{33}{Exploration-Noise Ablation}{appendix.E}{}}
+\newlabel{sec:appendix_robustness2@cref}{{[section][5][]E}{[1][33][]33}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Exploration noise (entropy coefficient).}{33}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cross-environment: a binding-noise dissociation.}{33}{section*.28}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{references_aaai}
 \bibcite{dmarl2025}{{1}{2025}{{Akella}}{{}}}
 \bibcite{capannoli2026phase}{{2}{2026}{{Capannoli et~al.}}{{Capannoli, Cruciani, Mimun, and Quattropani}}}
-\@writefile{toc}{\contentsline {paragraph}{Outcome.}{32}{section*.26}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {E}Exploration-Noise Ablation}{32}{appendix.E}\protected@file@percent }
-\newlabel{sec:appendix_robustness2}{{E}{32}{Exploration-Noise Ablation}{appendix.E}{}}
-\newlabel{sec:appendix_robustness2@cref}{{[section][5][]E}{[1][32][]32}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{Exploration noise (entropy coefficient).}{32}{section*.27}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Entropy-coefficient ablation ($\alpha {=}\beta {=}1$, $\lambda {=}1$, 300k, 20 seeds/cell). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs.}}{34}{table.caption.29}\protected@file@percent }
+\newlabel{tab:entropy}{{9}{34}{Entropy-coefficient ablation ($\alpha {=}\beta {=}1$, $\lambda {=}1$, 300k, 20 seeds/cell). $\wcrit $ with bootstrap 95\% CIs}{table.caption.29}{}}
+\newlabel{tab:entropy@cref}{{[table][9][]9}{[1][34][]34}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Exploration-noise ablation. (a)~Collapse curves shift right as the entropy coefficient grows. (b)~$w_{\mathrm  {crit}}$ rises monotonically with exploration noise, corroborating the signal-to-noise mechanism (Section~\ref {sec:meanfield}); $\text  {ent}{=}0$ reproduces the null boundary $0.685$.}}{34}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:entropy}{{10}{34}{Exploration-noise ablation. (a)~Collapse curves shift right as the entropy coefficient grows. (b)~$\wcrit $ rises monotonically with exploration noise, corroborating the signal-to-noise mechanism (Section~\ref {sec:meanfield}); $\text {ent}{=}0$ reproduces the null boundary $0.685$}{figure.caption.30}{}}
+\newlabel{fig:entropy@cref}{{[figure][10][]10}{[1][34][]34}{}{}{}}
 \bibcite{christianos2020shared}{{3}{2020}{{Christianos et~al.}}{{Christianos, Sch{\"a}fer, and Albrecht}}}
 \bibcite{ethayarajh2024kto}{{4}{2024}{{Ethayarajh et~al.}}{{Ethayarajh, Xu, Muennighoff, Jurafsky, and Kiela}}}
 \bibcite{ghaemi2024risk}{{5}{2024}{{Ghaemi et~al.}}{{Ghaemi, Kebriaei, Moghaddam, and Ahamdabadi}}}
 \bibcite{gijsbrechts2022}{{6}{2022}{{Gijsbrechts et~al.}}{{Gijsbrechts, Boute, Van~Mieghem, and Zhang}}}
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Entropy-coefficient ablation ($\alpha {=}\beta {=}1$, $\lambda {=}1$, 300k, 20 seeds/cell). $w_{\mathrm  {crit}}$ with bootstrap 95\% CIs.}}{33}{table.caption.28}\protected@file@percent }
-\newlabel{tab:entropy}{{9}{33}{Entropy-coefficient ablation ($\alpha {=}\beta {=}1$, $\lambda {=}1$, 300k, 20 seeds/cell). $\wcrit $ with bootstrap 95\% CIs}{table.caption.28}{}}
-\newlabel{tab:entropy@cref}{{[table][9][]9}{[1][32][]33}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Exploration-noise ablation. (a)~Collapse curves shift right as the entropy coefficient grows. (b)~$w_{\mathrm  {crit}}$ rises monotonically with exploration noise, corroborating the signal-to-noise mechanism (Section~\ref {sec:meanfield}); $\text  {ent}{=}0$ reproduces the null boundary $0.685$.}}{33}{figure.caption.29}\protected@file@percent }
-\newlabel{fig:entropy}{{10}{33}{Exploration-noise ablation. (a)~Collapse curves shift right as the entropy coefficient grows. (b)~$\wcrit $ rises monotonically with exploration noise, corroborating the signal-to-noise mechanism (Section~\ref {sec:meanfield}); $\text {ent}{=}0$ reproduces the null boundary $0.685$}{figure.caption.29}{}}
-\newlabel{fig:entropy@cref}{{[figure][10][]10}{[1][32][]33}{}{}{}}
 \bibcite{hubbs2020orgym}{{7}{2020}{{Hubbs et~al.}}{{Hubbs, Perez, Sarwar, Sahinidis, Grossmann, and Wassick}}}
 \bibcite{jiang2018dgn}{{8}{2020}{{Jiang et~al.}}{{Jiang, Dun, Huang, and Lu}}}
 \bibcite{kahneman1979}{{9}{1979}{{Kahneman and Tversky}}{{}}}
 \bibcite{lalmohammed2025}{{10}{2025}{{Lalmohammed et~al.}}{{Lalmohammed, Gupta, Shah, and Ramji}}}
-\bibcite{marlim2023}{{11}{2023}{{Leluc et~al.}}{{Leluc, Kadoche, Bertoncello, and Gourv{\'e}nec}}}
-\bibcite{liu2023lazy}{{12}{2023}{{Liu et~al.}}{{Liu, Pu, Pan, Yi, Liang, and Zhang}}}
-\bibcite{lowe2017multi}{{13}{2017}{{Lowe et~al.}}{{Lowe, Wu, Tamar, Harb, Abbeel, and Mordatch}}}
-\bibcite{mengesha2025}{{14}{2025}{{Mengesha et~al.}}{{Mengesha, Sun, and Roy}}}
-\bibcite{oroojlooyjadid2022}{{15}{2022}{{Oroojlooyjadid et~al.}}{{Oroojlooyjadid, Nazari, Snyder, and Tak{\'a}{\v {c}}}}}
-\bibcite{qiu2021rmix}{{16}{2021}{{Qiu et~al.}}{{Qiu, Wang, Yu, Wang, He, An, Obraztsova, and Rabinovich}}}
-\bibcite{raffin2021sb3}{{17}{2021}{{Raffin et~al.}}{{Raffin, Hill, Gleave, Kanervisto, Ernestus, and Dormann}}}
-\bibcite{schulman2017ppo}{{18}{2017}{{Schulman et~al.}}{{Schulman, Wolski, Dhariwal, Radford, and Klimov}}}
-\bibcite{xie2023riskq}{{19}{2023}{{Shen et~al.}}{{Shen, Ma, Li, Liu, Fu, Mei, Liu, and Wang}}}
-\bibcite{peng2023curo}{{20}{2023}{{Shi and Peng}}{{}}}
-\bibcite{terry2020supersuit}{{21}{2020}{{Terry et~al.}}{{Terry, Black, and Hari}}}
-\bibcite{terry2021pettingzoo}{{22}{2021}{{Terry et~al.}}{{Terry, Black, Grammel, Jayakumar, Hari, Sullivan, Santos, Perez, Horsch, Dieffendahl, Williams, Lokesh, and Ravi}}}
-\bibcite{tversky1992}{{23}{1992}{{Tversky and Kahneman}}{{}}}
-\bibcite{weng2026}{{24}{2026}{{Weng and Lee}}{{}}}
-\bibcite{yamaguchi2025}{{25}{2025}{{Yamaguchi}}{{}}}
-\bibcite{yu2022surprising}{{26}{2022}{{Yu et~al.}}{{Yu, Velu, Vinitsky, Gao, Wang, Bayen, and Wu}}}
-\bibcite{wang2025maca}{{27}{2025}{{Zhao and Xie}}{{}}}
-\gdef \@abspage@last{35}
+\bibcite{leibo2017multi}{{11}{2017}{{Leibo et~al.}}{{Leibo, Zambaldi, Lanctot, Marecki, and Graepel}}}
+\bibcite{marlim2023}{{12}{2023}{{Leluc et~al.}}{{Leluc, Kadoche, Bertoncello, and Gourv{\'e}nec}}}
+\bibcite{liu2023lazy}{{13}{2023}{{Liu et~al.}}{{Liu, Pu, Pan, Yi, Liang, and Zhang}}}
+\bibcite{lowe2017multi}{{14}{2017}{{Lowe et~al.}}{{Lowe, Wu, Tamar, Harb, Abbeel, and Mordatch}}}
+\bibcite{mengesha2025}{{15}{2025}{{Mengesha et~al.}}{{Mengesha, Sun, and Roy}}}
+\bibcite{oroojlooyjadid2022}{{16}{2022}{{Oroojlooyjadid et~al.}}{{Oroojlooyjadid, Nazari, Snyder, and Tak{\'a}{\v {c}}}}}
+\bibcite{qiu2021rmix}{{17}{2021}{{Qiu et~al.}}{{Qiu, Wang, Yu, Wang, He, An, Obraztsova, and Rabinovich}}}
+\bibcite{raffin2021sb3}{{18}{2021}{{Raffin et~al.}}{{Raffin, Hill, Gleave, Kanervisto, Ernestus, and Dormann}}}
+\bibcite{schulman2017ppo}{{19}{2017}{{Schulman et~al.}}{{Schulman, Wolski, Dhariwal, Radford, and Klimov}}}
+\bibcite{xie2023riskq}{{20}{2023}{{Shen et~al.}}{{Shen, Ma, Li, Liu, Fu, Mei, Liu, and Wang}}}
+\bibcite{peng2023curo}{{21}{2023}{{Shi and Peng}}{{}}}
+\bibcite{terry2020supersuit}{{22}{2020}{{Terry et~al.}}{{Terry, Black, and Hari}}}
+\bibcite{terry2021pettingzoo}{{23}{2021}{{Terry et~al.}}{{Terry, Black, Grammel, Jayakumar, Hari, Sullivan, Santos, Perez, Horsch, Dieffendahl, Williams, Lokesh, and Ravi}}}
+\bibcite{tversky1992}{{24}{1992}{{Tversky and Kahneman}}{{}}}
+\bibcite{weng2026}{{25}{2026}{{Weng and Lee}}{{}}}
+\bibcite{yamaguchi2025}{{26}{2025}{{Yamaguchi}}{{}}}
+\bibcite{yu2022surprising}{{27}{2022}{{Yu et~al.}}{{Yu, Velu, Vinitsky, Gao, Wang, Bayen, and Wu}}}
+\bibcite{wang2025maca}{{28}{2025}{{Zhao and Xie}}{{}}}
+\gdef \@abspage@last{37}
