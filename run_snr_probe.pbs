@@ -1,0 +1,32 @@
+#!/bin/bash
+#PBS -N snr_probe
+#PBS -o logs/snr_probe.out
+#PBS -e logs/snr_probe.err
+#PBS -l ncpus=1
+#PBS -l walltime=06:00:00
+#PBS -q cpu
+#PBS -J 0-179
+
+# --- SNR mechanism, take 2: the PROBE-STATE observable (predictive-coordinate
+# hunt). Same 9-w x 20-seed grid and 150k horizon as run_snr.pbs so the boundary
+# reference stays 0.822 and the two sweeps are directly comparable. The grand-mean
+# mu observable did NOT separate survivors from collapsers (sign-and-form);
+# this logs mu(s*) at fixed inventory-position probes, which holds the state
+# context constant. analyze_snr_probe.py then tests which probe level (lo/med/hi)
+# crosses zero at w_crit. Driver _append_row is idempotent per run_idx.
+#
+# Local gate already PASSED:
+#   python experiments/exp_snr_probe.py --run_idx 0 --timesteps 4000 \
+#       --window_steps 2000 --out /tmp/p.csv   # writes npz [updates,3,5], finite
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_snr_probe.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 150000 \
+    --window_steps 60000 \
+    --out docs/expSNR_figures/expSNR_probe_raw_data.csv
