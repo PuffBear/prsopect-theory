@@ -1,0 +1,106 @@
+% =====================================================================
+%  main_aaai_intro.tex -- rewritten Introduction for AAAI-27 Main Track (MAS)
+%  Spine: docs/if_this_paper_disappeared.md (7 points).
+%  Target length: ~1.1-1.25 pages two-column.
+%  Pour into \section{Introduction} of main_aaai_skeleton.tex.
+%
+%  Design decisions baked in:
+%   - Para 1 hook: human+agent teams inherit loss aversion (why care).
+%   - Para 2: the gap -- collapse known but never measured (the unmeasured object).
+%   - Para 3: why the supply chain is the ONLY substrate where the real
+%     question (where in the network) is askable -- PROMOTED to lead the
+%     "why this domain" logic (was 5th reason in main_standard).
+%   - Para 4: the move -- boundary as instrument; CPT as reward transform
+%     (pre-empts the "reward engineering" kill-shot inline).
+%   - Para 5: <<HYPOTHESIS>> verbatim + the contribution ladder preview.
+%   - Behavioral number led by human-range lambda~3 (+0.089); lambda=7 demoted.
+% =====================================================================
+
+\section{Introduction}
+\label{sec:intro}
+
+Cooperative systems increasingly mix human decision-makers with learning agents
+trained to act like them. In automated replenishment, fraud review, energy
+dispatch, and clinical triage, the deployed agents do not optimise a clean
+objective---they inherit human preference structure by design, either because
+they are trained on human choices through preference-aligned objectives that are
+themselves prospect-theoretic in form~\citep{ethayarajh2024kto}, or because they
+act alongside humans in the loop~\citep{lalmohammed2025}. The most robustly
+documented feature of that preference structure is \emph{loss aversion}:
+people---and now the agents shaped after them---weigh a loss more heavily than an
+equivalent gain~\citep{kahneman1979,tversky1992}. Individual-level behavioral
+economics tells us what this does to one decision-maker. It does not tell us what
+it does to the \emph{coordination} of many decision-makers learning
+together~\citep{leibo2017multi,lowe2017multi}---which is the question a deployer
+actually faces.
+
+That coordination has a well-documented way of failing. Cooperative multi-agent
+reinforcement learning (MARL) collapses into a degenerate, zero-action
+\emph{lazy-agent} policy when agents abandon cooperation~\citep{liu2023lazy,peng2023curo}.
+Whether a system collapses depends on its \emph{reward centralization}
+$w\in[0,1]$---the fraction of each agent's reward drawn from the team's global
+outcome rather than its own local one: push $w$ too low and each agent's own
+performance drowns out its contribution to the team, so cooperation carries no
+learnable signal and the safe, lazy policy wins. Yet the field describes this
+dependence only qualitatively---``centralization helps''~\citep{dmarl2025,liu2023lazy}.
+\emph{Where}, in $w$, coordination gives way to collapse---the critical
+centralization $\wcrit$ at which the collapse probability crosses one-half---has
+never been measured. It is a slogan, not a quantity.
+
+We ground the measurement in automated replenishment for multi-echelon supply
+chains, and the choice is not incidental: it is the kind of domain where the
+sharpest version of our question can even be \emph{asked}. A supply chain has a
+\emph{directed flow}---inventory moves downstream along a chain, so ``upstream''
+and ``downstream'' are well defined---which lets us ask not merely whether a
+behavioral bias matters but \emph{where in the network} a biased participant
+matters most. Its failure modes are economically legible (hoarding,
+stockouts, the bullwhip cascade), so collapse is a recognisable operational
+disaster rather than an abstract training pathology; and real replenishment is
+done by planners who demonstrably weigh losses more heavily than gains, so the
+agents replacing or assisting them inherit that bias by construction. The
+substrate thus supplies the directed structure, the legible failure, and the
+behavioral mechanism in one place---which is why our most fine-grained results
+live here, and why we are explicit about which of them we claim beyond it.
+
+We treat collapse the way physics treats a phase boundary: a pre-registered,
+frozen binary collapse definition, logistic estimation of
+$P(\mathrm{collapse}\mid w)$, and bootstrap confidence intervals on $\wcrit$. We
+use ``phase boundary'' in the empirical sense---a sharp, metastable threshold
+whose asymptotic ($T\!\to\!\infty$) value is the boundary proper---not as a claim
+of a thermodynamic-limit singularity. The boundary is then an \emph{instrument}.
+The decisive design choice that makes what it measures trustworthy is that we
+apply cumulative prospect theory (CPT) as a \emph{reward transform after reward
+blending}, never inside the learning update~\eqref{eq:reward}: the optimiser is
+byte-for-byte identical across all conditions, so a measured shift in $\wcrit$ is
+a behavioral effect, not an artifact of tuning or of a changed
+algorithm---separating us cleanly from prior CPT-in-MARL work that folds the
+value and probability-weighting functions into the actor--critic
+update~\citep{lalmohammed2025}. Against this null, a three-way design
+(no PT / curvature only / curvature plus loss aversion) attributes any shift in
+$\wcrit$ to a specific behavioral component.
+
+What we find is this.
+% <<HYPOTHESIS>> -- verbatim, occurrence 2 of 3 (also in abstract and conclusion)
+\emph{Human-like loss aversion forces cooperative learning agents to require more
+reward centralization to avoid collapse---a shift we predict in sign a priori and
+confirm across three environments and two algorithms---and a single downstream
+loss-averse agent can set that requirement for the whole system.} The shift is
+already significant at the human-range $\lambda\!\approx\!3$
+($+0.089$ $[0.041,0.141]$ in required centralization), rising to a high-stakes
+upper bound of $+0.166$ $[0.135,0.202]$ at $\lambda{=}7$; its \emph{sign} is fixed
+before any data by a sign invariant of the policy-gradient escape barrier
+(\Cref{thm:sign}); and its \emph{direction} replicates across a supply chain
+(under PPO and centralized-critic MAPPO), MPE Cooperative Navigation, and
+Level-Based Foraging. Our contributions form a ladder: (i) the first
+quantitative, confidence-intervalled phase boundary of coordination collapse in
+deep cooperative MARL; (ii) the discovery that this boundary is \emph{metastable},
+sliding with the training horizon rather than being a fixed constant; (iii) a
+behavioral decomposition showing the two CPT components move it in \emph{opposite}
+directions, with the loss-aversion direction generalizing and a \emph{minority by
+network position} setting the boundary; (iv) an a priori sign guarantee for that
+direction; and (v) a practical reading of the boundary as a measurable safety
+margin---how much more centralization a cooperative system needs once its agents
+are loss-averse, and which participant sets the requirement. Two of these results
+(the affine $\lambda$-law and the downstream-minority cascade) we establish on the
+supply-chain substrate and scope honestly as such, framing the cascade as a
+falsifiable, structurally specified prediction for any directed-flow domain.
