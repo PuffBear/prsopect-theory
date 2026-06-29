@@ -1,0 +1,248 @@
+% =====================================================================
+%  main_aaai_skeleton.tex  --  AAAI-27 Main Technical Track (MAS)
+%  COMPRESSION SCAFFOLD. Target: 7 pages technical + unlimited references.
+%
+%  HOW TO USE:
+%   1. Download the kit from https://aaai.org/authorkit27/ and place
+%      aaai27.sty + aaai27.bst in this folder.
+%   2. Pour body text from main_standard.tex into the marked slots BELOW,
+%      obeying the per-section PAGE BUDGET comments. The budgets sum to 7.0.
+%   3. Anything marked [-> APPENDIX] goes in the supplementary technical
+%      appendix (unlimited, due 3 days after the paper deadline) and does
+%      NOT count toward the 7 pages.
+%   4. The hypothesis sentence marked <<HYPOTHESIS>> must appear VERBATIM in
+%      three places: abstract, end of intro, conclusion. Do not paraphrase.
+%
+%  AAAI STYLE HARD RULES (do not violate -> desk reject):
+%   - two-column aaai27 style, US Letter, Type1/TrueType fonts
+%   - DO NOT change margins, font size, or line spacing
+%   - \usepackage of disallowed packages is forbidden; keep the kit preamble
+%   - references do NOT count toward 7 pages; technical content does
+% =====================================================================
+
+\documentclass[letterpaper]{article}
+\usepackage{aaai27}                 % <-- from the downloaded author kit
+\usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\graphicspath{{../}{../docs/}}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{newfloat}
+\usepackage{caption}
+\DeclareCaptionStyle{ruled}{labelfont=normalfont,labelsep=colon,strut=off}
+\frenchspacing
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11in}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newcommand{\wcrit}{w_{\mathrm{crit}}}
+\newcommand{\PT}{\mathrm{PT}}
+
+% --- AAAI required metadata commands (fill these in) ---
+\pdfinfo{
+/Title(Coordination-Collapse Phase Boundary in Policy-Gradient Cooperative MARL)
+/Author(Agriya Yadav)
+}
+\setcounter{secnumdepth}{0}
+
+\title{Coordination-Collapse Phase Boundary in Policy-Gradient Cooperative MARL}
+\author{
+    %% AAAI requires anonymized submission for the main track --
+    %% leave author block per kit instructions for review; de-anonymize for camera-ready.
+    Anonymous Submission
+}
+
+\begin{document}
+\maketitle
+
+% =====================================================================
+% ABSTRACT  [BUDGET: included in p.1]
+% Keep <= ~200 words. MUST contain the <<HYPOTHESIS>> sentence verbatim.
+% Lead the behavioral number with the HUMAN-RANGE lambda~3 (+0.089),
+% demote lambda=7 to "high-stakes upper bound".
+% =====================================================================
+\begin{abstract}
+% [POUR: compressed abstract from main_standard lines 56-95]
+% Required beats, in order:
+%   (1) collapse is a known failure never measured as a quantity;
+%   (2) we measure w_crit as a pre-registered, CI'd phase boundary;
+%   (3) <<HYPOTHESIS>> sentence verbatim;
+%   (4) replication: 3 environments x 2 algorithms;
+%   (5) one-line scope honesty: affine law + cascade are SC-specific.
+%
+% <<HYPOTHESIS>> (verbatim, occurrence 1 of 3):
+% "Human-like loss aversion forces cooperative learning agents to require more
+%  reward centralization to avoid collapse---a shift we predict in sign a priori
+%  and confirm across three environments and two algorithms---and a single
+%  downstream loss-averse agent can set that requirement for the whole system."
+\end{abstract}
+
+% =====================================================================
+% 1. INTRODUCTION  [BUDGET: 1.25 pages]
+% Use the 7-point spine from docs/if_this_paper_disappeared.md.
+% ORDER CHANGE vs main_standard: lead with the supply-chain justification
+% (directed flow -> upstream/downstream definable -> the position question
+% is askable). It is currently the 5th reason; make it the 1st.
+% End the section with the <<HYPOTHESIS>> sentence (occurrence 2 of 3).
+% =====================================================================
+\section{Introduction}
+\label{sec:intro}
+% [POUR: rewritten intro -- see main_aaai_intro.tex when ready]
+% CUT FROM main_standard: collapse the four \subsection blocks
+% (Coordination collapse / Why PT and MARL / Approach / Why supply chain)
+% into 3 tight paragraphs. Move the detailed prior-work contrast to a
+% Related Work paragraph or [-> APPENDIX claim ledger].
+
+% =====================================================================
+% 2. PRELIMINARIES AND METHOD  [BUDGET: 1.0 page]
+% KEEP: CTDE + w dial; CPT value function (Eq cpt); CPT-as-reward-transform
+%       (Eq reward) -- this is the anti-"reward-engineering" point, keep it
+%       prominent; pre-registered collapse def (Eq collapse); logistic +
+%       bootstrap (Eq logistic); three-way decomposition design.
+% CUT:  Firth digression -> one sentence + [-> APPENDIX].
+% =====================================================================
+\section{Preliminaries and Method}
+\label{sec:method}
+% [POUR: main_standard lines 332-434, compressed]
+
+% =====================================================================
+% 3. EXPERIMENTAL SETUP  [BUDGET: 0.5 page]
+% KEEP: environment one-paragraph; algorithm one-paragraph; Table experiments.
+% CUT:  per-experiment prose -> the table carries it.
+% =====================================================================
+\section{Experimental Setup}
+\label{sec:setup}
+% [POUR: main_standard lines 437-488, compressed; keep tab:experiments]
+
+% =====================================================================
+% 4. RESULTS  [BUDGET: 1.75 pages -- the core, protect this budget]
+%   4.1 Structural transition + metastability  (keep fig:heatmap)
+%   4.2 Behavioral decomposition + full lambda sweep
+%       -> MERGE tab:baselines INTO tab:decomposition (see MERGED TABLE below)
+%       -> keep fig:decomposition; affine-law fig -> can go [-> APPENDIX]
+% =====================================================================
+\section{Results}
+\label{sec:results}
+% [POUR: main_standard lines 494-727, compressed]
+%
+% ---- MERGED TABLE (replaces tab:baselines + tab:decomposition) ----
+% One table: each w_crit value, its condition, its ROLE, and the excess vs null.
+% This kills kill-shot #2 ("just a fit") by showing roles, not raw midpoints.
+%
+% \begin{table}[t]\centering\small
+% \caption{Behavioral decomposition against the single canonical null.
+%   One structural null; every other value is a labeled offset from it.}
+% \label{tab:decomp_merged}
+% \begin{tabular}{lcccc}
+% \toprule
+% Condition & $\wcrit$ & 95\% CI & Excess vs null & Role \\
+% \midrule
+% Null ($\alpha{=}\beta{=}1,\lambda{=}1$), 300k & 0.685 & [0.657,0.710] & 0 & canonical null \\
+% \quad reproduced (Exp N)                       & 0.685 & ...           & +0.019 & null, reproduced \\
+% \quad at 150k horizon                          & 0.822 & [0.785,0.858] & ---    & null, shorter horizon \\
+% Curvature ($\alpha{=}\beta{=}0.88,\lambda{=}1$)& 0.586 & [0.539,0.624] & $-0.100$ & curvature result (eases) \\
+% Loss aversion $\lambda{=}3$ (human range)      & 0.774 & [0.751,0.798] & $+0.089$ & behavioral, significant \\
+% Loss aversion $\lambda{=}7$ (high-stakes bound)& 0.851 & [0.845,0.858] & $+0.166$ & behavioral, significant \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+%
+% NOTE: full lambda=1..7 sweep table (tab:lambda_sweep) -> [-> APPENDIX],
+% cite it inline; keep only the 7-point affine-law RMSE 0.014 sentence in body.
+
+% =====================================================================
+% 5. MEAN-FIELD MECHANISM  [BUDGET: 1.0 page -- HARD CAP]
+% OPEN with the honesty frame, not the theorems:
+%   "We claim this mechanism at the sign-and-form level only; magnitude is
+%    calibrated, and we report one pre-registered probe that came back
+%    inconclusive."
+% KEEP IN BODY: Eq drift, Eq snr, Eq wcrit (det. limit), Theorem 3 (sign),
+%   the claim ledger table (tab:ledger) -- it is your single best trust object.
+% MOVE [-> APPENDIX]: Theorems 1-2 + all proofs; Eq langevin/diffusion detail;
+%   Eq sde; the derived affine-law algebra (keep only Eq wcrit_lambda + RMSE).
+% =====================================================================
+\section{A Mean-Field Mechanism for the Collapse Boundary}
+\label{sec:meanfield}
+% [POUR: main_standard lines 730-1087, AGGRESSIVELY compressed to 1 page]
+% Collapse Thm 1 + Thm 2 into one stated Proposition (one paragraph), proofs out.
+% Keep Theorem 3 (sign invariance) IN BODY with a 2-line proof sketch; full
+% proof [-> APPENDIX].
+
+% =====================================================================
+% 6. GENERALIZATION  [BUDGET: 0.75 page]
+% KEEP IN BODY: fig:generalization (the 4-setting summary) + 2 paragraphs:
+%   one for "direction generalizes across 3 envs x 2 algos", one for
+%   "curvature sign + functional form are substrate-specific (LBF flip)".
+% MOVE [-> APPENDIX]: MPE setup detail, LBF setup detail, MAPPO-on-SC detail,
+%   fig:mpe_lambda_curves, fig:mappo_curves, the credit-assignment +
+%   action-representation ablations (sec:ablations entirely).
+% =====================================================================
+\section{Generalization across Environments and Algorithms}
+\label{sec:generalization}
+% [POUR: main_standard lines 1090-1327, compressed to summary + 1 figure]
+
+% =====================================================================
+% 7. A MINORITY SETS THE BOUNDARY  [BUDGET: 0.5 page -- KEEP, do not cut]
+% This is the most portable, most memorable result. Keep tab:hetero in body.
+% Frame as falsifiable structurally-specified prediction (conditions i-iii).
+% fig:hetero -> can go [-> APPENDIX] if space is tight; table stays.
+% =====================================================================
+\section{A Minority Sets the Boundary}
+\label{sec:heterogeneous}
+% [POUR: main_standard lines 1417-1479, compressed; keep tab:hetero]
+
+% =====================================================================
+% 8. DISCUSSION  [BUDGET: 0.5 page]
+% KEEP: operational reading (w>0.851 vs w>0.685 cost); lambda~2.25 calibration
+%       caveat; the limitations paragraph (substrate scope honesty).
+% CUT:  Yamaguchi/Capannoli prose -> one sentence each, fold into Related Work.
+% =====================================================================
+\section{Discussion}
+\label{sec:discussion}
+% [POUR: main_standard lines 1482-1584, compressed]
+
+% =====================================================================
+% 9. CONCLUSION  [BUDGET: 0.25 page]
+% End with the <<HYPOTHESIS>> sentence (occurrence 3 of 3, verbatim).
+% =====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% [POUR: main_standard lines 1587-1615, compressed]
+% <<HYPOTHESIS>> (verbatim, occurrence 3 of 3) goes here.
+
+% =====================================================================
+%  PAGE BUDGET LEDGER (must sum <= 7.0 technical pages)
+%   Intro            1.25
+%   Method           1.00
+%   Setup            0.50
+%   Results          1.75
+%   Mechanism        1.00
+%   Generalization   0.75
+%   Minority         0.50
+%   Discussion       0.50
+%   Conclusion       0.25
+%   ----------------------
+%   TOTAL            7.50  -> 0.5 OVER. Recover by:
+%     - moving affine-law figure to appendix (already planned)  ~0.25
+%     - tightening Mechanism to 0.85 and Intro to 1.10          ~0.30
+%   Re-measure after first pour; trim figures before trimming claims.
+%
+%  SUPPLEMENTARY TECHNICAL APPENDIX (unlimited, separate file):
+%   - Theorems 1-2 + all proofs; full Langevin/SDE derivation
+%   - Full lambda-sweep table (tab:lambda_sweep) + affine-law figure
+%   - MPE / LBF / MAPPO-on-SC setup + curves
+%   - Two ablations (action-representation, credit-assignment)
+%   - Threshold robustness; pre-registered SNR probe (report the null!)
+%   - Exploration-noise ablation + dissociation
+%   - Claim--evidence ledger (tab:claim_ledger); notation table
+%   - Reproducibility checklist (REQUIRED by AAAI-27)
+% =====================================================================
+
+\bibliographystyle{aaai27}
+\bibliography{references_aaai}
+
+\end{document}
