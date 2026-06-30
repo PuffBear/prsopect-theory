@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -N exp_highlam_grid
+#PBS -o logs/highlambda_finegrid.out
+#PBS -e logs/highlambda_finegrid.err
+#PBS -l ncpus=1
+#PBS -l walltime=06:00:00
+#PBS -q cpu
+#PBS -J 0-119
+
+# Reviewer point 4: finer w-grid {0.80, 0.90} at lambda {5,6,7} to tighten the
+# steep high-lambda w_crit CIs. 3 lambda x 2 w x 20 seeds = 120 runs.
+# Merge the output with the existing lambda-sweep CSV at analysis time.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_highlambda_finegrid.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 300000 \
+    --out docs/expHighLambda_finegrid_figures/highlambda_finegrid_raw_data.csv
