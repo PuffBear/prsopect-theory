@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -N exp_horizon_extra
+#PBS -o logs/horizon_extra.out
+#PBS -e logs/horizon_extra.err
+#PBS -l ncpus=1
+#PBS -l walltime=12:00:00
+#PBS -q cpu
+#PBS -J 0-319
+
+# Reviewer point 2: additional matched horizons (450k, 900k) at alpha=beta=1
+# to fit the -ln T metastable trend. 2 horizons x 8 w x 20 seeds = 320 runs.
+# walltime is generous because the 900k runs are ~3x the 300k baseline.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_horizon_extra.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --out docs/expHorizon_extra_figures/horizon_extra_raw_data.csv
