@@ -1,0 +1,175 @@
+\begin{thebibliography}{26}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Akella(2025)}]{dmarl2025}
+Akella, A. 2025.
+\newblock On the Fundamental Limitations of Decentralized Learnable Reward
+  Shaping in Cooperative Multi-Agent Reinforcement Learning.
+\newblock \emph{arXiv preprint arXiv:2511.00034}.
+
+\bibitem[{Barfuss, Donges, and Kurths(2019)}]{barfuss2019deterministic}
+Barfuss, W.; Donges, J.~F.; and Kurths, J. 2019.
+\newblock Deterministic limit of temporal difference reinforcement learning for
+  stochastic games.
+\newblock \emph{Physical Review E}, 99(4): 043305.
+
+\bibitem[{Barfuss et~al.(2020)Barfuss, Donges, Vasconcelos, Kurths, and
+  Levin}]{barfuss2020caring}
+Barfuss, W.; Donges, J.~F.; Vasconcelos, V.~V.; Kurths, J.; and Levin, S.~A.
+  2020.
+\newblock Caring for the future can turn tragedy into comedy for long-term
+  collective action under risk of collapse.
+\newblock \emph{Proceedings of the National Academy of Sciences (PNAS)},
+  117(23): 12915--12922.
+
+\bibitem[{Capannoli et~al.(2026)Capannoli, Cruciani, Mimun, and
+  Quattropani}]{capannoli2026phase}
+Capannoli, F.; Cruciani, E.; Mimun, H.~A.; and Quattropani, M. 2026.
+\newblock A Phase Transition for Opinion Dynamics with Competing Biases.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~40, 29323--29331.
+
+\bibitem[{Dafoe et~al.(2020)Dafoe, Hughes, Bachrach, Collins, McKee, Leibo,
+  Larson, and Graepel}]{dafoe2020open}
+Dafoe, A.; Hughes, E.; Bachrach, Y.; Collins, T.; McKee, K.~R.; Leibo, J.~Z.;
+  Larson, K.; and Graepel, T. 2020.
+\newblock Open Problems in Cooperative AI.
+\newblock arXiv:2012.08630.
+
+\bibitem[{Ethayarajh et~al.(2024)Ethayarajh, Xu, Muennighoff, Jurafsky, and
+  Kiela}]{ethayarajh2024kto}
+Ethayarajh, K.; Xu, W.; Muennighoff, N.; Jurafsky, D.; and Kiela, D. 2024.
+\newblock {KTO}: Model Alignment as Prospect Theoretic Optimization.
+\newblock ICML 2024, arXiv:2402.01306.
+
+\bibitem[{Ghaemi et~al.(2024)Ghaemi, Kebriaei, Moghaddam, and
+  Ahamdabadi}]{ghaemi2024risk}
+Ghaemi, H.; Kebriaei, H.; Moghaddam, A.~R.; and Ahamdabadi, M.~N. 2024.
+\newblock Risk-Sensitive Multi-Agent Reinforcement Learning in Network
+  Aggregative {Markov} Games.
+\newblock arXiv:2402.05906.
+
+\bibitem[{Hammond et~al.(2025)}]{hammond2025multiagent}
+Hammond, L.; et~al. 2025.
+\newblock Multi-Agent Risks from Advanced AI.
+\newblock arXiv:2502.14143.
+
+\bibitem[{Hu, Leung, and Leung(2019)}]{hu2019meanfield}
+Hu, Y.; Leung, H.-f.; and Leung, C.~H. 2019.
+\newblock A mean-field theoretic approach to multiagent reinforcement learning
+  Q-learning dynamics.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}.
+
+\bibitem[{Hubbs et~al.(2020)Hubbs, Perez, Sarwar, Sahinidis, Grossmann, and
+  Wassick}]{hubbs2020orgym}
+Hubbs, C.~D.; Perez, H.~D.; Sarwar, O.; Sahinidis, N.~V.; Grossmann, I.~E.; and
+  Wassick, J.~M. 2020.
+\newblock {OR-Gym}: A Reinforcement Learning Library for Operations Research
+  Problems.
+\newblock arXiv:2008.06319.
+
+\bibitem[{Hughes et~al.(2018)Hughes, Leibo, Phillips, Tuyls, Due{\~n}ez-Guzman,
+  Casta{\~n}eda, Dunning, Zhu, McKee, Koster et~al.}]{hughes2018inequity}
+Hughes, E.; Leibo, J.~Z.; Phillips, M.; Tuyls, K.; Due{\~n}ez-Guzman, E.;
+  Casta{\~n}eda, A.~G.; Dunning, I.; Zhu, T.; McKee, K.; Koster, R.; et~al.
+  2018.
+\newblock Inequity aversion improves cooperation in intertemporal social
+  dilemmas.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, volume~31.
+
+\bibitem[{Hussain, Belardinelli, and Leonardos(2025)}]{hussain2025convergence}
+Hussain, A.; Belardinelli, F.; and Leonardos, S. 2025.
+\newblock Multi-Agent Q-Learning Dynamics in Random Networks: Convergence due
+  to Exploration and Sparsity.
+\newblock arXiv:2503.10186.
+
+\bibitem[{Jiang et~al.(2020)Jiang, Dun, Huang, and Lu}]{jiang2018dgn}
+Jiang, J.; Dun, C.; Huang, T.; and Lu, Z. 2020.
+\newblock Graph Convolutional Reinforcement Learning.
+\newblock ICLR 2020, arXiv:1810.09202.
+
+\bibitem[{Kahneman and Tversky(1979)}]{kahneman1979}
+Kahneman, D.; and Tversky, A. 1979.
+\newblock Prospect Theory: An Analysis of Decision under Risk.
+\newblock \emph{Econometrica}, 47(2): 263--291.
+
+\bibitem[{Lalmohammed et~al.(2025)Lalmohammed, Gupta, Shah, and
+  Ramji}]{lalmohammed2025}
+Lalmohammed, S.; Gupta, K.; Shah, A.; and Ramji, K. 2025.
+\newblock Modeling Human Behavior Without Humans: Prospect Theoretic
+  Multi-Agent Reinforcement Learning.
+\newblock In \emph{International Conference on Machine Learning}.
+
+\bibitem[{Leibo et~al.(2017)Leibo, Zambaldi, Lanctot, Marecki, and
+  Graepel}]{leibo2017multi}
+Leibo, J.~Z.; Zambaldi, V.; Lanctot, M.; Marecki, J.; and Graepel, T. 2017.
+\newblock Multi-agent Reinforcement Learning in Sequential Social Dilemmas.
+\newblock In \emph{Proceedings of the 16th Conference on Autonomous Agents and
+  Multi-Agent Systems (AAMAS)}, 464--473.
+
+\bibitem[{Liu et~al.(2023)Liu, Pu, Pan, Yi, Liang, and Zhang}]{liu2023lazy}
+Liu, B.; Pu, Z.; Pan, Y.; Yi, J.; Liang, Y.; and Zhang, D. 2023.
+\newblock Lazy Agents: A New Perspective on Solving Sparse Reward Problem in
+  Multi-Agent Reinforcement Learning.
+\newblock In \emph{International Conference on Machine Learning}, 21937--21950.
+  PMLR.
+
+\bibitem[{Lowe et~al.(2017)Lowe, Wu, Tamar, Harb, Abbeel, and
+  Mordatch}]{lowe2017multi}
+Lowe, R.; Wu, Y.; Tamar, A.; Harb, J.; Abbeel, P.; and Mordatch, I. 2017.
+\newblock Multi-Agent Actor-Critic for Mixed Cooperative-Competitive
+  Environments.
+\newblock \emph{Advances in Neural Information Processing Systems}, 30.
+
+\bibitem[{Mengesha, Sun, and Roy(2025)}]{mengesha2025}
+Mengesha, I.; Sun, M.; and Roy, D. 2025.
+\newblock Cognitive Biases Shape the Evolution of Zero-Sum Norms.
+\newblock \emph{arXiv preprint arXiv:2511.16453}.
+
+\bibitem[{Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and
+  Klimov}]{schulman2017ppo}
+Schulman, J.; Wolski, F.; Dhariwal, P.; Radford, A.; and Klimov, O. 2017.
+\newblock Proximal Policy Optimization Algorithms.
+\newblock arXiv:1707.06347.
+
+\bibitem[{Shi and Peng(2023)}]{peng2023curo}
+Shi, L.; and Peng, B. 2023.
+\newblock Curriculum Learning for Relative Overgeneralization.
+\newblock In \emph{Adaptive and Learning Agents Workshop at Conference on
+  Autonomous Agents and Multiagent Systems}.
+
+\bibitem[{Tversky and Kahneman(1992)}]{tversky1992}
+Tversky, A.; and Kahneman, D. 1992.
+\newblock Advances in Prospect Theory: Cumulative Representation of
+  Uncertainty.
+\newblock \emph{Journal of Risk and Uncertainty}, 5(4): 297--323.
+
+\bibitem[{Weng and Lee(2026)}]{weng2026}
+Weng, Y.-N.; and Lee, H.-W. 2026.
+\newblock How Exploration Breaks Cooperation in Shared-Policy Multi-Agent
+  Reinforcement Learning.
+\newblock \emph{arXiv preprint arXiv:2601.05509}.
+
+\bibitem[{Yamaguchi(2025)}]{yamaguchi2025}
+Yamaguchi, A. 2025.
+\newblock Emergent Coordination and Phase Structure in Independent Multi-Agent
+  Reinforcement Learning.
+\newblock \emph{arXiv preprint arXiv:2511.23315}.
+
+\bibitem[{Yu et~al.(2022)Yu, Velu, Vinitsky, Gao, Wang, Bayen, and
+  Wu}]{yu2022surprising}
+Yu, C.; Velu, A.; Vinitsky, E.; Gao, J.; Wang, Y.; Bayen, A.; and Wu, Y. 2022.
+\newblock The Surprising Effectiveness of {PPO} in Cooperative Multi-Agent
+  Games.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS),
+  Datasets and Benchmarks Track}.
+
+\bibitem[{Zhao and Xie(2025)}]{wang2025maca}
+Zhao, X.; and Xie, Y. 2025.
+\newblock Multi-level Advantage Credit Assignment for Cooperative Multi-Agent
+  Reinforcement Learning.
+\newblock arXiv:2508.06836.
+
+\end{thebibliography}
