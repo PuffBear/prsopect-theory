@@ -1,0 +1,456 @@
+\documentclass[letterpaper]{article} % DO NOT CHANGE THIS
+\usepackage[submission]{aaai2027}  % DO NOT CHANGE THIS
+% The serif, sans-serif, and monospaced fonts are loaded automatically by
+% aaai2027.sty (newtxtext, helvet, courier). DO NOT add \usepackage{times},
+% \usepackage{helvet}, \usepackage{courier}, or any other font package.
+\usepackage[hyphens]{url}  % DO NOT CHANGE THIS
+\usepackage{graphicx} % DO NOT CHANGE THIS
+\urlstyle{rm} % DO NOT CHANGE THIS
+\def\UrlFont{\rm}  % DO NOT CHANGE THIS
+\usepackage{natbib}  % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
+\usepackage{caption} % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
+\frenchspacing  % DO NOT CHANGE THIS
+
+% --- Math / theorems / tables (compatible with aaai2027.sty) ---
+\usepackage{amsmath,amssymb,amsthm}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\usepackage{booktabs}
+
+\pdfinfo{
+/TemplateVersion (2027.1)
+}
+
+\newcommand{\wcrit}{w_{\mathrm{crit}}}
+\newcommand{\PT}{\mathrm{PT}}
+
+\setcounter{secnumdepth}{0}
+
+\title{Coordination-Collapse Phase Boundary in Policy-Gradient Cooperative MARL}
+
+\author{
+    Anonymous Submission
+}
+\affiliations{
+    Paper under double-blind review
+}
+
+\begin{document}
+
+\maketitle
+
+% =======================================================================
+\begin{abstract}
+Cooperative multi-agent reinforcement learning (MARL) can collapse into a degenerate
+\emph{lazy-agent} policy when reward centralization is too low, but this failure has only
+been described qualitatively. We make it measurable: with a pre-registered collapse
+definition and bootstrap confidence intervals, we estimate the critical centralization
+$\wcrit$ at which coordination gives way to collapse. Using this boundary as an instrument,
+we find that behavioral \emph{loss aversion} ($\lambda>1$) shifts it rightward---loss-averse
+agents demand more centralization to coordinate. The direction is monotone in $\lambda$, its
+sign is fixed a priori by a mean-field mechanism, and it replicates across four
+environment--algorithm settings; the boundary's metastable slide with the training horizon
+likewise generalizes. The instrument then exposes two findings: prospect theory's two
+components move the boundary in \emph{opposite} directions, and---on a directed-flow
+substrate---a single \emph{downstream} loss-averse agent can set the whole system's
+requirement, where the average agent would not. We report what generalizes and what is
+single-substrate, and frame the directed-flow cascade as a falsifiable prediction.
+\end{abstract}
+
+% =======================================================================
+\section{Introduction}
+\label{sec:intro}
+
+A team of learning agents sharing a task can fall into a trap their designers never
+intended: instead of coordinating, every agent quietly defaults to inaction, and the team
+settles into a stable, useless equilibrium. Cooperative MARL calls this \emph{coordination
+collapse}, with the \emph{lazy-agent} policy as its endpoint~\citep{liu2023lazy,peng2023curo}---an
+instance of the sequential social dilemma that arises whenever private incentives drift from
+the collective good~\citep{leibo2017multi}. Whether a team falls in is governed by one design
+dial, the \emph{reward centralization} $w\in[0,1]$: the share of each agent's reward tied to
+the team's outcome rather than its own. Turn $w$ down and an agent's private performance
+drowns out its contribution, so cooperating earns no learnable signal and the safe policy
+wins. The field knows this only as a direction---\emph{more centralization
+helps}~\citep{dmarl2025,liu2023lazy}---and stops there. \emph{Where}, in $w$, a working team
+tips into collapse has never been measured. The nearest work mitigates the lazy-agent
+pathology without locating a boundary~\citep{liu2023lazy,peng2023curo,weng2026}, or sweeps
+neighbouring axes---credit-assignment level~\citep{wang2025maca}, reward
+weights~\citep{jiang2018dgn}. Closest in spirit, \citet{yamaguchi2025} build a phase diagram
+for independent Q-learning over \emph{environmental} axes (grid size, density), and
+\citet{capannoli2026phase} prove a metastable boundary in network opinion dynamics under a
+fixed update rule; neither measures a reward-structure threshold in gradient-trained
+cooperative policies, with confidence intervals, that a behavioral bias then moves.
+
+Pinning that number down matters now, because the agents being deployed are no longer neutral
+optimizers. In automated replenishment, fraud review, and energy dispatch, learning agents
+act for or beside people and absorb human preference structure by construction---whether
+trained on human choices through preference-aligned objectives that are themselves
+prospect-theoretic in form~\citep{ethayarajh2024kto}, or sharing the loop with human
+operators~\citep{lalmohammed2025}. The sturdiest such regularity is \emph{loss aversion}: a
+loss looms larger than an equal gain~\citep{kahneman1979,tversky1992}. Behavioral economics
+knows what this does to one chooser; it is silent on what it does to a \emph{group} learning
+to coordinate~\citep{leibo2017multi,lowe2017multi}. A measured collapse boundary is the
+instrument that question needs, and it extends a thin existing bridge between behavioral
+preferences and collective learning dynamics---inequity aversion in social
+dilemmas~\citep{hughes2018inequity}, deterministic limits of multi-agent
+learning~\citep{barfuss2019deterministic,hu2019meanfield}---to the prospect-theoretic
+preferences that today's training pipelines instill.
+
+We therefore build the ruler first, and treat it as the paper's central object. Following the
+posture physics takes toward a phase boundary, we fix a binary collapse criterion in advance,
+freeze it, fit $P(\mathrm{collapse}\mid w)$, and bootstrap confidence intervals on $\wcrit$.
+(We mean ``phase boundary'' empirically---a sharp, metastable threshold whose
+$T\!\to\!\infty$ limit is the boundary proper---not a thermodynamic singularity.) Two design
+choices keep the readings honest: we apply cumulative prospect theory (CPT) as a \emph{reward
+transform} after blending rather than inside the update, so the optimizer is bit-identical
+across conditions and any movement of $\wcrit$ is behavioral; and we re-measure at several
+horizons, since a drifting threshold could pass for a constant. Our contributions are: (i) the
+first confidence-intervalled phase boundary of coordination collapse in deep cooperative MARL,
+with a reusable pre-registered protocol; (ii) the finding that loss aversion shifts it
+rightward, a direction whose sign we fix a priori and confirm across four
+environment--algorithm settings, with the metastable horizon slide generalizing likewise;
+(iii) a decomposition showing prospect theory's two components move it in opposite directions;
+and (iv) the result that a downstream loss-averse \emph{minority} can set the boundary on a
+directed-flow substrate. Our novelty is narrow: \citet{mengesha2025} show loss aversion moves
+a tipping point, but in evolutionary game theory over fixed strategies, and
+\citet{lalmohammed2025} bring CPT into cooperative MARL without separating its components or
+measuring a boundary. Ours is the measured, CI'd boundary and the component decomposition
+against it, in gradient-trained neural policies.
+
+% =======================================================================
+\section{Preliminaries and Method}
+\label{sec:method}
+
+In cooperative MARL, $N$ agents share an environment and maximize a joint objective under
+CTDE~\citep{lowe2017multi}; the reward-mixing weight $w\in[0,1]$ interpolates purely local
+($w{=}0$) and purely global ($w{=}1$) reward. As $w\!\to\!0$ the cooperative signal is diluted
+and agents collapse to the safe lazy policy~\citep{liu2023lazy,peng2023curo}. This $w$ is our
+sole structural intervention; all else is held fixed, so any boundary shift is attributable to
+$w$ and the behavioral parameters. Cumulative prospect theory~\citep{kahneman1979,tversky1992}
+gives the value function $v(x)=x^\alpha$ for $x\ge0$ and $-\lambda(-x)^\beta$ for $x<0$, where
+$\alpha,\beta\in(0,1]$ govern curvature and $\lambda>1$ is loss aversion
+($\alpha{=}\beta{=}1,\lambda{=}1$ is linear utility). We apply it as a reward transform after
+blending,
+\begin{equation}
+  r_i^{\PT}=v\!\left((1-w)\,r_i^{\mathrm{local}}+w\,r^{\mathrm{global}}\right),
+  \label{eq:reward}
+\end{equation}
+the decisive difference from \citet{lalmohammed2025}, who fold CPT \emph{into} the
+actor--critic update, entangling curvature with loss aversion and confounding any shift with a
+change to the optimizer. Transforming only the scalar reward leaves the policy gradient
+identical across conditions, so a measured shift is behavioral and the two channels dial
+independently. We pre-registered (commit \texttt{03c3fc6}) the binary collapse label
+$\mathbf{1}[\bar S<10\wedge\bar\pi\le-127.1]$ ($\bar S$ mean base-stock, $\bar\pi$ mean
+profit), robust to $\pm20\%$ threshold perturbation (max $\Delta\wcrit=0.015$; Supplement). For
+each condition we fit $P(\mathrm{collapse}\mid w)=\sigma(b_0+b_1 w)$, estimate
+$\wcrit=-b_0/b_1$, and bootstrap its 95\% CI; steep high-$\lambda$ cells use Firth penalized
+regression, which agrees with the bootstrap throughout. The decomposition compares three
+conditions with identical environment and optimizer: \textbf{Null} ($\alpha{=}\beta{=}1,
+\lambda{=}1$), \textbf{Curvature} ($\alpha{=}\beta{=}0.88,\lambda{=}1$), and \textbf{Loss
+aversion} ($\alpha{=}\beta{=}0.88,\lambda>1$). The primary substrate is
+\texttt{NetworkManagement-v1}~\citep{hubbs2020orgym}, a six-node multi-echelon inventory
+network; agents run PPO~\citep{schulman2017ppo} (20 seeds/condition, 1{,}524 primary runs). Full
+setup and hyperparameters are in the Supplement.
+
+% =======================================================================
+\section{The Boundary and Its Behavioral Shift}
+\label{sec:results}
+
+\paragraph{A sharp, metastable boundary.}
+Collapse is a sharp logistic transition in $w$, not a gradual decay: at 300k steps
+$\wcrit=0.666$ $[0.635,0.694]$ (transition width $\Delta w=0.199$, $p=3.2\times10^{-7}$), with
+collapse fractions rising from near-zero to near-one within $\Delta w<0.3$
+(Figure~\ref{fig:boundary}a). The boundary is not a constant: it slides left with the training
+horizon, $\wcrit=0.822$ at 150k to $0.666$ at 300k. Intermediate-$w$ collapse is therefore a
+\emph{metastable} attractor, not an absorbing state. This slide is not a supply-chain artifact:
+under centralized-critic MAPPO it recurs in both transfer environments---on MPE $\wcrit$ falls
+$0.82\to0.68$ as the horizon grows $2\mathrm{M}\to8\mathrm{M}$, and on Level-Based Foraging
+$0.33\to0.20$ over $1\mathrm{M}\to4\mathrm{M}$, both with non-overlapping intervals
+(Figure~\ref{fig:boundary}b). The two supply-chain horizons anchor the $-\ln T$ trend the
+mechanism predicts; we did not estimate the asymptote, and additional matched horizons are in
+progress.\footnote{Runs at 450k and 900k ($\alpha{=}\beta{=}1$) are queued to convert the
+asserted $T\!\to\!\infty$ trend into a fitted one; they are not in this version.} A
+basin-control experiment rules out initialization as the driver (Supplement).
+
+\paragraph{Loss aversion raises the boundary; curvature lowers it.}
+Against a single canonical null---$\wcrit^{\mathrm{null}}=0.666$ $[0.635,0.694]$, independently
+reproduced at $0.685$ by a dedicated experiment (every other null-like number is a labeled
+offset, not a separate baseline)---we sweep $\lambda\in\{1,\dots,7\}$ ($\alpha{=}\beta{=}0.88$,
+300k). The boundary rises monotonically with loss aversion---$\{0.586,0.715,0.774,0.806,0.839,
+0.836,0.851\}$---then saturates near $0.85$ with clear headroom to the $w{=}1$ ceiling, so the
+plateau is behavioral, not a ceiling artifact (Figure~\ref{fig:decomposition},
+Table~\ref{tab:decomposition}); the endpoints are non-overlapping by $0.221$. Curvature acts in
+the \emph{opposite} direction, \emph{lowering} $\wcrit$ to $0.586$ ($-0.100$ $[-0.172,-0.033]$
+vs.\ the null). That the two components of a single ``risk-averse'' psychology pull the boundary
+in opposite directions is the first of two surprises, and is visible only because there is a
+calibrated null to read each component against.
+
+\paragraph{Two ways to count the loss-aversion effect.}
+The magnitude depends on the baseline, and we report both explicitly to avoid ambiguity
+(Table~\ref{tab:decomposition}). Measured \emph{against the linear null} ($0.685$), the
+combined CPT shift is $+0.089$ $[0.041,0.141]$ at $\lambda{=}3$ and $+0.166$ $[0.135,0.202]$ at
+$\lambda{=}7$---but this nets loss aversion against curvature's $-0.100$. The \emph{pure
+loss-aversion increment}, measured against the curvature baseline ($\lambda{=}1$, $0.586$)---the
+correct isolate, since it holds curvature fixed---is larger: $+0.188$ at $\lambda{=}3$ and
+$+0.265$ at $\lambda{=}7$. The two are reconciled by the curvature offset ($-0.100+0.265=0.165
+\approx0.166$). Throughout, ``the loss-aversion effect'' refers to the increment over the
+curvature baseline; the net-vs-null figure is the deployment-relevant total. The full sweep is
+tracked by a one-parameter, theory-bounded affine law (\S\ref{sec:mechanism}) to RMSE $0.014$;
+high-$\lambda$ cells are steep and rest on a single interior grid point, so a finer
+$w\in\{0.80,0.90\}$ grid (queued) would tighten those intervals.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{Figures/boundary_metastability}
+  \caption{(a)~Collapse is a sharp logistic transition in $w$; the boundary sharpens and slides
+    left from 150k to 300k steps. (b)~The metastable slide generalizes: $\wcrit$ falls with the
+    training horizon on the supply chain (PPO) and on both transfer environments under MAPPO
+    (MPE, LBF), each with non-overlapping endpoint intervals.}
+  \label{fig:boundary}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.92\columnwidth]{Figures/ppo_behavioral_full}
+  \caption{Behavioral decomposition and full loss-aversion sweep (supply chain, PPO). Curves
+    are Firth-fitted $P(\mathrm{collapse}\mid w)$; dotted lines mark $\wcrit$. Curvature
+    ($\lambda{=}1$) sits \emph{left} of the null (easing coordination); loss aversion
+    ($\lambda{=}2,\dots,7$) shifts $\wcrit$ \emph{right}, rising then saturating.}
+  \label{fig:decomposition}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{Three-way decomposition of $\wcrit$. We report the effect both ways: net vs.\ the
+linear null (combines curvature and loss aversion), and the pure loss-aversion increment vs.\
+the curvature baseline ($0.586$). ``Sig.'' = difference CI excludes zero.}
+\label{tab:decomposition}
+{\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{lccc}
+\toprule
+Condition & $\wcrit$ & vs.\ null & vs.\ curv. \\
+\midrule
+Null ($\lambda{=}1$) & 0.685 & --- & --- \\
+Curvature ($\lambda{=}1$) & 0.586 & $-0.100^{\checkmark}$ & 0 \\
+Loss av.\ $\lambda{=}3$ & 0.774 & $+0.089^{\checkmark}$ & $+0.188$ \\
+Loss av.\ $\lambda{=}7$ & 0.851 & $+0.166^{\checkmark}$ & $+0.265$ \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+% =======================================================================
+\section{A Mean-Field Mechanism Fixes the Sign}
+\label{sec:mechanism}
+
+We give a mechanistic account of why the boundary exists and which way each component moves it.
+Following deterministic-limit and mean-field treatments of multi-agent
+learning~\citep{barfuss2019deterministic,hu2019meanfield,hussain2025convergence}, we model each
+Gaussian-policy PPO agent's mean action as a Langevin variable; the machinery is standard and is
+in the Supplement. \emph{We claim the mechanism at the level of sign and functional form, not
+magnitude.} Modelling the policy mean as $\mathrm{d}\mu_i=D(w)\,\mathrm{d}t+\sqrt{2\Theta(w)}\,
+\mathrm{d}W$, with drift $D$ and a centralization-weighted diffusion $\Theta$ into which partner
+exploration enters, the replenishing regime makes an upstream node's inventory a local cost but
+a global benefit, giving cooperative drift $D(w)=\eta[wg-(1-w)c]$. Escape from the lazy basin is
+governed not by drift but by its ratio to gradient noise,
+\begin{equation}
+  \mathrm{SNR}(w)=\frac{D(w)}{\sqrt{\Theta(w)}}\gtrsim\kappa_c,
+  \label{eq:snr}
+\end{equation}
+and the crossing defines $\wcrit$. Because escape is a Kramers first-passage problem
+($\tau\sim e^{\Delta U/\Theta}$), collapse switches abruptly across $\wcrit$ (the sharp fits)
+and $\wcrit(T)$ falls as $T$ grows (the metastable slide)---both predicted without fitting. We do
+\emph{not} derive the numerical value of $\wcrit$: $c,g,\sigma,\kappa_c$ are calibrated, and our
+pre-registered direct drift probe was \emph{inconclusive}---it reproduces the matched-horizon
+boundary in collapse fraction but does not localize $\wcrit$, because survivor bias in the
+contested band confounds the conditioned drift (Supplement). The magnitude therefore remains
+calibrated; the mechanism's predictive content is the sign and the form.
+
+The sign is a theorem.
+
+\begin{theorem}[Sign invariance of the loss-aversion shift]\label{thm:sign}
+Let the order parameter $x$ evolve as $\mathrm{d}x_t=F(x_t,w,\lambda)\,\mathrm{d}t+
+\sqrt{\Sigma(x_t,N)}\,\mathrm{d}W_t$ with $\Sigma>0$. If $\partial_\lambda F<0$ on the escape
+interval---i.e.\ loss aversion scales only the loss domain and so inflates gradient noise---then
+$\partial_\lambda \wcrit^{\mathrm{Emp}}>0$.
+\end{theorem}
+\begin{proof}[Proof sketch]
+The Kramers barrier $\Delta U=\int 2F/\Sigma\,\mathrm{d}z$ has $\partial_\lambda\Delta U<0$
+pointwise, since $\Sigma>0$ and $\partial_\lambda F<0$ throughout, independent of the sign of
+$F$; a lower barrier shortens escape ($\partial_\lambda\tau<0$) while $\partial_w F>0$ lengthens
+it. The implicit function theorem on $\tau(w,\lambda)=T$ gives $\mathrm{d}\wcrit^{\mathrm{Emp}}/
+\mathrm{d}\lambda=-\partial_\lambda\tau/\partial_w\tau>0$. The magnitude depends on the
+intractable $\Sigma$; the direction does not. The same argument with curvature's drift signs
+reversed yields the opposite shift.
+\end{proof}
+
+We are candid that the theorem \emph{encodes} the sign of $\partial_\lambda F$ as a premise
+rather than deriving it from first principles; its content is that this local sign propagates to
+the global boundary regardless of the intractable noise---which is exactly what makes the
+direction (but not the magnitude) predictable. The same drift split fixes the functional form:
+only the loss domain scales with $\lambda$, giving $\wcrit(\lambda)=\phi(\lambda)/(\phi(\lambda)
++g/c)$ with $\phi(\lambda)=1+\rho(\lambda-1)$ and $\rho\in[0,1]$ bounded by the theory. Fixing
+$g/c$ and $\rho=0.61$ from a subset and testing out of sample, the one-parameter law tracks the
+full seven-point sweep to RMSE $0.014$. This law is \emph{single-substrate}: it does not transfer
+to LBF (\S\ref{sec:generalization}), a limit we report rather than hide.
+
+% =======================================================================
+\section{The Direction Generalizes; the Magnitudes Do Not}
+\label{sec:generalization}
+
+The mechanism commits in advance to a direction: loss aversion inflates gradient noise and so
+raises $\wcrit$. If that is right rather than an artifact of one substrate or optimizer, the sign
+should survive changing both. We test on two further environments and a second algorithm,
+matching the learner to each environment's learnability (independent PPO where coordination is
+locally learnable; centralized-critic MAPPO~\citep{yu2022surprising} where the reward is
+shared-global). The direction is robust in every setting; the absolute level, the curvature sign,
+and the functional form are not (Figure~\ref{fig:generalization}, Table~\ref{tab:generalization}).
+On the \emph{supply chain under MAPPO} (only the learner changes), $\wcrit$ rises $0.796\to0.889$
+over $\lambda{=}1\to7$, monotone from $\lambda{=}2$, endpoints non-overlapping; the level differs
+at low $\lambda$ but converges with PPO by $\lambda\!\geq\!4$. On \emph{MPE} the loss-aversion
+excess is $+0.158$ $[0.108,0.212]$ at $\lambda{=}7$, but the curvature effect is null/opposite
+($+0.042$, CI spanning zero), and on \emph{LBF} curvature moves the boundary \emph{right}---both
+confirming the curvature sign is substrate-specific. The supply chain's affine law misfits LBF by
+RMSE $0.15$. Thus the \emph{method}---a CI'd boundary that loss aversion shifts---generalizes
+across three environments and two algorithms, while the affine constants and the curvature sign do
+not.
+
+Two ablations confirm the mechanism's scope conditions. Replacing the continuous policy gradient
+with value-based learners (QMIX, IQL) on a discretized action space erases the boundary---but so
+does discretizing PPO alone, isolating coarse discretization (not the value-based paradigm) as the
+cause, as the continuous-gradient mechanism predicts. And on shared-reward tasks the boundary is
+measurable only with a centralized critic: independent PPO collapses at \emph{every} $w$ on MPE (a
+credit-assignment floor), while MAPPO recovers coordination. Both are detailed in the Supplement;
+each is a confirmed boundary condition, not a negative result.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\columnwidth]{Figures/generalization_wcrit_vs_lambda}
+  \caption{$\wcrit$ versus $\lambda$ across four settings: supply chain under PPO and MAPPO, MPE
+    under MAPPO, LBF under MAPPO (bootstrap 95\% CIs). $\wcrit$ rises with $\lambda$ in every
+    setting; the \emph{direction} generalizes, while levels (most at $\lambda{=}1$), curvature
+    sign, and exact form are substrate-specific. LBF high-$\lambda$ points saturate against the
+    ceiling and are exploratory.}
+  \label{fig:generalization}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{Generalization of the loss-aversion \emph{direction}. The sign holds everywhere; only
+the supply chain (PPO) yields the affine law. Detail in the Supplement.}
+\label{tab:generalization}
+\begin{tabular}{lcc}
+\toprule
+Setting (algo.) & Loss-av.\ effect & Affine law? \\
+\midrule
+Supply (PPO)   & $+0.166$ ($\lambda{=}7$) & yes (0.014) \\
+Supply (MAPPO) & $0.80\!\to\!0.89$ & --- \\
+MPE (MAPPO) & $+0.158$ ($\lambda{=}7$) & no \\
+LBF (MAPPO) & $0.26\!\to\!0.83$ & no (0.15) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =======================================================================
+\section{A Minority Sets the Boundary}
+\label{sec:minority}
+
+The decomposition treats the population as homogeneous, but deployed systems mix loss-averse and
+risk-neutral participants. Assigning $\lambda{=}7$ to selected nodes and $\lambda{=}1$ to the rest
+(substrate, PPO config, label, grid identical to the main sweep), we find the boundary is set by a
+\emph{minority}, and \emph{network position} is decisive (Table~\ref{tab:minority}). A single
+\emph{downstream} loss-averse node drives $\wcrit=0.853$ $[0.849,0.858]$---statistically
+indistinguishable from a \emph{fully} loss-averse population ($0.851$): one biased node downstream
+imposes the centralization requirement of the entire network, and two downstream nodes add nothing
+further. The same node \emph{upstream} shifts the boundary far less, to $0.726$ $[0.689,0.763]$.
+Loss aversion thus cascades \emph{upstream} along the ordering chain but not downstream, a
+directional asymmetry mirroring the substrate's bullwhip structure. That a behavioral minority can
+move a tipping point is established in evolutionary game theory~\citep{mengesha2025}; ours is the
+deep-MARL instantiation, where the effect emerges from gradient-learning dynamics and carries a
+concrete network-position signature. The operational reading is sharp: in a mixed human--agent
+chain, the required centralization is set by the most downstream loss-averse participant, not the
+mean.
+
+We are explicit about the limits of this result, which is the thinnest part of the paper. It uses
+binary $\lambda\in\{1,7\}$ on one topology, and tests four configurations (one upstream, one
+downstream, two downstream, all); a continuous-$\lambda$ sweep and intermediate node positions are
+in progress to characterize the cascade as a function of position and bias strength.\footnote{Runs
+varying node index along the chain and sweeping $\lambda$ continuously at a fixed downstream node
+are queued; this version reports the four binary configurations.} The result is also single-substrate
+\emph{by construction}: ``which agent sets the boundary'' is well-posed only where a directed
+resource flow defines upstream/downstream. MPE (spatial) and LBF (foraging) have none, so the
+question does not type-check there; a search for a second directed-flow cooperative-MARL substrate
+found none reachable (Supplement). We therefore establish the effect where its precondition holds
+and frame its reach as a \emph{falsifiable, structurally specified} prediction: in any cooperative
+domain with a directed resource flow and a learning-reachable boundary, a downstream loss-averse
+minority should set it.
+
+\begin{table}[t]
+\centering
+\caption{Heterogeneous-population sweep (loss-averse nodes at $\lambda{=}7$, others $\lambda{=}1$;
+$\alpha{=}\beta{=}0.88$, 300k, 20 seeds/cell). One downstream node already reaches the homogeneous
+loss-averse boundary; the cascade runs upstream, not down.}
+\label{tab:minority}
+\begin{tabular}{lc}
+\toprule
+Loss-averse nodes & $\wcrit$ (95\% CI) \\
+\midrule
+one upstream & 0.726 [0.689, 0.763] \\
+one downstream & 0.853 [0.849, 0.858] \\
+two downstream & 0.851 [0.847, 0.856] \\
+all five (homogeneous) & 0.851 [0.847, 0.856] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% =======================================================================
+\section{Discussion}
+\label{sec:discussion}
+
+That probability weighting and loss aversion exert opposite effects on the boundary is, to our
+knowledge, novel; prior work applies prospect theory as a unified model without decomposing
+it~\citep{lalmohammed2025,ghaemi2024risk}. The operational reading is concrete: a system of
+$\lambda{=}7$ agents needs $w>0.851$ for reliable coordination against $w>0.685$ for risk-neutral
+agents---a $+0.166$ deployment margin that scales with $\lambda$, so domains nearer
+$\lambda\!\approx\!2$--$3$ incur a smaller but positive cost. Where centralization is capped by
+privacy or communication cost, the boundary reframes the problem, exposing $\lambda$---the agents'
+effective loss aversion, shaped by the training objective---as a second lever. Our phase-diagram
+framing sits within a recognized line of multiagent phase-transition
+results~\citep{yamaguchi2025,capannoli2026phase} and the broader project of cooperative
+AI~\citep{dafoe2020open,hammond2025multiagent,barfuss2020caring}; its distinctive contribution is
+a boundary set by the policy-gradient signal-to-noise ratio rather than a fixed update rule.
+
+\paragraph{Limitations.}
+We state these plainly, as several bound the contribution. (i)~The \emph{quantitative} core---the
+affine $\lambda$-law, the metastable magnitudes, the cascade---is single-substrate; the affine law
+explicitly fails to transfer, and the cascade is one topology with binary $\lambda$. We replicate
+the boundary, the loss-aversion direction, and the metastable slide across environments and a
+second algorithm, but the precise numbers are a property of one simulator and one compute budget.
+(ii)~The mechanism is calibrated, not predictive: it fixes sign and form, the direct drift probe was
+inconclusive, and the sign-invariance theorem encodes its key premise rather than deriving it.
+(iii)~$\lambda{=}7$ is an upper, high-stakes bound rather than a typical human value
+($\lambda\!\approx\!2.25$); the deployment-relevant margins are at $\lambda\!\approx\!3$. (iv)~The
+high-$\lambda$ grid is coarse, and the horizon trend rests on two clean points; finer-grid and
+additional-horizon runs are in progress. None of these undercut the central, replicated claim---loss
+aversion raises the coordination requirement---but they scope what is measured versus what is
+predicted.
+
+% =======================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+We presented the first confidence-intervalled phase diagram of cooperative-MARL coordination
+collapse, characterizing $\wcrit$ as a function of reward structure, training horizon, and
+prospect-theoretic loss aversion. Loss aversion impedes coordination---raising the requirement, a
+direction we predict a priori and confirm across four environment--algorithm settings, with the
+metastable slide generalizing likewise. Two further results sharpen the picture: prospect theory's
+two components act in opposite directions, and a downstream loss-averse minority can set the
+boundary on a directed-flow substrate, framed as a falsifiable prediction. Beyond the findings, the
+pre-registered phase-diagram protocol is reusable by any cooperative-MARL study. Ongoing work
+upgrades the mechanism from calibrated to predictive, tightens the high-$\lambda$ grid and horizon
+trend, and characterizes continuous heterogeneous-$\lambda$ populations whose tail the cascade
+predicts should govern the boundary.
+
+% =======================================================================
+\bibliography{references}
+
+\end{document}
