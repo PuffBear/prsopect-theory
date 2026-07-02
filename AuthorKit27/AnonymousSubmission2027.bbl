@@ -1,4 +1,4 @@
-\begin{thebibliography}{26}
+\begin{thebibliography}{50}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{Akella(2025)}]{dmarl2025}
@@ -22,12 +22,25 @@ Barfuss, W.; Donges, J.~F.; Vasconcelos, V.~V.; Kurths, J.; and Levin, S.~A.
 \newblock \emph{Proceedings of the National Academy of Sciences (PNAS)},
   117(23): 12915--12922.
 
+\bibitem[{Bu{\c{s}}oniu, Babu{\v{s}}ka, and
+  De~Schutter(2008)}]{busoniu2008comprehensive}
+Bu{\c{s}}oniu, L.; Babu{\v{s}}ka, R.; and De~Schutter, B. 2008.
+\newblock A Comprehensive Survey of Multiagent Reinforcement Learning.
+\newblock \emph{IEEE Transactions on Systems, Man, and Cybernetics, Part C},
+  38(2): 156--172.
+
 \bibitem[{Capannoli et~al.(2026)Capannoli, Cruciani, Mimun, and
   Quattropani}]{capannoli2026phase}
 Capannoli, F.; Cruciani, E.; Mimun, H.~A.; and Quattropani, M. 2026.
 \newblock A Phase Transition for Opinion Dynamics with Competing Biases.
 \newblock In \emph{Proceedings of the AAAI Conference on Artificial
   Intelligence}, volume~40, 29323--29331.
+
+\bibitem[{Christianos, Sch{\"a}fer, and Albrecht(2020)}]{christianos2020shared}
+Christianos, F.; Sch{\"a}fer, L.; and Albrecht, S. 2020.
+\newblock Shared Experience Multi-Agent Reinforcement Learning.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~33, 10707--10717.
 
 \bibitem[{Dafoe et~al.(2020)Dafoe, Hughes, Bachrach, Collins, McKee, Leibo,
   Larson, and Graepel}]{dafoe2020open}
@@ -42,12 +55,27 @@ Ethayarajh, K.; Xu, W.; Muennighoff, N.; Jurafsky, D.; and Kiela, D. 2024.
 \newblock {KTO}: Model Alignment as Prospect Theoretic Optimization.
 \newblock ICML 2024, arXiv:2402.01306.
 
+\bibitem[{Foerster et~al.(2018)Foerster, Farquhar, Afouras, Nardelli, and
+  Whiteson}]{foerster2018counterfactual}
+Foerster, J.; Farquhar, G.; Afouras, T.; Nardelli, N.; and Whiteson, S. 2018.
+\newblock Counterfactual Multi-Agent Policy Gradients.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~32.
+
 \bibitem[{Ghaemi et~al.(2024)Ghaemi, Kebriaei, Moghaddam, and
   Ahamdabadi}]{ghaemi2024risk}
 Ghaemi, H.; Kebriaei, H.; Moghaddam, A.~R.; and Ahamdabadi, M.~N. 2024.
 \newblock Risk-Sensitive Multi-Agent Reinforcement Learning in Network
   Aggregative {Markov} Games.
 \newblock arXiv:2402.05906.
+
+\bibitem[{Gijsbrechts et~al.(2022)Gijsbrechts, Boute, Van~Mieghem, and
+  Zhang}]{gijsbrechts2022}
+Gijsbrechts, J.; Boute, R.~N.; Van~Mieghem, J.~A.; and Zhang, D.~J. 2022.
+\newblock Can Deep Reinforcement Learning Improve Inventory Management?
+  {P}erformance on Lost Sales, Dual-Sourcing, and Multi-Echelon Problems.
+\newblock \emph{Manufacturing \& Service Operations Management}, 24(3):
+  1349--1368.
 
 \bibitem[{Hammond et~al.(2025)}]{hammond2025multiagent}
 Hammond, L.; et~al. 2025.
@@ -95,6 +123,12 @@ Kahneman, D.; and Tversky, A. 1979.
 \newblock Prospect Theory: An Analysis of Decision under Risk.
 \newblock \emph{Econometrica}, 47(2): 263--291.
 
+\bibitem[{Kramers(1940)}]{kramers1940brownian}
+Kramers, H.~A. 1940.
+\newblock Brownian Motion in a Field of Force and the Diffusion Model of
+  Chemical Reactions.
+\newblock \emph{Physica}, 7(4): 284--304.
+
 \bibitem[{Lalmohammed et~al.(2025)Lalmohammed, Gupta, Shah, and
   Ramji}]{lalmohammed2025}
 Lalmohammed, S.; Gupta, K.; Shah, A.; and Ramji, K. 2025.
@@ -108,6 +142,13 @@ Leibo, J.~Z.; Zambaldi, V.; Lanctot, M.; Marecki, J.; and Graepel, T. 2017.
 \newblock Multi-agent Reinforcement Learning in Sequential Social Dilemmas.
 \newblock In \emph{Proceedings of the 16th Conference on Autonomous Agents and
   Multi-Agent Systems (AAMAS)}, 464--473.
+
+\bibitem[{Leluc et~al.(2023)Leluc, Kadoche, Bertoncello, and
+  Gourv{\'e}nec}]{marlim2023}
+Leluc, R.; Kadoche, E.; Bertoncello, A.; and Gourv{\'e}nec, S. 2023.
+\newblock {MARLIM}: Multi-Agent Reinforcement Learning for Inventory
+  Management.
+\newblock arXiv:2308.01649.
 
 \bibitem[{Liu et~al.(2023)Liu, Pu, Pan, Yi, Liang, and Zhang}]{liu2023lazy}
 Liu, B.; Pu, Z.; Pan, Y.; Yi, J.; Liang, Y.; and Zhang, D. 2023.
@@ -128,11 +169,78 @@ Mengesha, I.; Sun, M.; and Roy, D. 2025.
 \newblock Cognitive Biases Shape the Evolution of Zero-Sum Norms.
 \newblock \emph{arXiv preprint arXiv:2511.16453}.
 
+\bibitem[{Oroojlooyjadid et~al.(2022)Oroojlooyjadid, Nazari, Snyder, and
+  Tak{\'a}{\v{c}}}]{oroojlooyjadid2022}
+Oroojlooyjadid, A.; Nazari, M.; Snyder, L.~V.; and Tak{\'a}{\v{c}}, M. 2022.
+\newblock A Deep {Q}-Network for the Beer Game: Deep Reinforcement Learning for
+  Inventory Optimization.
+\newblock \emph{Manufacturing \& Service Operations Management}, 24(1):
+  285--304.
+
+\bibitem[{Prashanth(2014)}]{prashanth2014cvar}
+Prashanth, L.~A. 2014.
+\newblock Policy Gradients for {CVaR}-Constrained {MDP}s.
+\newblock In \emph{Algorithmic Learning Theory (ALT)}, 155--169.
+
+\bibitem[{Prashanth et~al.(2016)Prashanth, Jie, Fu, Marcus, and
+  Szepesv{\'a}ri}]{prashanth2016cumulative}
+Prashanth, L.~A.; Jie, C.; Fu, M.; Marcus, S.; and Szepesv{\'a}ri, C. 2016.
+\newblock Cumulative Prospect Theory Meets Reinforcement Learning: Prediction
+  and Control.
+\newblock \emph{Proceedings of the 33rd International Conference on Machine
+  Learning (ICML)}, 1406--1415.
+
+\bibitem[{Qiu et~al.(2021)Qiu, Wang, Yu, Wang, He, An, Obraztsova, and
+  Rabinovich}]{qiu2021rmix}
+Qiu, W.; Wang, X.; Yu, R.; Wang, R.; He, X.; An, B.; Obraztsova, S.; and
+  Rabinovich, Z. 2021.
+\newblock {RMIX}: Learning Risk-Sensitive Policies for Cooperative
+  Reinforcement Learning Agents.
+\newblock \emph{Advances in Neural Information Processing Systems}, 34:
+  23049--23062.
+
+\bibitem[{Rabin(2000)}]{rabin2000risk}
+Rabin, M. 2000.
+\newblock Risk Aversion and Expected-Utility Theory: A Calibration Theorem.
+\newblock In \emph{Econometrica}, volume~68, 1281--1292.
+
+\bibitem[{Raffin et~al.(2021)Raffin, Hill, Gleave, Kanervisto, Ernestus, and
+  Dormann}]{raffin2021sb3}
+Raffin, A.; Hill, A.; Gleave, A.; Kanervisto, A.; Ernestus, M.; and Dormann, N.
+  2021.
+\newblock Stable-Baselines3: Reliable Reinforcement Learning Implementations.
+\newblock \emph{Journal of Machine Learning Research}, 22(268): 1--8.
+
+\bibitem[{Rashid et~al.(2018)Rashid, Samvelyan, de~Witt, Farquhar, Foerster,
+  and Whiteson}]{rashid2018qmix}
+Rashid, T.; Samvelyan, M.; de~Witt, C.~S.; Farquhar, G.; Foerster, J.; and
+  Whiteson, S. 2018.
+\newblock {QMIX}: Monotonic Value Function Factorisation for Deep Multi-Agent
+  Reinforcement Learning.
+\newblock In \emph{Proceedings of the 35th International Conference on Machine
+  Learning (ICML)}, 4295--4304.
+
+\bibitem[{Samvelyan et~al.(2019)Samvelyan, Rashid, de~Witt, Farquhar, Nardelli,
+  Rudner, Hung, Torr, Foerster, and Whiteson}]{samvelyan2019smac}
+Samvelyan, M.; Rashid, T.; de~Witt, C.~S.; Farquhar, G.; Nardelli, N.; Rudner,
+  T. G.~J.; Hung, C.-M.; Torr, P. H.~S.; Foerster, J.; and Whiteson, S. 2019.
+\newblock The {StarCraft} Multi-Agent Challenge.
+\newblock In \emph{Proceedings of the 18th International Conference on
+  Autonomous Agents and MultiAgent Systems (AAMAS)}, 2186--2188.
+
 \bibitem[{Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and
   Klimov}]{schulman2017ppo}
 Schulman, J.; Wolski, F.; Dhariwal, P.; Radford, A.; and Klimov, O. 2017.
 \newblock Proximal Policy Optimization Algorithms.
 \newblock arXiv:1707.06347.
+
+\bibitem[{Shen et~al.(2023)Shen, Ma, Li, Liu, Fu, Mei, Liu, and
+  Wang}]{xie2023riskq}
+Shen, S.; Ma, C.; Li, C.; Liu, W.; Fu, Y.; Mei, S.; Liu, X.; and Wang, C. 2023.
+\newblock {RiskQ}: Risk-Sensitive Multi-Agent Reinforcement Learning Value
+  Factorization.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36:
+  34791--34825.
 
 \bibitem[{Shi and Peng(2023)}]{peng2023curo}
 Shi, L.; and Peng, B. 2023.
@@ -140,8 +248,71 @@ Shi, L.; and Peng, B. 2023.
 \newblock In \emph{Adaptive and Learning Agents Workshop at Conference on
   Autonomous Agents and Multiagent Systems}.
 
-\bibitem[{Tversky and Kahneman(1992)}]{tversky1992}
-Tversky, A.; and Kahneman, D. 1992.
+\bibitem[{Son et~al.(2019)Son, Kim, Kang, Hostallero, and Yi}]{son2019qtran}
+Son, K.; Kim, D.; Kang, W.~J.; Hostallero, D.~E.; and Yi, Y. 2019.
+\newblock {QTRAN}: Learning to Factorize with Transformation for Cooperative
+  Multi-Agent Reinforcement Learning.
+\newblock In \emph{Proceedings of the 36th International Conference on Machine
+  Learning (ICML)}, 5887--5896.
+
+\bibitem[{Strogatz(1994)}]{strogatz1994nonlinear}
+Strogatz, S.~H. 1994.
+\newblock Nonlinear Dynamics and Chaos.
+\newblock \emph{Addison-Wesley, Reading, MA}.
+
+\bibitem[{Sunehag et~al.(2018)Sunehag, Lever, Gruslys, Czarnecki, Zambaldi,
+  Jaderberg, Lanctot, Sonnerat, Leibo, Tuyls, and Graepel}]{sunehag2018vdn}
+Sunehag, P.; Lever, G.; Gruslys, A.; Czarnecki, W.~M.; Zambaldi, V.; Jaderberg,
+  M.; Lanctot, M.; Sonnerat, N.; Leibo, J.~Z.; Tuyls, K.; and Graepel, T. 2018.
+\newblock Value-Decomposition Networks for Cooperative Multi-Agent Learning
+  Based on Team Reward.
+\newblock In \emph{Proceedings of the 17th International Conference on
+  Autonomous Agents and MultiAgent Systems (AAMAS)}, 2085--2087.
+
+\bibitem[{Tamar, Glassner, and Mannor(2015)}]{tamar2015optimizing}
+Tamar, A.; Glassner, Y.; and Mannor, S. 2015.
+\newblock Optimizing the {CVaR} via Sampling.
+\newblock \emph{Proceedings of the AAAI Conference on Artificial Intelligence},
+  29.
+
+\bibitem[{Tampuu et~al.(2017)Tampuu, Matiisen, Kodelja, Kuzovkin, Korjus, Aru,
+  Aru, and Vicente}]{tampuu2017multiagent}
+Tampuu, A.; Matiisen, T.; Kodelja, D.; Kuzovkin, I.; Korjus, K.; Aru, J.; Aru,
+  J.; and Vicente, R. 2017.
+\newblock Multiagent Cooperation and Competition with Deep Reinforcement
+  Learning.
+\newblock In \emph{PLoS ONE}, volume~12, e0172395.
+
+\bibitem[{Tan(1993)}]{tan1993multi}
+Tan, M. 1993.
+\newblock Multi-Agent Reinforcement Learning: Independent vs.\ Cooperative
+  Agents.
+\newblock \emph{Proceedings of the Tenth International Conference on Machine
+  Learning (ICML)}, 330--337.
+
+\bibitem[{Terry et~al.(2021)Terry, Black, Grammel, Jayakumar, Hari, Sullivan,
+  Santos, Perez, Horsch, Dieffendahl, Williams, Lokesh, and
+  Ravi}]{terry2021pettingzoo}
+Terry, J.~K.; Black, B.; Grammel, N.; Jayakumar, M.; Hari, A.; Sullivan, R.;
+  Santos, L.; Perez, R.; Horsch, C.; Dieffendahl, C.; Williams, N.~L.; Lokesh,
+  Y.; and Ravi, P. 2021.
+\newblock {PettingZoo}: Gym for Multi-Agent Reinforcement Learning.
+\newblock arXiv:2009.14471.
+
+\bibitem[{Terry, Black, and Hari(2020)}]{terry2020supersuit}
+Terry, J.~K.; Black, B.; and Hari, A. 2020.
+\newblock {SuperSuit}: Simple Microwrappers for Reinforcement Learning
+  Environments.
+\newblock arXiv:2008.08932.
+
+\bibitem[{Tversky and Kahneman(1992{\natexlab{a}})}]{tversky1992}
+Tversky, A.; and Kahneman, D. 1992{\natexlab{a}}.
+\newblock Advances in Prospect Theory: Cumulative Representation of
+  Uncertainty.
+\newblock \emph{Journal of Risk and Uncertainty}, 5(4): 297--323.
+
+\bibitem[{Tversky and Kahneman(1992{\natexlab{b}})}]{tversky1992advances}
+Tversky, A.; and Kahneman, D. 1992{\natexlab{b}}.
 \newblock Advances in Prospect Theory: Cumulative Representation of
   Uncertainty.
 \newblock \emph{Journal of Risk and Uncertainty}, 5(4): 297--323.

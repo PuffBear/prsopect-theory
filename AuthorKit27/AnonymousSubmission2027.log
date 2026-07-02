@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.9)  29 JUN 2026 17:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.9)  1 JUL 2026 05:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -234,6 +234,7 @@ Package: amsthm 2020/05/29 v2.20.6
 \dth@everypar=\toks27
 )
 \c@theorem=\count276
+\c@proposition=\count277
 
 (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
@@ -247,15 +248,15 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \cmidrulesep=\dimen164
 \cmidrulekern=\dimen165
 \defaultaddspace=\dimen166
-\@cmidla=\count277
-\@cmidlb=\count278
+\@cmidla=\count278
+\@cmidlb=\count279
 \@aboverulesep=\dimen167
 \@belowrulesep=\dimen168
-\@thisruleclass=\count279
-\@lastruleclass=\count280
+\@thisruleclass=\count280
+\@lastruleclass=\count281
 \@thisrulewidth=\dimen169
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 38
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 39
 .
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
@@ -263,39 +264,39 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count281
+\l__color_backend_stack_int=\count282
 \l__pdf_internal_box=\box52
 )
 (./AnonymousSubmission2027.aux)
 \openout1 = `AnonymousSubmission2027.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count282
+\scratchcounter=\count283
 \scratchdimen=\dimen170
 \scratchbox=\box53
-\nofMPsegments=\count283
-\nofMParguments=\count284
+\nofMPsegments=\count284
+\nofMParguments=\count285
 \everyMPshowfont=\toks28
-\MPscratchCnt=\count285
+\MPscratchCnt=\count286
 \MPscratchDim=\dimen171
-\MPnumerator=\count286
-\makeMPintoPDFobject=\count287
+\MPnumerator=\count287
+\makeMPintoPDFobject=\count288
 \everyMPtoPDFconversion=\toks29
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -308,65 +309,65 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-\c@aaai@eqfn=\count288
-\c@aaai@corrfn=\count289
+\c@aaai@eqfn=\count289
+\c@aaai@corrfn=\count290
 \titlearea=\box54
 \actualheight=\skip58
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 4
-8.
+7.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 4
-8.
+7.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-48.
+47.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-48.
+47.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 48.
+(Font)              <9> on input line 47.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 48.
+(Font)              <6> on input line 47.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 48.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 48.
+(Font)              <5> on input line 47.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 48.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 47.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 44--58
+Underfull \hbox (badness 10000) in paragraph at lines 45--61
 []\T1/lmr/m/n/9 Cooperative multi-agent re-in-force-ment learn-ing
  []
 
 
-Underfull \hbox (badness 1590) in paragraph at lines 44--58
-\T1/lmr/m/n/9 then ex-poses two find-ings: prospect the-ory's two
+Underfull \hbox (badness 1275) in paragraph at lines 45--61
+\T1/lmr/m/n/9 loss-averse agent can set a directed-flow sys-tem's
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 70.
+(Font)              <10> on input line 73.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 70.
+(Font)              <7> on input line 73.
 
 Underfull \vbox (badness 1400) has occurred while \output is active []
 
@@ -375,24 +376,32 @@ Underfull \vbox (badness 1400) has occurred while \output is active []
 
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 14
-2.
+Underfull \hbox (badness 6204) in paragraph at lines 143--154
+ \T1/lmr/bx/n/10 Phase tran-si-tions in multi-agent learn-ing.
+ []
+
+
+Underfull \vbox (badness 3861) has occurred while \output is active []
+
+ [2]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 20
+4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Underfull \hbox (badness 3471) in paragraph at lines 176--187
+Underfull \hbox (badness 3471) in paragraph at lines 237--248
  \T1/lmr/bx/n/10 Loss aver-sion raises the bound-ary; cur-va-
  []
 
 
-Underfull \hbox (badness 1496) in paragraph at lines 176--187
+Underfull \hbox (badness 1496) in paragraph at lines 237--248
 \T1/lmr/m/n/10 at $\OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 685$ \T1/
 lmr/m/n/10 by a ded-i-cated ex-per-i-ment (ev-ery other
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--187
+Underfull \hbox (badness 10000) in paragraph at lines 237--248
 \OMS/lmsy/m/n/10 f\OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 586\OML/lm
 m/m/it/10 ; \OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 715\OML/lmm/m/it
 /10 ; \OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 774\OML/lmm/m/it/10 ; 
@@ -403,103 +412,146 @@ OML/lmm/m/it/10 :\OT1/lmr/m/n/10 851\OMS/lmsy/m/n/10 g$\T1/lmr/m/n/10 ---then
  []
 
 
-Underfull \hbox (badness 2443) in paragraph at lines 176--187
+Underfull \hbox (badness 2443) in paragraph at lines 237--248
 \T1/lmr/m/n/10 sat-u-rates near $\OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/
 n/10 85$ \T1/lmr/m/n/10 with clear head-room to the
  []
 
 
-Underfull \hbox (badness 1466) in paragraph at lines 176--187
+Underfull \hbox (badness 1466) in paragraph at lines 237--248
 \OML/lmm/m/it/10 w[]\OT1/lmr/m/n/10 1$ \T1/lmr/m/n/10 ceil-ing, so the plateau 
 is be-hav-ioral, not a
  []
 
-[2]
-<Figures/boundary_metastability.pdf, id=30, 496.85248pt x 182.13696pt>
+<Figures/boundary_metastability.pdf, id=22, 497.59715pt x 186.41394pt>
 File: Figures/boundary_metastability.pdf Graphic file (type pdf)
 <use Figures/boundary_metastability.pdf>
 Package pdftex.def Info: Figures/boundary_metastability.pdf  used on input line
- 204.
-(pdftex.def)             Requested size: 239.39438pt x 87.75824pt.
-<Figures/ppo_behavioral_full.png, id=31, 542.025pt x 346.896pt>
+ 266.
+(pdftex.def)             Requested size: 239.39438pt x 89.68246pt.
+<Figures/ppo_behavioral_full.png, id=23, 542.025pt x 346.896pt>
 File: Figures/ppo_behavioral_full.png Graphic file (type png)
 <use Figures/ppo_behavioral_full.png>
-Package pdftex.def Info: Figures/ppo_behavioral_full.png  used on input line 21
-4.
+Package pdftex.def Info: Figures/ppo_behavioral_full.png  used on input line 27
+6.
 (pdftex.def)             Requested size: 220.24239pt x 140.9526pt.
 
-Underfull \hbox (badness 1558) in paragraph at lines 218--218
+Underfull \hbox (badness 1558) in paragraph at lines 280--280
 []\T1/lmr/m/n/10 Figure 2: |Be-hav-ioral de-com-po-si-tion and full loss-
  []
 
-
-Underfull \hbox (badness 1281) in paragraph at lines 271--275
-[]\T1/lmr/bx/n/10 Theorem 1 \T1/lmr/m/n/10 (Sign in-vari-ance of the loss-aver-
-sion
+[3] [4 <./Figures/boundary_metastability.pdf> <./Figures/ppo_behavioral_full.pn
+g>]
+Underfull \hbox (badness 10000) in paragraph at lines 367--380
+\OMS/lmsy/m/n/10 f\OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 586\OML/lm
+m/m/it/10 ; \OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 695\OML/lmm/m/it
+/10 ; \OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 759\OML/lmm/m/it/10 ; 
+\OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 800\OML/lmm/m/it/10 ; \OT1/l
+mr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 830\OML/lmm/m/it/10 ; \OT1/lmr/m/n
+/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 851\OML/lmm/m/it/10 ; \OT1/lmr/m/n/10 0\
+OML/lmm/m/it/10 :\OT1/lmr/m/n/10 868\OMS/lmsy/m/n/10 g$ \T1/lmr/m/n/10 ver-sus
  []
 
-[3 <./Figures/boundary_metastability.pdf> <./Figures/ppo_behavioral_full.png>]
-<Figures/generalization_wcrit_vs_lambda.png, id=119, 505.89pt x 325.215pt>
+
+Underfull \hbox (badness 1184) in paragraph at lines 367--380
+\T1/lmr/m/n/10 be-cause the point is mech-a-nism, not good-ness of
+ []
+
+<Figures/affine_law_7pt.png, id=121, 433.62pt x 289.08pt>
+File: Figures/affine_law_7pt.png Graphic file (type png)
+<use Figures/affine_law_7pt.png>
+Package pdftex.def Info: Figures/affine_law_7pt.png  used on input line 383.
+(pdftex.def)             Requested size: 196.30513pt x 130.86995pt.
+
+Underfull \hbox (badness 7851) in paragraph at lines 399--400
+[]\T1/lmr/m/n/9 opposite signs; mono-tone $\OML/lmm/m/it/9 w[]\OT1/lmr/m/n/9 (\
+OML/lmm/m/it/9 ^^U\OT1/lmr/m/n/9 )$\T1/lmr/m/n/9 ;
+ []
+
+
+Underfull \hbox (badness 2443) in paragraph at lines 432--445
+\T1/lmr/m/n/10 variable con-trol iso-lates the cause: PPO on the
+ []
+
+
+Underfull \hbox (badness 1009) in paragraph at lines 432--445
+\T1/lmr/m/it/10 same \T1/lmr/m/n/10 dis-crete shell also goes flat, so it is co
+arse
+ []
+
+
+Underfull \hbox (badness 1688) in paragraph at lines 432--445
+\T1/lmr/m/n/10 discretization---not the value-based paradigm---that
+ []
+
+<Figures/generalization_wcrit_vs_lambda.png, id=122, 505.89pt x 325.215pt>
 File: Figures/generalization_wcrit_vs_lambda.png Graphic file (type png)
 <use Figures/generalization_wcrit_vs_lambda.png>
 Package pdftex.def Info: Figures/generalization_wcrit_vs_lambda.png  used on in
-put line 327.
+put line 466.
 (pdftex.def)             Requested size: 227.42392pt x 146.20148pt.
-
-[4 <./Figures/generalization_wcrit_vs_lambda.png>]
-Underfull \hbox (badness 1888) in paragraph at lines 391--391
-\T1/lmr/m/n/10 nodes at $\OML/lmm/m/it/10 ^^U[]\OT1/lmr/m/n/10 7$\T1/lmr/m/n/10
- , oth-ers $\OML/lmm/m/it/10 ^^U[]\OT1/lmr/m/n/10 1$\T1/lmr/m/n/10 ; $\OML/lmm/
-m/it/10 []^^L[]\OT1/lmr/m/n/10 0\OML/lmm/m/it/10 :\OT1/lmr/m/n/10 88$\T1/lmr/m
-/n/10 , 300k, 20
+[5 <./Figures/affine_law_7pt.png>]
+Underfull \hbox (badness 1424) in paragraph at lines 502--508
+ \T1/lmr/bx/n/10 A sin-gle node, dose for dose. \T1/lmr/m/n/10 Sweep-ing the
  []
 
-(./AnonymousSubmission2027.bbl [5]
-Underfull \hbox (badness 1077) in paragraph at lines 34--38
+<Figures/cascade_tier_dose.pdf, id=128, 500.10765pt x 194.42136pt>
+File: Figures/cascade_tier_dose.pdf Graphic file (type pdf)
+<use Figures/cascade_tier_dose.pdf>
+Package pdftex.def Info: Figures/cascade_tier_dose.pdf  used on input line 528.
+
+(pdftex.def)             Requested size: 239.39438pt x 93.06902pt.
+[6 <./Figures/generalization_wcrit_vs_lambda.png> <./Figures/cascade_tier_dose.
+pdf>] (./AnonymousSubmission2027.bbl [7]
+Underfull \hbox (badness 1077) in paragraph at lines 47--51
 []\T1/lmr/m/n/10 Dafoe, A.; Hughes, E.; Bachrach, Y.; Collins, T.;
  []
 
 
-Underfull \hbox (badness 1616) in paragraph at lines 47--51
+Underfull \hbox (badness 1616) in paragraph at lines 67--71
 \T1/lmr/m/n/10 Ahamd-abadi, M. N. 2024.  Risk-Sensitive Multi-
  []
 
-
-Underfull \hbox (badness 4582) in paragraph at lines 150--154
+[8]
+Underfull \hbox (badness 4582) in paragraph at lines 321--325
 \T1/lmr/m/n/10 Agent Re-in-force-ment Learn-ing.  \T1/lmr/m/it/10 arXiv preprin
 t
  []
 
-) [6] (./AnonymousSubmission2027.aux) ) 
+) [9] (./AnonymousSubmission2027.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 5652 strings out of 480247
- 89766 string characters out of 5896152
- 388705 words of memory out of 5000000
- 23492 multiletter control sequences out of 15000+600000
- 544089 words of font info for 74 fonts, out of 8000000 for 9000
+ 5755 strings out of 480247
+ 92348 string characters out of 5896152
+ 394508 words of memory out of 5000000
+ 23593 multiletter control sequences out of 15000+600000
+ 544097 words of font info for 74 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 56i,16n,63p,327b,307s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-
-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fon
-ts/enc/dvips/lm/lm-rm.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8
-r.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/font
-s/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb
-></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/typ
-e1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/
-texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lm
-r7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts
-/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri9.pfb><
-/usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1
-/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on AnonymousSubmission2027.pdf (6 pages, 530038 bytes).
+ 56i,16n,63p,327b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
+ips/lm/lm-mathsy.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc
+}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvi
+ps/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/sh
+are/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public
+/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/te
+xmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lm
+mi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fo
+nts/type1/public/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb
+></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1
+/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/l
+m/lmri9.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy9
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on AnonymousSubmission2027.pdf (9 pages, 628758 bytes).
 PDF statistics:
- 220 PDF objects out of 1000 (max. 8388607)
- 98 compressed objects within 1 object stream
+ 297 PDF objects out of 1000 (max. 8388607)
+ 118 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

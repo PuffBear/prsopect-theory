@@ -3,44 +3,47 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: AnonymousSubmission2027.aux
 The style file: aaai2027.bst
 Database file #1: references.bib
-You've used 26 entries,
+Warning--can't use both volume and number fields in rabin2000risk
+Warning--can't use both volume and number fields in tampuu2017multiagent
+You've used 50 entries,
             2840 wiz_defined-function locations,
-            717 strings with 9649 characters,
-and the built_in function-call counts, 17218 in all, are:
-= -- 1331
-> -- 1095
-< -- 2
-+ -- 404
-- -- 373
-* -- 1282
-:= -- 2931
-add.period$ -- 105
-call.type$ -- 26
-change.case$ -- 228
-chr.to.int$ -- 27
-cite$ -- 26
-duplicate$ -- 1110
-empty$ -- 1021
-format.name$ -- 444
-if$ -- 3247
-int.to.chr$ -- 1
+            843 strings with 14859 characters,
+and the built_in function-call counts, 36186 in all, are:
+= -- 2826
+> -- 2237
+< -- 6
++ -- 830
+- -- 768
+* -- 2689
+:= -- 5968
+add.period$ -- 201
+call.type$ -- 50
+change.case$ -- 458
+chr.to.int$ -- 51
+cite$ -- 52
+duplicate$ -- 2327
+empty$ -- 2192
+format.name$ -- 896
+if$ -- 6942
+int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 245
-newline$ -- 134
-num.names$ -- 104
-pop$ -- 582
+missing$ -- 519
+newline$ -- 254
+num.names$ -- 200
+pop$ -- 1173
 preamble$ -- 1
-purify$ -- 210
+purify$ -- 422
 quote$ -- 0
-skip$ -- 510
+skip$ -- 1115
 stack$ -- 0
-substring$ -- 529
-swap$ -- 565
-text.length$ -- 2
+substring$ -- 1385
+swap$ -- 1264
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 234
-warning$ -- 0
-while$ -- 120
+type$ -- 450
+warning$ -- 2
+while$ -- 260
 width$ -- 0
-write$ -- 328
+write$ -- 639
+(There were 2 warnings)
