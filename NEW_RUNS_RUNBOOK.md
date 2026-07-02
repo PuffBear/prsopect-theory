@@ -1,15 +1,60 @@
-# Runbook — Three New Experiments (Reviewer Points 2, 3, 4)
+# Runbook — New Experiments (Reviewer Points 2, 3, 4 + the SNR re-probe)
 
-These three runs close the gaps flagged in the AAAI revision. All reuse the
-existing substrate, optimizer (PPO), CPT machinery, collapse label, grid, and
-20-seed convention, so outputs feed the existing logistic/bootstrap/Firth
-estimators unchanged. HPC: `ssh <user>@10.1.4.95`, PBS/Torque, `conda activate marl`.
+These runs close the gaps flagged in the AAAI revision. All reuse the existing
+substrate, optimizer (PPO), CPT machinery, collapse label, grid, and 20-seed
+convention, so outputs feed the existing estimators unchanged. HPC:
+`ssh <user>@10.1.4.95`, PBS/Torque, `conda activate marl`.
 
-| Reviewer pt | Driver | PBS | Array | Runs | New output CSV |
+Points 2, 3, 4 are **done** (results integrated into the paper). The **SNR
+re-probe** is the remaining high-value run: it is the WA→A move — if it lands,
+"calibrated not predictive" dies and the mechanism gains a measured magnitude.
+
+| Item | Driver | PBS | Array | Runs | Output CSV |
 |---|---|---|---|---|---|
-| 2 — extra horizons | `experiments/exp_horizon_extra.py` | `run_horizon_extra.pbs` | 0–319 | 320 | `docs/expHorizon_extra_figures/horizon_extra_raw_data.csv` |
-| 4 — finer high-λ grid | `experiments/exp_highlambda_finegrid.py` | `run_highlambda_finegrid.pbs` | 0–119 | 120 | `docs/expHighLambda_finegrid_figures/highlambda_finegrid_raw_data.csv` |
-| 3 — cascade (position + continuous λ) | `experiments/exp_cascade_continuous.py` | `run_cascade_continuous.pbs` | 0–1099 | 1100 | `docs/expCascade_continuous_figures/cascade_continuous_raw_data.csv` |
+| 2 — extra horizons ✅ | `experiments/exp_horizon_extra.py` | `run_horizon_extra.pbs` | 0–319 | 320 | `docs/expHorizon_extra_figures/…` |
+| 4 — finer high-λ grid ✅ | `experiments/exp_highlambda_finegrid.py` | `run_highlambda_finegrid.pbs` | 0–119 | 120 | `docs/expHighLambda_finegrid_figures/…` |
+| 3 — cascade ✅ | `experiments/exp_cascade_continuous.py` | `run_cascade_continuous.pbs` | 0–1099 | 1100 | `docs/expCascade_continuous_figures/…` |
+| **SNR re-probe (WA→A)** | `experiments/exp_snr_reprobe.py` | `run_snr_reprobe.pbs` | 0–179 | 180 | `docs/expSNR_reprobe_figures/expSNR_reprobe_raw_data.csv` |
+
+## SNR re-probe — the WA→A experiment
+
+**What was wrong.** The original probe (`exp_snr_probe.py`) reproduced the
+boundary but its restoring-drift observable did not localize `w_crit`: the PPO
+policy initializes at action ≈0, which under `S = 250·(a+1)` starts at **S≈250**,
+*above* the cooperative optimum (S≈150). Collapsing runs plunge down through the
+contested band (S≈150–200) too fast to sample, so the early-window drift is
+survivor-biased.
+
+**The single-variable fix.** `exp_snr_reprobe.py` biases the actor's initial
+output mean to **a₀ = −0.4 (⇒ S = 150)** — the cooperative optimum — so training
+begins *inside* the contested band and both survivors and collapsers are sampled
+there at rest. Everything else (substrate, grid, horizon, IP-percentile probe,
+Langevin estimator, idempotent CSV) is identical to `exp_snr_probe.py`, so this
+is a clean test of the survivor-bias hypothesis. `--init_S` (default 150) or
+`--init_action` control the start point.
+
+**Two independent localizers** (`analyze_snr_reprobe.py`):
+1. *Restoring-drift crossing* — same test the survivor-biased probe failed.
+2. *Basin-flow statistic* — initialization-robust: net early displacement from
+   the optimum; localizes `w_crit` without conditioning on survivors, since every
+   run starts in the basin.
+
+**Pre-registered verdict (fix before running):** the mechanism is corroborated at
+the magnitude level iff **either** localizer's bootstrap 95% CI for its w-crossing
+contains the matched-horizon boundary **w_crit = 0.822**. A null result leaves the
+mechanism at the sign-and-form level, as currently reported. Either way, report in
+full — the paper already states the honest sign-and-form claim, so a null costs
+nothing and a hit is the WA→A upgrade.
+
+**Run:**
+```bash
+python3 experiments/exp_snr_reprobe.py --run_idx 0 --timesteps 20000 \
+    --out /tmp/smoke_reprobe.csv      # wiring check
+qsub run_snr_reprobe.pbs              # 0..179
+# after data + trajectories land:
+python3 experiments/analyze_snr_reprobe.py \
+    --csv docs/expSNR_reprobe_figures/expSNR_reprobe_raw_data.csv
+```
 
 ## What each one shows
 
