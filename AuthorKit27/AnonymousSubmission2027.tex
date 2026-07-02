@@ -48,13 +48,13 @@ failure only qualitatively. Our contribution is a way to measure it: a pre-regis
 definition and bootstrap confidence intervals that turn the failure into a critical
 centralization $\wcrit$ with error bars---to our knowledge the first such measurement in deep
 cooperative MARL. We then use the instrument to ask whether behavioral preferences move the
-threshold, and find that they do: \emph{loss aversion} systematically shifts $\wcrit$ rightward, so
-loss-averse agents need more centralization to coordinate. This effect is monotone in the
-loss-aversion strength $\lambda$ and replicates in direction across three environments and two
-algorithms; at the human range ($\lambda\!\approx\!3$) it adds $+0.089$ to the required
-centralization. We report what is robust (the boundary, and the direction of the loss-aversion
-effect) separately from what is substrate-specific (the effect's magnitude and functional form),
-and offer a supporting mean-field account at the level of sign, not magnitude. The pre-registered
+threshold. They do: \emph{loss aversion} systematically shifts $\wcrit$ rightward, so loss-averse
+agents need more centralization to coordinate. The effect is monotone in the loss-aversion strength
+$\lambda$ and replicates in direction across three environments and two algorithms; at the human
+range ($\lambda\!\approx\!3$) it adds $+0.089$ to the required centralization. We separate what is
+robust (the boundary, and the \emph{direction} of the effect) from what is substrate-specific (its
+magnitude and functional form), and offer a supporting mean-field account at the level of sign, not
+magnitude. The pre-registered
 protocol is a reusable instrument for measuring where any cooperative system collapses, and how far
 behavioral bias moves that point.
 \end{abstract}
@@ -75,9 +75,8 @@ drowns out its contribution, so cooperating earns no learnable signal and the sa
 wins. The field knows this only as a direction---\emph{more centralization
 helps}~\citep{dmarl2025,liu2023lazy}---and stops there. \emph{Where}, in $w$, a working team
 tips into collapse has never been measured. Our central question is therefore twofold: does
-coordination collapse admit a \emph{measurable} critical centralization threshold, and do
-behavioral preferences systematically shift it? The first half is a measurement problem---the
-paper's primary contribution---and the second is what the measurement lets us ask. The nearest work mitigates the lazy-agent
+coordination collapse admit a \emph{measurable} critical centralization threshold---the paper's
+primary contribution---and do behavioral preferences systematically shift it? The nearest work mitigates the lazy-agent
 pathology without locating a boundary~\citep{liu2023lazy,peng2023curo,weng2026}, or sweeps
 neighbouring axes---credit-assignment level~\citep{wang2025maca}, reward
 weights~\citep{jiang2018dgn}. Closest in spirit, \citet{yamaguchi2025} build a phase diagram
@@ -127,48 +126,43 @@ against it, in gradient-trained neural policies.
 \label{sec:related}
 
 \paragraph{Coordination collapse and credit assignment.}
-Cooperative MARL has been studied since independent $Q$-learning on shared
-tasks~\citep{tan1993multi,busoniu2008comprehensive}, and deep variants inherit its
-pathologies---the lazy-agent and relative-overgeneralization failures in which agents abandon
-cooperation for a degenerate policy~\citep{liu2023lazy,peng2023curo,tampuu2017multiagent}. The
-standard remedy is centralized credit assignment under CTDE: a centralized critic or a
-factorized value function that decomposes team reward into per-agent
-contributions~\citep{lowe2017multi,yu2022surprising,sunehag2018vdn,rashid2018qmix,foerster2018counterfactual,son2019qtran},
-benchmarked on suites such as SMAC~\citep{samvelyan2019smac}. \citet{weng2026} attribute the
-failure to representation degradation under decentralized exploration, and \citet{dmarl2025}
-show decentralized shaping cannot match centralized baselines. This literature establishes
-\emph{that} centralization helps and \emph{how} to implement it; none locates the threshold
-$\wcrit$ at which it becomes necessary, or attaches a confidence interval to it---the gap we
-close, using the centralization weight $w$ as the dial rather than a fixed factorization.
+Cooperative MARL, studied since independent $Q$-learning on shared
+tasks~\citep{tan1993multi,busoniu2008comprehensive}, inherits the lazy-agent and
+relative-overgeneralization failures in which agents abandon cooperation for a degenerate
+policy~\citep{liu2023lazy,peng2023curo,tampuu2017multiagent}. The standard remedy is centralized
+credit assignment under CTDE---a centralized critic or a factorized value
+function~\citep{lowe2017multi,yu2022surprising,sunehag2018vdn,rashid2018qmix,foerster2018counterfactual,son2019qtran},
+benchmarked on suites like SMAC~\citep{samvelyan2019smac}---and related work ties the failure to
+decentralized exploration~\citep{weng2026} or shows decentralized shaping cannot match centralized
+baselines~\citep{dmarl2025}. This establishes \emph{that} centralization helps and \emph{how} to
+implement it; none locates the threshold $\wcrit$ at which it becomes necessary, or gives it a
+confidence interval---the gap we close, using the weight $w$ as the dial rather than a fixed
+factorization.
 
 \paragraph{Phase transitions in multi-agent learning.}
-Treating collective learning as a dynamical system with critical points has a growing
-precedent. \citet{yamaguchi2025} construct a phase diagram for independent Q-learning over
-\emph{environmental} axes (grid size, agent density), and \citet{capannoli2026phase} prove a
-metastable partial-adoption boundary in network opinion dynamics under a fixed update rule.
-Closest in method, the deterministic-limit and mean-field programmes for multi-agent
-learning~\citep{barfuss2019deterministic,hu2019meanfield,hussain2025convergence} derive
-Fokker--Planck descriptions of networked Q-learning and tie convergence to exploration and
-sparsity. We share their statistical-physics posture but differ in object: ours is a
-\emph{reward-structure} threshold in gradient-trained cooperative policies, with confidence
-intervals, that a \emph{behavioral} parameter then moves---and we apply the mean-field
-machinery as a known tool to fix the sign, not as the contribution itself.
+Treating collective learning as a dynamical system with critical points has precedent:
+\citet{yamaguchi2025} build a phase diagram for independent Q-learning over \emph{environmental}
+axes, \citet{capannoli2026phase} prove a metastable boundary in opinion dynamics under a fixed
+update rule, and the mean-field programme for multi-agent
+learning~\citep{barfuss2019deterministic,hu2019meanfield,hussain2025convergence} derives
+Fokker--Planck descriptions of networked Q-learning. We share this statistical-physics posture but
+differ in object---ours is a \emph{reward-structure} threshold in gradient-trained cooperative
+policies, with confidence intervals, that a \emph{behavioral} parameter moves---and use the
+mean-field machinery only as a known tool to fix a sign, not as the contribution.
 
 \paragraph{Behavioral preferences in cooperative AI.}
 A thin bridge connects human preference structure to collective learning dynamics:
-\citet{hughes2018inequity} show inequity aversion improves cooperation in social dilemmas,
-and the cooperative-AI agenda~\citep{dafoe2020open,hammond2025multiagent,barfuss2020caring}
-frames behavioral and safety considerations for multi-agent systems. On the risk-sensitive
-side, CVaR objectives optimize tail outcomes~\citep{qiu2021rmix,xie2023riskq,prashanth2014cvar,tamar2015optimizing}---distinct
-from loss aversion, which is a reference-point asymmetry rather than a tail reweighting. Prospect
-theory has been brought into single-agent RL for prediction and
-control~\citep{prashanth2016cumulative}, and its calibration concerns are well
-known~\citep{rabin2000risk,tversky1992advances}. In the multi-agent setting,
-\citet{mengesha2025} prove loss aversion shifts a coordination tipping point, but in evolutionary
-game theory over fixed strategies; \citet{lalmohammed2025} bring CPT into cooperative MARL but
-fold it into the actor--critic update, entangling its components. Our work extends this bridge to
-prospect-theoretic preferences in gradient-trained \emph{cooperative} policies and, uniquely in
-this line, \emph{decomposes} prospect theory's components against a measured boundary.
+\citet{hughes2018inequity} show inequity aversion improves cooperation in social dilemmas within
+the broader cooperative-AI agenda~\citep{dafoe2020open,hammond2025multiagent,barfuss2020caring}.
+Risk-sensitive RL optimizes tail
+outcomes~\citep{qiu2021rmix,xie2023riskq,prashanth2014cvar,tamar2015optimizing}---distinct from loss
+aversion, a reference-point asymmetry rather than a tail reweighting---and prospect theory has
+entered single-agent RL with known calibration
+concerns~\citep{prashanth2016cumulative,rabin2000risk,tversky1992advances}. In the multi-agent
+setting, \citet{mengesha2025} prove loss aversion shifts a tipping point in evolutionary game theory
+over fixed strategies, and \citet{lalmohammed2025} bring CPT into cooperative MARL but fold it into
+the update, entangling its components. We extend this to gradient-trained \emph{cooperative}
+policies and, uniquely, \emph{decompose} prospect theory's components against a measured boundary.
 
 % =======================================================================
 \section{Preliminaries and Method}
@@ -190,8 +184,12 @@ blending,
 \end{equation}
 the decisive difference from \citet{lalmohammed2025}, who fold CPT \emph{into} the
 actor--critic update, entangling curvature with loss aversion and confounding any shift with a
-change to the optimizer. Transforming only the scalar reward leaves the policy gradient
-identical across conditions, so a measured shift is behavioral and the two channels dial
+change to the optimizer. Transforming only the scalar reward leaves the update rule and
+hyperparameters identical. This still changes the reward \emph{distribution}, which could alter
+optimization difficulty independently of the behavioral asymmetry; to separate the two we run a
+variance-matched \emph{placebo}---a symmetric reshaping matching CPT's scale/variance change but
+with \emph{no} loss-domain asymmetry---and verify it does not shift $\wcrit$ (Supplement), so the
+measured shift tracks the gain/loss asymmetry specifically. The two channels then dial
 independently. We pre-registered the binary collapse label
 $\mathbf{1}[\bar S<10\wedge\bar\pi\le-127.1]$ ($\bar S$ mean base-stock, $\bar\pi$ mean profit),
 freezing it in version control before any analysis (the commit hash is withheld for anonymity and
@@ -200,15 +198,13 @@ Supplement). For
 each condition we fit $P(\mathrm{collapse}\mid w)=\sigma(b_0+b_1 w)$, estimate
 $\wcrit=-b_0/b_1$ (the $w$ at which $P(\mathrm{collapse})=0.5$), and bootstrap its 95\% CI; steep
 high-$\lambda$ cells use Firth penalized regression, which agrees with the bootstrap throughout.
-The logistic midpoint is the natural transition point for two reasons. First, collapse is a
-\emph{binary} outcome per run, so the sigmoid is the maximum-entropy model of its $w$-dependence
-and $-b_0/b_1$ is the location parameter---the $w$ of maximal uncertainty, where a run is equally
-likely to coordinate or collapse. Second, the transition is empirically \emph{sharp}: collapse
-fractions rise from near-zero to near-one within $\Delta w<0.3$ (below), so the midpoint is not an
-arbitrary cut through a gentle slope but the center of a narrow, well-identified crossing whose
-width we report ($\Delta w$) alongside its location. We therefore treat $\wcrit$ as a measured
-threshold with a confidence interval, and are explicit that ``phase boundary'' is used in this
-empirical sense, not as a claim of thermodynamic criticality. The decomposition compares three
+The logistic midpoint is the natural transition point: collapse is a \emph{binary} per-run outcome,
+so the sigmoid is the maximum-entropy model of its $w$-dependence and $-b_0/b_1$ is its location
+parameter---the $w$ of maximal uncertainty. Because the transition is empirically sharp (collapse
+fractions rise from near-zero to near-one within $\Delta w<0.3$, whose width we report alongside the
+location), this is the center of a narrow, well-identified crossing, not an arbitrary cut through a
+gentle slope. We use ``phase boundary'' in this empirical sense, not as a claim of thermodynamic
+criticality. The decomposition compares three
 conditions with identical environment and optimizer: \textbf{Null} ($\alpha{=}\beta{=}1,
 \lambda{=}1$), \textbf{Curvature} ($\alpha{=}\beta{=}0.88,\lambda{=}1$), and \textbf{Loss
 aversion} ($\alpha{=}\beta{=}0.88,\lambda>1$). The primary substrate is
@@ -316,14 +312,12 @@ Loss av.\ $\lambda{=}7$ & 0.851 & $+0.166^{\checkmark}$ & $+0.265$ \\
 \section{A Mean-Field Mechanism Fixes the Sign}
 \label{sec:mechanism}
 
-The measurement above is the paper's contribution; this section adds a \emph{supporting} account of
-why the boundary exists and which way each component moves it. It is deliberately modest---sign and
-functional form, not magnitude, and not the basis of any empirical claim---so the results stand
-whether or not the reader accepts the mechanism. Following deterministic-limit and mean-field
-treatments of multi-agent
+The measurement above is the paper's contribution; this section adds a \emph{supporting} account,
+deliberately modest---sign and functional form, not magnitude, and not the basis of any empirical
+claim---so the results stand whether or not the reader accepts it. Following deterministic-limit and
+mean-field treatments of multi-agent
 learning~\citep{barfuss2019deterministic,hu2019meanfield,hussain2025convergence}, we model each
-Gaussian-policy PPO agent's mean action as a Langevin variable; the machinery is standard and is
-in the Supplement. Modelling the policy mean as $\mathrm{d}\mu_i=D(w)\,\mathrm{d}t+\sqrt{2\Theta(w)}\,
+Gaussian-policy PPO agent's mean action as a Langevin variable (details in the Supplement). Modelling the policy mean as $\mathrm{d}\mu_i=D(w)\,\mathrm{d}t+\sqrt{2\Theta(w)}\,
 \mathrm{d}W$, with drift $D$ and a centralization-weighted diffusion $\Theta$ into which partner
 exploration enters, the replenishing regime makes an upstream node's inventory a local cost but
 a global benefit, giving cooperative drift $D(w)=\eta[wg-(1-w)c]$. Escape from the lazy basin is
@@ -335,21 +329,18 @@ governed not by drift but by its ratio to gradient noise,
 and the crossing defines $\wcrit$. Treating escape as a Kramers first-passage
 problem~\citep{kramers1940brownian} ($\tau\sim e^{\Delta U/\Theta}$)---the noise-induced analogue of
 a saddle-node bifurcation of the coordinating basin~\citep{strogatz1994nonlinear}---gives two
-qualitative expectations \emph{consistent with} the data: collapse switches abruptly across $\wcrit$
-(the sharp fits) and $\wcrit(T)$ falls as $T$ grows (the metastable slide). We do \emph{not} derive
-the numerical value of $\wcrit$: $c,g,\sigma,\kappa_c$ are calibrated, and our pre-registered direct
-drift probe was \emph{inconclusive}---it reproduces the matched-horizon boundary in collapse
-fraction but does not localize $\wcrit$, because survivor bias in the contested band confounds the
-conditioned drift (Supplement; a non-survivor-biased re-probe is the natural fix). The magnitude
-therefore remains calibrated; the mechanism's content is the sign and the form.
+expectations \emph{consistent with} the data: collapse switches abruptly across $\wcrit$ (the sharp
+fits) and $\wcrit(T)$ falls as $T$ grows (the metastable slide). We do \emph{not} derive the value
+of $\wcrit$---$c,g,\sigma,\kappa_c$ are calibrated, and our pre-registered drift probe was
+\emph{inconclusive} (it reproduced the boundary in collapse fraction but survivor bias in the
+contested band prevented it from localizing $\wcrit$; a non-survivor-biased re-probe is the natural
+fix, Supplement). The mechanism's content is thus the sign and the form, not the magnitude.
 
-We are direct about the one place the account could be read as circular. The sign result below
-assumes a payoff premise ($\partial_\lambda F<0$: loss aversion inflates loss-domain gradient
-variance, lowering the cooperative signal-to-noise ratio). We do \emph{not} take this on faith or
-infer it from the outcome---we verify it independently with a finite-difference probe of the
-substrate (Supplement), so the proposition's content is the non-trivial claim that this
-\emph{locally} measured sign \emph{propagates} to the \emph{global} boundary through the intractable
-noise, not the assumption that loss aversion hurts coordination.
+The sign result below assumes a payoff premise ($\partial_\lambda F<0$) that we verify independently
+with a finite-difference probe rather than infer from the outcome (Supplement); its content is that
+this \emph{locally} measured sign \emph{propagates} to the \emph{global} boundary through the
+intractable noise---not the assumption that loss aversion hurts coordination, which would be
+circular.
 
 \begin{proposition}[Sign propagation of the loss-aversion shift]\label{thm:sign}
 Let the order parameter $x$ evolve as $\mathrm{d}x_t=F(x_t,w,\lambda)\,\mathrm{d}t+
@@ -561,12 +552,12 @@ set by the biased participant of highest path concentration to demand.
 
 That probability weighting and loss aversion exert opposite effects on the boundary is, to our
 knowledge, novel; prior work applies prospect theory as a unified model without decomposing
-it~\citep{lalmohammed2025,ghaemi2024risk}. The operational reading is concrete: a system of
-$\lambda{=}7$ agents needs $w>0.851$ for reliable coordination against $w>0.685$ for risk-neutral
-agents---a $+0.166$ deployment margin that scales with $\lambda$, so domains nearer
-$\lambda\!\approx\!2$--$3$ incur a smaller but positive cost. Where centralization is capped by
-privacy or communication cost, the boundary reframes the problem, exposing $\lambda$---the agents'
-effective loss aversion, shaped by the training objective---as a second lever. Our phase-diagram
+it~\citep{lalmohammed2025,ghaemi2024risk}. The operational reading is concrete, and we anchor it at
+the human range rather than the extreme: at $\lambda\!\approx\!3$ (near the canonical
+$\lambda\!\approx\!2.25$) a system needs $w>0.774$ for reliable coordination against $w>0.685$ for
+risk-neutral agents---a $+0.089$ margin---rising to $+0.166$ only at the high-stakes upper bound
+$\lambda{=}7$. The effect is modest but real at realistic bias and grows with it; we report the
+$\lambda{=}7$ figure as a ceiling, not a typical case. Our phase-diagram
 framing sits within a recognized line of multiagent phase-transition
 results~\citep{yamaguchi2025,capannoli2026phase} and the broader project of cooperative
 AI~\citep{dafoe2020open,hammond2025multiagent,barfuss2020caring}; its distinctive contribution is
@@ -574,18 +565,12 @@ a boundary set by the policy-gradient signal-to-noise ratio rather than a fixed 
 
 \paragraph{What a practitioner does with this.}
 The boundary is a design quantity. A team deploying cooperative agents can \emph{estimate} its own
-$\wcrit$ with the pre-registered protocol (turning ``how much should we centralize?'' into a
-measured target with error bars), \emph{budget} for the loss-aversion margin on top of the
+$\wcrit$ with the pre-registered protocol, \emph{budget} for the loss-aversion margin on top of the
 risk-neutral requirement rather than discovering collapse in production, and---where $w$ is capped
-by privacy or communication cost---treat $\lambda$ as the second lever the decomposition exposes,
-lowering agents' \emph{effective} loss aversion through the training objective instead of raising
-$w$. The minority result adds a targeting rule: audit the biased participant whose output most
-directly reaches demand, not the average agent. The relevant $\lambda$ is itself set by how an agent
-was trained---preference-aligned objectives are prospect-theoretic in
-form~\citep{ethayarajh2024kto,tversky1992advances}---so estimating it from behavior, against the
-calibration debates around prospect theory~\citep{rabin2000risk}, ties the behavioral axis to a
-measurable property of the training pipeline. Laboratory loss aversion is
-$\lambda\!\approx\!2.25$, so the deployment-relevant margins sit near our $\lambda{=}3$ figure.
+by privacy or communication cost---treat $\lambda$ (the agents' effective loss aversion, itself set
+by the training objective~\citep{ethayarajh2024kto,rabin2000risk}) as a second lever instead of
+raising $w$. The minority result adds a targeting rule: audit the biased participant whose output
+most directly reaches demand, not the average agent.
 
 \paragraph{Scope and Future Work.}
 Three boundaries of the present results each point to a concrete next step. \emph{(i) From one
@@ -617,7 +602,7 @@ requirement---but each marks where measurement currently ends and prediction beg
 We presented the first confidence-intervalled phase diagram of cooperative-MARL coordination
 collapse, characterizing $\wcrit$ as a function of reward structure, training horizon, and
 prospect-theoretic loss aversion. Loss aversion impedes coordination---raising the requirement, a
-direction we predict a priori and confirm across four environment--algorithm settings, with the
+direction we predict a priori and confirm across three environments and two algorithms, with the
 metastable slide generalizing likewise. Two further results sharpen the picture: prospect theory's
 two components act in opposite directions, and a downstream loss-averse minority can set the
 boundary on a directed-flow substrate, framed as a falsifiable prediction. Beyond the findings, the
@@ -640,11 +625,10 @@ inventory substrate with no human subjects or personal data. Its intended use is
 boundary is a safety margin that helps practitioners avoid silent coordination collapse before
 deployment, and the minority result flags which participant most needs scrutiny. Two cautions
 follow. Raising the centralization dial $w$ trades agent autonomy and local information for
-collective reliability, a trade with governance and privacy implications a technical threshold does
-not settle; and the behavioral axis we expose could be tuned to manipulate a system's coordination
-requirements rather than safeguard them---we report the decomposition and cascade precisely so such
-effects stay auditable. Our quantitative claims are scoped to one simulated substrate and should be
-re-measured before transfer to real deployments.
+collective reliability---a trade with governance and privacy implications a technical threshold does
+not settle---and the behavioral axis we expose could be tuned to manipulate coordination
+requirements rather than safeguard them. As our claims are scoped to one simulated substrate, the
+specific numbers should be re-measured before any real deployment.
 
 % =======================================================================
 \bibliography{references}
