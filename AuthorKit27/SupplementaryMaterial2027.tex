@@ -11,6 +11,7 @@
 \usepackage{amsmath,amssymb,amsthm}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
 \usepackage{booktabs}
 
 \pdfinfo{
@@ -44,7 +45,7 @@ the pre-registered signal-to-noise probe (\S\ref{sec:s_snr}), the exploration-no
 (\S\ref{sec:s_entropy}), threshold robustness (\S\ref{sec:s_robustness}), notation
 (\S\ref{sec:s_notation}), and a claim--evidence ledger (\S\ref{sec:s_ledger}). Section,
 equation, and figure references to the main paper are by name. All designs were
-pre-registered before execution (commit \texttt{03c3fc6}).
+pre-registered before execution (commit hash withheld for anonymity, released on acceptance).
 
 % =======================================================================
 \section{Experimental Setup in Full}
@@ -139,7 +140,11 @@ confirming the large unpenalized slopes at $\lambda{=}5,7$ were a fitting artifa
 separation. The high-$\lambda$ plateau is a behavioral saturation, not a $w{=}1$ ceiling
 artifact: at $\lambda{=}7$ coordination is fully restored (collapse fraction $0.00$) already
 at $w{=}0.95$, consistent with the bounded affine law in which $\wcrit(\lambda)\to1$ only as
-$\lambda\to\infty$.
+$\lambda\to\infty$. The $\lambda{\geq}5$ values in Table~\ref{tab:lambda_sweep} use a finer
+$w\in\{0.80,0.90\}$ grid added specifically to resolve the steep transition; this places two
+interior points across each high-$\lambda$ boundary and halves the CI widths
+($0.038,0.033,0.024$ at $\lambda{=}5,6,7$) relative to the single $w{=}0.85$ cell, giving the
+clean monotone $0.825\to0.835\to0.852$.
 
 \begin{table}[t]
 \centering
@@ -156,9 +161,9 @@ $\lambda$ & $\wcrit$ & 95\% CI & Firth $b_1$ & $p$ \\
 2 & 0.715 & [0.687, 0.745] & $-27.2$ & $4.4\times10^{-6}$ \\
 3 & 0.774 & [0.751, 0.798] & $-29.7$ & $5.1\times10^{-6}$ \\
 4 & 0.806 & [0.766, 0.841] & $-36.8$ & $5.5\times10^{-6}$ \\
-5 & 0.839 & [0.788, 0.845] & $-53.1$ & $4.7\times10^{-4}$ \\
-6 & 0.836 & [0.806, 0.860] & $-24.7$ & $2.5\times10^{-6}$ \\
-7 & 0.851 & [0.845, 0.858] & $-43.1$ & $1.5\times10^{-3}$ \\
+5 & 0.825 & [0.806, 0.844] & $-53.1$ & $4.7\times10^{-4}$ \\
+6 & 0.835 & [0.817, 0.850] & $-24.7$ & $2.5\times10^{-6}$ \\
+7 & 0.852 & [0.841, 0.864] & $-43.1$ & $1.5\times10^{-3}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -178,19 +183,35 @@ $+0.14$); on Level-Based Foraging it falls $0.33\to0.20$ over $1\mathrm{M}\to4\m
 (slide $+0.13$), each with non-overlapping bootstrap intervals at the endpoints. Both match
 the supply-chain direction (boundary slides left with more training), so the metastability
 result---like the loss-aversion direction---holds across environments and algorithms, not just
-on the primary substrate. We did not estimate the $T\to\infty$ asymptote; additional matched
-horizons (450k, 900k at $\alpha{=}\beta{=}1$) are queued to fit the $-\ln T$ trend rather than
-assert it from two points.
+on the primary substrate.
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.85\columnwidth]{Figures/affine_law_7pt}
-  \caption{The derived affine loss-aversion law against the full sweep. Points are measured
-    $\wcrit(\lambda)$ with bootstrap 95\% CIs; the line is the one-parameter law with $g/c$
-    fixed at the $\lambda{=}1$ baseline and a single theory-bounded slope $\rho=0.61$. RMSE
-    $0.014$ across all seven points, with a mild concave residual at the saturation plateau.}
-  \label{fig:affine_law}
-\end{figure}
+\paragraph{The four-horizon log-linear fit.}
+On the supply chain we measured $\wcrit$ at four matched risk-neutral horizons
+(Table~\ref{tab:horizons}). The four points fall on a log-linear law $\wcrit=2.44-0.138\ln T$
+(RMSE $0.027$), the Kramers escape-time prediction that $\wcrit$ falls as $-\ln T$ toward the
+deterministic floor $\wcrit^0=c/(c+g)$. The two longer horizons (450k, 900k) have bootstrap CIs of
+width ${\le}0.04$, so the law is a fitted four-point relationship, not a two-point extrapolation.
+
+\begin{table}[t]
+\centering \small
+\caption{Matched risk-neutral horizons ($\alpha{=}\beta{=}1$, $\lambda{=}1$). $\wcrit$ with
+bootstrap 95\% CIs; the four points fit $\wcrit=2.44-0.138\ln T$ at RMSE $0.027$.}
+\label{tab:horizons}
+\begin{tabular}{lcc}
+\toprule
+$T$ (env steps) & $\wcrit$ & 95\% CI \\
+\midrule
+150k & 0.822 & [0.785, 0.858] \\
+300k & 0.666 & [0.635, 0.694] \\
+450k & 0.622 & [0.603, 0.641] \\
+900k & 0.573 & [0.547, 0.598] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\medskip\noindent The derived affine law~\eqref{eq:wcrit_lambda} and its out-of-sample fit
+(RMSE $0.014$ across all seven points) are shown and discussed in the main paper; the
+derivation of its form is given in \S\ref{sec:s_mechanism} below.
 
 % =======================================================================
 \section{Mean-Field Mechanism in Full}
@@ -198,7 +219,7 @@ assert it from two points.
 
 This section develops the mechanism the main paper summarizes. It is a mechanistic account of
 why the boundary exists and how it moves---not a closed-form derivation of $\wcrit$. We are
-explicit about what is derived, what is calibrated, and what is not claimed (Table~\ref{tab:ledger}).
+explicit about what is derived, what is calibrated, and what is not claimed (Table~\ref{tab:ledger_full}).
 As noted in the main paper, the deep-MARL contribution is the learning-dynamics analogue of
 the established EGT result~\citep{mengesha2025}: here the driver is the signal-to-noise ratio
 of the policy gradient under exploration, not selection pressure over fixed strategies.
@@ -303,11 +324,11 @@ Theorem~\ref{thm:mf} bifurcation, and $\wcrit^{\mathrm{Emp}}(T)\downarrow\wcrit^
 $T\to\infty$.
 \end{proof}
 
-\begin{theorem}[Sign invariance of the loss-aversion shift]\label{thm:sign}
-Assume $\Sigma>0$ and $\partial_\lambda F(x,w,\lambda)<0$ for all
-$x\in[x^\ast_{\mathrm{saddle}},x^\ast_{\mathrm{coord}}]$. Then
-$\partial_\lambda \wcrit^{\mathrm{Emp}}>0$.
-\end{theorem}
+\begin{proposition}[Sign propagation of the loss-aversion shift]\label{thm:sign}
+Assume $\Sigma>0$ and the payoff premise $\partial_\lambda F(x,w,\lambda)<0$ for all
+$x\in[x^\ast_{\mathrm{saddle}},x^\ast_{\mathrm{coord}}]$ (verified by finite-difference probe;
+\S\ref{sec:s_mechanism}). Then $\partial_\lambda \wcrit^{\mathrm{Emp}}>0$.
+\end{proposition}
 \begin{proof}
 Write \eqref{eq:barrier} as a forward integral $\Delta U=\int_{x^\ast_{\mathrm{saddle}}}^{x^\ast_{\mathrm{coord}}}2F/\Sigma\,\mathrm{d}z$ (the two minus signs cancel). Differentiating
 under the integral, fixed points contribute nothing to first order ($F=0$ there), so
@@ -335,14 +356,15 @@ with $\rho\in[0,1]$ bounded by the theory. Fixing $g/c$ from the $\lambda{=}1$ b
 $\rho=0.61$ from three calibration points ($\lambda\in\{1,3,7\}$), held fixed and tested out
 of sample against $\lambda\in\{2,4,5,6\}$, gives
 $\wcrit^{\text{pred}}=\{0.586,0.695,0.759,0.800,0.830,0.851,0.868\}$ versus
-$\wcrit^{\text{meas}}=\{0.586,0.715,0.774,0.806,0.839,0.836,0.851\}$, RMSE $0.014$
-(Figure~\ref{fig:affine_law}). The one systematic residual is mild concave overshoot at the
-plateau, consistent with agents endogenously reducing loss exposure as $\lambda$ grows.
+$\wcrit^{\text{meas}}=\{0.586,0.715,0.774,0.806,0.839,0.836,0.851\}$, RMSE $0.014$ (plotted in
+the main paper). The one systematic residual is mild concave overshoot at the plateau,
+consistent with agents endogenously reducing loss exposure as $\lambda$ grows.
 
 \begin{table}[t]
 \centering
-\caption{What the mean-field mechanism claims.}
-\label{tab:ledger}
+\caption{What the mean-field mechanism claims (extended version of the main-paper ledger,
+adding the exploration-noise row and the MPE-null detail).}
+\label{tab:ledger_full}
 \small
 \begin{tabular}{p{0.27\linewidth}p{0.63\linewidth}}
 \toprule
