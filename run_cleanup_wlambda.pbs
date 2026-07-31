@@ -1,0 +1,32 @@
+#!/bin/bash
+#PBS -N cleanup_wl
+#PBS -o logs/expCleanupWL/cleanup_wl.out
+#PBS -e logs/expCleanupWL/cleanup_wl.err
+#PBS -l select=1:ncpus=2
+#PBS -l walltime=03:00:00
+#PBS -q cpu
+#PBS -J 0-1819%40
+
+# Experiment B -- MAPPO on the in-repo Cleanup social dilemma (env/cleanup_env.py).
+# One array element = one cell (w, lambda, seed) from runmap_cleanup_wlambda.csv.
+# 13 w x 7 lambda x 20 seeds = 1820 elements (indices 0..1819).
+#
+# CPU-only: flat 77-d obs + MlpPolicy, no pixels/CNN, so no GPU (the real Melting Pot
+# GPU path is blocked -- dmlab2d needs glibc>=2.31, cluster is CentOS7/glibc2.17; see
+# RESULTS_B.md). module/conda lines + queue lifted from the existing run_*.pbs.
+#
+# %40 caps concurrency (tune to fair-share). RESUMABLE + IDEMPOTENT: completed elements
+# skip; preempted ones resume from checkpoints/expCleanupWL/run_${idx}.zip.
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expCleanupWL docs/expCleanup_wlambda_figures results/expCleanupWL checkpoints/expCleanupWL
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+set -euo pipefail
+
+python3 experiments/exp_cleanup_wlambda.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 600000 \
+    --ckpt_every 50000

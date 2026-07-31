@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -N cascade_sep
+#PBS -o logs/expCascadeSep/cascade_sep.out
+#PBS -e logs/expCascadeSep/cascade_sep.err
+#PBS -l select=1:ncpus=2
+#PBS -l walltime=06:00:00
+#PBS -q cpu
+#PBS -J 0-499
+
+# Separate-actor cascade control (reviewer deconfound). Position sweep Arm A with FIVE
+# INDEPENDENT PPO actors (no shared gradient). 5 positions x 5 w x 20 seeds = 500 cells.
+# Heavier than the shared-actor cascade (5 models/cell); walltime padded to 6h.
+# module/conda/queue lifted from existing run_*.pbs; idempotent (completed cells skip).
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expCascadeSep docs/expCascadeSep_figures results/expCascadeSep
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+set -euo pipefail
+
+python3 experiments/exp_cascade_separate_actors.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 300000 \
+    --segment 10000
