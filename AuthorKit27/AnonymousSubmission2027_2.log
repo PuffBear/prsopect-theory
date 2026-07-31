@@ -1,0 +1,56 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.9)  17 JUL 2026 16:57
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**AnonymousSubmission2027_2.tex
+(./AnonymousSubmission2027_2.tex
+LaTeX2e <2021-11-15> patch level 1
+L3 programming layer <2022-01-21>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count185
+\c@section=\count186
+\c@subsection=\count187
+\c@subsubsection=\count188
+\c@paragraph=\count189
+\c@subparagraph=\count190
+\c@figure=\count191
+\c@table=\count192
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+) (./aaai2027.sty
+Package: aaai2027 2027/05/04 AAAI 2027 Submission format
+
+Conference Style for AAAI for LaTeX 2e
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+
+! LaTeX Error: File `newtxtext.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Emergency stop.
+<read *> 
+         
+l.71 \RequirePackage
+                    {helvet}^^M 
+Here is how much of TeX's memory you used:
+ 544 strings out of 480247
+ 6453 string characters out of 5896152
+ 289377 words of memory out of 5000000
+ 18567 multiletter control sequences out of 15000+600000
+ 470022 words of font info for 29 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 44i,0n,48p,327b,38s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+!  ==> Fatal error occurred, no output PDF file produced!

@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: AnonymousSubmission2027_2.aux
+The style file: aaai2027.bst
+Database file #1: references.bib
+Warning--can't use both volume and number fields in tampuu2017multiagent
+You've used 45 entries,
+            2840 wiz_defined-function locations,
+            826 strings with 14491 characters,
+and the built_in function-call counts, 33898 in all, are:
+= -- 2633
+> -- 2124
+< -- 6
++ -- 786
+- -- 734
+* -- 2536
+:= -- 5555
+add.period$ -- 181
+call.type$ -- 45
+change.case$ -- 427
+chr.to.int$ -- 46
+cite$ -- 46
+duplicate$ -- 2166
+empty$ -- 2047
+format.name$ -- 850
+if$ -- 6518
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 490
+newline$ -- 229
+num.names$ -- 180
+pop$ -- 1090
+preamble$ -- 1
+purify$ -- 394
+quote$ -- 0
+skip$ -- 1046
+stack$ -- 0
+substring$ -- 1338
+swap$ -- 1198
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 405
+warning$ -- 1
+while$ -- 240
+width$ -- 0
+write$ -- 578
+(There was 1 warning)
