@@ -1,0 +1,32 @@
+#!/bin/bash
+#PBS -N control_a
+#PBS -o logs/expControlA/control_a.out
+#PBS -e logs/expControlA/control_a.err
+#PBS -l select=1:ncpus=2
+#PBS -l walltime=03:00:00
+#PBS -q cpu
+#PBS -J 0-1199
+
+# Control A -- reference-point sweep (highest-priority robustness control).
+# 4 z0 arms x lambda{1,3,7} x 5 w x 20 seeds = 1200 cells (indices 0..1199).
+# CPU-only, PPO 300k, same substrate/optimizer/seeds/w-grid as exp_ppo_lambda_sweep;
+# ONLY z0 (the CPT gain-loss reference point) varies across arms.
+#
+# PRE-REGISTRATION: the empirical z0 (mean/median/-0.5sigma) must be FROZEN first --
+# run `--pilot`, commit docs/expControlA_refpoint_figures/refpoint_z0.json BEFORE this
+# array. Elements for the empirical arms FAIL LOUD if z0 is not frozen.
+#
+# module/conda/queue lifted from the existing run_*.pbs. Idempotent (completed elements
+# skip). %40 concurrency cap (tune to fair-share).
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expControlA docs/expControlA_refpoint_figures results/expControlA
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+set -euo pipefail
+
+python3 experiments/exp_control_a_refpoint.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 300000

@@ -1,0 +1,33 @@
+#!/bin/bash
+#PBS -N magent_calib
+#PBS -o logs/magent_calib.out
+#PBS -e logs/magent_calib.err
+#PBS -l ncpus=4
+#PBS -l walltime=03:00:00
+#PBS -q cpu
+#PBS -J 0-19
+
+# MAgent collapse-threshold calibration: NULL-condition endpoints (w=0 selfish vs
+# w=1 team) x 10 seeds = 20 runs. analyze_mappo_magent.py reads the output to set
+# theta = midpoint(collapsed, coordinated). Run + analyze this BEFORE the sweep so
+# the collapse label is data-grounded (the LBF lesson).
+#
+# PREREQUISITE: the cluster conda env must have magent2 installed:
+#   conda activate marl && pip install magent2
+# GATE before submitting (run locally, must PASS):
+#   python experiments/run_magent_smoke_local.py --train   # PART 2 PASS
+#   python experiments/exp_mappo_magent.py --wiring_check   # WIRING CHECK PASS
+cd "$PBS_O_WORKDIR"
+mkdir -p logs docs/exp_magent
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+# 4 threads: CNN-MAPPO is conv-heavy and single-core pinning gave a ~4x slowdown
+# vs a multicore laptop (1M steps: 35min local -> >2h cluster, killed @ 2h cap).
+conda activate marl
+export OMP_NUM_THREADS=4 MKL_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
+export TORCH_NUM_THREADS=4
+
+python3 experiments/exp_magent_calibrate.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 600000 \
+    --out docs/exp_magent/magent_calibration_raw_data.csv

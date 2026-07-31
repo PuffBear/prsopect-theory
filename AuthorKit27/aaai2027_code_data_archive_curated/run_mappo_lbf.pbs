@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -N mappo_lbf
+#PBS -o logs/mappo_lbf.out
+#PBS -e logs/mappo_lbf.err
+#PBS -l ncpus=1
+#PBS -l walltime=02:00:00
+#PBS -q cpu
+#PBS -J 0-959
+
+# THIRD ENVIRONMENT (breadth result): centralised-critic MAPPO on Level-Based
+# Foraging with CPT reward shaping. Full decomposition --
+#   6 w x (null + lambda=1..7 @ a=b=0.88) x 20 seeds = 960 runs.
+# Turns the passed smoke GATE (MAPPO coordinates on LBF, w cleanly separates)
+# into the breadth result: w_crit rising with loss aversion in a third,
+# structurally distinct domain (grid foraging / public-goods incentive).
+#
+# GATE before submitting (already passed locally):
+#   python experiments/run_lbf_smoke_local.py --train     # PART 2 PASS
+#   python experiments/exp_mappo_lbf.py --wiring_check     # WIRING CHECK PASS
+cd "$PBS_O_WORKDIR"
+mkdir -p logs docs/expMAPPO_lbf_figures
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+python3 experiments/exp_mappo_lbf.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 2000000 \
+    --out docs/expMAPPO_lbf_figures/mappo_lbf_raw_data.csv

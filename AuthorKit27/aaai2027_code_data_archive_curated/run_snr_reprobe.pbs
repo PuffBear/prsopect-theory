@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -N exp_snr_reprobe
+#PBS -o logs/snr_reprobe.out
+#PBS -e logs/snr_reprobe.err
+#PBS -l ncpus=1
+#PBS -l walltime=06:00:00
+#PBS -q cpu
+#PBS -J 0-179
+
+# Non-survivor-biased SNR probe: re-initialize near the cooperative optimum
+# (S~150, init action -0.4) so the contested band is sampled during slow early
+# training and the restoring drift can localize w_crit. 9 w x 20 seeds = 180 runs.
+# Single variable changed vs exp_snr_probe.py (the initialization); everything
+# else identical, so the boundary reference stays w_crit=0.822 at 150k.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_snr_reprobe.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 150000 \
+    --window_steps 60000 \
+    --init_S 150 \
+    --out docs/expSNR_reprobe_figures/expSNR_reprobe_raw_data.csv

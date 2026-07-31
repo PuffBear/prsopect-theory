@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -N control_b
+#PBS -o logs/expControlB/control_b.out
+#PBS -e logs/expControlB/control_b.err
+#PBS -l select=1:ncpus=2
+#PBS -l walltime=03:00:00
+#PBS -q cpu
+#PBS -J 0-599
+
+# Control B -- scale-matched control. 2 arms {raw, stdmatched} x lambda{1,3,7} x 5 w
+# x 20 seeds = 600 cells (indices 0..599). CPU-only, PPO 300k, same substrate/optimizer/
+# seeds/w-grid as exp_ppo_lambda_sweep; ONLY the post-transform output_scale (RMS match)
+# varies across arms.
+#
+# PRE-REGISTRATION: the stdmatched arm needs the per-lambda RMS frozen first -- run
+# `--pilot`, commit docs/expControlB_scalematch_figures/rms_output_scale.json BEFORE this
+# array. stdmatched elements FAIL LOUD if the RMS is not frozen.
+#
+# module/conda/queue lifted from existing run_*.pbs; idempotent; %40 concurrency cap.
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expControlB docs/expControlB_scalematch_figures results/expControlB
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+set -euo pipefail
+
+python3 experiments/exp_control_b_scalematch.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 300000

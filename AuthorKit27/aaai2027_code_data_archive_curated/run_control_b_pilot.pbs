@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -N control_b_pilot
+#PBS -o logs/expControlB/pilot.out
+#PBS -e logs/expControlB/pilot.err
+#PBS -l select=1:ncpus=4
+#PBS -l walltime=02:00:00
+#PBS -q cpu
+
+# Control B RMS pilot -- measure per-lambda RMS of the CPT reward (lambda in {1,3,7}) to
+# set the stdmatched arm's output_scale, and WRITE the frozen JSON. COMPUTE node only.
+# Light: 2 w-points x 1 seed x 3 lambda x 20k steps = 6 short runs (the RMS scale is
+# stable well before convergence). After completion, record the JSON as the
+# pre-registration anchor BEFORE the main analysis.
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expControlB docs/expControlB_scalematch_figures
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+set -euo pipefail
+
+python3 -u experiments/exp_control_b_scalematch.py --pilot --freeze_rms \
+    --pilot_timesteps 20000 \
+    --pilot_ws 0.5,0.95 \
+    --pilot_seeds 42

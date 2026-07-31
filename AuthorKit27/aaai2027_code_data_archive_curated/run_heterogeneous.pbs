@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -N exp_het
+#PBS -o logs/het.out
+#PBS -e logs/het.err
+#PBS -l ncpus=1
+#PBS -l walltime=06:00:00
+#PBS -q cpu
+#PBS -J 0-399
+
+# Heterogeneous cognitive profiles (mixed lambda) -- 400 runs.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_heterogeneous.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 300000 \
+    --out docs/expHet_figures/expHet_raw_data.csv

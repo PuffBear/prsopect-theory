@@ -1,0 +1,106 @@
+FINAL FACTORIAL REGRESSIONS
+Model: Y = b0 + b1*Log(Lambda) + b2*Alpha + b3*(Log(Lambda)*Alpha)
+======================================================================
+
+--- Metric: Mean S ---
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                 Mean S   R-squared:                       0.358
+Model:                            OLS   Adj. R-squared:                  0.337
+Method:                 Least Squares   F-statistic:                     16.92
+Date:                Wed, 03 Jun 2026   Prob (F-statistic):           8.13e-09
+Time:                        00:09:13   Log-Likelihood:                -491.81
+No. Observations:                  95   AIC:                             991.6
+Df Residuals:                      91   BIC:                             1002.
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+===============================================================================
+                  coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------
+const        -1.29e-14     15.466  -8.34e-16      1.000     -30.721      30.721
+Log_Lambda   1.617e-14     11.173   1.45e-15      1.000     -22.194      22.194
+Alpha          95.9584     18.836      5.094      0.000      58.543     133.374
+Interaction   -24.9881     13.333     -1.874      0.064     -51.473       1.497
+==============================================================================
+Omnibus:                        3.011   Durbin-Watson:                   2.442
+Prob(Omnibus):                  0.222   Jarque-Bera (JB):                2.355
+Skew:                           0.292   Prob(JB):                        0.308
+Kurtosis:                       3.505   Cond. No.                         13.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+R-squared: 0.3581
+Adjusted R-squared: 0.3369
+Cohen's f^2: 0.5579
+Partial Eta^2 (Interaction): 0.0372
+--------------------------------------------------
+
+--- Metric: Profit ---
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                 Profit   R-squared:                       0.344
+Model:                            OLS   Adj. R-squared:                  0.322
+Method:                 Least Squares   F-statistic:                     15.90
+Date:                Wed, 03 Jun 2026   Prob (F-statistic):           2.16e-08
+Time:                        00:09:13   Log-Likelihood:                -593.70
+No. Observations:                  95   AIC:                             1195.
+Df Residuals:                      91   BIC:                             1206.
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+===============================================================================
+                  coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------
+const        -128.1000     45.200     -2.834      0.006    -217.885     -38.315
+Log_Lambda   6.159e-14     32.655   1.89e-15      1.000     -64.866      64.866
+Alpha         269.2694     55.050      4.891      0.000     159.919     378.620
+Interaction   -66.1278     38.968     -1.697      0.093    -143.533      11.277
+==============================================================================
+Omnibus:                       16.085   Durbin-Watson:                   2.322
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               22.056
+Skew:                           0.796   Prob(JB):                     1.62e-05
+Kurtosis:                       4.742   Cond. No.                         13.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+R-squared: 0.3439
+Adjusted R-squared: 0.3223
+Cohen's f^2: 0.5241
+Partial Eta^2 (Interaction): 0.0307
+--------------------------------------------------
+
+--- Metric: Lost Sales ---
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             Lost Sales   R-squared:                       0.320
+Model:                            OLS   Adj. R-squared:                  0.297
+Method:                 Least Squares   F-statistic:                     14.24
+Date:                Wed, 03 Jun 2026   Prob (F-statistic):           1.10e-07
+Time:                        00:09:13   Log-Likelihood:                 72.122
+No. Observations:                  95   AIC:                            -136.2
+Df Residuals:                      91   BIC:                            -126.0
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+===============================================================================
+                  coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------
+const           0.5148      0.041     12.598      0.000       0.434       0.596
+Log_Lambda  -3.415e-17      0.030  -1.16e-15      1.000      -0.059       0.059
+Alpha          -0.2346      0.050     -4.715      0.000      -0.333      -0.136
+Interaction     0.0648      0.035      1.838      0.069      -0.005       0.135
+==============================================================================
+Omnibus:                        8.652   Durbin-Watson:                   2.438
+Prob(Omnibus):                  0.013   Jarque-Bera (JB):                8.395
+Skew:                          -0.629   Prob(JB):                       0.0150
+Kurtosis:                       3.732   Cond. No.                         13.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+R-squared: 0.3195
+Adjusted R-squared: 0.2971
+Cohen's f^2: 0.4695
+Partial Eta^2 (Interaction): 0.0358
+--------------------------------------------------
+

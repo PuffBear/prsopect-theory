@@ -1,0 +1,42 @@
+#!/bin/bash
+#PBS -N mp_cleanup_dry
+#PBS -o logs/expMeltingpot/mp_cleanup_dry.out
+#PBS -e logs/expMeltingpot/mp_cleanup_dry.err
+#PBS -l select=1:ncpus=8:ngpus=1
+#PBS -l walltime=01:00:00
+#PBS -q gpu
+
+# MANDATORY PRE-FLIGHT (brief section 4b): a 1-element dry job to confirm, ON THE
+# CLUSTER, that: (1) the GPU is actually visible in the gpu queue, (2) meltingpot
+# imports, (3) the wrapper + CPT blend + CSV all work end-to-end. Only after this
+# succeeds should the full array (run_meltingpot_cleanup.pbs) be submitted.
+#
+# It also RESOLVES the open GPU question: pbsnodes does not advertise an ngpus
+# resource, so nvidia-smi + torch.cuda.is_available() below are the ground truth for
+# whether -l ngpus=1 actually gives a GPU. If torch reports no CUDA, drop `:ngpus=1`
+# and rely on `-q gpu` alone (or escalate).
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expMeltingpot results/expMeltingpot checkpoints/expMeltingpot docs/expMeltingpot_cleanup_figures
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+set -euo pipefail
+
+echo "=== GPU visibility ==="
+nvidia-smi || echo "nvidia-smi not found on this node"
+python3 - <<'PY'
+import torch
+print("torch.cuda.is_available():", torch.cuda.is_available())
+print("device count:", torch.cuda.device_count())
+import meltingpot, meltingpot.substrate as s
+cfg = s.get_config("clean_up")
+print("clean_up default players:", len(cfg.default_player_roles))
+PY
+
+echo "=== driver dry-run (reward blend + CPT + tiny cell) ==="
+python3 experiments/exp_meltingpot_cleanup.py --dry-run
+
+echo "=== one real array element (idx 0), short, to measure wall-time ==="
+python3 experiments/exp_meltingpot_cleanup.py --run_idx 0 --timesteps 50000 --ckpt_every 25000

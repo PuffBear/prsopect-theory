@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -N snr_val
+#PBS -o logs/snr.out
+#PBS -e logs/snr.err
+#PBS -l ncpus=1
+#PBS -l walltime=06:00:00
+#PBS -q cpu
+#PBS -J 0-179
+
+# --- PBS Pro array job: mean-field SNR validation (180 runs) ---
+# Full 9-w x 20-seed sweep. The committed expSNR_raw_data.csv is a 10-row local
+# PILOT (w in {0.5, 0.666} only) -- NOT the full sweep -- so this writes to a
+# fresh file (expSNR_full_raw_data.csv) to avoid mixing pilot rows with the run.
+# The driver's _append_row is idempotent per run_idx, so array resubmits are safe.
+# Point run_snr_analyze.pbs --csv at this same file when aggregating.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+
+module load compiler/anaconda3
+# conda env for this project
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_snr_validation.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 150000 \
+    --window_steps 60000 \
+    --out docs/expSNR_figures/expSNR_full_raw_data.csv

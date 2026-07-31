@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -N shapley_one
+#PBS -o logs/shapley_one.out
+#PBS -e logs/shapley_one.err
+#PBS -l ncpus=1
+#PBS -l walltime=04:00:00
+#PBS -q cpu
+
+# One FULL-LENGTH (300k) Shapley run to confirm the VecNormalize fix holds at
+# full horizon (the original collapse only appeared at 300k, not at smoke length).
+cd "$PBS_O_WORKDIR"
+mkdir -p logs
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+
+python3 experiments/exp_shapley.py \
+    --run_idx 0 --timesteps 300000 \
+    --out docs/expShapley_figures/expShapley_one.csv

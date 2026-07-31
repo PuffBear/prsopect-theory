@@ -1,0 +1,21 @@
+#!/bin/bash
+#PBS -N lbf_calibrate
+#PBS -o logs/lbf_calibrate.out
+#PBS -e logs/lbf_calibrate.err
+#PBS -l ncpus=1
+#PBS -l walltime=02:00:00
+#PBS -q cpu
+#PBS -J 0-19
+
+# LBF collapse-threshold calibration: w in {0.0, 1.0} x seeds 42-51 = 20 runs.
+# Must run and pass analyze_lbf_calibrate.py before submitting run_ppo_lbf.pbs.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs docs/exp_lbf
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+python3 experiments/exp_lbf_calibrate.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --out docs/exp_lbf/lbf_calibrate.csv

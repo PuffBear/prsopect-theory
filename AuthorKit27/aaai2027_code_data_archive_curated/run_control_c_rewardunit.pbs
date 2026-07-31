@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -N control_c
+#PBS -o logs/expControlC/control_c.out
+#PBS -e logs/expControlC/control_c.err
+#PBS -l select=1:ncpus=2
+#PBS -l walltime=03:00:00
+#PBS -q cpu
+#PBS -J 0-899
+
+# Control C -- reward-unit sensitivity. 3 scale arms {baseline, 2x local, 2x global}
+# x lambda{1,3,7} x 5 w x 20 seeds = 900 cells (indices 0..899). CPU-only, PPO 300k,
+# same substrate/optimizer/seeds/w-grid as exp_ppo_lambda_sweep; ONLY the pre-blend
+# local/global reward scale varies across arms. No pre-registration pilot (the scale
+# factors are fixed constants). module/conda/queue lifted from existing run_*.pbs;
+# idempotent (completed elements skip).
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expControlC docs/expControlC_rewardunit_figures results/expControlC
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+set -euo pipefail
+
+python3 experiments/exp_control_c_rewardunit.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 300000

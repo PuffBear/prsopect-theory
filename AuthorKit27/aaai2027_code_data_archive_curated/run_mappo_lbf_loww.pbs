@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N mappo_lbf_loww
+#PBS -o logs/mappo_lbf_loww.out
+#PBS -e logs/mappo_lbf_loww.err
+#PBS -l ncpus=1
+#PBS -l walltime=02:00:00
+#PBS -q cpu
+#PBS -J 0-479
+
+# Low-w extension of the MAPPO-LBF sweep: adds w in {0.0, 0.1, 0.2} for every
+# condition (null + lambda=1..7 @ a=b=0.88) x 20 seeds = 480 runs, so the LBF
+# null collapse cliff (~0.1-0.2) lands in-grid. analyze_mappo_lbf.py auto-merges
+# docs/expMAPPO_lbf_figures/mappo_lbf_loww_raw_data.csv with the main sweep and
+# recovers a clean null boundary + curvature shift.
+cd "$PBS_O_WORKDIR"
+mkdir -p logs docs/expMAPPO_lbf_figures
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+python3 experiments/exp_mappo_lbf_loww.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 2000000 \
+    --out docs/expMAPPO_lbf_figures/mappo_lbf_loww_raw_data.csv
