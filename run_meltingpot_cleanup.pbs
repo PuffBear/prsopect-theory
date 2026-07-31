@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -N mp_cleanup
+#PBS -o logs/expMeltingpot/mp_cleanup.out
+#PBS -e logs/expMeltingpot/mp_cleanup.err
+#PBS -l select=1:ncpus=8:ngpus=1
+#PBS -l walltime=10:00:00
+#PBS -q gpu
+#PBS -J 0-1819%4
+
+# Experiment B -- CNN-MAPPO on the real DeepMind Melting Pot `clean_up` substrate.
+# One array element = one cell (w, lambda, seed) from the committed runmap_B.csv.
+# 13 w x 7 lambda x 20 seeds = 1820 elements (indices 0..1819).
+#
+# GPU directives lifted from the cluster's documented qsub syntax:
+#   -q gpu                       (the GPU queue: compute3/compute4)
+#   -l select=1:ncpus=8:ngpus=1  (1 chunk, 8 CPU env-workers, 1 GPU for the CNN)
+# module/conda lines lifted verbatim from the existing CPU run_*.pbs.
+#
+# %4 caps concurrent GPU elements to the small GPU allocation (2 nodes). Adjust the
+# cap to your granted GPU concurrency.
+#
+# RESUMABLE + IDEMPOTENT: each element writes results/expMeltingpot/run_${idx}.csv and
+# checkpoints to checkpoints/expMeltingpot/run_${idx}.zip. Completed elements SKIP;
+# killed/preempted elements resume from their last checkpoint. Requeue failed indices
+# by resubmitting with -J on just those indices.
+#
+# WALLTIME (10h) is a padded guess for one 1M-step Cleanup CNN-MAPPO run. MEASURE the
+# single-element time in the dry run (run_meltingpot_cleanup_dryrun.pbs) and reset this
+# before launching the full array.
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expMeltingpot docs/expMeltingpot_cleanup_figures results/expMeltingpot checkpoints/expMeltingpot
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+
+# Fail loud: any error -> nonzero exit so the element shows as failed in the scheduler.
+set -euo pipefail
+
+python3 experiments/exp_meltingpot_cleanup.py \
+    --run_idx "${PBS_ARRAY_INDEX}" \
+    --timesteps 1000000 \
+    --ckpt_every 50000
