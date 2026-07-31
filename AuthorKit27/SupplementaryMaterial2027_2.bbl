@@ -1,0 +1,85 @@
+\begin{thebibliography}{11}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Christianos, Sch{\"a}fer, and Albrecht(2020)}]{christianos2020shared}
+Christianos, F.; Sch{\"a}fer, L.; and Albrecht, S.~V. 2020.
+\newblock Shared Experience Actor-Critic for Multi-Agent Reinforcement
+  Learning.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~33, 10707--10717.
+
+\bibitem[{Gijsbrechts et~al.(2022)Gijsbrechts, Boute, Van~Mieghem, and
+  Zhang}]{gijsbrechts2022}
+Gijsbrechts, J.; Boute, R.~N.; Van~Mieghem, J.~A.; and Zhang, D.~J. 2022.
+\newblock Can Deep Reinforcement Learning Improve Inventory Management?
+  {P}erformance on Lost Sales, Dual-Sourcing, and Multi-Echelon Problems.
+\newblock \emph{Manufacturing \& Service Operations Management}, 24(3):
+  1349--1368.
+
+\bibitem[{Hubbs et~al.(2020)Hubbs, Perez, Sarwar, Sahinidis, Grossmann, and
+  Wassick}]{hubbs2020orgym}
+Hubbs, C.~D.; Perez, H.~D.; Sarwar, O.; Sahinidis, N.~V.; Grossmann, I.~E.; and
+  Wassick, J.~M. 2020.
+\newblock {OR-Gym}: A Reinforcement Learning Library for Operations Research
+  Problems.
+\newblock arXiv:2008.06319.
+
+\bibitem[{Leluc et~al.(2023)Leluc, Kadoche, Bertoncello, and
+  Gourv{\'e}nec}]{marlim2023}
+Leluc, R.; Kadoche, E.; Bertoncello, A.; and Gourv{\'e}nec, S. 2023.
+\newblock {MARLIM}: Multi-Agent Reinforcement Learning for Inventory
+  Management.
+\newblock arXiv:2308.01649.
+
+\bibitem[{Lowe et~al.(2017)Lowe, Wu, Tamar, Harb, Abbeel, and
+  Mordatch}]{lowe2017multi}
+Lowe, R.; Wu, Y.; Tamar, A.; Harb, J.; Abbeel, P.; and Mordatch, I. 2017.
+\newblock Multi-Agent Actor-Critic for Mixed Cooperative-Competitive
+  Environments.
+\newblock \emph{Advances in Neural Information Processing Systems}, 30.
+
+\bibitem[{Oroojlooyjadid et~al.(2022)Oroojlooyjadid, Nazari, Snyder, and
+  Tak{\'a}{\v{c}}}]{oroojlooyjadid2022}
+Oroojlooyjadid, A.; Nazari, M.; Snyder, L.~V.; and Tak{\'a}{\v{c}}, M. 2022.
+\newblock A Deep {Q}-Network for the Beer Game: Deep Reinforcement Learning for
+  Inventory Optimization.
+\newblock \emph{Manufacturing \& Service Operations Management}, 24(1):
+  285--304.
+
+\bibitem[{Raffin et~al.(2021)Raffin, Hill, Gleave, Kanervisto, Ernestus, and
+  Dormann}]{raffin2021sb3}
+Raffin, A.; Hill, A.; Gleave, A.; Kanervisto, A.; Ernestus, M.; and Dormann, N.
+  2021.
+\newblock Stable-Baselines3: Reliable Reinforcement Learning Implementations.
+\newblock \emph{Journal of Machine Learning Research}, 22(268): 1--8.
+
+\bibitem[{Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and
+  Klimov}]{schulman2017ppo}
+Schulman, J.; Wolski, F.; Dhariwal, P.; Radford, A.; and Klimov, O. 2017.
+\newblock Proximal Policy Optimization Algorithms.
+\newblock arXiv:1707.06347.
+
+\bibitem[{Terry et~al.(2021)Terry, Black, Grammel, Jayakumar, Hari, Sullivan,
+  Santos, Perez, Horsch, Dieffendahl, Williams, Lokesh, and
+  Ravi}]{terry2021pettingzoo}
+Terry, J.~K.; Black, B.; Grammel, N.; Jayakumar, M.; Hari, A.; Sullivan, R.;
+  Santos, L.; Perez, R.; Horsch, C.; Dieffendahl, C.; Williams, N.~L.; Lokesh,
+  Y.; and Ravi, P. 2021.
+\newblock {PettingZoo}: Gym for Multi-Agent Reinforcement Learning.
+\newblock arXiv:2009.14471.
+
+\bibitem[{Terry, Black, and Hari(2020)}]{terry2020supersuit}
+Terry, J.~K.; Black, B.; and Hari, A. 2020.
+\newblock {SuperSuit}: Simple Microwrappers for Reinforcement Learning
+  Environments.
+\newblock arXiv:2008.08932.
+
+\bibitem[{Yu et~al.(2022)Yu, Velu, Vinitsky, Gao, Wang, Bayen, and
+  Wu}]{yu2022surprising}
+Yu, C.; Velu, A.; Vinitsky, E.; Gao, J.; Wang, Y.; Bayen, A.; and Wu, Y. 2022.
+\newblock The Surprising Effectiveness of {PPO} in Cooperative Multi-Agent
+  Games.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS),
+  Datasets and Benchmarks Track}.
+
+\end{thebibliography}
