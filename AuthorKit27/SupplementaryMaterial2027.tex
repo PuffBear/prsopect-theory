@@ -1,12 +1,12 @@
 \documentclass[letterpaper]{article} % DO NOT CHANGE THIS
-\usepackage[submission]{aaai2027}  % DO NOT CHANGE THIS
-\usepackage[hyphens]{url}  % DO NOT CHANGE THIS
+\usepackage[submission]{aaai2027} % DO NOT CHANGE THIS
+\usepackage[hyphens]{url} % DO NOT CHANGE THIS
 \usepackage{graphicx} % DO NOT CHANGE THIS
 \urlstyle{rm} % DO NOT CHANGE THIS
-\def\UrlFont{\rm}  % DO NOT CHANGE THIS
-\usepackage{natbib}  % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
+\def\UrlFont{\rm} % DO NOT CHANGE THIS
+\usepackage{natbib} % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
 \usepackage{caption} % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
-\frenchspacing  % DO NOT CHANGE THIS
+\frenchspacing % DO NOT CHANGE THIS
 
 \usepackage{amsmath,amssymb,amsthm}
 \theoremstyle{plain}
@@ -26,10 +26,10 @@
 \title{Supplementary Material:\\Coordination-Collapse Phase Boundary in Policy-Gradient Cooperative MARL}
 
 \author{
-    Anonymous Submission
+  Anonymous Submission
 }
 \affiliations{
-    Paper under double-blind review
+  Paper under double-blind review
 }
 
 \begin{document}
@@ -58,9 +58,9 @@ uniform lead times. Node~1 (retail-facing) follows a fixed demand-pull policy, s
 the demand signal; nodes~2--6 are trained as cooperative PPO agents. Actions are
 parameterized via a base-stock wrapper mapping each agent's continuous action to a target
 inventory level $S\in[0,500]$, with order quantity $Q=\max(0,S-\mathrm{IP})$ where
-$\mathrm{IP}$ is inventory position. The substrate extends prior DRL inventory work---the
+$\mathrm{IP}$ is inventory position. The substrate extends prior DRL inventory work, the
 Beer Distribution Game Dec-POMDP of \citet{oroojlooyjadid2022}, the multi-echelon A3C results
-of \citet{gijsbrechts2022}, and single-echelon MARL~\citep{marlim2023}---to a six-node
+of \citet{gijsbrechts2022}, and single-echelon MARL~\citep{marlim2023}, to a six-node
 network with per-node agents.
 
 \paragraph{Algorithm and evaluation.}
@@ -98,7 +98,7 @@ T (600k) & Metastability & 1 & 0.88 & 20 & 140 \\
 \paragraph{Basin control (rules out initialization).}
 Exp~C rules out initialization as a collapse driver. Within-$w$ correlations between
 $S_{\mathrm{init}}$ and converged $S$ are $-0.11$ ($w{=}0.5$), $-0.38$ ($w{=}0.85$), and
-$-0.36$ ($w{=}1.0$)---all near zero and inconsistent with initialization dominating; the
+$-0.36$ ($w{=}1.0$), all near zero and inconsistent with initialization dominating; the
 collapsed/survived assignment is insensitive to where agents start.
 
 % =======================================================================
@@ -182,7 +182,7 @@ $\wcrit$ falls $0.82\to0.68$ as the horizon grows $2\mathrm{M}\to8\mathrm{M}$ en
 $+0.14$); on Level-Based Foraging it falls $0.33\to0.20$ over $1\mathrm{M}\to4\mathrm{M}$
 (slide $+0.13$), each with non-overlapping bootstrap intervals at the endpoints. Both match
 the supply-chain direction (boundary slides left with more training), so the metastability
-result---like the loss-aversion direction---holds across environments and algorithms, not just
+result (like the loss-aversion direction) holds across environments and algorithms, not just
 on the primary substrate.
 
 \paragraph{The four-horizon log-linear fit.}
@@ -218,7 +218,7 @@ derivation of its form is given in \S\ref{sec:s_mechanism} below.
 \label{sec:s_mechanism}
 
 This section develops the mechanism the main paper summarizes. It is a mechanistic account of
-why the boundary exists and how it moves---not a closed-form derivation of $\wcrit$. We are
+why the boundary exists and how it moves, not a closed-form derivation of $\wcrit$. We are
 explicit about what is derived, what is calibrated, and what is not claimed (Table~\ref{tab:ledger_full}).
 As noted in the main paper, the deep-MARL contribution is the learning-dynamics analogue of
 the established EGT result~\citep{mengesha2025}: here the driver is the signal-to-noise ratio
@@ -229,25 +229,30 @@ Each agent $i$ runs PPO on a Gaussian policy over its normalized base-stock acti
 $a_i\in[0,1]$ with mean $\mu_i$ and exploration scale $\sigma$. The shaped reward is the
 centralization blend through the CPT value function $v$,
 \begin{equation}
-  r_i = v\!\big((1-w)\,\ell_i(a_i,a_{-i}) + w\,G(a)\big),\quad G(a)=\textstyle\sum_j \ell_j,
-  \label{eq:blend}
+ r_i = v\!\big((1-w)\,\ell_i(a_i,a_{-i}) + w\,G(a)\big),\quad G(a)=\textstyle\sum_j \ell_j,
+ \label{eq:blend}
 \end{equation}
 with $\ell_i$ node $i$'s local profit and $G$ system profit. For a Gaussian policy the PPO
 mean update is a stochastic estimate of the return gradient, so the mean follows a mean-field
 Langevin (Fokker--Planck) equation
 \begin{equation}
-  \mathrm{d}\mu_i = \underbrace{\eta\,\partial_{\mu_i}\mathbb{E}[(1{-}w)\ell_i + wG]}_{\text{drift } D(w)}\,\mathrm{d}t
-  + \sqrt{2\,\Theta(w)}\;\mathrm{d}W .
-  \label{eq:langevin}
+ \mathrm{d}\mu_i = \underbrace{\eta\,\partial_{\mu_i}\mathbb{E}[(1{-}w)\ell_i + wG]}_{\text{drift } D(w)}\,\mathrm{d}t
+ + \sqrt{2\,\Theta(w)}\;\mathrm{d}W .
+ \label{eq:langevin}
 \end{equation}
 Because each partner's local profit is blended into the global term, partner exploration
 $\sigma$ enters agent $i$'s gradient estimate through the global channel, so the diffusion
 carries a centralization-weighted cross-agent piece
 \begin{equation}
-  \Theta(w)\propto\tfrac{\sigma^2}{B}\big[(1{-}w)^2 s_\ell^2 + w^2(N{-}1)\kappa^2\big],
-  \label{eq:diffusion}
+ \Theta(w)\propto\tfrac{\sigma^2}{B}\big[(1{-}w)^2 s_\ell^2 + w^2(N{-}1)\kappa^2\big],
+ \label{eq:diffusion}
 \end{equation}
-with batch size $B$, local sensitivity $s_\ell$, cross-agent sensitivity $\kappa$.
+with batch size $B$, local sensitivity $s_\ell$, cross-agent sensitivity $\kappa$; the diffusion
+$\Theta$ carries the centralization and exploration dependence, not the behavioral one. Loss
+aversion instead acts on the \emph{drift}: by asymmetrically down-weighting gains against losses,
+the CPT transform biases the expected update toward the conservative lazy action, i.e.\
+$\partial_\lambda F<0$, weakening the cooperative drift $D$ and so the SNR. A finite-difference
+probe confirms this loss-domain gradient asymmetry (\S\ref{sec:s_mechanism}).
 
 \subsection{The boundary is a signal-to-noise crossing}
 A direct finite-difference probe of $\ell_i$ and $G$ along the base-stock axis confirms the
@@ -256,8 +261,8 @@ procurement reduce its profit) but a \emph{global benefit} (it averts downstream
 Writing the linearized marginals $\partial_a\mathbb{E}\ell\to-c$, $\partial_a\mathbb{E}G\to+g$
 ($c,g>0$), the cooperative drift is
 \begin{equation}
-  D(w)=\eta\big[wg-(1-w)c\big].
-  \label{eq:drift}
+ D(w)=\eta\big[wg-(1-w)c\big].
+ \label{eq:drift}
 \end{equation}
 Escape from the lazy basin requires $\mathrm{SNR}(w)=D(w)/\sqrt{\Theta(w)}\gtrsim\kappa_c$
 for an $\mathcal{O}(1)$ critical $\kappa_c$ set by the training budget; the crossing defines
@@ -272,14 +277,14 @@ Escape is a Kramers first-passage problem, $\tau\sim\tau_0\exp(\Delta U/\Theta)$
 exponentially sensitive to $\mathrm{SNR}$, so collapse probability switches abruptly across
 $\wcrit$ (matching the steep logistic fits). Collapse at finite horizon means $\tau>T$; as
 $T$ grows a smaller $\mathrm{SNR}$ (hence smaller $w$) suffices, so $\wcrit(T)$ decreases
-monotonically toward $\wcrit^0$---the observed $0.822\to0.666$ slide, following the
+monotonically toward $\wcrit^0$, the observed $0.822\to0.666$ slide, following the
 $\propto-\ln T$ Kramers trend.
 
 \subsection{Formal account: predicted versus calibrated}
 Let $x\in[0,1]$ be a macroscopic order parameter (fraction of agents coordinating) evolving as
 \begin{equation}
-  \mathrm{d}x_t = F(x_t,w,\lambda)\,\mathrm{d}t + \sqrt{\Sigma(x_t,N)}\,\mathrm{d}W_t,
-  \label{eq:sde}
+ \mathrm{d}x_t = F(x_t,w,\lambda)\,\mathrm{d}t + \sqrt{\Sigma(x_t,N)}\,\mathrm{d}W_t,
+ \label{eq:sde}
 \end{equation}
 with $F$ the mean-field drift (so $\partial_w F>0$ and $\partial_\lambda F<0$ follow from the
 payoff structure: $w$ weights the cooperation gradient $+g$, $\lambda$ scales only the loss
@@ -306,9 +311,9 @@ For finite $N$ with correlated CTDE updates, $\Sigma(x,N)>0$, and collapse is a 
 escape rather than a bifurcation. The empirical boundary is the metastability root
 $\tau(w,\lambda)=T$ of the Kramers mean first-passage time
 \begin{equation}
-  \tau\asymp\exp(\Delta U),\quad
-  \Delta U=\int_{x^\ast_{\mathrm{coord}}}^{x^\ast_{\mathrm{saddle}}}\frac{-2F(z,w,\lambda)}{\Sigma(z,N)}\,\mathrm{d}z,
-  \label{eq:barrier}
+ \tau\asymp\exp(\Delta U),\quad
+ \Delta U=\int_{x^\ast_{\mathrm{lazy}}}^{x^\ast_{\mathrm{saddle}}}\frac{-2F(z,w,\lambda)}{\Sigma(z,N)}\,\mathrm{d}z,
+ \label{eq:barrier}
 \end{equation}
 and $\wcrit^{\mathrm{Emp}}\neq\wcrit^{\mathrm{MF}}$ in general; the offset cannot be isolated
 without measuring $\Sigma$.
@@ -316,26 +321,32 @@ without measuring $\Sigma$.
 \begin{proof}
 The stationary density of \eqref{eq:sde} is $P_{ss}(x)\propto\exp[-U_{\mathrm{eff}}(x)]$ with
 $U_{\mathrm{eff}}(x)=-\int_0^x 2F/\Sigma\,\mathrm{d}z$, giving the barrier $\Delta U$ of
-\eqref{eq:barrier}; Kramers' rate yields $\tau\asymp e^{\Delta U}$. At finite $T$, collapse
-occurs when $\tau\le T$, so the boundary solves $\tau(w,\lambda)=T$. Since $\Sigma$ is the
+\eqref{eq:barrier}; Kramers' rate yields $\tau\asymp e^{\Delta U}$. At finite $T$, collapse is
+failure to escape the lazy basin within budget ($\tau>T$), so the boundary solves
+$\tau(w,\lambda)=T$. Since $\Sigma$ is the
 intractable covariance of PPO updates, $\Delta U$ and hence $\wcrit^{\mathrm{Emp}}$ require
-calibration. The two notions coincide as limits: finite $(N,T)$ escapes before the
-Theorem~\ref{thm:mf} bifurcation, and $\wcrit^{\mathrm{Emp}}(T)\downarrow\wcrit^{\mathrm{MF}}$ as
+calibration. The two notions coincide as limits: at finite $(N,T)$ escaping the lazy basin needs a
+$w$ above the deterministic floor, and $\wcrit^{\mathrm{Emp}}(T)\downarrow\wcrit^{\mathrm{MF}}$ as
 $T\to\infty$.
 \end{proof}
 
 \begin{proposition}[Sign propagation of the loss-aversion shift]\label{thm:sign}
 Assume $\Sigma>0$ and the payoff premise $\partial_\lambda F(x,w,\lambda)<0$ for all
-$x\in[x^\ast_{\mathrm{saddle}},x^\ast_{\mathrm{coord}}]$ (verified by finite-difference probe;
+$x\in[x^\ast_{\mathrm{lazy}},x^\ast_{\mathrm{saddle}}]$ (verified by finite-difference probe;
 \S\ref{sec:s_mechanism}). Then $\partial_\lambda \wcrit^{\mathrm{Emp}}>0$.
 \end{proposition}
 \begin{proof}
-Write \eqref{eq:barrier} as a forward integral $\Delta U=\int_{x^\ast_{\mathrm{saddle}}}^{x^\ast_{\mathrm{coord}}}2F/\Sigma\,\mathrm{d}z$ (the two minus signs cancel). Differentiating
-under the integral, fixed points contribute nothing to first order ($F=0$ there), so
-$\partial_\lambda\Delta U=\int 2\,\partial_\lambda F/\Sigma\,\mathrm{d}z<0$ pointwise because
-$\Sigma>0$ and $\partial_\lambda F<0$ on the whole interval---independent of the sign of $F$.
-A lower barrier shortens escape time, $\partial_\lambda\tau<0$; symmetrically $\partial_w F>0$
-gives $\partial_w\tau>0$. The implicit function theorem on $\tau(w,\lambda)-T=0$ gives
+The escape barrier of \eqref{eq:barrier} is $\Delta U=\int_{x^\ast_{\mathrm{lazy}}}^{x^\ast_{\mathrm{saddle}}}(-2F/\Sigma)\,\mathrm{d}z$. The
+integration limits depend on $\lambda$, but the Leibniz boundary terms vanish because $F=0$ at both
+fixed points (to leading order in the noise the endpoints are the deterministic zeros of
+$F$), so only the integrand varies:
+$\partial_\lambda\Delta U=\int(-2\,\partial_\lambda F/\Sigma)\,\mathrm{d}z>0$ pointwise, since
+$\Sigma>0$ and $\partial_\lambda F<0$ on the whole interval, independent of the sign of $F$.
+Here $\tau$ is the mean time to escape the lazy basin and reach coordination, with collapse at
+finite horizon being $\tau>T$: a \emph{higher} barrier \emph{lengthens} escape
+($\partial_\lambda\tau>0$), while raising $w$ steepens the cooperative drift ($\partial_w F>0$),
+lowers the barrier, and shortens escape ($\partial_w\tau<0$).
+The implicit function theorem on $\tau(w,\lambda)-T=0$ gives
 $\mathrm{d}\wcrit^{\mathrm{Emp}}/\mathrm{d}\lambda=-\partial_\lambda\tau/\partial_w\tau>0$.
 The magnitude depends on $\Sigma$ (Theorem~\ref{thm:gap}), but the direction is guaranteed by the
 drift alone. The identical argument with $\partial F$ signs reversed for concave--convex
@@ -343,20 +354,25 @@ curvature gives the opposite shift.
 \end{proof}
 
 \subsection{Opposite signs and the derived affine law}
-Concave--convex curvature ($\alpha,\beta<1$) compresses both gains and losses, lowering the
-variance entering $\Theta$, raising the SNR, and \emph{lowering} $\wcrit$; loss aversion
-($\lambda>1$) magnifies the downside, inflating $\Theta$, lowering the SNR, and \emph{raising}
+Concave--convex curvature ($\alpha,\beta<1$) compresses gains and losses \emph{symmetrically},
+lowering the variance entering $\Theta$, raising the SNR, and \emph{lowering} $\wcrit$; loss
+aversion ($\lambda>1$) acts \emph{asymmetrically} on the downside, biasing the drift toward the
+conservative action ($\partial_\lambda F<0$), lowering the SNR, and \emph{raising}
 $\wcrit$. The signs are fixed before any data. The functional form follows by splitting the
 marginal mass into gain/loss domains; only the loss domain scales with $\lambda$, giving
 \begin{equation}
-  \wcrit(\lambda)=\frac{\phi(\lambda)}{\phi(\lambda)+g/c},\quad\phi(\lambda)=1+\rho(\lambda-1),
-  \label{eq:wcrit_lambda}
+ \wcrit(\lambda)=\frac{\phi(\lambda)}{\phi(\lambda)+\gamma},\quad\phi(\lambda)=1+\rho(\lambda-1),
+ \label{eq:wcrit_lambda}
 \end{equation}
-with $\rho\in[0,1]$ bounded by the theory. Fixing $g/c$ from the $\lambda{=}1$ baseline and
-$\rho=0.61$ from three calibration points ($\lambda\in\{1,3,7\}$), held fixed and tested out
-of sample against $\lambda\in\{2,4,5,6\}$, gives
+with $\rho\in[0,1]$ bounded by the theory. The ratio $\gamma$ is the \emph{effective}
+gain-to-loss marginal-mass ratio at the fixed finite horizon; it is not the drift floor
+$c/(c+g)$ of \eqref{eq:drift} (numerically $\gamma\approx0.71$ versus $c/(c+g)\approx0.44$ from the
+horizon extrapolation), the two coinciding only as $T\to\infty$, where the boundary reaches the
+drift zero, which loss aversion (scaling the drift, not its zero) leaves fixed. Fixing $\gamma$ from the
+$\lambda{=}1$ baseline and $\rho=0.61$ from three calibration points ($\lambda\in\{1,3,7\}$), held
+fixed and tested out of sample against $\lambda\in\{2,4,5,6\}$, gives
 $\wcrit^{\text{pred}}=\{0.586,0.695,0.759,0.800,0.830,0.851,0.868\}$ versus
-$\wcrit^{\text{meas}}=\{0.586,0.715,0.774,0.806,0.839,0.836,0.851\}$, RMSE $0.014$ (plotted in
+$\wcrit^{\text{meas}}=\{0.586,0.715,0.774,0.806,0.825,0.835,0.852\}$, RMSE $0.014$ (plotted in
 the main paper). The one systematic residual is mild concave overshoot at the plateau,
 consistent with agents endogenously reducing loss exposure as $\lambda$ grows.
 
@@ -375,7 +391,7 @@ $\wcrit$ decreasing with $T$; $\wcrit$ increasing with exploration noise. \\
 \textbf{Empirically confirmed} & opposite signs and affine form; horizon slide (also on MPE,
 LBF); exploration-noise dependence (supply chain and LBF; predicted null on MPE). \\
 \midrule
-\textbf{Calibrated} & $g/c$; loss-domain share $\rho$; noise scale setting absolute $\wcrit$. \\
+\textbf{Calibrated} & effective ratio $\gamma$; loss-domain share $\rho$; noise scale setting absolute $\wcrit$. \\
 \midrule
 \textbf{Not claimed} & closed-form $\wcrit$ from the cost matrix; numerical magnitude on any
 axis; the mild concavity beyond leading order. \\
@@ -390,7 +406,7 @@ axis; the mild concavity beyond leading order. \\
 \subsection{Cross-environment: MPE Cooperative Navigation}
 Three agents cover three landmarks in a continuous 2-D arena (discrete actions, 50-step
 episodes). The locally rational action under the herding incentive is to stay near
-teammates---collectively disastrous, as agents cluster and no landmark is covered. We set
+teammates, collectively disastrous, as agents cluster and no landmark is covered. We set
 \texttt{local\_ratio}${=}0$ so the raw reward is the pure global team score; the herding term
 is defined by our wrapper. Collapse is per-step landmark occupancy (fraction of landmarks
 within a fixed radius of some agent), a behavioral metric invariant to reward scale and so
@@ -399,7 +415,7 @@ coordination reward is shared-global, which under independent learners confounds
 collapse with credit-assignment failure; we therefore train MPE with centralized-critic
 MAPPO~\citep{yu2022surprising,lowe2017multi}. We set the herding scale so the null boundary
 is interior ($\wcrit{=}0.74$) and ran the full $\lambda$-sweep (1{,}760 runs, 20 seeds/cell;
-Figure~\ref{fig:mpe_lambda_curves}). The loss-aversion effect replicates---$\wcrit$ rises
+Figure~\ref{fig:mpe_lambda_curves}). The loss-aversion effect replicates, $\wcrit$ rises
 $0.78\to0.89$ over $\lambda{=}1\to7$, rising in envelope but non-monotone at intermediate
 $\lambda$, excess $+0.158$ $[0.108,0.212]$ at $\lambda{=}7$ and $+0.101$ $[0.055,0.150]$ at
 $\lambda{=}3$ (matching the supply chain's $+0.089$). The curvature effect does \emph{not}
@@ -407,13 +423,13 @@ replicate ($+0.042$ $[-0.009,0.092]$, opposite in sign), and the affine form fit
 RMSE $0.05$.
 
 \begin{figure}[t]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{Figures/mappo_mpe_lambda_curves}
-  \caption{MAPPO on MPE Cooperative Navigation: fitted $P(\mathrm{collapse}\mid w)$ for
-    $\lambda{=}1,\dots,7$ ($\alpha{=}\beta{=}0.88$, centralized critic, collapse = landmark
-    occupancy below $\theta{=}0.144$). The family shifts rightward with $\lambda$---the same
-    loss-aversion signature, under a different environment and algorithm.}
-  \label{fig:mpe_lambda_curves}
+ \centering
+ \includegraphics[width=0.9\columnwidth]{Figures/mappo_mpe_lambda_curves}
+ \caption{MAPPO on MPE Cooperative Navigation: fitted $P(\mathrm{collapse}\mid w)$ for
+  $\lambda{=}1,\dots,7$ ($\alpha{=}\beta{=}0.88$, centralized critic, collapse = landmark
+  occupancy below $\theta{=}0.144$). The family shifts rightward with $\lambda$, the same
+  loss-aversion signature, under a different environment and algorithm.}
+ \label{fig:mpe_lambda_curves}
 \end{figure}
 
 \subsection{A third environment: Level-Based Foraging}
@@ -425,9 +441,12 @@ runs). The risk-neutral null is low and tight ($\wcrit\approx0.08$); curvature m
 \emph{right} by $+0.18$ (opposite to the supply chain). Loss aversion drives $\wcrit$ from
 $0.26$ at $\lambda{=}1$ to $0.83$ at $\lambda{=}4$, monotone with non-overlapping endpoint CIs
 (the pre-registered criterion), robust to the collapse threshold. For $\lambda\geq5$ the
-boundary saturates against the centralization ceiling and those points are reported as
-exploratory; an added intermediate level $w{=}0.90$ tightens the mid-$\lambda$ estimates and
-confirms the saturation. The supply chain's affine law does not transfer: with $g/c$ fixed
+boundary saturates against the centralization ceiling: the logistic $\wcrit$ extrapolates to
+$w\geq1$ (outside the measured $w\in[0,0.95]$ grid), so these points are \emph{not} interior
+estimates and we label them exploratory in the precise sense that their $\wcrit$ lies beyond the
+range any run samples, their location is bounded below by $0.95$ but not upper-bounded by the data.
+An added intermediate level $w{=}0.90$ tightens the mid-$\lambda$ estimates and confirms the
+saturation, but does not bring the $\lambda\geq5$ crossings inside the grid. The supply chain's affine law does not transfer: with $\gamma$ fixed
 from $\lambda{=}1$, the best-fit slope saturates at its bound and misfits LBF by RMSE $0.15$,
 converting the form's substrate-specificity from assertion to measured result.
 
@@ -442,12 +461,12 @@ direction generalizes while the absolute level does not: MAPPO sits above PPO at
 estimate noisier), converging by $\lambda\geq4$ ($|\Delta\wcrit|\leq0.04$).
 
 \begin{figure}[t]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{Figures/mappo_orgym_collapse_curves}
-  \caption{Centralized-critic MAPPO on the supply chain: $P(\mathrm{collapse}\mid w)$ for
-    $\lambda{=}1,\dots,7$ (700 runs). As under PPO, the family shifts rightward with loss
-    aversion, confirming the effect is not an artifact of independent PPO.}
-  \label{fig:mappo_curves}
+ \centering
+ \includegraphics[width=0.9\columnwidth]{Figures/mappo_orgym_collapse_curves}
+ \caption{Centralized-critic MAPPO on the supply chain: $P(\mathrm{collapse}\mid w)$ for
+  $\lambda{=}1,\dots,7$ (700 runs). As under PPO, the family shifts rightward with loss
+  aversion, confirming the effect is not an artifact of independent PPO.}
+ \label{fig:mappo_curves}
 \end{figure}
 
 % =======================================================================
@@ -459,20 +478,20 @@ The mechanism predicts that destroying the continuous policy gradient removes th
 Value-based learners need discrete actions, so we discretized the base-stock control into
 $K{=}11$ bins and ran IQL and QMIX on the identical reward pipeline, $w$-grid, and label; both
 produced a flat, $w$-independent collapse rate with no fittable $\wcrit$. To isolate the
-cause, a single-variable control---PPO on the same $K{=}11$ discrete shell---also goes flat
+cause, a single-variable control (PPO on the same $K{=}11$ discrete shell) also goes flat
 (Table~\ref{tab:ablation_action}). Discretization \emph{alone} erases the boundary, so the
 value-based nulls need no appeal to the learning paradigm. This is not a claim that
 discreteness per se removes the boundary: MPE is natively discrete and retains it. Coarse bins
 snap the policy to a stable interior level and never visit the near-threshold $(s,S)$ region
-where collapse occurs---exactly the continuous-gradient prediction. The effect is a
+where collapse occurs, exactly the continuous-gradient prediction. The effect is a
 coarse-discretization boundary condition, substrate-specific like the curvature sign, and a
 confirmed prediction, not a negative result.
 
 \begin{table}[t]
 \centering \small
 \caption{Action-representation ablation. The control (last row) changes only the action space
-while holding the learner at PPO, isolating coarse discretization---not the value-based
-paradigm---as what erases the boundary.}
+while holding the learner at PPO, isolating coarse discretization, not the value-based
+paradigm, as what erases the boundary.}
 \label{tab:ablation_action}
 \begin{tabular}{lll}
 \toprule
@@ -493,16 +512,16 @@ fraction $1.0$ throughout, including maximal centralization; Figure~\ref{fig:mpe
 behavioral collapse cannot be distinguished from inability to assign credit. Centralized-critic
 MAPPO recovers coordination (collapse fraction falls to $0.35$, occupancy crosses the threshold
 near $w\approx0.6$). The same floor appears on LBF. The boundary is therefore measurable only
-with a centralized critic on shared-reward tasks---why we match one to such environments: a
+with a centralized critic on shared-reward tasks, why we match one to such environments: a
 necessity, not a convenience.
 
 \begin{figure}[t]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{Figures/mpe_ppo_coordination_floor}
-  \caption{Credit-assignment ablation on MPE (null, $\lambda{=}1$). Independent PPO collapses
-    at every $w$ (a coordination floor), while centralized-critic MAPPO crosses the boundary.
-    The behavioral boundary is exposed only once credit assignment is handled.}
-  \label{fig:mpe_floor}
+ \centering
+ \includegraphics[width=0.9\columnwidth]{Figures/mpe_ppo_coordination_floor}
+ \caption{Credit-assignment ablation on MPE (null, $\lambda{=}1$). Independent PPO collapses
+  at every $w$ (a coordination floor), while centralized-critic MAPPO crosses the boundary.
+  The behavioral boundary is exposed only once credit assignment is handled.}
+ \label{fig:mpe_floor}
 \end{figure}
 
 % =======================================================================
@@ -520,15 +539,28 @@ $w\in\{0.50,\dots,0.90\}$ at the structural condition, 20 seeds/$w$, 150k steps;
 is corroborated iff the measured crossing's bootstrap 95\% CI contains the matched-horizon
 boundary $\wcrit=0.822$. \textbf{Outcome (reported in full):} the collapse-fraction of this
 independent sweep crosses $0.5$ at $w=0.82$, reproducing the matched-horizon boundary almost
-exactly---a positive robustness check on the boundary. The \emph{drift-sign} observable,
+exactly, a positive robustness check on the boundary. The \emph{drift-sign} observable,
 however, was \emph{inconclusive}: the restoring drift in the contested band is weakly positive
 across all $w$ with no genuine zero-crossing, so it does not localize $\wcrit$. The reason is
-basin geometry---PPO initializes above the cooperative optimum ($S{\approx}250$ vs
+basin geometry, PPO initializes above the cooperative optimum ($S{\approx}250$ vs
 $S{\approx}150$), and collapses plunge through the contested band too quickly to sample,
-biasing the conditioned drift toward survivors. We therefore do not claim a magnitude-level
-prediction; the sign-level and functional-form predictions are unaffected. The driver and
-analysis (with the decision rule encoded) are released with the code so the test can be re-run
-with alternative observables.
+biasing the conditioned drift toward survivors.
+
+\textbf{Non-survivor-biased re-probe (also negative).} We tested the natural fix directly. We
+re-ran the identical sweep with the policy re-initialized at the cooperative optimum
+($S{\approx}150$, actor mean biased to $a_0{=}{-}0.4$) so that both surviving and collapsing runs
+are sampled inside the contested band during early training, and added a second,
+initialization-robust \emph{basin-flow} localizer (net early displacement of the policy mean from
+the optimum) alongside the restoring-drift statistic. The re-initialization de-biased the
+observable (the drift is now smooth and monotone in $w$ rather than flat and noisy) and the
+collapse-fraction crossing again reproduced the boundary ($\wcrit\approx0.83$). But neither
+statistic \emph{localizes} $\wcrit$: the drift and basin-flow are monotone in $w$ without a
+zero-crossing, and their steepest change falls near $w{\approx}0.6$, not at the boundary. The
+observable therefore tracks \emph{where the policy sits} rather than \emph{where the boundary is},
+which the initialization change does not fix. We consequently report magnitude localization as
+genuinely open: the mechanism's sign-level and functional-form predictions stand, but a
+magnitude-level prediction of $\wcrit$ remains future work. The re-probe driver and analysis are
+released with the code.
 
 % =======================================================================
 \section{Exploration-Noise Ablation}
@@ -547,7 +579,7 @@ mechanism: exploration noise moves the boundary only when it is the binding term
 The supply chain and LBF have sparse, sharp landscapes where injected entropy dominates; MPE's
 dense distance-shaped reward carries high intrinsic exploration that swamps the added term. The
 effect appears exactly where the mechanism says it should and is absent where it says it should
-be---a sharper test than uniform replication.
+be, a sharper test than uniform replication.
 
 \begin{table}[t]
 \centering \small
