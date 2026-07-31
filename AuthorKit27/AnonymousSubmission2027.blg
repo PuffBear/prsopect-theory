@@ -5,45 +5,45 @@ The style file: aaai2027.bst
 Database file #1: references.bib
 Warning--can't use both volume and number fields in rabin2000risk
 Warning--can't use both volume and number fields in tampuu2017multiagent
-You've used 50 entries,
+You've used 49 entries,
             2840 wiz_defined-function locations,
-            843 strings with 14859 characters,
-and the built_in function-call counts, 36186 in all, are:
-= -- 2826
-> -- 2237
+            842 strings with 14840 characters,
+and the built_in function-call counts, 35561 in all, are:
+= -- 2773
+> -- 2209
 < -- 6
-+ -- 830
-- -- 768
-* -- 2689
-:= -- 5968
-add.period$ -- 201
-call.type$ -- 50
-change.case$ -- 458
-chr.to.int$ -- 51
-cite$ -- 52
-duplicate$ -- 2327
-empty$ -- 2192
-format.name$ -- 896
-if$ -- 6942
-int.to.chr$ -- 2
++ -- 820
+- -- 760
+* -- 2639
+:= -- 5870
+add.period$ -- 197
+call.type$ -- 49
+change.case$ -- 452
+chr.to.int$ -- 50
+cite$ -- 51
+duplicate$ -- 2285
+empty$ -- 2148
+format.name$ -- 885
+if$ -- 6822
+int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 519
-newline$ -- 254
-num.names$ -- 200
-pop$ -- 1173
+missing$ -- 510
+newline$ -- 249
+num.names$ -- 196
+pop$ -- 1156
 preamble$ -- 1
-purify$ -- 422
+purify$ -- 416
 quote$ -- 0
-skip$ -- 1115
+skip$ -- 1100
 stack$ -- 0
-substring$ -- 1385
-swap$ -- 1264
+substring$ -- 1349
+swap$ -- 1237
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 450
+type$ -- 441
 warning$ -- 2
-while$ -- 260
+while$ -- 254
 width$ -- 0
-write$ -- 639
+write$ -- 626
 (There were 2 warnings)

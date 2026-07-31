@@ -1,4 +1,4 @@
-\begin{thebibliography}{50}
+\begin{thebibliography}{49}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{Akella(2025)}]{dmarl2025}
@@ -305,14 +305,8 @@ Terry, J.~K.; Black, B.; and Hari, A. 2020.
   Environments.
 \newblock arXiv:2008.08932.
 
-\bibitem[{Tversky and Kahneman(1992{\natexlab{a}})}]{tversky1992}
-Tversky, A.; and Kahneman, D. 1992{\natexlab{a}}.
-\newblock Advances in Prospect Theory: Cumulative Representation of
-  Uncertainty.
-\newblock \emph{Journal of Risk and Uncertainty}, 5(4): 297--323.
-
-\bibitem[{Tversky and Kahneman(1992{\natexlab{b}})}]{tversky1992advances}
-Tversky, A.; and Kahneman, D. 1992{\natexlab{b}}.
+\bibitem[{Tversky and Kahneman(1992)}]{tversky1992}
+Tversky, A.; and Kahneman, D. 1992.
 \newblock Advances in Prospect Theory: Cumulative Representation of
   Uncertainty.
 \newblock \emph{Journal of Risk and Uncertainty}, 5(4): 297--323.
@@ -337,7 +331,7 @@ Yu, C.; Velu, A.; Vinitsky, E.; Gao, J.; Wang, Y.; Bayen, A.; and Wu, Y. 2022.
 \newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS),
   Datasets and Benchmarks Track}.
 
-\bibitem[{Zhao and Xie(2025)}]{wang2025maca}
+\bibitem[{Zhao and Xie(2025)}]{zhao2025maca}
 Zhao, X.; and Xie, Y. 2025.
 \newblock Multi-level Advantage Credit Assignment for Cooperative Multi-Agent
   Reinforcement Learning.
