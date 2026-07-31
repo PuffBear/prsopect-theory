@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -N control_a_pilot
+#PBS -o logs/expControlA/pilot.out
+#PBS -e logs/expControlA/pilot.err
+#PBS -l select=1:ncpus=4
+#PBS -l walltime=02:00:00
+#PBS -q cpu
+
+# Control A z0 pilot -- measure the blended-reward scale (lambda=1) to set the empirical
+# reference points, and WRITE the frozen z0 JSON. Runs on a COMPUTE node (never the login
+# node). z0 only needs a ROUGH reward scale, not converged policies, so this is tiny:
+#   2 w-points x 1 seed x 20k steps = 2 short runs.
+# (An earlier 3w x 2seed x 60k pilot hit the 1h walltime -- single-threaded PPO on these
+#  nodes is ~10 min / 60k steps. 20k x 2 runs fits comfortably; the reward SCALE is stable
+#  well before convergence.)
+# After this completes: git commit docs/expControlA_refpoint_figures/refpoint_z0.json
+# BEFORE launching the main array (pre-registration), and record the hash.
+
+cd "$PBS_O_WORKDIR"
+mkdir -p logs/expControlA docs/expControlA_refpoint_figures
+module load compiler/anaconda3
+eval "$(conda shell.bash hook)"
+conda activate marl
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+set -euo pipefail
+
+python3 -u experiments/exp_control_a_refpoint.py --pilot --freeze_z0 \
+    --pilot_timesteps 20000 \
+    --pilot_ws 0.5,0.95 \
+    --pilot_seeds 42
