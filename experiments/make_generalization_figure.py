@@ -121,6 +121,9 @@ def collect(data):
     return np.array(lams), np.array(pts), np.array([los, his])
 
 
+LBF_EXPLORATORY_LAM_MIN = 5  # LBF points at lambda >= this extrapolate past the w=1 ceiling
+
+
 def main():
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     fig, ax = plt.subplots(figsize=(7, 4.5))
@@ -134,14 +137,39 @@ def main():
         if not data:
             continue
         lam, pts, err = collect(data)
-        ax.errorbar(lam, pts, yerr=err, fmt=fmt, color=color, capsize=4, lw=2,
-                    markersize=7, label=label)
+        is_lbf = label.startswith("LBF")
+        explor = is_lbf & (lam >= LBF_EXPLORATORY_LAM_MIN)
+        if is_lbf and explor.any():
+            # solid segment: measured points only (in-grid)
+            meas = ~explor
+            if meas.sum() >= 1:
+                ax.errorbar(lam[meas], pts[meas], yerr=err[:, meas], fmt=fmt, color=color,
+                            capsize=4, lw=2, markersize=7, label=label)
+            # hollow/dotted segment: exploratory, ceiling-extrapolated points
+            # (drawn with open markers and a lighter dotted line so they read as
+            # distinct from measured data, not as a continuation of it)
+            ax.errorbar(lam[explor], pts[explor], yerr=err[:, explor], fmt="D:",
+                        color=color, capsize=4, lw=1, markersize=7,
+                        markerfacecolor="white", markeredgecolor=color, alpha=0.6,
+                        label=f"{label} (exploratory, past $w{{=}}1$ ceiling)")
+            # connect last measured point to first exploratory point with a dotted bridge
+            if meas.sum() >= 1 and explor.sum() >= 1:
+                i_last_meas = np.where(meas)[0][-1]
+                i_first_explor = np.where(explor)[0][0]
+                ax.plot([lam[i_last_meas], lam[i_first_explor]],
+                        [pts[i_last_meas], pts[i_first_explor]],
+                        ":", color=color, lw=1, alpha=0.6)
+        else:
+            ax.errorbar(lam, pts, yerr=err, fmt=fmt, color=color, capsize=4, lw=2,
+                        markersize=7, label=label)
+    ax.axhline(1.0, color="gray", ls="--", lw=0.8, alpha=0.5)
+    ax.text(1.1, 1.005, "$w=1$ ceiling", fontsize=8, color="gray", va="bottom")
     ax.set_xlabel(r"loss aversion $\lambda$")
     ax.set_ylabel(r"$w_{\mathrm{crit}}$  (collapse boundary)")
     ax.set_title("Loss aversion raises the coordination boundary\nacross environments and algorithms")
     ax.set_xticks(range(1, 8))
     ax.grid(alpha=0.3)
-    ax.legend(frameon=True)
+    ax.legend(frameon=True, fontsize=8)
     fig.tight_layout()
     fig.savefig(OUT, dpi=150)
     print("saved", OUT)
