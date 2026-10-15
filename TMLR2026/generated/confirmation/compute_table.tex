@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering\small
+\caption{Measured final PBS resources for the new cohorts. Counts in parentheses are trajectories or calibration policies, not workers. CPU-hours sum worker consumption; elapsed span is wall-clock batch duration. Memory is the largest scheduler-reported worker peak. Initial and continuation stages refer to the same pilot trajectories.}
+\label{tab:measured_new_compute}
+\begin{tabular}{@{}lrrrr@{}}\toprule
+Work & Workers & CPU-hours & Elapsed hours & Peak MiB/worker \\
+\midrule
+Horizon confirmation (150) & 32 & 530.57 & 27.78 & 547.0 \\
+Direct controls (240) & 16 & 61.38 & 5.42 & 543.7 \\
+Pilot initial stage (105) & 8 & 79.31 & 12.48 & 546.6 \\
+Pilot continuation (same 105) & 32 & 275.35 & 16.24 & 1069.1 \\
+Pilot refinement (15) & 15 & 57.93 & 5.21 & 547.0 \\
+Base calibration (35) & 4 & 0.71 & 0.23 & 1069.9 \\
+Refined-cell calibration (5) & 5 & 0.11 & 0.05 & 541.2 \\
+Full diagnostic audit & 32 & 0.49 & 0.15 & 13.6 \\
+\bottomrule\end{tabular}
+\end{table*}

@@ -2,3 +2,25 @@
 __pycache__/
 *.pyc
 *.npz
+
+# Local environments, scratch renders, and rollback archives.
+AAMAS2027/.venv/
+AAMAS2027/tmp/
+AAMAS2027/package/
+AAMAS2027/vendor/
+archives/
+
+# The ZIP is the distributable artifact; do not commit its extracted duplicate.
+TMLR2026/artifact/TMLR2026_anonymous_artifact/
+
+# Keep the final PDFs, not local LaTeX intermediates.
+TMLR2026/build/*
+!TMLR2026/build/main.pdf
+
+# Raw scheduler dumps contain host-specific account paths. Sanitized evidence is
+# retained in the anonymous artifact and final diagnostics.
+AAMAS2027/audit/accounting/*scheduler.txt
+AAMAS2027/audit/cluster_launch_records.txt
+AAMAS2027/audit/cluster_runtime_records.txt
+AAMAS2027/audit/checkpoint_cluster_inventory.txt
+AAMAS2027/audit/supply_seed_check.json

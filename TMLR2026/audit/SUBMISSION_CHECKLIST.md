@@ -1,0 +1,26 @@
+# TMLR submission checklist
+
+- [x] Official TMLR style files copied without modification.
+- [x] Anonymous author block and double-blind wording.
+- [x] LLM-use disclosure included.
+- [x] Main scientific claims restricted to the supported supply-PPO experiments.
+- [x] New horizon, recovery, scaling-control, and evaluation-sensitivity evidence integrated.
+- [x] Actual 1.8M and 3.6M crossings reported; manuscript states that movement has not demonstrably stopped.
+- [x] Figures show observed proportions and uncertainty.
+- [x] Direct asymmetric-versus-symmetric result reported as non-identification.
+- [x] Equivalent-training-budget translation generated with bootstrap intervals and extrapolation warning.
+- [x] Main-text setup table covers rewards, sharing, label, horizons, transform range, and estimator.
+- [x] Every quantitative abstract value is exported by an analysis script.
+- [x] MPE/LBF and architecture-specific scope studies removed from confirmatory claims.
+- [x] Exact source scope stated accurately for new versus legacy experiments.
+- [x] PDF compiles without unresolved citations, references, overflow, or clipping.
+- [x] All appendix floats visually inspected in section order.
+- [x] Anonymous evidence ZIP under 100 MB.
+- [x] One-command artifact rebuild regenerates analyses, manuscript tables/figures, and PDF.
+- [x] Clean-extraction 390-run audit passes.
+- [x] Clean-extraction LaTeX rebuild passes.
+- [ ] Execute the frozen optimizer/normalization factorial v2 when compute access returns; integrate only after its audit passes.
+- [ ] Run LBF curvature, the separate-actor lambda-1 baseline, and per-node reward-RMS accounting if transfer/architecture claims are restored. They are not needed for the present single-substrate paper.
+- [x] Add the audited anonymous archive and reconstruction sources to the dedicated GitHub revision branch.
+- [ ] Confirm the AAMAS submission is no longer under archival peer review before submitting to TMLR.
+- [ ] Replace final submission metadata placeholders and perform the upload-time anonymity check.

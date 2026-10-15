@@ -1,0 +1,24 @@
+\begin{table*}[t]
+\centering\small
+\caption{Within-policy outcomes conditional on the 300k label, by mixture cell. Recovery/relapse columns describe the 3.6M state. Sustained recovery means ever observing three consecutive noncollapsed checkpoints after 300k; it need not persist to 3.6M. A dash denotes a zero denominator.}
+\label{tab:confirmed_recovery}
+\begin{tabular}{@{}lrrrrr@{}}\toprule
+Condition & $w$ & Collapsed at 300k & Recovered at 3.6M & Ever sustained & Relapsed at 3.6M \\
+\midrule
+Linear & 0.2 & 10 & 0/10 & 1/10 & -- \\
+Linear & 0.4 & 10 & 1/10 & 1/10 & -- \\
+Linear & 0.6 & 7 & 5/7 & 5/7 & 0/3 \\
+Linear & 0.85 & 0 & -- & -- & 3/10 \\
+Linear & 1 & 0 & -- & -- & 0/10 \\
+Curvature only & 0.2 & 10 & 0/10 & 1/10 & -- \\
+Curvature only & 0.4 & 10 & 3/10 & 5/10 & -- \\
+Curvature only & 0.6 & 3 & 1/3 & 2/3 & 2/7 \\
+Curvature only & 0.85 & 0 & -- & -- & 0/10 \\
+Curvature only & 1 & 0 & -- & -- & 0/10 \\
+Loss multiplier 7 & 0.2 & 10 & 0/10 & 0/10 & -- \\
+Loss multiplier 7 & 0.4 & 10 & 0/10 & 0/10 & -- \\
+Loss multiplier 7 & 0.6 & 10 & 2/10 & 2/10 & -- \\
+Loss multiplier 7 & 0.85 & 5 & 5/5 & 5/5 & 0/5 \\
+Loss multiplier 7 & 1 & 0 & -- & -- & 0/10 \\
+\bottomrule\end{tabular}
+\end{table*}

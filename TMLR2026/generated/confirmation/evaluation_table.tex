@@ -1,0 +1,12 @@
+\begin{table*}[t]
+\centering\small
+\caption{Loss-multiplier-minus-curvature contrast under ten versus fifty evaluation episodes. Only one of 450 trajectory/checkpoint labels changes (curvature, $w=.4$, seed 51, 900k). The fifty episodes include the original ten and are a sensitivity check, not an independent replication.}
+\label{tab:confirmed_eval}
+\begin{tabular}{@{}rll@{}}\toprule
+Budget & Ten episodes & Fifty episodes \\
+\midrule
+900k & $0.284$ $[0.182,0.393]$ & $0.305$ $[0.204,0.414]$ \\
+1800k & $0.326$ $[0.222,0.433]$ & $0.326$ $[0.222,0.433]$ \\
+3600k & $0.146$ $[0.072,0.229]$ & $0.146$ $[0.072,0.229]$ \\
+\bottomrule\end{tabular}
+\end{table*}

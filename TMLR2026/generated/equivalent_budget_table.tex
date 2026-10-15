@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\caption{Supply-PPO reward-transform decomposition at 300k requested agent transitions and descriptive equivalent linear-training budgets. Differences use paired seed-block draws. Equivalent budgets invert the four-point cross-sectional fit $w_{50}=1.4824-0.13748\log(T/1000)$ and propagate the same 2,000 bootstrap replicates; they are descriptive, not causal. $\dagger$ denotes extrapolation below the observed 150k--900k horizon range.}
+\label{tab:decomposition}
+\centering\small
+{\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Condition & Crossing and 95\% CI & Versus null & Versus curvature & Equivalent budget, k \\
+\midrule
+Linear null & $0.685$ $[0.650,0.715]$ & -- & -- & $330$ $[275,406]$ \\
+Curvature ($\lambda=1$) & $0.585$ $[0.544,0.624]$ & $-0.100$ $[-0.145,-0.057]$ & -- & $685$ $[535,942]$ \\
+$\lambda=3$ & $0.775$ $[0.755,0.790]$ & $+0.090$ $[+0.065,+0.115]$ & $+0.190$ $[+0.150,+0.229]$ & $172$ $[140,211]$ \\
+$\lambda=7$ & $0.852$ $[0.840,0.865]$ & $+0.167$ $[+0.134,+0.203]$ & $+0.268$ $[+0.230,+0.306]$ & $98$ $[67,128]$$^{\dagger}$ \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

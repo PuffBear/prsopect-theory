@@ -1,0 +1,21 @@
+{
+  "design": "optimizer-factorial-v2",
+  "created_utc": "2026-10-15T01:24:41Z",
+  "status_at_freeze": "unexecuted",
+  "source_manifest_sha256": "6f82cf0b812c5ca7315d509c6f18cec0039cb0fdd62405dcfcb435d4f4d75a0b",
+  "optimizers": ["global_clip", "separate_no_clip"],
+  "reward_modes": ["raw", "vecnormalize"],
+  "arms": ["B", "A", "S", "R"],
+  "arm_scales": {"B": 1.0, "A": 1.0, "S": 7.0, "R": 3.4514552069122333},
+  "grid": [0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.85, 1.0],
+  "seeds": [42, 43, 44, 45, 46, 47, 48, 49, 50, 51],
+  "reference": -2.6281398333333335,
+  "budget_requested": 300000,
+  "trajectories_total": 1280,
+  "existing_cells_subject_to_equality_gate": 240,
+  "expected_new_trajectories": 1040,
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261015,
+  "equivalence_margin": [-0.05, 0.05],
+  "stopping_rule": "Run all declared non-reused cells; reuse requires exact configuration/source equality. Rerun failures only under the identical frozen configuration. Do not change the grid, arms, seeds, or analysis after inspecting outcomes."
+}

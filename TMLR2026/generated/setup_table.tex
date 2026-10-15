@@ -1,0 +1,20 @@
+\begin{table*}[t]
+\caption{Primary experimental setup. The actor and critic use separate MLP heads but share one PPO policy instance, optimizer step, and global gradient-clip operation.}
+\label{tab:setup}
+\centering\small
+\begin{tabular}{@{}p{.18\textwidth}p{.75\textwidth}@{}}
+\toprule
+Item & Specification \\
+\midrule
+Environment & Six-node \texttt{NetworkManagement-v1}; node 1 scripted, nodes 2--6 trained; 30-period episodes. \\
+Local reward & Node $i$'s period profit: sales revenue minus procurement, operating, holding, pipeline-holding, and unfulfilled-demand costs, with the environment's native discount. \\
+Team reward & Sum of the five trained nodes' local period profits. \\
+Reward mixture & $x_i(w)=(1-w)r_i^{\mathrm{local}}+wr^{\mathrm{global}}$; transform applied after mixing. \\
+Policy architecture & One parameter-shared PPO policy across nodes; full joint observation; node-specific continuous action lanes. Actor and critic MLP heads are separate, but one Adam step and one global max-gradient-norm of $.5$ cover both. \\
+Collapse label & $\mathbf 1[\bar S<10\wedge\bar\pi\le-127.1]$, using held-out deterministic evaluation; $\bar S$ is mean base-stock action and $\bar\pi$ is ten-episode mean total profit over nodes 2--6. \\
+Budgets & 300k for the primary sweep and direct control; independent cohort checkpointed every 150k through 3.6M requested agent transitions. \\
+Transform range & Linear null; curvature $\alpha=\beta=.88$ with $\lambda\in\{1,\ldots,7\}$; direct control uses curvature-only, losses-only $\times7$, and both-branches $\times7$. \\
+Uncertainty & Firth logistic midpoint with 2,000 percentile bootstrap draws of complete training-seed blocks; paired contrasts reuse each draw. \\
+\bottomrule
+\end{tabular}
+\end{table*}
